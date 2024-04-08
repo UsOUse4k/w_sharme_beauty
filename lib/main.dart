@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+import 'package:w_sharme_beauty/bootstrap.dart';
 
-void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+void main() async {
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  return lazyBootstrap(widgetsBinding, Environment.dev);
 }
