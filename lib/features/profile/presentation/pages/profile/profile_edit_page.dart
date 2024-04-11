@@ -14,6 +14,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+      ),
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -65,8 +68,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         child: const Text(
                           "+ Изменить фото или аватар",
                           style: TextStyle(
-                              color: AppColors.purple,
-                              fontWeight: FontWeight.w700),
+                            color: AppColors.purple,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),

@@ -29,5 +29,3 @@ ThemeData theme = ThemeData(
     ),
   ),
 );
-
-

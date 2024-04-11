@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_text_form_field.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/consent_text_auth_widget/consent_text_auth_widget.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget/text_auth_widget.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget/title_auth_widget.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/widgets/consent_text_auth_widget.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
 
 final _formKey = GlobalKey<FormState>();
 

@@ -63,4 +63,3 @@ abstract class AppStyles {
     color: AppColors.black,
   );
 }
-
