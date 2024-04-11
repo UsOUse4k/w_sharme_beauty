@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class TitleAuthWidget extends StatelessWidget {
   const TitleAuthWidget({
@@ -11,11 +12,7 @@ class TitleAuthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
-        fontSize: 38,
-        fontWeight: FontWeight.w500,
-        color: Color(0xFF0A0A0A),
-      ),
+      style: AppStyles.w500f38,
     );
   }
 }

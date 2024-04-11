@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/pages/confirmation_of_registration_page.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/pages/password_reset_page.dart';
+
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -8,8 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ConfirmationOfRegistrationPage(),
+      home: PasswordResetPage(),
     );
   }
 }
-

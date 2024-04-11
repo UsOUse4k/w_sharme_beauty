@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class TextAuthWidget extends StatelessWidget {
   const TextAuthWidget({
@@ -12,11 +13,7 @@ class TextAuthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        color: Color(0xFF0A0A0A),
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      ),
+      style: AppStyles.w400f16,
     );
   }
 }
