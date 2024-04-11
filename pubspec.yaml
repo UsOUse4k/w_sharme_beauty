@@ -32,6 +32,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/images/profile/
+    - assets/icons/
+
 flutter_gen:
   integrations:
     flutter_svg: true
+
+
+
+  
+ 
