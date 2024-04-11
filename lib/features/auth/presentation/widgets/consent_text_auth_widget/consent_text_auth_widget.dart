@@ -29,7 +29,7 @@ class _ConsentTextAuthWidgetState extends State<ConsentTextAuthWidget> {
                 width: 2,
                 color: mainColor,
               ),
-              shape: BoxShape.circle),
+              shape: BoxShape.circle,),
           child: InkWell(
             onTap: toggleClick,
             child: _toggle
@@ -68,7 +68,7 @@ class _ConsentTextAuthWidgetState extends State<ConsentTextAuthWidget> {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

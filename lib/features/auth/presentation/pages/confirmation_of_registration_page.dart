@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/widgets/pinput_auth_widget/pinput_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget/text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget/title_auth_widget.dart';
 
@@ -21,10 +22,24 @@ class ConfirmationOfRegistrationPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TitleAuthWidget(title: 'Данные профиля'),
+                    TitleAuthWidget(title: 'Регистрация'),
                     SizedBox(height: 20),
                     TextAuthWidget(
-                      text: 'Заполните личные данные, чтобы иметь доступ к своим заказам и результатам в приложении',
+                      text:
+                          'Мы отправили SMS с кодом на Ваш телефон или в эл.почту введите его.',
+                    ),
+                    SizedBox(height: 31),
+                    PinputAuthWidget(),
+                    SizedBox(height: 16),
+                    Center(
+                      child: Text(
+                        'Отправить повторно через 00:55',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFA2A8B0),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -41,7 +56,7 @@ class ConfirmationOfRegistrationPage extends StatelessWidget {
                     backgroundColor: const Color(0xFFBA75FE),
                   ),
                   child: const Text(
-                    'Сохранить',
+                    'Продолжить',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -50,6 +65,7 @@ class ConfirmationOfRegistrationPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

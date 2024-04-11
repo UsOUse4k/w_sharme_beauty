@@ -50,6 +50,7 @@ class PasswordResetPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
