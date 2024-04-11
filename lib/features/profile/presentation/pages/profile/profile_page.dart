@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/profile/profile_edit_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/widgets/custom_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
-
-import 'profile_edit_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -298,7 +296,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 5,
                       ),
                       Text(
-                          "Нет ничего более удивительного, чем мастерство маникюриста, который обладает умением превратить обычные ногти в истинные произведения искусства. Моя цель - не просто ухаживать за ногтями, но и придавать им индивидуальность, отражающую ваш стиль и характер."),
+                          "Нет ничего более удивительного, чем мастерство маникюриста, который обладает умением превратить обычные ногти в истинные произведения искусства. Моя цель - не просто ухаживать за ногтями, но и придавать им индивидуальность, отражающую ваш стиль и характер.",),
                     ],
                   ),
                   const SizedBox(height: 10),

@@ -36,11 +36,11 @@ flutter:
     - assets/images/profile/
     - assets/icons/
 
+  fonts:
+    - family: GTEastiProDisplay
+      fonts:
+        - asset: assets/fonts/GT Eesti Pro Display Regular.otf
+
 flutter_gen:
   integrations:
     flutter_svg: true
-
-
-
-  
- 
