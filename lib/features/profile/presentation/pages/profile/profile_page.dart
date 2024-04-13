@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/profile/profile_settings.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/custom_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
 
-import 'profile_edit_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/profile/profile_edit_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -53,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -67,7 +68,16 @@ class _ProfilePageState extends State<ProfilePage> {
             actions: [
               Image.asset("assets/images/profile/bell.png"),
               const SizedBox(width: 10),
-              Image.asset("assets/images/profile/settings.png"),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileSettings(),
+                      ),
+                    );
+                  },
+                  icon: Image.asset("assets/images/profile/settings.png")),
             ],
           ),
           body: SingleChildScrollView(
