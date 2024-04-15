@@ -9,6 +9,8 @@ import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  static const String route = '/profile';
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }

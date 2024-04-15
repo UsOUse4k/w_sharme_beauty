@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/features/home/presentation/widgets/post_card_wid
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  static const String route = '/home';
 
   @override
   Widget build(BuildContext context) {

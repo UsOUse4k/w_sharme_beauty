@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_text_form_field.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/pages/authorization_page.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
 
@@ -8,6 +10,8 @@ final _formKey = GlobalKey<FormState>();
 
 class NewPasswordPage extends StatelessWidget {
   const NewPasswordPage({super.key});
+
+  static const String route = '/new-password';
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +21,7 @@ class NewPasswordPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -48,7 +53,9 @@ class NewPasswordPage extends StatelessWidget {
                 GlButton(
                   text: 'Готово',
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      context.goNamed(AuthorizationPage.route);
+                    }
                   },
                 ),
                 const SizedBox(height: 20),
