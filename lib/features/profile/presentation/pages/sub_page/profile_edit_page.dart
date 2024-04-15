@@ -4,6 +4,8 @@ import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 
 class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({super.key});
+  static const String route = 'profile-edit';
+
 
   @override
   State<ProfileEditPage> createState() => _ProfileEditPageState();
@@ -13,7 +15,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       decoration: const BoxDecoration(
         color: AppColors.white,
       ),

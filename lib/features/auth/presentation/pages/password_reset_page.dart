@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:w_sharme_beauty/core/widgets/country_picker.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/pages/confirm_password_reset_page.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/widgets/widgets.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 class PasswordResetPage extends StatelessWidget {
   const PasswordResetPage({super.key});
-
-  static const String route = '/password-reset';
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +41,7 @@ class PasswordResetPage extends StatelessWidget {
                 GlButton(
                   text: 'Отправить код',
                   onPressed: () {
-                    context.goNamed(ConfirmPasswordReset.route);
+                    context.goNamed(RouterContants.confirmPassword);
                   },
                 ),
                 const SizedBox(height: 20),

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/profile/profile_edit_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_page/profile_edit_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
-
-  static const String route = '/profile';
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -54,7 +53,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       decoration: const BoxDecoration(
         color: AppColors.white,
       ),
@@ -227,12 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProfileEditPage(),
-                          ),
-                        );
+                        context.pushNamed(ProfileEditPage.route);
                       },
                       child: const Text(
                         "Редактировать профиль",
@@ -301,7 +294,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 5,
                       ),
                       Text(
-                          "Нет ничего более удивительного, чем мастерство маникюриста, который обладает умением превратить обычные ногти в истинные произведения искусства. Моя цель - не просто ухаживать за ногтями, но и придавать им индивидуальность, отражающую ваш стиль и характер.",),
+                        "Нет ничего более удивительного, чем мастерство маникюриста, который обладает умением превратить обычные ногти в истинные произведения искусства. Моя цель - не просто ухаживать за ногтями, но и придавать им индивидуальность, отражающую ваш стиль и характер.",
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),

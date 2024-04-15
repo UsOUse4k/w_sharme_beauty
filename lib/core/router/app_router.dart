@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/pages/adverts_page.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/commutiies_page.dart';
-import 'package:w_sharme_beauty/features/home/presentation/pages/home_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
+
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/question/presentation/pages/question_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_page/profile_edit_page.dart';
+import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
+
 
 mixin AppRouter on State<App> {
   static final _rootKey = GlobalKey<NavigatorState>();
@@ -22,38 +26,38 @@ mixin AppRouter on State<App> {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        name: AuthorizationPage.route,
-        path: AuthorizationPage.route,
+        name: RouterContants.main,
+        path: RouterContants.main,
         builder: (context, state) => const AuthorizationPage(),
       ),
       GoRoute(
-        name: SignUpPage.route,
-        path: SignUpPage.route,
+        name: RouterContants.register,
+        path: RouterContants.register,
         builder: (context, state) => const SignUpPage(),
       ),
       GoRoute(
-        name: ConfirmationOfRegistrationPage.route,
-        path: ConfirmationOfRegistrationPage.route,
+        name: RouterContants.confirmRegister,
+        path: RouterContants.confirmRegister,
         builder: (context, state) => const ConfirmationOfRegistrationPage(),
       ),
       GoRoute(
-        name: ProfileDataAuthPage.route,
-        path: ProfileDataAuthPage.route,
+        name: RouterContants.profileDataAuth,
+        path: RouterContants.profileDataAuth,
         builder: (context, state) => const ProfileDataAuthPage(),
       ),
       GoRoute(
-        name: ConfirmPasswordReset.route,
-        path: ConfirmPasswordReset.route,
+        name: RouterContants.confirmPassword,
+        path: RouterContants.confirmPassword,
         builder: (context, state) => const ConfirmPasswordReset(),
       ),
       GoRoute(
-        name: NewPasswordPage.route,
-        path: NewPasswordPage.route,
+        name: RouterContants.newPassword,
+        path: RouterContants.newPassword,
         builder: (context, state) => const NewPasswordPage(),
       ),
       GoRoute(
-        name: PasswordResetPage.route,
-        path: PasswordResetPage.route,
+        name: RouterContants.reset,
+        path: RouterContants.reset,
         builder: (context, state) => const PasswordResetPage(),
       ),
       StatefulShellRoute.indexedStack(
@@ -65,8 +69,8 @@ mixin AppRouter on State<App> {
             navigatorKey: _homeKey,
             routes: [
               GoRoute(
-                name: HomePage.route,
-                path: HomePage.route,
+                name: RouterContants.home,
+                path: RouterContants.home,
                 builder: (context, state) => const HomePage(),
               ),
             ],
@@ -75,9 +79,9 @@ mixin AppRouter on State<App> {
             navigatorKey: _communityKey,
             routes: [
               GoRoute(
-                name: CommutiesPage.route,
-                path: CommutiesPage.route,
-                builder: (context, state) => const CommutiesPage(),
+                name: RouterContants.communities,
+                path: RouterContants.communities,
+                builder: (context, state) => const CommunitiesPage(),
               ),
             ],
           ),
@@ -85,8 +89,8 @@ mixin AppRouter on State<App> {
             navigatorKey: _advertKey,
             routes: [
               GoRoute(
-                name: AdvertsPage.route,
-                path: AdvertsPage.route,
+                name: RouterContants.adverts,
+                path: RouterContants.adverts,
                 builder: (context, state) => const AdvertsPage(),
               ),
             ],
@@ -95,8 +99,8 @@ mixin AppRouter on State<App> {
             navigatorKey: _questionKey,
             routes: [
               GoRoute(
-                name: QuestionPage.route,
-                path: QuestionPage.route,
+                name: RouterContants.question,
+                path: RouterContants.question,
                 builder: (context, state) => const QuestionPage(),
               ),
             ],
@@ -105,9 +109,17 @@ mixin AppRouter on State<App> {
             navigatorKey: _profileKey,
             routes: [
               GoRoute(
-                name: ProfilePage.route,
-                path: ProfilePage.route,
+                name: RouterContants.profile,
+                path: RouterContants.profile,
                 builder: (context, state) => const ProfilePage(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootKey,
+                    name: ProfileEditPage.route,
+                    path: ProfileEditPage.route,
+                    builder: (context, state) => const ProfileEditPage(),
+                  ),
+                ],
               ),
             ],
           ),

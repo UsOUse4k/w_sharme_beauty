@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_text_button.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_text_form_field.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
-import 'package:w_sharme_beauty/features/home/presentation/pages/home_page.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 class AuthorizationPage extends StatelessWidget {
   const AuthorizationPage({super.key});
-
-  static const String route = '/';
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +51,7 @@ class AuthorizationPage extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              context.goNamed(PasswordResetPage.route);
+                              context.goNamed(RouterContants.reset);
                             },
                             child: Text(
                               'забыли пароль',
@@ -75,14 +70,14 @@ class AuthorizationPage extends StatelessWidget {
                   text: 'Войти',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      context.goNamed(HomePage.route);
+                      context.goNamed(RouterContants.home);
                     }
                   },
                 ),
                 GlTextButton(
                   text: 'Регистрация',
                   onPressed: () {
-                    context.goNamed(SignUpPage.route);
+                    context.goNamed(RouterContants.register);
                   },
                   color: AppColors.purple,
                 ),

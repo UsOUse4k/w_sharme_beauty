@@ -1,0 +1,22 @@
+abstract class RouterContants {
+  static String main = '/';
+  // auth
+  static String register = '/register';
+  static String reset = '/reset';
+  static String confirmRegister = '/confirm-register';
+  static String confirmPassword = '/confirm-password';
+  static String newPassword = '/new-assword';
+  static String profileDataAuth = '/profile-data-auth';
+
+
+
+  // bottom pages
+  static String home = '/home';
+  static String adverts = '/adverts';
+  static String profile = '/profile';
+  static String communities = '/communities';
+  static String question = '/question';
+
+   // bottom sub pages
+  static String profileEdit = '/profile-edit';
+}

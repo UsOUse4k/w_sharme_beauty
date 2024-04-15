@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/pinput_auth_widget.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/widgets/widgets.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 class ConfirmPasswordReset extends StatelessWidget {
   const ConfirmPasswordReset({super.key});
-
-  static const String route = '/confirm-password-reset';
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +54,7 @@ class ConfirmPasswordReset extends StatelessWidget {
                   text: 'Продолжить',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      context.goNamed(NewPasswordPage.route);
+                      context.goNamed(RouterContants.newPassword);
                     }
                   },
                 ),

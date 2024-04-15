@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_text_form_field.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/pages/confirmation_of_registration_page.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/consent_text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
@@ -11,8 +11,6 @@ final _formKey = GlobalKey<FormState>();
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
-
-  static const String route = '/register';
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +56,7 @@ class SignUpPage extends StatelessWidget {
                   text: 'Продолжить',
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      context.goNamed(ConfirmationOfRegistrationPage.route);
+                      context.goNamed(RouterContants.profileDataAuth);
                     }
                   },
                 ),
