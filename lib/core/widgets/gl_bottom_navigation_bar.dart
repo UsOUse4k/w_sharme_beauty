@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/features/main/data/data_source/bottom_navigation_bar_item_list.dart';
+import 'package:w_sharme_beauty/features/main/presentation/data/data_source/bottom_navigation_bar_item_list.dart';
 
 class GlBottomNavigationBar extends StatelessWidget {
   const GlBottomNavigationBar({super.key, required this.onSelected, required this.selectedIndex});
