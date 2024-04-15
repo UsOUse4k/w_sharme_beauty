@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:w_sharme_beauty/features/main/presentation/data/model/bottom_navigation_bar_item_model.dart';
+import 'package:w_sharme_beauty/features/main/data/model/bottom_navigation_bar_item_model.dart';
 
 List<BottomNavigationBarItemModel> items = [
   BottomNavigationBarItemModel(
