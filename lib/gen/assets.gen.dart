@@ -15,8 +15,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/.gitkeep
   String get gitkeep => 'assets/icons/.gitkeep';
 
+  /// File path: assets/icons/heart.png
+  AssetGenImage get heart => const AssetGenImage('assets/icons/heart.png');
+
   /// List of all assets
-  List<String> get values => [gitkeep];
+  List<dynamic> get values => [gitkeep, heart];
 }
 
 class $AssetsImagesGen {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
-class GlCountyPicker extends StatelessWidget {
-  const GlCountyPicker({
+class CountyPicker extends StatelessWidget {
+  const CountyPicker({
     super.key,
     this.controller,
   });
