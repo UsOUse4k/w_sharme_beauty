@@ -62,13 +62,13 @@ class PostCard extends StatelessWidget {
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: onPressed,
-                icon: 'assets/icons/heart.png',
+                icon: 'assets/icons/comment.png',
                 text: post.comments,
               ),
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: () {},
-                icon: 'assets/icons/heart.png',
+                icon: 'assets/icons/repost.png',
                 text: post.repost,
               ),
             ],

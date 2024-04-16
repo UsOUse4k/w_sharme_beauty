@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/profile/profile_settings.dart';
@@ -57,32 +58,32 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return ColoredBox(
       color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: false,
-            title: Text(
-              'Профиль',
-              style: theme.textTheme.titleLarge,
-            ),
-            actions: [
-              Image.asset("assets/images/profile/bell.png"),
-              const SizedBox(width: 10),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileSettings(),
-                      ),
-                    );
-                  },
-
-                  icon: Image.asset("assets/images/profile/settings.png")),
-            ],
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: const Text(
+            'Профиль',
+            style: AppStyles.w500f22,
           ),
-          body: SingleChildScrollView(
+          actions: [
+            Image.asset("assets/images/profile/bell.png"),
+            const SizedBox(width: 10),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileSettings(),
+                    ),
+                  );
+                },
+      
+                icon: Image.asset("assets/images/profile/settings.png"),),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

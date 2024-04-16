@@ -5,7 +5,10 @@ import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
+import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/home_post_page.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
@@ -59,10 +62,27 @@ mixin AppRouter on State<App> {
             navigatorKey: RouterKeys.homeKey,
             routes: [
               GoRoute(
-                name: RouterContants.home,
-                path: RouterContants.home,
-                builder: (context, state) => const HomePage(),
-              ),
+                  name: RouterContants.home,
+                  path: RouterContants.home,
+                  builder: (context, state) => const HomePage(),
+                  routes: [
+                    GoRoute(
+                      name: 'post/:postId',
+                      path: 'post/:postId',
+                      builder: (BuildContext context, GoRouterState state) {
+                        PostCardModel? fetchPostById(String? postId) {
+                          return posts.firstWhere(
+                            (post) => post.id == postId,
+                          );
+                        }
+                        final postId = state.pathParameters['postId'];
+                        final post = fetchPostById(postId);
+                        return HomePostPage(
+                          post: post!,
+                        );
+                      },
+                    ),
+                  ],),
             ],
           ),
           StatefulShellBranch(

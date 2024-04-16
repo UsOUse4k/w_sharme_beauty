@@ -15,104 +15,144 @@ class $AssetsIconsGen {
   /// File path: assets/icons/.gitkeep
   String get gitkeep => 'assets/icons/.gitkeep';
 
+  /// File path: assets/icons/account.png
+  AssetGenImage get account => const AssetGenImage('assets/icons/account.png');
+
+  /// File path: assets/icons/accountActive.png
+  AssetGenImage get accountActive =>
+      const AssetGenImage('assets/icons/accountActive.png');
+
+  /// File path: assets/icons/activeAnnouncement.png
+  AssetGenImage get activeAnnouncement =>
+      const AssetGenImage('assets/icons/activeAnnouncement.png');
+
+  /// File path: assets/icons/activeGroup.png
+  AssetGenImage get activeGroup =>
+      const AssetGenImage('assets/icons/activeGroup.png');
+
+  /// File path: assets/icons/activeHome.png
+  AssetGenImage get activeHome =>
+      const AssetGenImage('assets/icons/activeHome.png');
+
+  /// File path: assets/icons/activeIssue.png
+  AssetGenImage get activeIssue =>
+      const AssetGenImage('assets/icons/activeIssue.png');
+
+  /// File path: assets/icons/announcement.png
+  AssetGenImage get announcement =>
+      const AssetGenImage('assets/icons/announcement.png');
+
+  /// File path: assets/icons/bell.png
+  AssetGenImage get bell => const AssetGenImage('assets/icons/bell.png');
+
+  /// File path: assets/icons/brovi.png
+  AssetGenImage get brovi => const AssetGenImage('assets/icons/brovi.png');
+
+  /// File path: assets/icons/chat.png
+  AssetGenImage get chat => const AssetGenImage('assets/icons/chat.png');
+
+  /// File path: assets/icons/comment.png
+  AssetGenImage get comment => const AssetGenImage('assets/icons/comment.png');
+
+  /// File path: assets/icons/group.png
+  AssetGenImage get group => const AssetGenImage('assets/icons/group.png');
+
   /// File path: assets/icons/heart.png
   AssetGenImage get heart => const AssetGenImage('assets/icons/heart.png');
 
+  /// File path: assets/icons/home.png
+  AssetGenImage get home => const AssetGenImage('assets/icons/home.png');
+
+  /// File path: assets/icons/issue.png
+  AssetGenImage get issue => const AssetGenImage('assets/icons/issue.png');
+
+  /// File path: assets/icons/location.png
+  AssetGenImage get location =>
+      const AssetGenImage('assets/icons/location.png');
+
+  /// File path: assets/icons/manikur.png
+  AssetGenImage get manikur => const AssetGenImage('assets/icons/manikur.png');
+
+  /// File path: assets/icons/pedikur.png
+  AssetGenImage get pedikur => const AssetGenImage('assets/icons/pedikur.png');
+
+  /// File path: assets/icons/play.png
+  AssetGenImage get play => const AssetGenImage('assets/icons/play.png');
+
+  /// File path: assets/icons/plus.png
+  AssetGenImage get plus => const AssetGenImage('assets/icons/plus.png');
+
+  /// File path: assets/icons/point.png
+  AssetGenImage get point => const AssetGenImage('assets/icons/point.png');
+
+  /// File path: assets/icons/rating.png
+  AssetGenImage get rating => const AssetGenImage('assets/icons/rating.png');
+
+  /// File path: assets/icons/repost.png
+  AssetGenImage get repost => const AssetGenImage('assets/icons/repost.png');
+
+  /// File path: assets/icons/resnitsy.png
+  AssetGenImage get resnitsy =>
+      const AssetGenImage('assets/icons/resnitsy.png');
+
+  /// File path: assets/icons/settings.png
+  AssetGenImage get settings =>
+      const AssetGenImage('assets/icons/settings.png');
+
+  /// File path: assets/icons/strishka.png
+  AssetGenImage get strishka =>
+      const AssetGenImage('assets/icons/strishka.png');
+
   /// List of all assets
-  List<dynamic> get values => [gitkeep, heart];
+  List<dynamic> get values => [
+        gitkeep,
+        account,
+        accountActive,
+        activeAnnouncement,
+        activeGroup,
+        activeHome,
+        activeIssue,
+        announcement,
+        bell,
+        brovi,
+        chat,
+        comment,
+        group,
+        heart,
+        home,
+        issue,
+        location,
+        manikur,
+        pedikur,
+        play,
+        plus,
+        point,
+        rating,
+        repost,
+        resnitsy,
+        settings,
+        strishka
+      ];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  $AssetsImagesProfileGen get profile => const $AssetsImagesProfileGen();
-}
+  /// File path: assets/images/.gitkeep
+  String get gitkeep => 'assets/images/.gitkeep';
 
-class $AssetsImagesProfileGen {
-  const $AssetsImagesProfileGen();
+  /// File path: assets/images/ava.png
+  AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
-  /// File path: assets/images/profile/ava.png
-  AssetGenImage get ava => const AssetGenImage('assets/images/profile/ava.png');
+  /// File path: assets/images/avatar.png
+  AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
 
-  /// File path: assets/images/profile/avatar.png
-  AssetGenImage get avatar =>
-      const AssetGenImage('assets/images/profile/avatar.png');
-
-  /// File path: assets/images/profile/bell.png
-  AssetGenImage get bell =>
-      const AssetGenImage('assets/images/profile/bell.png');
-
-  /// File path: assets/images/profile/brovi.png
-  AssetGenImage get brovi =>
-      const AssetGenImage('assets/images/profile/brovi.png');
-
-  /// File path: assets/images/profile/comments.png
-  AssetGenImage get comments =>
-      const AssetGenImage('assets/images/profile/comments.png');
-
-  /// File path: assets/images/profile/location.png
-  AssetGenImage get location =>
-      const AssetGenImage('assets/images/profile/location.png');
-
-  /// File path: assets/images/profile/main_picture.png
+  /// File path: assets/images/main_picture.png
   AssetGenImage get mainPicture =>
-      const AssetGenImage('assets/images/profile/main_picture.png');
-
-  /// File path: assets/images/profile/manikur.png
-  AssetGenImage get manikur =>
-      const AssetGenImage('assets/images/profile/manikur.png');
-
-  /// File path: assets/images/profile/pedikur.png
-  AssetGenImage get pedikur =>
-      const AssetGenImage('assets/images/profile/pedikur.png');
-
-  /// File path: assets/images/profile/plus.png
-  AssetGenImage get plus =>
-      const AssetGenImage('assets/images/profile/plus.png');
-
-  /// File path: assets/images/profile/point.png
-  AssetGenImage get point =>
-      const AssetGenImage('assets/images/profile/point.png');
-
-  /// File path: assets/images/profile/rating.png
-  AssetGenImage get rating =>
-      const AssetGenImage('assets/images/profile/rating.png');
-
-  /// File path: assets/images/profile/resnitsy.png
-  AssetGenImage get resnitsy =>
-      const AssetGenImage('assets/images/profile/resnitsy.png');
-
-  /// File path: assets/images/profile/settings.png
-  AssetGenImage get settings =>
-      const AssetGenImage('assets/images/profile/settings.png');
-
-  /// File path: assets/images/profile/share.png
-  AssetGenImage get share =>
-      const AssetGenImage('assets/images/profile/share.png');
-
-  /// File path: assets/images/profile/strishka.png
-  AssetGenImage get strishka =>
-      const AssetGenImage('assets/images/profile/strishka.png');
+      const AssetGenImage('assets/images/main_picture.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
-        ava,
-        avatar,
-        bell,
-        brovi,
-        comments,
-        location,
-        mainPicture,
-        manikur,
-        pedikur,
-        plus,
-        point,
-        rating,
-        resnitsy,
-        settings,
-        share,
-        strishka
-      ];
+  List<dynamic> get values => [gitkeep, ava, avatar, mainPicture];
 }
 
 class Assets {
