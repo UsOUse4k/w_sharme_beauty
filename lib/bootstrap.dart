@@ -7,6 +7,5 @@ Future<void> lazyBootstrap(
   String environment,
 ) async {
   configureDependencies(environment: environment);
-
   runApp(const App());
 }

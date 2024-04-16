@@ -8,8 +8,6 @@ abstract class RouterContants {
   static String newPassword = '/new-assword';
   static String profileDataAuth = '/profile-data-auth';
 
-
-
   // bottom pages
   static String home = '/home';
   static String adverts = '/adverts';

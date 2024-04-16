@@ -6,23 +6,13 @@ import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
-
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_page/profile_edit_page.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
 
-
 mixin AppRouter on State<App> {
-  static final _rootKey = GlobalKey<NavigatorState>();
-  static final _homeKey = GlobalKey<NavigatorState>();
-  static final _communityKey = GlobalKey<NavigatorState>();
-  static final _advertKey = GlobalKey<NavigatorState>();
-  static final _questionKey = GlobalKey<NavigatorState>();
-  static final _profileKey = GlobalKey<NavigatorState>();
-
   final GoRouter _router = GoRouter(
-    navigatorKey: _rootKey,
+    navigatorKey: RouterKeys.rootKey,
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
@@ -66,7 +56,7 @@ mixin AppRouter on State<App> {
         },
         branches: [
           StatefulShellBranch(
-            navigatorKey: _homeKey,
+            navigatorKey: RouterKeys.homeKey,
             routes: [
               GoRoute(
                 name: RouterContants.home,
@@ -76,7 +66,7 @@ mixin AppRouter on State<App> {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _communityKey,
+            navigatorKey: RouterKeys.communityKey,
             routes: [
               GoRoute(
                 name: RouterContants.communities,
@@ -86,7 +76,7 @@ mixin AppRouter on State<App> {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _advertKey,
+            navigatorKey: RouterKeys.advertKey,
             routes: [
               GoRoute(
                 name: RouterContants.adverts,
@@ -96,7 +86,7 @@ mixin AppRouter on State<App> {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _questionKey,
+            navigatorKey: RouterKeys.questionKey,
             routes: [
               GoRoute(
                 name: RouterContants.question,
@@ -106,7 +96,7 @@ mixin AppRouter on State<App> {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _profileKey,
+            navigatorKey: RouterKeys.profileKey,
             routes: [
               GoRoute(
                 name: RouterContants.profile,
@@ -114,7 +104,7 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const ProfilePage(),
                 routes: [
                   GoRoute(
-                    parentNavigatorKey: _rootKey,
+                    parentNavigatorKey: RouterKeys.rootKey,
                     name: ProfileEditPage.route,
                     path: ProfileEditPage.route,
                     builder: (context, state) => const ProfileEditPage(),
