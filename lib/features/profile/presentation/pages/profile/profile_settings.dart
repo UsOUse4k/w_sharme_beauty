@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 
@@ -42,7 +41,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: AppColors.white,),
+              borderRadius: BorderRadius.circular(4),
+              color: AppColors.white,
+            ),
             child: const Column(
               children: [
                 ProfileSettingItemWidget(
@@ -96,15 +97,16 @@ class ProfileSettingCardItemWidget extends StatelessWidget {
   final String text;
   final String title;
   final TextStyle? style;
-  const ProfileSettingCardItemWidget(
-      {super.key,
-      required this.text,
-      required this.title,
-      this.style = const TextStyle(
-        fontSize: 14,
-        color: AppColors.black,
-        fontWeight: FontWeight.w700,
-      ),});
+  const ProfileSettingCardItemWidget({
+    super.key,
+    required this.text,
+    required this.title,
+    this.style = const TextStyle(
+      fontSize: 14,
+      color: AppColors.black,
+      fontWeight: FontWeight.w700,
+    ),
+  });
 
   @override
   Widget build(BuildContext context) {

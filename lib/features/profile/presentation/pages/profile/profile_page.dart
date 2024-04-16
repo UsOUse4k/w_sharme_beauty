@@ -78,7 +78,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     );
                   },
-                  icon: Image.asset("assets/images/profile/settings.png"),),
+
+                  icon: Image.asset("assets/images/profile/settings.png")),
             ],
           ),
           body: SingleChildScrollView(
