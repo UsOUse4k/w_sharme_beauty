@@ -11,11 +11,8 @@ import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
-<<<<<<< HEAD
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
-=======
-import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
->>>>>>> d9c68eeec291a7833bf74d469854a27130bed56d
+
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
 
 mixin AppRouter on State<App> {
