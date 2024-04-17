@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
-import 'package:w_sharme_beauty/core/theme/app_theme.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({super.key});
   static const String route = 'profile-edit';
-
 
   @override
   State<ProfileEditPage> createState() => _ProfileEditPageState();
@@ -29,9 +31,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             },
           ),
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Редактировать профиль',
-            style: theme.textTheme.titleMedium,
+            style: AppStyles.w500f18,
           ),
         ),
         body: Padding(
@@ -46,11 +48,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Ваш аватар",
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.disabledColor,
-                      ),
+                      style: AppStyles.w500f16,
                     ),
                     const SizedBox(
                       height: 10,
@@ -59,23 +59,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.lightPurple,
-                          shape: const RoundedRectangleBorder(),
-                        ),
-                        onPressed: () {},
-                        child: const Text(
-                          "+ Изменить фото или аватар",
-                          style: TextStyle(
-                            color: AppColors.purple,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                    AddingButton(
+                      onPressed: () {},
+                      text: "+ Изменить фото или аватар",
                     ),
                   ],
                 ),
@@ -101,9 +87,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   hintText: 'Выберите категорию',
                   suffixIcon: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.expand_more,
-                      color: theme.colorScheme.primary,
+                      color: AppColors.purple,
                     ),
                   ),
                 ),
@@ -150,57 +136,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class TextFieldWidgetWithTitle extends StatelessWidget {
-  const TextFieldWidgetWithTitle({
-    super.key,
-    required this.title,
-    required this.hintText,
-    this.suffixIcon,
-    this.contentPadding =
-        const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-  });
-  final String title;
-  final String hintText;
-  final Widget? suffixIcon;
-  final EdgeInsetsGeometry? contentPadding;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: theme.textTheme.bodyMedium!.copyWith(
-            color: theme.disabledColor,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        TextField(
-          decoration: InputDecoration(
-            contentPadding: contentPadding,
-            constraints: const BoxConstraints(),
-            isDense: true,
-            filled: true,
-            fillColor: AppColors.lightGrey,
-            hintText: hintText,
-            hintStyle: TextStyle(
-              color: theme.disabledColor,
-            ),
-            suffixIcon: suffixIcon,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class ListStileWidget extends StatelessWidget {
   const ListStileWidget({
@@ -6,7 +8,6 @@ class ListStileWidget extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.trailing,
-    required this.theme,
     this.leading,
     this.onTap,
   });
@@ -16,8 +17,6 @@ class ListStileWidget extends StatelessWidget {
   final Widget? trailing;
   final Function()? onTap;
 
-  final ThemeData theme;
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -26,12 +25,11 @@ class ListStileWidget extends StatelessWidget {
       leading: leading,
       title: Text(
         title,
-        style:
-            theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+        style: AppStyles.w500f16.copyWith(fontWeight: FontWeight.w700),
       ),
       subtitle: Text(
         subtitle,
-        style: theme.textTheme.bodySmall!.copyWith(color: theme.disabledColor),
+        style: AppStyles.w400f14.copyWith(color: AppColors.grey),
       ),
       trailing: trailing,
     );

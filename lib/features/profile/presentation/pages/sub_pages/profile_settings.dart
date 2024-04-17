@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+
+import 'package:go_router/go_router.dart';
+
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
-import 'package:w_sharme_beauty/core/theme/app_theme.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_page/profile_settings.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
 
-class ProfileSettings extends StatefulWidget {
-  const ProfileSettings({super.key});
 
+
+class ProfileSettingsPage extends StatefulWidget {
+  const ProfileSettingsPage({super.key});
+  static const String route = 'profile-settings';
   @override
-  State<ProfileSettings> createState() => _ProfileSettingsState();
+  State<ProfileSettingsPage> createState() => _ProfileSettingsPageState();
 }
 
-class _ProfileSettingsState extends State<ProfileSettings> {
+class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,20 +48,22 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: AppColors.white,
-            ),
-            child: const Column(
+                borderRadius: BorderRadius.circular(4), color: AppColors.white),
+            child: Column(
               children: [
-                ProfileSettingItemWidget(
+                const ProfileSettingItemWidget(
                   title: 'Телефон',
                   subtitle: '+7 707 707 7707',
                 ),
-                ProfileSettingItemWidget(
+                const ProfileSettingItemWidget(
+
                   title: 'День рождения',
                   subtitle: '21.02.2001',
                 ),
                 ProfileSettingItemWidget(
+                  onTap: () {
+                    context.goNamed(ProfileNewEmailPage.route);
+                  },
                   title: 'Email',
                   subtitle: 'Не указан',
                   isVisible: false,
@@ -89,105 +98,6 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ProfileSettingCardItemWidget extends StatelessWidget {
-  final String text;
-  final String title;
-  final TextStyle? style;
-  const ProfileSettingCardItemWidget({
-    super.key,
-    required this.text,
-    required this.title,
-    this.style = const TextStyle(
-      fontSize: 14,
-      color: AppColors.black,
-      fontWeight: FontWeight.w700,
-    ),
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: AppColors.white,
-          ),
-          child: ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              title,
-              style: style,
-            ),
-            trailing: const Icon(Icons.arrow_forward_ios),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class ProfileSettingItemWidget extends StatelessWidget {
-  final String? title;
-  final String subtitle;
-  final VoidCallback? onTap;
-  final bool? isVisible;
-  const ProfileSettingItemWidget({
-    super.key,
-    this.title,
-    required this.subtitle,
-    this.onTap,
-    this.isVisible = true,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          onTap: onTap,
-          contentPadding: EdgeInsets.zero,
-          title: title == null
-              ? null
-              : Text(
-                  title!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: theme.disabledColor,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-          subtitle: Text(
-            subtitle,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.black,
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
-          trailing: const Icon(Icons.arrow_forward_ios),
-        ),
-        if (isVisible == true)
-          Divider(
-            color: Theme.of(context).disabledColor,
-            thickness: 0.5,
-            height: 1,
-          ),
-      ],
     );
   }
 }
