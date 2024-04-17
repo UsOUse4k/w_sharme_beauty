@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_scaffold.dart';
 import 'package:w_sharme_beauty/features/home/data/data_source/post_data.dart';
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlScaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         centerTitle: false,
         title: const Text(
           'Главная',

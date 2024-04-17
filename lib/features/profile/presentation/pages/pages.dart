@@ -1,2 +1,4 @@
-export 'profile/profile.dart';
-export 'sub_page/profile_edit_page.dart';
+export 'profile_page.dart';
+export 'sub_pages/profile_add_public_page.dart';
+export 'sub_pages/profile_edit_page.dart';
+export 'sub_pages/profile_settings.dart';

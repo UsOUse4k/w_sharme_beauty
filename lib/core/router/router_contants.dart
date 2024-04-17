@@ -15,6 +15,10 @@ abstract class RouterContants {
   static String communities = '/communities';
   static String question = '/question';
 
-   // bottom sub pages
+  // bottom sub pages
   static String profileEdit = '/profile-edit';
+  static String profileSettings = '/profile_settings';
+  static String profileNewEmail = '/profile-new-email';
+  static String profileChangePassword = '/profile-change-password';
+  static String profileAddPublic = '/profile-add-public';
 }

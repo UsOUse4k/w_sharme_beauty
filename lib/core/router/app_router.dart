@@ -8,6 +8,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.da
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
 
 mixin AppRouter on State<App> {
@@ -108,6 +109,24 @@ mixin AppRouter on State<App> {
                     name: ProfileEditPage.route,
                     path: ProfileEditPage.route,
                     builder: (context, state) => const ProfileEditPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: ProfileSettingsPage.route,
+                    path: ProfileSettingsPage.route,
+                    builder: (context, state) => const ProfileSettingsPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: ProfileAddPublicPage.route,
+                    path: ProfileAddPublicPage.route,
+                    builder: (context, state) => const ProfileAddPublicPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: ProfileNewEmailPage.route,
+                    path: ProfileNewEmailPage.route,
+                    builder: (context, state) => const ProfileNewEmailPage(),
                   ),
                 ],
               ),

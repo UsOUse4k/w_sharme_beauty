@@ -3,7 +3,11 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class GlButton extends StatelessWidget {
-  const GlButton({super.key, required this.text, required this.onPressed});
+  const GlButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
 
   final String text;
   final Function() onPressed;
