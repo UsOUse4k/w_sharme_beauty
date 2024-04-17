@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+
+import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});

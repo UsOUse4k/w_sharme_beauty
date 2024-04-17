@@ -18,8 +18,8 @@ abstract class RouterContants {
   // bottom sub pages
   static String profileEdit = 'profile-edit';
   static String homeNotification = 'home-notification';
-  static String profileSettings = '/profile_settings';
-  static String profileNewEmail = '/profile-new-email';
-  static String profileChangePassword = '/profile-change-password';
-  static String profileAddPublic = '/profile-add-public';
+  static String profileSettings = 'profile_settings';
+  static String profileNewEmail = 'profile-new-email';
+  static String profileChangePassword = 'profile-change-password';
+  static String profileAddPublic = 'profile-add-public';
 }

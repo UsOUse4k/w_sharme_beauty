@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
@@ -57,23 +58,37 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return GlScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        centerTitle: false,
-        title: const Text(
+      appBar: GlAppBar(
+        leading: const Text(
           'Профиль',
           style: AppStyles.w500f22,
         ),
-        actions: [
-          Image.asset(Assets.icons.bell.path),
-          const SizedBox(width: 10),
-          IconButton(
-            onPressed: () {
-              context.goNamed(ProfileSettingsPage.route);
-            },
-            icon: Image.asset(Assets.icons.settings.path),
-          ),
-        ],
+        action: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            GestureDetector(
+              onTap: () {
+                context.push('/profile/${RouterContants.homeNotification}');
+              },
+              child: Image.asset(
+                Assets.icons.bell.path,
+                width: 26,
+                height: 26,
+              ),
+            ),
+            const SizedBox(width: 6),
+            GestureDetector(
+              onTap: () {
+                context.push('/profile/${RouterContants.profileSettings}');
+              },
+              child: Image.asset(
+                Assets.icons.settings.path,
+                width: 26,
+                height: 26,
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -184,10 +199,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Text(story.title,
-                              style: AppStyles.w500f16.copyWith(
-                                color: AppColors.black,
-                              )),
+                          Text(
+                            story.title,
+                            style: AppStyles.w500f16.copyWith(
+                              color: AppColors.black,
+                            ),
+                          ),
                         ],
                       );
                     },
@@ -239,7 +256,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      context.pushNamed(ProfileAddPublicPage.route);
+                      //context
+                      //    .push('/profile/${RouterContants.profileSettings}');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

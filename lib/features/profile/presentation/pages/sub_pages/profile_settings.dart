@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
-
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_page/profile_settings.dart';
+import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_card_item_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_item_widget.dart';
 
-
-
-class ProfileSettingsPage extends StatefulWidget {
+class ProfileSettingsPage extends StatelessWidget {
   const ProfileSettingsPage({super.key});
-  static const String route = 'profile-settings';
-  @override
-  State<ProfileSettingsPage> createState() => _ProfileSettingsPageState();
-}
-
-class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightGrey,
-      appBar: AppBar(
-        title: const Text(
-          "Настройки",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-          ),
+      appBar: GlAppBar(
+        leading: GlIconButton(
+          iconSize: 16,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.pop();
+          },
         ),
+        title: const CenterTitleAppBar(title: 'Найтройки'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +42,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: AppColors.white),
+              borderRadius: BorderRadius.circular(4),
+              color: AppColors.white,
+            ),
             child: Column(
               children: [
                 const ProfileSettingItemWidget(
@@ -56,7 +52,6 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   subtitle: '+7 707 707 7707',
                 ),
                 const ProfileSettingItemWidget(
-
                   title: 'День рождения',
                   subtitle: '21.02.2001',
                 ),

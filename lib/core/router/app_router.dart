@@ -131,25 +131,24 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const ProfilePage(),
                 routes: [
                   GoRoute(
-                    name: RouterContants.profileEdit,
                     path: RouterContants.profileEdit,
                     builder: (context, state) => const ProfileEditPage(),
                   ),
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: ProfileSettingsPage.route,
-                    path: ProfileSettingsPage.route,
+                    name: RouterContants.homeNotification,
+                    path: RouterContants.homeNotification,
+                    builder: (context, state) => const HomeNotificationPage(),
+                  ),
+                  GoRoute(
+                    name: RouterContants.profileSettings,
+                    path: RouterContants.profileSettings,
                     builder: (context, state) => const ProfileSettingsPage(),
                   ),
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: ProfileAddPublicPage.route,
                     path: ProfileAddPublicPage.route,
                     builder: (context, state) => const ProfileAddPublicPage(),
                   ),
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: ProfileNewEmailPage.route,
                     path: ProfileNewEmailPage.route,
                     builder: (context, state) => const ProfileNewEmailPage(),
                   ),
