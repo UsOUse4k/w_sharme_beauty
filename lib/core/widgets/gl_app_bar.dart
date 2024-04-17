@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
-class GLAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const GLAppBar({
+class GlAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const GlAppBar({
     super.key,
     this.title,
     this.leading,

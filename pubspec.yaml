@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.3.1 <4.0.0'
 
 dependencies:
+  bloc: ^8.1.4
   cloud_firestore: ^4.16.1
   dartx: ^1.2.0
   dartz: ^0.10.1
@@ -14,6 +15,7 @@ dependencies:
   firebase_core: ^2.29.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.5
   flutter_svg: ^2.0.10+1
   fpdart: ^1.1.0
   freezed_annotation: ^2.4.1
@@ -43,7 +45,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-
+    - assets/svgs/
   fonts:
     - family: GTEastiProDisplay
       fonts:

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/profile/profile_settings.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_page/profile_edit_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
+
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
-
-
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -27,27 +27,27 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     storiesModel = [
       StoriesModel(
-        image: 'assets/images/profile/manikur.png',
+        image: Assets.icons.manikur.path,
         title: 'Маникюр',
         onTap: () {},
       ),
       StoriesModel(
-        image: 'assets/images/profile/pedikur.png',
+        image: Assets.icons.pedikur.path,
         title: 'Педикюр',
         onTap: () {},
       ),
       StoriesModel(
-        image: 'assets/images/profile/brovi.png',
+        image: Assets.icons.brovi.path,
         title: 'Брови',
         onTap: () {},
       ),
       StoriesModel(
-        image: 'assets/images/profile/resnitsy.png',
+        image: Assets.icons.resnitsy.path,
         title: 'Ресницы',
         onTap: () {},
       ),
       StoriesModel(
-        image: 'assets/images/profile/strishka.png',
+        image: Assets.icons.strishka.path,
         title: 'Стрижка',
         onTap: () {},
       ),
@@ -66,19 +66,22 @@ class _ProfilePageState extends State<ProfilePage> {
             style: AppStyles.w500f22,
           ),
           actions: [
-            Image.asset("assets/images/profile/bell.png"),
+            Image.asset(
+              Assets.icons.bell.path,
+              width: 26,
+              height: 26,
+            ),
             const SizedBox(width: 10),
             IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileSettings(),
-                    ),
-                  );
-                },
-      
-                icon: Image.asset("assets/images/profile/settings.png"),),
+              onPressed: () {
+                context.push(RouterContants.profileEdit);
+              },
+              icon: Image.asset(
+                Assets.icons.settings.path,
+                width: 26,
+                height: 26,
+              ),
+            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -93,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Row(
                     children: [
-                      Image.asset("assets/images/profile/avatar.png"),
+                      Image.asset(Assets.images.avatar.path),
                       const SizedBox(
                         width: 15,
                       ),
@@ -156,11 +159,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Image.asset("assets/images/profile/point.png"),
+                      Image.asset(Assets.icons.point.path),
                       const SizedBox(
                         width: 10,
                       ),
-                      Image.asset("assets/images/profile/rating.png"),
+                      Image.asset(Assets.icons.rating.path),
                     ],
                   ),
                   const SizedBox(
@@ -168,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Row(
                     children: [
-                      Image.asset("assets/images/profile/location.png"),
+                      Image.asset(Assets.icons.location.path),
                       const SizedBox(
                         width: 10,
                       ),
@@ -266,7 +269,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/images/profile/plus.png",
+                            Assets.icons.plus.path,
                             color: AppColors.purple,
                           ),
                           const Text(
@@ -285,9 +288,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   ListStileWidget(
                     onTap: () {},
-                    leading: const CircleAvatar(
-                      backgroundImage:
-                          AssetImage("assets/images/profile/avatar.png"),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(Assets.images.avatar.path),
                     ),
                     theme: theme,
                     title: 'Elena Ivanovna',
@@ -336,7 +338,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ContainerWidget(
                         onTap: () {},
                         widget: Image.asset(
-                          'assets/images/profile/comments.png',
+                          Assets.icons.comment.path,
                           color: Colors.grey,
                         ),
                         text: '45',
@@ -348,7 +350,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         onTap: () {},
                         text: '6',
                         widget: Image.asset(
-                          'assets/images/profile/share.png',
+                          Assets.icons.repost.path,
                           color: Colors.grey,
                         ),
                       ),
@@ -357,9 +359,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 10),
                   ListStileWidget(
                     onTap: () {},
-                    leading: const CircleAvatar(
-                      backgroundImage:
-                          AssetImage("assets/images/profile/avatar.png"),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(Assets.images.avatar.path),
                     ),
                     theme: theme,
                     title: 'Elena Ivanovna',
@@ -377,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Image.asset('assets/images/profile/main_picture.png'),
+                      Image.asset(Assets.images.mainPicture.path),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -406,7 +407,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ContainerWidget(
                         onTap: () {},
                         widget: Image.asset(
-                          'assets/images/profile/comments.png',
+                          Assets.icons.comment.path,
                           color: Colors.grey,
                         ),
                         text: '45',
@@ -418,7 +419,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         onTap: () {},
                         text: '6',
                         widget: Image.asset(
-                          'assets/images/profile/share.png',
+                          Assets.icons.repost.path,
                           // ignore: deprecated_member_use
                           color: Colors.grey,
                         ),

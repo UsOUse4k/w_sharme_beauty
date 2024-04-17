@@ -14,4 +14,5 @@ abstract class IAuthFacede {
     String password,
   );
   Future<AuthFacedeResult> logout();
+  Future<AuthFacedeResult> saveDataUser();
 }

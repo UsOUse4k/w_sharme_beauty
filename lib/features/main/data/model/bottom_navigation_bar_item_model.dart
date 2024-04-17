@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarItemModel {
-  final Image image;
-  final Image activeImage;
+  final Widget image;
+  final Widget activeImage;
   final String text;
   BottomNavigationBarItemModel({
     required this.image,

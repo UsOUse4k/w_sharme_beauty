@@ -4,13 +4,14 @@ import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
 import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/home_post_page.dart';
+import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
 
 mixin AppRouter on State<App> {
@@ -62,36 +63,31 @@ mixin AppRouter on State<App> {
             navigatorKey: RouterKeys.homeKey,
             routes: [
               GoRoute(
-                  name: RouterContants.home,
-                  path: RouterContants.home,
-                  builder: (context, state) => const HomePage(),
-                  routes: [
-                    GoRoute(
-                      name: 'post/:postId',
-                      path: 'post/:postId',
-                      builder: (BuildContext context, GoRouterState state) {
-                        PostCardModel? fetchPostById(String? postId) {
-                          return posts.firstWhere(
-                            (post) => post.id == postId,
-                          );
-                        }
-                        final postId = state.pathParameters['postId'];
-                        final post = fetchPostById(postId);
-                        return HomePostPage(
-                          post: post!,
+                name: RouterContants.home,
+                path: RouterContants.home,
+                builder: (context, state) => const HomePage(),
+                routes: [
+                  GoRoute(
+                    path: 'post/:postId',
+                    builder: (BuildContext context, GoRouterState state) {
+                      PostCardModel? fetchPostById(String? postId) {
+                        return posts.firstWhere(
+                          (post) => post.id == postId,
                         );
-                      },
-                    ),
-                  ],),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: RouterKeys.communityKey,
-            routes: [
-              GoRoute(
-                name: RouterContants.communities,
-                path: RouterContants.communities,
-                builder: (context, state) => const CommunitiesPage(),
+                      }
+
+                      final postId = state.pathParameters['postId'];
+                      final post = fetchPostById(postId);
+                      return HomePostPage(
+                        post: post!,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: RouterContants.homeNotification,
+                    builder: (context, state) => const HomeNotificationPage(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -116,6 +112,16 @@ mixin AppRouter on State<App> {
             ],
           ),
           StatefulShellBranch(
+            navigatorKey: RouterKeys.chat,
+            routes: [
+              GoRoute(
+                name: RouterContants.chat,
+                path: RouterContants.chat,
+                builder: (context, state) => const ChatPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
             navigatorKey: RouterKeys.profileKey,
             routes: [
               GoRoute(
@@ -124,9 +130,8 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const ProfilePage(),
                 routes: [
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: ProfileEditPage.route,
-                    path: ProfileEditPage.route,
+                    name: RouterContants.profileEdit,
+                    path: RouterContants.profileEdit,
                     builder: (context, state) => const ProfileEditPage(),
                   ),
                 ],

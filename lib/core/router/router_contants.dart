@@ -12,9 +12,11 @@ abstract class RouterContants {
   static String home = '/home';
   static String adverts = '/adverts';
   static String profile = '/profile';
-  static String communities = '/communities';
+  static String chat = '/chat';
   static String question = '/question';
 
    // bottom sub pages
-  static String profileEdit = '/profile-edit';
+  static String profileEdit = 'profile-edit';
+  static String homeNotification = 'home-notification';
+
 }

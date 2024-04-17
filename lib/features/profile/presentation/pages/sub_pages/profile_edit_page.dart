@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_theme.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({super.key});
@@ -23,7 +25,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              context.pop();
             },
           ),
           centerTitle: true,
@@ -53,7 +55,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Image.asset("assets/images/profile/ava.png"),
+                    Image.asset(Assets.images.ava.path),
                     const SizedBox(
                       height: 10,
                     ),

@@ -7,6 +7,6 @@ class AdvertsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold();
+    return const GlScaffold();
   }
 }
