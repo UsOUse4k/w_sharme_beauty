@@ -1,11 +1,35 @@
 part of 'auth_bloc.dart';
 
-@freezed
-class AuthEvent with _$AuthEvent {
-  const factory AuthEvent.started() = _Started;
-  const factory AuthEvent.register(String email, String password) = _Register;
-  const factory AuthEvent.login(String email, String password) = _Login;
-  const factory AuthEvent.logout() = _Logout;
-  const factory AuthEvent.resetPassword(String email) = _ResetPassword;
-  const factory AuthEvent.saveData(String data) = _SaveData;
+abstract class AuthEvent extends Equatable {
+  const AuthEvent();
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class LoginEvent extends AuthEvent {
+  const LoginEvent(this.email, this.password);
+  final String email;
+  final String password;
+  @override
+  List<Object?> get props => [email, password];
+}
+
+class LogoutEvent extends AuthEvent {}
+
+class RegisterEvent extends AuthEvent {
+  const RegisterEvent(this.email, this.password);
+  final String email;
+  final String password;
+  @override
+  List<Object?> get props => [email, password];
+}
+
+class RegisterSaveDataEvent extends AuthEvent {
+  const RegisterSaveDataEvent(this.name, this.city, this.username);
+  final String name;
+  final String city;
+  final String username;
+
+  @override
+  List<Object?> get props => [name, city, username];
 }

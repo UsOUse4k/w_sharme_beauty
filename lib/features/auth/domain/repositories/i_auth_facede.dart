@@ -9,10 +9,15 @@ abstract class IAuthFacede {
     String email,
     String password,
   );
-  Future<AuthFacedeResult> registerWithEmail(
+  Future<Either<AuthFailure, String>> registerWithEmail(
     String email,
     String password,
   );
   Future<AuthFacedeResult> logout();
-  Future<AuthFacedeResult> saveDataUser();
+  Future<AuthFacedeResult> saveDataUser(
+    String name,
+    String city,
+    String username,
+    String userId,
+  );
 }

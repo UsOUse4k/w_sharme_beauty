@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class CenterTitleAppBar extends StatelessWidget {
-  const CenterTitleAppBar({super.key, required this.title});
+  const CenterTitleAppBar({super.key, required this.title, required this.textStyle});
 
   final String title;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: AppStyles.w500f18,
+      style: textStyle,
     );
   }
 }

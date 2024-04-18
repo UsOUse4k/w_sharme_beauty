@@ -7,7 +7,6 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -231,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      context.pushNamed(ProfileEditPage.route);
+                      context.push('/profile/${RouterContants.profileEdit}');
                     },
                     child: const Text(
                       "Редактировать профиль",

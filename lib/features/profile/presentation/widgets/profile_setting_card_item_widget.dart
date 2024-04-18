@@ -13,7 +13,7 @@ class ProfileSettingCardItemWidget extends StatelessWidget {
         fontSize: 14,
         color: AppColors.black,
         fontWeight: FontWeight.w700,
-      )});
+      ),});
 
   @override
   Widget build(BuildContext context) {

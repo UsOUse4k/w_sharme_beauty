@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
@@ -21,7 +22,7 @@ class ProfileSettingsPage extends StatelessWidget {
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(title: 'Найтройки'),
+        title: const CenterTitleAppBar(title: 'Найтройки', textStyle: AppStyles.w500f22,),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

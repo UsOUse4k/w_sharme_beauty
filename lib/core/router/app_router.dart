@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
@@ -12,13 +13,19 @@ import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_p
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
-
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
 
 mixin AppRouter on State<App> {
   final GoRouter _router = GoRouter(
     navigatorKey: RouterKeys.rootKey,
     debugLogDiagnostics: true,
+    redirect: (BuildContext context, GoRouterState state) {
+      final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+      final goingToLoginPage = state.matchedLocation == RouterContants.main;
+      if (!isLoggedIn && !goingToLoginPage) return RouterContants.main;
+      if (isLoggedIn && goingToLoginPage) return RouterContants.home;
+      return null;
+    },
     routes: [
       GoRoute(
         name: RouterContants.main,
@@ -76,7 +83,6 @@ mixin AppRouter on State<App> {
                           (post) => post.id == postId,
                         );
                       }
-
                       final postId = state.pathParameters['postId'];
                       final post = fetchPostById(postId);
                       return HomePostPage(
@@ -131,6 +137,7 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const ProfilePage(),
                 routes: [
                   GoRoute(
+                    name: RouterContants.profileEdit,
                     path: RouterContants.profileEdit,
                     builder: (context, state) => const ProfileEditPage(),
                   ),

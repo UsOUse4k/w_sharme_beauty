@@ -17,7 +17,7 @@ List<BottomNavigationBarItemModel> items = [
       height: 18,
     ),
     activeImage: Image.asset(Assets.icons.activeAnnouncement.path,
-        width: 18, height: 18),
+        width: 18, height: 18,),
     text: 'Объявления',
   ),
   BottomNavigationBarItemModel(

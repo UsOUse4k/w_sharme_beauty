@@ -1,41 +1,77 @@
+// ignore_for_file: avoid_print
 import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:w_sharme_beauty/features/auth/data/repositories/firebase_auth_facede.dart';
-import 'package:w_sharme_beauty/features/auth/domain/entities/user.dart';
+import 'package:equatable/equatable.dart';
+import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facede.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
-part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final FirebaseAuthFacede _authFacede;
-  AuthBloc(this._authFacede) : super(const _Initial()) {
-    on<AuthEvent>((event, emit) {
-      event.when(
-        started: () => emit(const AuthState.initial()),
-        register: (email, password) => _handleRegister(email, password, emit),
-        login: (email, password) => _handleLogin(email, password, emit),
-        logout: () => _handleLogout(emit),
-        resetPassword: (email) => _handleResetPassword(email, emit),
-        saveData: (data) => _handleSaveData(data, emit),
-      );
-    });
+  final IAuthFacede authFacede;
+  String? _userId;
+  AuthBloc(this.authFacede) : super(AuthInitial()) {
+    on<LoginEvent>(login);
+    on<RegisterEvent>(register);
+    on<LogoutEvent>(logout);
+    on<RegisterSaveDataEvent>(registerSaveData);
   }
-  void _handleRegister(String email, String password, Emitter<AuthState> emit) {
-    emit(const AuthState.loading());
+
+  Future<void> login(LoginEvent event, Emitter emit) async {
+    emit(AuthLoading());
+
     try {
-      var data = _authFacede.registerWithEmail(email, password);
-      print('data>>> $data');
+      await authFacede.loginWithEmail(event.email, event.password);
+      emit(LoginSuccess());
     } catch (e) {
-      emit(AuthState.error(e.toString()));
-      print(e);
+      emit(AuthError(e.toString()));
     }
   }
 
-  void _handleLogin(String email, String password, Emitter<AuthState> emit) {
-
+  Future<void> register(RegisterEvent event, Emitter emit) async {
+    emit(AuthLoading());
+    try {
+      final result =
+          await authFacede.registerWithEmail(event.email, event.password);
+      result.fold((failure) {
+        emit(AuthError(failure.toString()));
+      }, (userId) {
+        _userId = userId;
+        emit(RegisterSucces(userId));
+      });
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
   }
-  void _handleLogout(Emitter<AuthState> emit) {}
-  void _handleResetPassword(String email, Emitter<AuthState> emit) {}
-  void _handleSaveData(String data, Emitter<AuthState> emit) {}
+
+  Future<void> logout(LogoutEvent event, Emitter emit) async {
+    emit(AuthLoading());
+    try {
+      await authFacede.logout();
+      emit(LogoutSuccess());
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> registerSaveData(
+    RegisterSaveDataEvent event,
+    Emitter emit,
+  ) async {
+    emit(AuthLoading());
+    if (_userId != null) {
+      try {
+        await authFacede.saveDataUser(
+          event.name,
+          event.city,
+          event.username,
+          _userId!,
+        );
+        emit(RegisterSaveDataSuccess());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+      }
+    } else {
+      emit(const AuthError("User ID is null."));
+    }
+  }
 }

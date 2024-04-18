@@ -51,7 +51,7 @@ class ProfileAddPublicPage extends StatelessWidget {
                   const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
               title: "Описание",
               titleStyle: AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
-              hintText: "Напишите сообщение"),
+              hintText: "Напишите сообщение",),
           const Spacer(),
           GlButton(text: "Опубликовать", onPressed: () {}),
           const SizedBox(height: 20),

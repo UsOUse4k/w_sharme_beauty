@@ -25,6 +25,7 @@ class HomePostPage extends StatelessWidget {
         ),
         title: CenterTitleAppBar(
           title: 'Запись',
+          textStyle: AppStyles.w500f22,
           key: ValueKey(post.id),
         ),
       ),
