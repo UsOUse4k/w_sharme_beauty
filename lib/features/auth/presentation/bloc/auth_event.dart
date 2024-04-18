@@ -33,3 +33,10 @@ class RegisterSaveDataEvent extends AuthEvent {
   @override
   List<Object?> get props => [name, city, username];
 }
+
+class ChangePasswordEmailEvent extends AuthEvent {
+  const ChangePasswordEmailEvent(this.email);
+  final String email;
+  @override
+  List<Object?> get props => [email];
+}

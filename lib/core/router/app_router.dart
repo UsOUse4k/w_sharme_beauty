@@ -21,15 +21,25 @@ mixin AppRouter on State<App> {
     debugLogDiagnostics: true,
     redirect: (BuildContext context, GoRouterState state) {
       final isLoggedIn = FirebaseAuth.instance.currentUser != null;
-      final goingToLoginPage = state.matchedLocation == RouterContants.main;
-      if (!isLoggedIn && !goingToLoginPage) return RouterContants.main;
-      if (isLoggedIn && goingToLoginPage) return RouterContants.home;
+      final goingToLoginPage = state.matchedLocation == RouterContants.login;
+      final isGoingToRegisterPage =
+          state.matchedLocation == RouterContants.register;
+      final isGoingToResetPasswordPage =
+          state.matchedLocation == RouterContants.reset;
+      if (!isLoggedIn &&
+          !goingToLoginPage &&
+          !isGoingToRegisterPage &&
+          !isGoingToResetPasswordPage) return RouterContants.login;
+      if (isLoggedIn &&
+          (goingToLoginPage ||
+              isGoingToRegisterPage ||
+              isGoingToResetPasswordPage)) return RouterContants.home;
       return null;
     },
     routes: [
       GoRoute(
-        name: RouterContants.main,
-        path: RouterContants.main,
+        name: RouterContants.login,
+        path: RouterContants.login,
         builder: (context, state) => const AuthorizationPage(),
       ),
       GoRoute(
@@ -83,6 +93,7 @@ mixin AppRouter on State<App> {
                           (post) => post.id == postId,
                         );
                       }
+
                       final postId = state.pathParameters['postId'];
                       final post = fetchPostById(postId);
                       return HomePostPage(

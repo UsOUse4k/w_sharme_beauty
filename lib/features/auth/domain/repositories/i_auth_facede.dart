@@ -20,4 +20,8 @@ abstract class IAuthFacede {
     String username,
     String userId,
   );
+
+  Future<AuthFacedeResult> resetPassword(
+    String email,
+  );
 }

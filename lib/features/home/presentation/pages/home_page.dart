@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/post_card_widget.dart';
@@ -24,7 +25,10 @@ class HomePage extends StatelessWidget {
               height: 26,
             ),
             const SizedBox(width: 16),
-            const Text('Главная', style: AppStyles.w500f22),
+            const CenterTitleAppBar(
+              title: 'Главная',
+              textStyle: AppStyles.w500f22,
+            ),
           ],
         ),
         action: Row(
@@ -34,13 +38,9 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 context.push('/home/${RouterContants.homeNotification}');
               },
-              child: Assets.icons.bell.image(
-                width: 26,
-                height: 26,
-              ),
+              child: Assets.icons.bell.image(width: 26, height: 26),
             ),
           ],
-
         ),
       ),
       body: Padding(

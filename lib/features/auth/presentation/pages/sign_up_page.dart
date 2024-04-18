@@ -41,7 +41,15 @@ class _SignUpPageState extends State<SignUpPage> {
               if (state is RegisterSucces) {
                 context.go(RouterContants.profileDataAuth);
               }
-              if (state is AuthError) {}
+              if (state is AuthError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.message,
+                    ),
+                  ),
+                );
+              }
             },
             child: Form(
               key: _formKey,

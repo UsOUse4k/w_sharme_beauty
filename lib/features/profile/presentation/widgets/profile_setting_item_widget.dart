@@ -26,25 +26,19 @@ class ProfileSettingItemWidget extends StatelessWidget {
               ? null
               : Text(
                   title!,
-                  style: AppStyles.w400f16.copyWith(
-                    color: AppColors.grey,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: AppStyles.w500f12.copyWith(color: AppColors.grey,),
                 ),
           subtitle: Text(
             subtitle,
-            style: AppStyles.w400f16.copyWith(
-              color: AppColors.black,
-              fontWeight: FontWeight.w700,
-            ),
+            style:AppStyles.w500f14,
           ),
-          trailing: const Icon(Icons.arrow_forward_ios),
+          trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.grey,),
         ),
         if (isVisible == true)
           const Divider(
             color: AppColors.darkGrey,
-            thickness: 0.5,
-            height: 1,
+            thickness: 0.3,
+            height: 0.3,
           ),
       ],
     );

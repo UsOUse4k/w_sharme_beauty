@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_card_item_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_item_widget.dart';
@@ -22,7 +25,10 @@ class ProfileSettingsPage extends StatelessWidget {
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(title: 'Найтройки', textStyle: AppStyles.w500f22,),
+        title: const CenterTitleAppBar(
+          title: 'Найтройки',
+          textStyle: AppStyles.w500f22,
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,27 +76,40 @@ class ProfileSettingsPage extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          const ProfileSettingCardItemWidget(
+          ProfileSettingCardItemWidget(
             text: 'ПАРОЛЬ',
             title: 'Сменить пароль',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          const ProfileSettingCardItemWidget(
-            text: 'УВЕДОМЛЕНИЯ',
-            title: 'Настройки уведомления',
+            onPresed: () {},
           ),
           const SizedBox(
             height: 15,
           ),
           ProfileSettingCardItemWidget(
-            text: 'АККАУНТ',
-            title: 'Выйти из аккаунта',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.red,
-                  fontWeight: FontWeight.w700,
-                ),
+            text: 'УВЕДОМЛЕНИЯ',
+            title: 'Настройки уведомления',
+            onPresed: () {},
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if(state is LogoutSuccess) {
+                context.go(RouterContants.login);
+              }
+              if(state is AuthError) {}
+            },
+            child: ProfileSettingCardItemWidget(
+              text: 'АККАУНТ',
+              title: 'Выйти из аккаунта',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.red,
+                    fontWeight: FontWeight.w700,
+                  ),
+              onPresed: () {
+                context.read<AuthBloc>().add(LogoutEvent());
+              },
+            ),
           ),
         ],
       ),

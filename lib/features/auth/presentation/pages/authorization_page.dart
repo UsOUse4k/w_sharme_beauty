@@ -33,10 +33,18 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
             key: _formKey,
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
-                if(state is LoginSuccess) {
+                if (state is LoginSuccess) {
                   context.go(RouterContants.home);
                 }
-                if(state is AuthError) {}
+                if (state is AuthError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        state.message,
+                      ),
+                    ),
+                  );
+                }
               },
               builder: (context, state) {
                 return Column(
@@ -71,7 +79,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  context.goNamed(RouterContants.reset);
+                                  context.push(RouterContants.reset);
                                 },
                                 child: Text(
                                   'забыли пароль',
@@ -102,7 +110,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                     GlTextButton(
                       text: 'Регистрация',
                       onPressed: () {
-                        context.go(RouterContants.register);
+                        context.push(RouterContants.register);
                       },
                       color: AppColors.purple,
                     ),

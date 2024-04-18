@@ -14,6 +14,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterEvent>(register);
     on<LogoutEvent>(logout);
     on<RegisterSaveDataEvent>(registerSaveData);
+    on<ChangePasswordEmailEvent>(resetPassword);
+  }
+  Future<void> resetPassword(
+    ChangePasswordEmailEvent event,
+    Emitter emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      await authFacede.resetPassword(event.email);
+      emit(ChangePasswordSuccess());
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
   }
 
   Future<void> login(LoginEvent event, Emitter emit) async {

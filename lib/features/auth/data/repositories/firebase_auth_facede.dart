@@ -97,7 +97,16 @@ class FirebaseAuthFacede implements IAuthFacede {
         'city': city,
         'username': username,
       });
-      
+      return right(unit);
+    } catch (_) {
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<AuthFacedeResult> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
       return right(unit);
     } catch (_) {
       return left(const AuthFailure.serverError());

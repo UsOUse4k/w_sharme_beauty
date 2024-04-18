@@ -37,10 +37,18 @@ class _ProfileDataAuthPageState extends State<ProfileDataAuthPage> {
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if(state is RegisterSaveDataSuccess) {
-                context.go(RouterContants.main);
+              if (state is RegisterSaveDataSuccess) {
+                context.go(RouterContants.login);
               }
-              if(state is AuthError) {}
+              if (state is AuthError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.message,
+                    ),
+                  ),
+                );
+              }
             },
             builder: (context, state) {
               return Form(

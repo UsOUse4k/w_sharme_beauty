@@ -1,5 +1,5 @@
 abstract class RouterContants {
-  static const String main = '/';
+  static const String login = '/';
   // auth
   static const String register = '/register';
   static const String reset = '/reset';
