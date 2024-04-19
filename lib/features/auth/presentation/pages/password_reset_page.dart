@@ -31,13 +31,13 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: BlocListener<AuthBloc, AuthState>(
+          child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is ChangePasswordSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                      'Мы отправили ссылку на вашу почту для сброса пароля',
+                      'Если ваш адрес электронной почты зарегистрирован в нашей системе, мы отправим вам ссылку для сброса пароля.',
                     ),
                   ),
                 );
@@ -53,47 +53,49 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                 );
               }
             },
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    flex: 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const TitleAuthWidget(title: 'Сброс пароля'),
-                        const SizedBox(height: 20),
-                        const TextAuthWidget(
-                          text:
-                              'Чтобы сбросить пароль, введите ваш почту',
-                        ),
-                        const SizedBox(height: 20),
-                        GlTextFormField(
-                          obscureText: false,
-                          hintText: 'Эл.адрес',
-                          controller: _email,
-                        ),
-                      ],
+            builder: (context, state) {
+              return Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 5,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TitleAuthWidget(title: 'Сброс пароля'),
+                          const SizedBox(height: 20),
+                          const TextAuthWidget(
+                            text: 'Чтобы сбросить пароль, введите ваш почту',
+                          ),
+                          const SizedBox(height: 20),
+                          GlTextFormField(
+                            obscureText: false,
+                            hintText: 'Эл.адрес',
+                            controller: _email,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  GlButton(
-                    text: 'Отправить код',
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context
-                            .read<AuthBloc>()
-                            .add(ChangePasswordEmailEvent(_email.text));
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
+                    const Spacer(),
+                    GlButton(
+                      text:
+                          state is AuthLoading ? 'Загрузка...' : 'Отправить код',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context
+                              .read<AuthBloc>()
+                              .add(ChangePasswordEmailEvent(_email.text));
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),

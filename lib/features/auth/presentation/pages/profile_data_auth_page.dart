@@ -91,7 +91,7 @@ class _ProfileDataAuthPageState extends State<ProfileDataAuthPage> {
                     ),
                     const Spacer(),
                     GlButton(
-                      text: 'Сохранить',
+                      text: state is AuthLoading ? "Загрузка..." : 'Сохранить',
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           context.read<AuthBloc>().add(

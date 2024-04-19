@@ -36,7 +36,7 @@ class FirebaseAuthFacede implements IAuthFacede {
       );
       return right(unit);
     } on firebase_auth.FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+      if (e.code == 'invalid-email' || e.code == 'invalid-credential') {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       } else {
         return left(const AuthFailure.serverError());
@@ -107,7 +107,14 @@ class FirebaseAuthFacede implements IAuthFacede {
   Future<AuthFacedeResult> resetPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
+
       return right(unit);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return left(const AuthFailure.emailInvalid());
+      } else {
+        return left(const AuthFailure.serverError());
+      }
     } catch (_) {
       return left(const AuthFailure.serverError());
     }

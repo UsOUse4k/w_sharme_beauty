@@ -36,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: BlocListener<AuthBloc, AuthState>(
+          child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is RegisterSucces) {
                 context.go(RouterContants.profileDataAuth);
@@ -51,55 +51,57 @@ class _SignUpPageState extends State<SignUpPage> {
                 );
               }
             },
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    flex: 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const TitleAuthWidget(title: 'Регистрация'),
-                        const SizedBox(height: 20),
-                        const TextAuthWidget(
-                          text:
-                              'Введите электронный адрес или номер телефона и придумайте пароль.',
-                        ),
-                        const SizedBox(height: 20),
-                        GlTextFormField(
-                          controller: _email,
-                          obscureText: false,
-                          hintText: 'Эл.адрес или номер телефона',
-                        ),
-                        const SizedBox(height: 10),
-                        GlTextFormField(
-                          controller: _password,
-                          obscureText: true,
-                          hintText: 'Придумайте пароль',
-                        ),
-                        const SizedBox(height: 20),
-                        const ConsentTextAuthWidget(),
-                      ],
+            builder: (context, state) {
+              return Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 5,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TitleAuthWidget(title: 'Регистрация'),
+                          const SizedBox(height: 20),
+                          const TextAuthWidget(
+                            text:
+                                'Введите электронный адрес или номер телефона и придумайте пароль.',
+                          ),
+                          const SizedBox(height: 20),
+                          GlTextFormField(
+                            controller: _email,
+                            obscureText: false,
+                            hintText: 'Эл.адрес или номер телефона',
+                          ),
+                          const SizedBox(height: 10),
+                          GlTextFormField(
+                            controller: _password,
+                            obscureText: true,
+                            hintText: 'Придумайте пароль',
+                          ),
+                          const SizedBox(height: 20),
+                          const ConsentTextAuthWidget(),
+                        ],
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  GlButton(
-                    text: 'Продолжить',
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(
-                              RegisterEvent(_email.text, _password.text),
-                            );
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
+                    const Spacer(),
+                    GlButton(
+                      text: state is AuthLoading ? 'Загрузка...' : 'Продолжить',
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(
+                                RegisterEvent(_email.text, _password.text),
+                              );
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),

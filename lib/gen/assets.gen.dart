@@ -40,6 +40,10 @@ class $AssetsIconsGen {
   AssetGenImage get activeIssue =>
       const AssetGenImage('assets/icons/activeIssue.png');
 
+  /// File path: assets/icons/add_public.png
+  AssetGenImage get addPublic =>
+      const AssetGenImage('assets/icons/add_public.png');
+
   /// File path: assets/icons/announcement.png
   AssetGenImage get announcement =>
       const AssetGenImage('assets/icons/announcement.png');
@@ -117,6 +121,7 @@ class $AssetsIconsGen {
         activeGroup,
         activeHome,
         activeIssue,
+        addPublic,
         announcement,
         bell,
         brovi,
@@ -177,14 +182,14 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/issue.svg
   SvgGenImage get issue => const SvgGenImage('assets/svgs/issue.svg');
 
-  /// File path: assets/svgs/profile.png
-  AssetGenImage get profile => const AssetGenImage('assets/svgs/profile.png');
+  /// File path: assets/svgs/profile.svg
+  SvgGenImage get profile => const SvgGenImage('assets/svgs/profile.svg');
 
   /// File path: assets/svgs/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
 
   /// List of all assets
-  List<dynamic> get values =>
+  List<SvgGenImage> get values =>
       [announcement, chat, home, issue, profile, search];
 }
 

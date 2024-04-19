@@ -19,6 +19,7 @@ mixin AppRouter on State<App> {
   final GoRouter _router = GoRouter(
     navigatorKey: RouterKeys.rootKey,
     debugLogDiagnostics: true,
+    initialLocation: RouterContants.login,
     redirect: (BuildContext context, GoRouterState state) {
       final isLoggedIn = FirebaseAuth.instance.currentUser != null;
       final goingToLoginPage = state.matchedLocation == RouterContants.login;
@@ -43,6 +44,7 @@ mixin AppRouter on State<App> {
         builder: (context, state) => const AuthorizationPage(),
       ),
       GoRoute(
+        parentNavigatorKey: RouterKeys.rootKey,
         name: RouterContants.register,
         path: RouterContants.register,
         builder: (context, state) => const SignUpPage(),
@@ -53,6 +55,7 @@ mixin AppRouter on State<App> {
         builder: (context, state) => const ConfirmationOfRegistrationPage(),
       ),
       GoRoute(
+        parentNavigatorKey: RouterKeys.rootKey,
         name: RouterContants.profileDataAuth,
         path: RouterContants.profileDataAuth,
         builder: (context, state) => const ProfileDataAuthPage(),

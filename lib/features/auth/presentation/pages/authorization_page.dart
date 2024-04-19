@@ -66,7 +66,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                           GlTextFormField(
                             controller: _email,
                             obscureText: false,
-                            hintText: 'Эл.адрес или номер телефона',
+                            hintText: 'Электронная почта',
                           ),
                           const SizedBox(height: 10),
                           GlTextFormField(
@@ -95,7 +95,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                     ),
                     const Spacer(),
                     GlButton(
-                      text: 'Войти',
+                      text: state is AuthLoading ? 'Загрузка...' : 'Войти',
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           context.read<AuthBloc>().add(

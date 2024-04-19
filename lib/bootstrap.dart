@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
-import 'package:w_sharme_beauty/core/providers/providers.dart';
+import 'package:w_sharme_beauty/core/provider/providers.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 
 

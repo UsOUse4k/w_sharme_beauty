@@ -31,13 +31,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> login(LoginEvent event, Emitter emit) async {
     emit(AuthLoading());
-
-    try {
-      await authFacede.loginWithEmail(event.email, event.password);
+    final result = await authFacede.loginWithEmail(event.email, event.password);
+    result.fold((failure) {
+      
+      emit(AuthError(failure.toString()));
+    }, (_) {
       emit(LoginSuccess());
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
+    });
   }
 
   Future<void> register(RegisterEvent event, Emitter emit) async {
