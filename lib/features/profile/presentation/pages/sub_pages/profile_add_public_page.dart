@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfileAddPublicPage extends StatelessWidget {
   const ProfileAddPublicPage({super.key});
 
-  static const String route = 'profile-add-public';
 
   @override
   Widget build(BuildContext context) {
     return GlScaffold(
       horizontalPadding: 16,
-      appBar: AppBar(
-        title: const Text(
-          "Публикация",
-          style: AppStyles.w500f22,
+      appBar: GlAppBar(
+        leading: GlIconButton(
+          iconSize: 16,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.pop();
+          },
         ),
+        title: const CenterTitleAppBar(
+            title: 'Введите новую почту', textStyle: AppStyles.w500f18,),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +42,7 @@ class ProfileAddPublicPage extends StatelessWidget {
             height: 10,
           ),
           Image.asset(
-            "assets/images/profile/add_public.png",
+            Assets.images.mainPicture.path,
             width: 100,
             height: 100,
           ),
@@ -54,7 +60,7 @@ class ProfileAddPublicPage extends StatelessWidget {
               hintText: "Напишите сообщение",),
           const Spacer(),
           GlButton(text: "Опубликовать", onPressed: () {}),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
         ],
       ),
     );

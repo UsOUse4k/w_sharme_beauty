@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -23,19 +25,17 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         color: AppColors.white,
       ),
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              context.pop();
-            },
-          ),
-          centerTitle: true,
-          title: const Text(
-            'Редактировать профиль',
-            style: AppStyles.w500f18,
-          ),
+        appBar: GlAppBar(
+        leading: GlIconButton(
+          iconSize: 16,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.pop();
+          },
         ),
+        title: const CenterTitleAppBar(
+            title: 'Введите новую почту', textStyle: AppStyles.w500f18,),
+      ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(

@@ -7,7 +7,7 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_new_email_page.dart';
+
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_card_item_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_item_widget.dart';
 
@@ -15,6 +15,7 @@ class ProfileSettingsPage extends StatelessWidget {
   const ProfileSettingsPage({super.key});
   @override
   Widget build(BuildContext context) {
+    final route = GoRouter.of(context);
     return Scaffold(
       backgroundColor: AppColors.lightGrey,
       appBar: GlAppBar(
@@ -26,7 +27,7 @@ class ProfileSettingsPage extends StatelessWidget {
           },
         ),
         title: const CenterTitleAppBar(
-          title: 'Найтройки',
+          title: 'Настройки',
           textStyle: AppStyles.w500f22,
         ),
       ),
@@ -64,7 +65,7 @@ class ProfileSettingsPage extends StatelessWidget {
                 ),
                 ProfileSettingItemWidget(
                   onTap: () {
-                    context.goNamed(ProfileNewEmailPage.route);
+                    route.push('/profile/${RouterContants.profileNewEmail}');
                   },
                   title: 'Email',
                   subtitle: 'Не указан',

@@ -56,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final route = GoRouter.of(context);
     return GlScaffold(
       appBar: GlAppBar(
         leading: const Text(
@@ -67,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             GestureDetector(
               onTap: () {
-                context.push('/profile/${RouterContants.homeNotification}');
+                route.push('/profile/${RouterContants.homeNotification}');
               },
               child: Image.asset(
                 Assets.icons.bell.path,
@@ -78,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(width: 6),
             GestureDetector(
               onTap: () {
-                context.push('/profile/${RouterContants.profileSettings}');
+                route.push('/profile/${RouterContants.profileSettings}');
               },
               child: Image.asset(
                 Assets.icons.settings.path,
@@ -230,7 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      context.push('/profile/${RouterContants.profileEdit}');
+                      route.push('/profile/${RouterContants.profileEdit}');
                     },
                     child: const Text(
                       "Редактировать профиль",
@@ -255,8 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      //context
-                      //    .push('/profile/${RouterContants.profileSettings}');
+                      route.push('/profile/${RouterContants.profileAddPublic}');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +266,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: AppColors.purple,
                         ),
                         const Text(
-                          " Опубликовать",
+                          "Опубликовать",
                           style: TextStyle(
                             color: AppColors.purple,
                             fontWeight: FontWeight.w700,

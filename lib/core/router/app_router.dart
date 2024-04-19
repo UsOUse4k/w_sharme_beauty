@@ -20,7 +20,7 @@ mixin AppRouter on State<App> {
   final GoRouter _router = GoRouter(
     navigatorKey: RouterKeys.rootKey,
     debugLogDiagnostics: true,
-    initialLocation: RouterContants.login,
+    //initialLocation: RouterContants.login,
     redirect: (BuildContext context, GoRouterState state) {
       final isLoggedIn = FirebaseAuth.instance.currentUser != null;
       final goingToLoginPage = state.matchedLocation == RouterContants.login;
@@ -104,10 +104,12 @@ mixin AppRouter on State<App> {
                     },
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.chat,
                     builder: (context, state) => const ChatPage(),
                   ),
@@ -154,24 +156,28 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const ProfilePage(),
                 routes: [
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.profileEdit,
                     builder: (context, state) => const ProfileEditPage(),
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.profileSettings,
                     builder: (context, state) => const ProfileSettingsPage(),
                   ),
                   GoRoute(
-                    name: ProfileAddPublicPage.route,
-                    path: ProfileAddPublicPage.route,
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: RouterContants.profileAddPublic,
                     builder: (context, state) => const ProfileAddPublicPage(),
                   ),
                   GoRoute(
-                    path: ProfileNewEmailPage.route,
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: RouterContants.profileNewEmail,
                     builder: (context, state) => const ProfileNewEmailPage(),
                   ),
                 ],

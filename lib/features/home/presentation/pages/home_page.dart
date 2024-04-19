@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final route = GoRouter.of(context);
     return GlScaffold(
       appBar: GlAppBar(
         leading: Row(
@@ -36,13 +37,14 @@ class HomePage extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                context.push('/home/${RouterContants.homeNotification}');
+                route.push('/home/${RouterContants.homeNotification}');
               },
               child: Assets.icons.bell.image(width: 26, height: 26),
             ),
+            const SizedBox(width: 6),
             GestureDetector(
               onTap: () {
-                context.push('/home/${RouterContants.chat}');
+                route.push('/home/${RouterContants.chat}');
               },
               child: Assets.icons.chat.image(width: 26, height: 26),
             ),

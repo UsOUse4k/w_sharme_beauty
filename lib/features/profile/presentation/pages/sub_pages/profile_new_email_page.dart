@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 
 class ProfileNewEmailPage extends StatelessWidget {
   const ProfileNewEmailPage({super.key});
-  static const String route = 'profile-new-email';
   @override
   Widget build(BuildContext context) {
     return GlScaffold(
       horizontalPadding: 16,
-      appBar: AppBar(
-        title: const Text(
-          'Введите новую почту',
-          style: AppStyles.w500f22,
+      appBar: GlAppBar(
+        leading: GlIconButton(
+          iconSize: 16,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.pop();
+          },
         ),
+        title: const CenterTitleAppBar(
+            title: 'Редактировать профиль', textStyle: AppStyles.w500f18,),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,18 +37,15 @@ class ProfileNewEmailPage extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                constraints: const BoxConstraints(),
+                //constraints: const BoxConstraints(),
                 isDense: true,
                 filled: true,
                 fillColor: AppColors.lightGrey,
                 labelText: "Электронная почта",
                 labelStyle:
                     AppStyles.w500f18.copyWith(color: AppColors.darkGrey),
-                hintText: "Soyma@gmaiI.com",
-                hintStyle: AppStyles.w500f18.copyWith(color: AppColors.black),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),
@@ -53,7 +55,7 @@ class ProfileNewEmailPage extends StatelessWidget {
             text: 'Отправить',
             onPressed: () {},
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
         ],
       ),
     );
