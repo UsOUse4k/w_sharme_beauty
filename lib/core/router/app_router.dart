@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
 import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
@@ -44,7 +45,6 @@ mixin AppRouter on State<App> {
         builder: (context, state) => const AuthorizationPage(),
       ),
       GoRoute(
-        parentNavigatorKey: RouterKeys.rootKey,
         name: RouterContants.register,
         path: RouterContants.register,
         builder: (context, state) => const SignUpPage(),
@@ -55,7 +55,6 @@ mixin AppRouter on State<App> {
         builder: (context, state) => const ConfirmationOfRegistrationPage(),
       ),
       GoRoute(
-        parentNavigatorKey: RouterKeys.rootKey,
         name: RouterContants.profileDataAuth,
         path: RouterContants.profileDataAuth,
         builder: (context, state) => const ProfileDataAuthPage(),
@@ -108,6 +107,10 @@ mixin AppRouter on State<App> {
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
                   ),
+                  GoRoute(
+                    path: RouterContants.chat,
+                    builder: (context, state) => const ChatPage(),
+                  ),
                 ],
               ),
             ],
@@ -133,12 +136,12 @@ mixin AppRouter on State<App> {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: RouterKeys.chat,
+            navigatorKey: RouterKeys.communities,
             routes: [
               GoRoute(
-                name: RouterContants.chat,
-                path: RouterContants.chat,
-                builder: (context, state) => const ChatPage(),
+                name: RouterContants.communities,
+                path: RouterContants.communities,
+                builder: (context, state) => const CommunitiesPage(),
               ),
             ],
           ),
@@ -151,21 +154,19 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const ProfilePage(),
                 routes: [
                   GoRoute(
-                    name: RouterContants.profileEdit,
                     path: RouterContants.profileEdit,
                     builder: (context, state) => const ProfileEditPage(),
                   ),
                   GoRoute(
-                    name: RouterContants.homeNotification,
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
                   ),
                   GoRoute(
-                    name: RouterContants.profileSettings,
                     path: RouterContants.profileSettings,
                     builder: (context, state) => const ProfileSettingsPage(),
                   ),
                   GoRoute(
+                    name: ProfileAddPublicPage.route,
                     path: ProfileAddPublicPage.route,
                     builder: (context, state) => const ProfileAddPublicPage(),
                   ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/features/main/data/model/bottom_navigation_bar_item_model.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -16,8 +15,11 @@ List<BottomNavigationBarItemModel> items = [
       width: 18,
       height: 18,
     ),
-    activeImage: Image.asset(Assets.icons.activeAnnouncement.path,
-        width: 18, height: 18,),
+    activeImage: Image.asset(
+      Assets.icons.activeAnnouncement.path,
+      width: 18,
+      height: 18,
+    ),
     text: 'Объявления',
   ),
   BottomNavigationBarItemModel(
@@ -27,17 +29,9 @@ List<BottomNavigationBarItemModel> items = [
     text: 'Вопрос',
   ),
   BottomNavigationBarItemModel(
-    image: const Icon(
-      Icons.messenger,
-      color: Colors.grey,
-      size: 18,
-    ),
-    activeImage: const Icon(
-      Icons.messenger,
-      color: AppColors.purple,
-      size: 18,
-    ),
-    text: 'Чат',
+    image: Assets.icons.group.image(width: 18, height: 18),
+    activeImage: Assets.icons.activeGroup.image(width: 18, height: 18),
+    text: 'Сообщества',
   ),
   BottomNavigationBarItemModel(
     image: Image.asset(Assets.icons.account.path, width: 18, height: 18),

@@ -40,6 +40,12 @@ class HomePage extends StatelessWidget {
               },
               child: Assets.icons.bell.image(width: 26, height: 26),
             ),
+            GestureDetector(
+              onTap: () {
+                context.push('/home/${RouterContants.chat}');
+              },
+              child: Assets.icons.chat.image(width: 26, height: 26),
+            ),
           ],
         ),
       ),

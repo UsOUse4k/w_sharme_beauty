@@ -1,30 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
+import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
   @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const GlScaffold(
-      appBar: GlAppBar(
-        leading: Text('Чат', style: AppStyles.w500f22,),
+    return GlScaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        leading: GlIconButton(
+          iconSize: 16,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.pop();
+          },
+        ),
+        title: const CenterTitleAppBar(
+          title: 'Чат',
+          textStyle: AppStyles.w500f18,
+        ),
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(120),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 18, right: 18, bottom: 15),
+            child: Column(
+              children: [
+                const SearchWidget(),
+                const SizedBox(
+                  height: 15,
+                ),
+                TabBarWidget(
+                  tabController: _tabController,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomContainer(
-              child: Column(
-                children: [
-                  SearchWidget(),
-                ],
-              ),
-            ),
+        child: TabBarView(
+          controller: _tabController,
+          children: const [
+            Text('hello 1'),
+            Text('hello 2'),
           ],
         ),
       ),

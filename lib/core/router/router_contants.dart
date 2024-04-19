@@ -12,11 +12,12 @@ abstract class RouterContants {
   static const String home = '/home';
   static const String adverts = '/adverts';
   static const String profile = '/profile';
-  static const String chat = '/chat';
+  static const String communities = '/communities';
   static const String question = '/question';
 
   // bottom sub pages
   static const String profileEdit = 'profile-edit';
+  static const String chat = 'chat';
   static const String homeNotification = 'home-notification';
   static const String profileSettings = 'profile_settings';
   static const String profileNewEmail = 'profile-new-email';
