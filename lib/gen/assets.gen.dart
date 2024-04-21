@@ -14,9 +14,6 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/.gitkeep
-  String get gitkeep => 'assets/icons/.gitkeep';
-
   /// File path: assets/icons/account.png
   AssetGenImage get account => const AssetGenImage('assets/icons/account.png');
 
@@ -113,8 +110,7 @@ class $AssetsIconsGen {
       const AssetGenImage('assets/icons/strishka.png');
 
   /// List of all assets
-  List<dynamic> get values => [
-        gitkeep,
+  List<AssetGenImage> get values => [
         account,
         accountActive,
         activeAnnouncement,
@@ -149,9 +145,6 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/.gitkeep
-  String get gitkeep => 'assets/images/.gitkeep';
-
   /// File path: assets/images/ava.png
   AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
@@ -163,7 +156,7 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/main_picture.png');
 
   /// List of all assets
-  List<dynamic> get values => [gitkeep, ava, avatar, mainPicture];
+  List<AssetGenImage> get values => [ava, avatar, mainPicture];
 }
 
 class $AssetsSvgsGen {

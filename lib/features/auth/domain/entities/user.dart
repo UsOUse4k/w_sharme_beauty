@@ -11,9 +11,9 @@ class User with _$User {
     // email (as a login)
     required String email,
     // empty or displayed user name
-    @Default('') String name,
+    @Default('') String? name,
     // empty or url to a profile picture
-    @Default('') String profilePictureUrl,
+    @Default('') String? profilePictureUrl,
     //
   }) = _User;
 }

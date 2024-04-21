@@ -1,13 +1,15 @@
 // ignore_for_file: avoid_print
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facede.dart';
+import 'package:injectable/injectable.dart';
+import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+@injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final IAuthFacede authFacede;
+  final IAuthFacade authFacede;
   String? _userId;
   AuthBloc(this.authFacede) : super(AuthInitial()) {
     on<LoginEvent>(login);
@@ -33,7 +35,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final result = await authFacede.loginWithEmail(event.email, event.password);
     result.fold((failure) {
-      
       emit(AuthError(failure.toString()));
     }, (_) {
       emit(LoginSuccess());

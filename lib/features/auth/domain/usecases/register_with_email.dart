@@ -12,13 +12,15 @@ class RegisterWithEmailUCArgs {
 
 @injectable
 class RegisterWithEmailUC
-    implements IUsecase<RegisterWithEmailUCArgs, Future<Either<AuthFailure, String>>> {
-  final IAuthFacede repository;
+    implements
+        IUsecase<RegisterWithEmailUCArgs, Future<Either<AuthFailure, String>>> {
+  final IAuthFacade repository;
 
   RegisterWithEmailUC({required this.repository});
 
   @override
-  Future<Either<AuthFailure, String>> execute(RegisterWithEmailUCArgs args) async {
+  Future<Either<AuthFailure, String>> execute(
+      RegisterWithEmailUCArgs args) async {
     return await repository.registerWithEmail(
       args.email,
       args.password,

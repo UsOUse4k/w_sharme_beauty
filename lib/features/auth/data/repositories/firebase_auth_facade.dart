@@ -1,14 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart' as firebase_store;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 
-class FirebaseAuthFacede implements IAuthFacede {
-  final firebase_auth.FirebaseAuth _firebaseAuth;
-  final firebase_store.FirebaseFirestore _store;
-  FirebaseAuthFacede(this._firebaseAuth, this._store);
+@LazySingleton(as: IAuthFacade)
+class FirebaseAuthFacade implements IAuthFacade {
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _store;
+
+  FirebaseAuthFacade(this._firebaseAuth, this._store);
 
   @override
   Future<Option<User>> getSignedInUser() async {
@@ -20,22 +22,22 @@ class FirebaseAuthFacede implements IAuthFacede {
         User(
           uid: firebaseUser.uid,
           email: firebaseUser.email!,
-          name: firebaseUser.displayName ?? '',
-          profilePictureUrl: firebaseUser.photoURL ?? '',
+          name: firebaseUser.displayName,
+          profilePictureUrl: firebaseUser.photoURL,
         ),
       );
     }
   }
 
   @override
-  Future<AuthFacedeResult> loginWithEmail(String email, String password) async {
+  Future<AuthFacadeResult> loginWithEmail(String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email' || e.code == 'invalid-credential') {
         return left(const AuthFailure.invalidEmailAndPasswordCombination());
       } else {
@@ -62,7 +64,7 @@ class FirebaseAuthFacede implements IAuthFacede {
       } else {
         return left(const AuthFailure.serverError());
       }
-    } on firebase_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         return left(const AuthFailure.emailAlreadyInUse());
       } else {
@@ -74,7 +76,7 @@ class FirebaseAuthFacede implements IAuthFacede {
   }
 
   @override
-  Future<AuthFacedeResult> logout() async {
+  Future<AuthFacadeResult> logout() async {
     try {
       await _firebaseAuth.signOut();
       return right(unit);
@@ -84,15 +86,15 @@ class FirebaseAuthFacede implements IAuthFacede {
   }
 
   @override
-  Future<AuthFacedeResult> saveDataUser(
+  Future<AuthFacadeResult> saveDataUser(
     String name,
     String city,
     String username,
     String userId,
   ) async {
     try {
-      final CollectionReference user = _store.collection('users');
-      await user.doc(userId).set({
+      final users = _store.collection('users');
+      await users.doc(userId).set({
         'name': name,
         'city': city,
         'username': username,
@@ -104,12 +106,12 @@ class FirebaseAuthFacede implements IAuthFacede {
   }
 
   @override
-  Future<AuthFacedeResult> resetPassword(String email) async {
+  Future<AuthFacadeResult> resetPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
 
       return right(unit);
-    } on firebase_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return left(const AuthFailure.emailInvalid());
       } else {
