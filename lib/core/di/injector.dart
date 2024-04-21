@@ -4,6 +4,6 @@ import 'package:w_sharme_beauty/core/di/injector.config.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit()
+@injectableInit
 void configureDependencies({String? environment}) =>
     getIt.init(environment: environment);
