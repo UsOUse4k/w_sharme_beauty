@@ -1,13 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
-import 'package:w_sharme_beauty/core/provider/providers.dart';
+import 'package:w_sharme_beauty/core/utils/firebase_options.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
-
 
 Future<void> lazyBootstrap(
   WidgetsBinding widgetsBinding,
   String environment,
 ) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   configureDependencies(environment: environment);
-  runApp(const BlocProviders(child: App(),));
+
+  runApp(const App());
 }
