@@ -89,7 +89,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.expand_more,
-                      color: AppColors.purple,
+                      color: AppColors.black,
                     ),
                   ),
                 ),

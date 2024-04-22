@@ -40,6 +40,10 @@ class $AssetsIconsGen {
   AssetGenImage get activeIssue =>
       const AssetGenImage('assets/icons/activeIssue.png');
 
+  /// File path: assets/icons/add_public.png
+  AssetGenImage get addPublic =>
+      const AssetGenImage('assets/icons/add_public.png');
+
   /// File path: assets/icons/announcement.png
   AssetGenImage get announcement =>
       const AssetGenImage('assets/icons/announcement.png');
@@ -117,6 +121,7 @@ class $AssetsIconsGen {
         activeGroup,
         activeHome,
         activeIssue,
+        addPublic,
         announcement,
         bell,
         brovi,
@@ -147,6 +152,21 @@ class $AssetsImagesGen {
   /// File path: assets/images/.gitkeep
   String get gitkeep => 'assets/images/.gitkeep';
 
+  /// File path: assets/images/Elena.png
+  AssetGenImage get elena => const AssetGenImage('assets/images/Elena.png');
+
+  /// File path: assets/images/Ella.png
+  AssetGenImage get ella => const AssetGenImage('assets/images/Ella.png');
+
+  /// File path: assets/images/Irina.png
+  AssetGenImage get irina => const AssetGenImage('assets/images/Irina.png');
+
+  /// File path: assets/images/Nastii.png
+  AssetGenImage get nastii => const AssetGenImage('assets/images/Nastii.png');
+
+  /// File path: assets/images/Nastya.png
+  AssetGenImage get nastya => const AssetGenImage('assets/images/Nastya.png');
+
   /// File path: assets/images/ava.png
   AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
@@ -158,7 +178,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/main_picture.png');
 
   /// List of all assets
-  List<dynamic> get values => [gitkeep, ava, avatar, mainPicture];
+  List<dynamic> get values =>
+      [gitkeep, elena, ella, irina, nastii, nastya, ava, avatar, mainPicture];
 }
 
 class $AssetsSvgsGen {
@@ -177,14 +198,14 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/issue.svg
   SvgGenImage get issue => const SvgGenImage('assets/svgs/issue.svg');
 
-  /// File path: assets/svgs/profile.png
-  AssetGenImage get profile => const AssetGenImage('assets/svgs/profile.png');
+  /// File path: assets/svgs/profile.svg
+  SvgGenImage get profile => const SvgGenImage('assets/svgs/profile.svg');
 
   /// File path: assets/svgs/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
 
   /// List of all assets
-  List<dynamic> get values =>
+  List<SvgGenImage> get values =>
       [announcement, chat, home, issue, profile, search];
 }
 
