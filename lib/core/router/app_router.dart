@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
 import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
@@ -88,6 +89,7 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const HomePage(),
                 routes: [
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: 'post/:postId',
                     builder: (BuildContext context, GoRouterState state) {
                       PostCardModel? fetchPostById(String? postId) {
@@ -112,6 +114,23 @@ mixin AppRouter on State<App> {
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.chat,
                     builder: (context, state) => const ChatPage(),
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        name: RouterContants.chatMessages,
+                        path: RouterContants.chatMessages,
+                        builder: (context, state) => const ChatMessagesPage(),
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            name: RouterContants.profilePersonPage,
+                            path: RouterContants.profilePersonPage,
+                            builder: (context, state) =>
+                                const ProfilePersonPage(),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),

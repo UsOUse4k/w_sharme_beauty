@@ -8,4 +8,6 @@ abstract class RouterKeys {
   static final advertKey = GlobalKey<NavigatorState>();
   static final questionKey = GlobalKey<NavigatorState>();
   static final profileKey = GlobalKey<NavigatorState>();
+  static final profilePersonKey = GlobalKey<NavigatorState>();
+
 }

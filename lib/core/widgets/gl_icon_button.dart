@@ -13,7 +13,7 @@ class GlIconButton extends StatelessWidget {
       splashRadius: 16,
       onPressed: onPressed,
       icon: icon,
-      iconSize: iconSize,
+      iconSize: iconSize ?? 16,
     );
   }
 }

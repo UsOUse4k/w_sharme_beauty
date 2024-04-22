@@ -6,17 +6,18 @@ class GlButton extends StatelessWidget {
   const GlButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    required this.onPressed, this.width,
   });
 
   final String text;
   final Function() onPressed;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 47,
-      width: double.infinity,
+      width: width ?? double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),

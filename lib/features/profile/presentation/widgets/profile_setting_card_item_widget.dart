@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
 class ProfileSettingCardItemWidget extends StatelessWidget {

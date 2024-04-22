@@ -4,11 +4,14 @@ import 'package:w_sharme_beauty/core/router/router.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
+import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
+
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,41 +22,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  List<StoriesModel> storiesModel = [];
   bool _currentIndex = false;
 
-  @override
-  void initState() {
-    super.initState();
-    storiesModel = [
-      StoriesModel(
-        image: Assets.icons.manikur.path,
-        title: 'Маникюр',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.pedikur.path,
-        title: 'Педикюр',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.brovi.path,
-        title: 'Брови',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.resnitsy.path,
-        title: 'Ресницы',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.strishka.path,
-        title: 'Стрижка',
-        onTap: () {},
-      ),
-    ];
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
@@ -100,44 +71,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    GlCircleAvatar(
-                      avatar: Assets.images.avatar.path,
-                      width: 70,
-                      height: 70,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    const Column(
-                      children: [
-                        Text(
-                          "23",
-                          style: AppStyles.w500f16,
-                        ),
-                        Text("Публикации", style: AppStyles.w400f14),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Column(
-                      children: [
-                        Text("2422", style: AppStyles.w500f16),
-                        Text("Подписчиков", style: AppStyles.w400f14),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Column(
-                      children: [
-                        Text("51", style: AppStyles.w500f16),
-                        Text("Подписок", style: AppStyles.w400f14),
-                      ],
-                    ),
-                  ],
+                ProfileNavbarWidget(
+                  avatar: Assets.images.avatar.path,
+                  publications: '23',
+                  followers: '2442',
+                  subscriptions: '51',
                 ),
                 const SizedBox(
                   height: 15,
@@ -182,38 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  height: 100,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: storiesModel.length,
-                    itemBuilder: (item, index) {
-                      final StoriesModel story = storiesModel[index];
-                      return Column(
-                        children: [
-                          Image.asset(
-                            story.image,
-                            color: AppColors.purple,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            story.title,
-                            style: AppStyles.w500f16.copyWith(
-                              color: AppColors.black,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      width: 10,
-                    ),
-                  ),
-                ),
+                StoriesWidget(storiesModel: storiesModel),
                 const SizedBox(
                   height: 10,
                 ),

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
-
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -69,8 +68,8 @@ class _ChatPageState extends State<ChatPage>
         child: TabBarView(
           controller: _tabController,
           children: const [
-            Text('hello 1'),
-            Text('hello 2'),
+            ChatPersonsPage(),
+            ChatCommunitiesPage(),
           ],
         ),
       ),

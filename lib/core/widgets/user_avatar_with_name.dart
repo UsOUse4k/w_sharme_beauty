@@ -23,6 +23,7 @@ class UserAvatarWithName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GlCircleAvatar(
           width: width,

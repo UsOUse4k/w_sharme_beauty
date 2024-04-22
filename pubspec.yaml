@@ -53,5 +53,7 @@ flutter:
         - asset: assets/fonts/GT Eesti Pro Display Regular.otf
 
 flutter_gen:
+  assets:
+    enabled: true
   integrations:
     flutter_svg: true

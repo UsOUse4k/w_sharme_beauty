@@ -169,6 +169,9 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/add.svg
+  SvgGenImage get add => const SvgGenImage('assets/svgs/add.svg');
+
   /// File path: assets/svgs/announcement.svg
   SvgGenImage get announcement =>
       const SvgGenImage('assets/svgs/announcement.svg');
@@ -176,11 +179,18 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/chat.svg
   SvgGenImage get chat => const SvgGenImage('assets/svgs/chat.svg');
 
+  /// File path: assets/svgs/check_double.svg
+  SvgGenImage get checkDouble =>
+      const SvgGenImage('assets/svgs/check_double.svg');
+
   /// File path: assets/svgs/home.svg
   SvgGenImage get home => const SvgGenImage('assets/svgs/home.svg');
 
   /// File path: assets/svgs/issue.svg
   SvgGenImage get issue => const SvgGenImage('assets/svgs/issue.svg');
+
+  /// File path: assets/svgs/present.svg
+  SvgGenImage get present => const SvgGenImage('assets/svgs/present.svg');
 
   /// File path: assets/svgs/profile.svg
   SvgGenImage get profile => const SvgGenImage('assets/svgs/profile.svg');
@@ -189,8 +199,17 @@ class $AssetsSvgsGen {
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [announcement, chat, home, issue, profile, search];
+  List<SvgGenImage> get values => [
+        add,
+        announcement,
+        chat,
+        checkDouble,
+        home,
+        issue,
+        present,
+        profile,
+        search
+      ];
 }
 
 class Assets {
