@@ -7,11 +7,13 @@ class GlAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.leading,
     this.action,
+    this.centerTitle,
   });
 
   final Widget? title;
   final Widget? leading;
   final Widget? action;
+  final bool? centerTitle;
 
   @override
   Widget build(BuildContext context) {

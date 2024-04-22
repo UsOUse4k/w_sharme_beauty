@@ -163,7 +163,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      route.push('/profile/${RouterContants.profileAddPublic}');
+                      //context
+                      //    .push('/profile/${RouterContants.profileSettings}');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -145,6 +145,21 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Elena.png
+  AssetGenImage get elena => const AssetGenImage('assets/images/Elena.png');
+
+  /// File path: assets/images/Ella.png
+  AssetGenImage get ella => const AssetGenImage('assets/images/Ella.png');
+
+  /// File path: assets/images/Irina.png
+  AssetGenImage get irina => const AssetGenImage('assets/images/Irina.png');
+
+  /// File path: assets/images/Nastii.png
+  AssetGenImage get nastii => const AssetGenImage('assets/images/Nastii.png');
+
+  /// File path: assets/images/Nastya.png
+  AssetGenImage get nastya => const AssetGenImage('assets/images/Nastya.png');
+
   /// File path: assets/images/ava.png
   AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
@@ -156,7 +171,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/main_picture.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [ava, avatar, mainPicture];
+  List<AssetGenImage> get values =>
+      [elena, ella, irina, nastii, nastya, ava, avatar, mainPicture];
 }
 
 class $AssetsSvgsGen {

@@ -7,7 +7,7 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
     required this.title,
     this.titleStyle = const TextStyle(
       fontSize: 16,
-      color: AppColors.black,
+      color: AppColors.darkGrey,
       fontWeight: FontWeight.w500,
     ),
     required this.hintText,
@@ -42,7 +42,7 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
             fillColor: AppColors.lightGrey,
             hintText: hintText,
             hintStyle: const TextStyle(
-              color: AppColors.grey,
+              color: AppColors.darkGrey,
             ),
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(

@@ -7,6 +7,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/data/data/comments_data.dart';
 import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class HomePostPage extends StatelessWidget {
   const HomePostPage({super.key, required this.post});
@@ -51,7 +52,10 @@ class HomePostPage extends StatelessWidget {
                         final item = commentItems[index];
                         return Column(
                           children: [
-                            CommentBookingCard(item: item),
+                            CommentBookingCard(
+                              item: item,
+                              avatar: Assets.images.avatar.path,
+                            ),
                             const SizedBox(height: 6),
                             if (index == 0)
                               Row(
@@ -61,7 +65,10 @@ class HomePostPage extends StatelessWidget {
                                   ),
                                   Flexible(
                                     flex: 8,
-                                    child: CommentBookingCard(item: item),
+                                    child: CommentBookingCard(
+                                      item: item,
+                                      avatar: Assets.images.avatar.path,
+                                    ),
                                   ),
                                 ],
                               ),
