@@ -10,13 +10,13 @@ class LoginWithEmailUCArgs {
 
 @injectable
 class LoginWithEmailUC
-    implements IUsecase<LoginWithEmailUCArgs, Future<AuthFacedeResult>> {
-  final IAuthFacede repository;
+    implements IUsecase<LoginWithEmailUCArgs, Future<AuthFacadeResult>> {
+  final IAuthFacade repository;
 
   LoginWithEmailUC({required this.repository});
 
   @override
-  Future<AuthFacedeResult> execute(LoginWithEmailUCArgs args) async {
+  Future<AuthFacadeResult> execute(LoginWithEmailUCArgs args) async {
     return await repository.loginWithEmail(args.email, args.password);
   }
 }

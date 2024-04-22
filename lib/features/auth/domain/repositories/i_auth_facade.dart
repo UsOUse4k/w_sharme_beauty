@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 
-typedef AuthFacedeResult = Either<AuthFailure, Unit>;
+typedef AuthFacadeResult = Either<AuthFailure, Unit>;
 
-abstract class IAuthFacede {
+abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
-  Future<AuthFacedeResult> loginWithEmail(
+  Future<AuthFacadeResult> loginWithEmail(
     String email,
     String password,
   );
@@ -13,15 +13,14 @@ abstract class IAuthFacede {
     String email,
     String password,
   );
-  Future<AuthFacedeResult> logout();
-  Future<AuthFacedeResult> saveDataUser(
+  Future<AuthFacadeResult> logout();
+  Future<AuthFacadeResult> saveDataUser(
     String name,
     String city,
     String username,
     String userId,
   );
-
-  Future<AuthFacedeResult> resetPassword(
+  Future<AuthFacadeResult> resetPassword(
     String email,
   );
 }

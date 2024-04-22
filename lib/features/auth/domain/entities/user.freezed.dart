@@ -20,9 +20,9 @@ mixin _$User {
   String get uid => throw _privateConstructorUsedError; // email (as a login)
   String get email =>
       throw _privateConstructorUsedError; // empty or displayed user name
-  String get name =>
+  String? get name =>
       throw _privateConstructorUsedError; // empty or url to a profile picture
-  String get profilePictureUrl => throw _privateConstructorUsedError;
+  String? get profilePictureUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -33,7 +33,8 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String uid, String email, String name, String profilePictureUrl});
+  $Res call(
+      {String uid, String email, String? name, String? profilePictureUrl});
 }
 
 /// @nodoc
@@ -51,8 +52,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? uid = null,
     Object? email = null,
-    Object? name = null,
-    Object? profilePictureUrl = null,
+    Object? name = freezed,
+    Object? profilePictureUrl = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -63,14 +64,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      profilePictureUrl: null == profilePictureUrl
+              as String?,
+      profilePictureUrl: freezed == profilePictureUrl
           ? _value.profilePictureUrl
           : profilePictureUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -82,7 +83,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid, String email, String name, String profilePictureUrl});
+  $Res call(
+      {String uid, String email, String? name, String? profilePictureUrl});
 }
 
 /// @nodoc
@@ -97,8 +99,8 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? uid = null,
     Object? email = null,
-    Object? name = null,
-    Object? profilePictureUrl = null,
+    Object? name = freezed,
+    Object? profilePictureUrl = freezed,
   }) {
     return _then(_$UserImpl(
       uid: null == uid
@@ -109,14 +111,14 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      profilePictureUrl: null == profilePictureUrl
+              as String?,
+      profilePictureUrl: freezed == profilePictureUrl
           ? _value.profilePictureUrl
           : profilePictureUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -139,11 +141,11 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 // empty or displayed user name
   @override
   @JsonKey()
-  final String name;
+  final String? name;
 // empty or url to a profile picture
   @override
   @JsonKey()
-  final String profilePictureUrl;
+  final String? profilePictureUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -188,17 +190,17 @@ abstract class _User implements User {
   const factory _User(
       {required final String uid,
       required final String email,
-      final String name,
-      final String profilePictureUrl}) = _$UserImpl;
+      final String? name,
+      final String? profilePictureUrl}) = _$UserImpl;
 
   @override // user id
   String get uid;
   @override // email (as a login)
   String get email;
   @override // empty or displayed user name
-  String get name;
+  String? get name;
   @override // empty or url to a profile picture
-  String get profilePictureUrl;
+  String? get profilePictureUrl;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

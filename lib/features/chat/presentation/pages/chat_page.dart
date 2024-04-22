@@ -56,8 +56,10 @@ class _ChatPageState extends State<ChatPage>
                 const SizedBox(
                   height: 15,
                 ),
-                TabBarWidget(
+                GlTabBarWidget(
                   tabController: _tabController,
+                  tabBarItem1: 'Чат',
+                  tabBarItem2: 'Чат сообществ',
                 ),
               ],
             ),
