@@ -41,6 +41,9 @@ class $AssetsIconsGen {
   AssetGenImage get addPublic =>
       const AssetGenImage('assets/icons/add_public.png');
 
+  /// File path: assets/icons/ads.png
+  AssetGenImage get ads => const AssetGenImage('assets/icons/ads.png');
+
   /// File path: assets/icons/announcement.png
   AssetGenImage get announcement =>
       const AssetGenImage('assets/icons/announcement.png');
@@ -118,6 +121,7 @@ class $AssetsIconsGen {
         activeHome,
         activeIssue,
         addPublic,
+        ads,
         announcement,
         bell,
         brovi,
@@ -151,12 +155,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/avatar.png
   AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
 
+  /// File path: assets/images/bloc.jpg
+  AssetGenImage get bloc => const AssetGenImage('assets/images/bloc.jpg');
+
   /// File path: assets/images/main_picture.png
   AssetGenImage get mainPicture =>
       const AssetGenImage('assets/images/main_picture.png');
 
+  /// File path: assets/images/map.png
+  AssetGenImage get map => const AssetGenImage('assets/images/map.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [ava, avatar, mainPicture];
+  List<AssetGenImage> get values => [ava, avatar, bloc, mainPicture, map];
 }
 
 class $AssetsSvgsGen {
@@ -164,6 +174,9 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/add.svg
   SvgGenImage get add => const SvgGenImage('assets/svgs/add.svg');
+
+  /// File path: assets/svgs/ads.svg
+  SvgGenImage get ads => const SvgGenImage('assets/svgs/ads.svg');
 
   /// File path: assets/svgs/announcement.svg
   SvgGenImage get announcement =>
@@ -185,6 +198,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/issue.svg
   SvgGenImage get issue => const SvgGenImage('assets/svgs/issue.svg');
 
+  /// File path: assets/svgs/navigator.svg
+  SvgGenImage get navigator => const SvgGenImage('assets/svgs/navigator.svg');
+
   /// File path: assets/svgs/present.svg
   SvgGenImage get present => const SvgGenImage('assets/svgs/present.svg');
 
@@ -197,12 +213,14 @@ class $AssetsSvgsGen {
   /// List of all assets
   List<SvgGenImage> get values => [
         add,
+        ads,
         announcement,
         chat,
         checkDouble,
         close,
         home,
         issue,
+        navigator,
         present,
         profile,
         search
