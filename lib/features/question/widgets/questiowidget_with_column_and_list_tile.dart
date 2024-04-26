@@ -17,7 +17,7 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          contentPadding: const EdgeInsets.all(0),
+          contentPadding: EdgeInsets.zero,
           leading: GlCircleAvatar(
             avatar: avatar,
             width: 46,

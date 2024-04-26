@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class CustomBottomSheet extends StatelessWidget {
-  const CustomBottomSheet({
+class CustomBottomSheetCenterTitle extends StatelessWidget {
+  const CustomBottomSheetCenterTitle({
     super.key,
-    required this.navbarTitle,
-
+    required this.navbarTitle1,
+    required this.navbarTitle2,
     required this.widget,
     this.maxHeight,
   });
 
-  final String navbarTitle;
+  final String navbarTitle1;
+  final String navbarTitle2;
   final Widget widget;
   final double? maxHeight;
   @override
@@ -34,7 +35,6 @@ class CustomBottomSheet extends StatelessWidget {
             ),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: const EdgeInsets.only(bottom: 15),
@@ -46,23 +46,39 @@ class CustomBottomSheet extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        navbarTitle,
-                        style: AppStyles.w500f18.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      navbarTitle1,
+                      style: AppStyles.w500f18.copyWith(
+                        color: AppColors.purple,
                       ),
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Assets.svgs.close.svg(),
-                      ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.only(bottom: 15),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 0.6,
+                      color: AppColors.grey,
+                    ),
                   ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      navbarTitle2,
+                      style: AppStyles.w500f18.copyWith(
+                        color: AppColors.red,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(

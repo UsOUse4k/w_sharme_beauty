@@ -53,7 +53,7 @@ class AdverServicePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Flexible(child: Text(''))
+                  const Flexible(child: Text('')),
                 ],
               ),
             ],

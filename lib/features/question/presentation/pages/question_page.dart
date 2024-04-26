@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/add_question.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/my_questions.dart';
@@ -86,23 +87,7 @@ class _QuestionPageState extends State<QuestionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(10),
-                constraints: const BoxConstraints(
-                  maxHeight: 46,
-                ),
-                filled: true,
-                fillColor: AppColors.lightGrey,
-                hintText: 'Поиск',
-                hintStyle: const TextStyle(color: AppColors.darkGrey),
-                prefixIcon: const Icon(Icons.search, color: AppColors.darkGrey),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(16)),
-              ),
-            ),
+            const SearchWidget(),
             const SizedBox(
               height: 15,
             ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/center_title_app_bar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/data/model/comments_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
@@ -41,7 +40,10 @@ class _MyQuestionsState extends State<MyQuestions> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: GlCircleAvatar(
-                  avatar: Assets.images.ella.path, width: 46, height: 46),
+                avatar: Assets.images.ella.path,
+                width: 46,
+                height: 46,
+              ),
               title: const Text(
                 'Ella Ivanova',
                 style: TextStyle(fontWeight: FontWeight.w600),
@@ -49,17 +51,21 @@ class _MyQuestionsState extends State<MyQuestions> {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('22 мар в 08:39',
-                      style: AppStyles.w400f14.copyWith(
-                        color: Colors.grey,
-                      )),
+                  Text(
+                    '22 мар в 08:39',
+                    style: AppStyles.w400f14.copyWith(
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
             const Row(
               children: [
-                Text("Посоветуйте каким гель-лаком пользоваться?",
-                    style: AppStyles.w500f14),
+                Text(
+                  "Посоветуйте каким гель-лаком пользоваться?",
+                  style: AppStyles.w500f14,
+                ),
               ],
             ),
             const SizedBox(
@@ -76,11 +82,12 @@ class _MyQuestionsState extends State<MyQuestions> {
             ),
             CommentBookingCard(
               item: CommentsModel(
-                  username: 'Elena',
-                  comment:
-                      'Все супер! Хочу записаться. Можете сказать сколько стоило этот маникюр?',
-                  like: '1',
-                  id: 'sdfghjk'),
+                username: 'Elena',
+                comment:
+                    'Все супер! Хочу записаться. Можете сказать сколько стоило этот маникюр?',
+                like: '1',
+                id: 'sdfghjk',
+              ),
               avatar: Assets.images.elena.path,
             ),
             const SizedBox(
@@ -91,10 +98,11 @@ class _MyQuestionsState extends State<MyQuestions> {
               padding: const EdgeInsets.only(left: 40),
               child: CommentBookingCard(
                 item: CommentsModel(
-                    username: 'Nastya',
-                    comment: 'Спасибо. 5000 рублей',
-                    like: '1',
-                    id: 'sdfghjk'),
+                  username: 'Nastya',
+                  comment: 'Спасибо. 5000 рублей',
+                  like: '1',
+                  id: 'sdfghjk',
+                ),
                 avatar: Assets.images.nastya.path,
               ),
             ),
@@ -103,11 +111,12 @@ class _MyQuestionsState extends State<MyQuestions> {
             ),
             CommentBookingCard(
               item: CommentsModel(
-                  username: 'Elena',
-                  comment:
-                      'Все супер! Хочу записаться. Можете сказать сколько стоило этот маникюр?',
-                  like: '1',
-                  id: 'sdfghjk'),
+                username: 'Elena',
+                comment:
+                    'Все супер! Хочу записаться. Можете сказать сколько стоило этот маникюр?',
+                like: '1',
+                id: 'sdfghjk',
+              ),
               avatar: Assets.images.nastii.path,
             ),
             const SizedBox(
@@ -123,13 +132,17 @@ class _MyQuestionsState extends State<MyQuestions> {
                       filled: true,
                       fillColor: AppColors.lightGrey,
                       labelStyle: const TextStyle(
-                          color: AppColors.darkGrey, fontSize: 14),
+                        color: AppColors.darkGrey,
+                        fontSize: 14,
+                      ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 15),
+                        vertical: 5,
+                        horizontal: 15,
+                      ),
                     ),
                   ),
                 ),

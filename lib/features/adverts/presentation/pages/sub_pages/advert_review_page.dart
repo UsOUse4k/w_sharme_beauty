@@ -37,7 +37,7 @@ class AdverReviewPage extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

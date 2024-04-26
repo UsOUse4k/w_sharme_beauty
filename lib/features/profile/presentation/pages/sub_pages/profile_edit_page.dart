@@ -25,16 +25,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       ),
       child: Scaffold(
         appBar: GlAppBar(
-        leading: GlIconButton(
-          iconSize: 16,
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            context.pop();
-          },
+          leading: GlIconButton(
+            iconSize: 16,
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              context.pop();
+            },
+          ),
+          title: const CenterTitleAppBar(
+            title: 'Редактировать профиль',
+            textStyle: AppStyles.w500f18,
+          ),
         ),
-        title: const CenterTitleAppBar(
-            title: 'Введите новую почту', textStyle: AppStyles.w500f18,),
-      ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(

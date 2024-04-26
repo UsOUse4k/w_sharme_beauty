@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 
-class CustomBottomSheet extends StatelessWidget {
-  const CustomBottomSheet({
+class CustomBottomSheetLeading extends StatelessWidget {
+  const CustomBottomSheetLeading({
     super.key,
     required this.navbarTitle,
-
     required this.widget,
     this.maxHeight,
   });
@@ -38,28 +36,22 @@ class CustomBottomSheet extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.only(bottom: 15),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 0.6,
-                      color: AppColors.grey,
-                    ),
-                  ),
-                ),
+                decoration: const BoxDecoration(),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      GlIconButton(
+                        iconSize: 16,
+                        icon: const Icon(Icons.arrow_back_ios),
+                        onPressed: () => context.pop(),
+                      ),
+                      const SizedBox(width: 20),
                       Text(
                         navbarTitle,
                         style: AppStyles.w500f18.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Assets.svgs.close.svg(),
                       ),
                     ],
                   ),

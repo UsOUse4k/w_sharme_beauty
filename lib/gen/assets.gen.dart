@@ -37,6 +37,13 @@ class $AssetsIconsGen {
   AssetGenImage get activeIssue =>
       const AssetGenImage('assets/icons/activeIssue.png');
 
+  /// File path: assets/icons/add_chat.png
+  AssetGenImage get addChat => const AssetGenImage('assets/icons/add_chat.png');
+
+  /// File path: assets/icons/add_community.png
+  AssetGenImage get addCommunity =>
+      const AssetGenImage('assets/icons/add_community.png');
+
   /// File path: assets/icons/add_public.png
   AssetGenImage get addPublic =>
       const AssetGenImage('assets/icons/add_public.png');
@@ -60,6 +67,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/comment.png
   AssetGenImage get comment => const AssetGenImage('assets/icons/comment.png');
 
+  /// File path: assets/icons/edit.png
+  AssetGenImage get edit => const AssetGenImage('assets/icons/edit.png');
+
   /// File path: assets/icons/group.png
   AssetGenImage get group => const AssetGenImage('assets/icons/group.png');
 
@@ -76,8 +86,19 @@ class $AssetsIconsGen {
   AssetGenImage get location =>
       const AssetGenImage('assets/icons/location.png');
 
+  /// File path: assets/icons/managers.png
+  AssetGenImage get managers =>
+      const AssetGenImage('assets/icons/managers.png');
+
   /// File path: assets/icons/manikur.png
   AssetGenImage get manikur => const AssetGenImage('assets/icons/manikur.png');
+
+  /// File path: assets/icons/message.png
+  AssetGenImage get message => const AssetGenImage('assets/icons/message.png');
+
+  /// File path: assets/icons/more_horiz.png
+  AssetGenImage get moreHoriz =>
+      const AssetGenImage('assets/icons/more_horiz.png');
 
   /// File path: assets/icons/pedikur.png
   AssetGenImage get pedikur => const AssetGenImage('assets/icons/pedikur.png');
@@ -112,6 +133,10 @@ class $AssetsIconsGen {
   AssetGenImage get strishka =>
       const AssetGenImage('assets/icons/strishka.png');
 
+  /// File path: assets/icons/subscribers.png
+  AssetGenImage get subscribers =>
+      const AssetGenImage('assets/icons/subscribers.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         account,
@@ -120,6 +145,8 @@ class $AssetsIconsGen {
         activeGroup,
         activeHome,
         activeIssue,
+        addChat,
+        addCommunity,
         addPublic,
         ads,
         announcement,
@@ -127,12 +154,16 @@ class $AssetsIconsGen {
         brovi,
         chat,
         comment,
+        edit,
         group,
         heart,
         home,
         issue,
         location,
+        managers,
         manikur,
+        message,
+        moreHoriz,
         pedikur,
         play,
         plus,
@@ -142,7 +173,8 @@ class $AssetsIconsGen {
         resnitsy,
         search,
         settings,
-        strishka
+        strishka,
+        subscribers
       ];
 }
 
@@ -189,7 +221,20 @@ class $AssetsImagesGen {
   AssetGenImage get map => const AssetGenImage('assets/images/map.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [ava, avatar, mainPicture];
+  List<AssetGenImage> get values => [
+        elena,
+        ella,
+        irina,
+        nastii,
+        nastya,
+        adverBg,
+        ava,
+        avatar,
+        beautyCenter,
+        bloc,
+        mainPicture,
+        map
+      ];
 }
 
 class $AssetsSvgsGen {
@@ -215,6 +260,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/close.svg
   SvgGenImage get close => const SvgGenImage('assets/svgs/close.svg');
 
+  /// File path: assets/svgs/edit.svg
+  SvgGenImage get edit => const SvgGenImage('assets/svgs/edit.svg');
+
   /// File path: assets/svgs/home.svg
   SvgGenImage get home => const SvgGenImage('assets/svgs/home.svg');
 
@@ -223,6 +271,12 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svgs/location.svg');
+
+  /// File path: assets/svgs/managers.svg
+  SvgGenImage get managers => const SvgGenImage('assets/svgs/managers.svg');
+
+  /// File path: assets/svgs/message.svg
+  SvgGenImage get message => const SvgGenImage('assets/svgs/message.svg');
 
   /// File path: assets/svgs/navigator.svg
   SvgGenImage get navigator => const SvgGenImage('assets/svgs/navigator.svg');
@@ -235,6 +289,10 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
+
+  /// File path: assets/svgs/subscribers.svg
+  SvgGenImage get subscribers =>
+      const SvgGenImage('assets/svgs/subscribers.svg');
 
   /// File path: assets/svgs/telegram.svg
   SvgGenImage get telegram => const SvgGenImage('assets/svgs/telegram.svg');
@@ -250,13 +308,17 @@ class $AssetsSvgsGen {
         chat,
         checkDouble,
         close,
+        edit,
         home,
         issue,
         location,
+        managers,
+        message,
         navigator,
         present,
         profile,
         search,
+        subscribers,
         telegram,
         vk
       ];

@@ -29,4 +29,15 @@ abstract class RouterContants {
   static const String profileNewEmail = 'profile-new-email';
   static const String profileChangePassword = 'profile-change-password';
   static const String profileAddPublic = 'profile-add-public';
+
+  // community sub pages
+  static const String communityCreate = 'community-create';
+  static const String communityProfileSubscribe = 'community-profile-subscribe';
+  static const String communityProfile = 'community-profile';
+  static const String communityAddPublic = 'community-add-public';
+  static const String communityMembers = 'community-members';
+  static const String communitySubscribers = 'community-subscribers';
+  static const String communityManagers = 'community-managers';
+  static const String communityEdit = 'community-edit';
+  static const String communityChat = 'community-chat';
 }
