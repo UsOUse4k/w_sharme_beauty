@@ -7,11 +7,12 @@ import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_but
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class ProfileAddPublicPage extends StatelessWidget {
-  const ProfileAddPublicPage({super.key});
+class CommunityAddPublicPage extends StatelessWidget {
+  const CommunityAddPublicPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    GoRouter.of(context);
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(

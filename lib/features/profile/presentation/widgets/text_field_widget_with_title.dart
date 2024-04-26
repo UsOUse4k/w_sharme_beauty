@@ -10,14 +10,24 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
       color: AppColors.darkGrey,
       fontWeight: FontWeight.w500,
     ),
+    this.hintStyle = const TextStyle(
+      color: AppColors.darkGrey,
+    ),
     required this.hintText,
     this.suffixIcon,
+    this.prefixIcon,
+    this.filled = true,
     this.contentPadding =
         const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+    this.maxLines = 1,
   });
+  final int? maxLines;
   final String title;
+  final bool? filled;
   final TextStyle? titleStyle;
+  final TextStyle? hintStyle;
   final String hintText;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final EdgeInsetsGeometry? contentPadding;
 
@@ -26,24 +36,24 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: titleStyle,
-        ),
-        const SizedBox(
-          height: 10,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            title,
+            style: titleStyle,
+          ),
         ),
         TextField(
+          maxLines: maxLines,
           decoration: InputDecoration(
             contentPadding: contentPadding,
             constraints: const BoxConstraints(),
             isDense: true,
-            filled: true,
+            filled: filled,
             fillColor: AppColors.lightGrey,
             hintText: hintText,
-            hintStyle: const TextStyle(
-              color: AppColors.darkGrey,
-            ),
+            hintStyle: hintStyle,
+            prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,

@@ -16,8 +16,9 @@ class QuestionsWidget extends StatelessWidget {
       onTap: onTap,
       child: DecoratedBox(
         decoration: BoxDecoration(
-            color: AppColors.lightGrey,
-            borderRadius: BorderRadius.circular(16)),
+          color: AppColors.lightGrey,
+          borderRadius: BorderRadius.circular(16),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Text(

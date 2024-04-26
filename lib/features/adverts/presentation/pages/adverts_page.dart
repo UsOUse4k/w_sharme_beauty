@@ -7,15 +7,9 @@ class AdvertsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold(
+    return const GlScaffold(
       body: Center(
-        child: CustomBottomSheet(
-          navbarTitle: 'Сменить пароль',
-          onSave: () {},
-          titleOnSave: 'Сохранить',
-          widget: const Text('widget'),
-          titleButton: 'clicked',
-        ),
+        child: Text('Adverts Page'),
       ),
     );
   }

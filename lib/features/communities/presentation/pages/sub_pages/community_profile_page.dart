@@ -4,24 +4,28 @@ import 'package:w_sharme_beauty/core/router/router.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/widgets/custom_bottom_sheet_leading.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/text_field_widget_buttom_sheet.dart';
 import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
 
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/container_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class CommunityProfilePage extends StatefulWidget {
+  const CommunityProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<CommunityProfilePage> createState() => _CommunityProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _CommunityProfilePageState extends State<CommunityProfilePage> {
   bool _currentIndex = false;
 
   @override
@@ -29,35 +33,110 @@ class _ProfilePageState extends State<ProfilePage> {
     final route = GoRouter.of(context);
     return GlScaffold(
       appBar: GlAppBar(
-        leading: const Text(
-          'Профиль',
-          style: AppStyles.w500f22,
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
-        action: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            GestureDetector(
-              onTap: () {
-                route.push('/profile/${RouterContants.homeNotification}');
-              },
-              child: Image.asset(
-                Assets.icons.bell.path,
-                width: 26,
-                height: 26,
+        title: const Text('Сообщество', style: AppStyles.w500f22),
+        action: GestureDetector(
+          onTap: () {
+            BottomSheetUtil.showAppBottomSheet(
+              context,
+              CustomBottomSheetLeading(
+                maxHeight: 0.5,
+                navbarTitle: 'Управление сообществом',
+                widget: Container(
+                  height: 300,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: AppColors.white,
+                  ),
+                  child: GlScaffold(
+                    horizontalPadding: 16,
+                    body: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          TextFieldWidgetWithTitle(
+                            filled: false,
+                            prefixIcon: Image.asset(Assets.icons.edit.path),
+                            title: 'Основное',
+                            hintText: 'Редактировать сообщество',
+                            hintStyle: AppStyles.w400f16.copyWith(
+                              color: AppColors.black,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                route.push(
+                                  '/communities/${RouterContants.communityEdit}',
+                                );
+                              },
+                              icon: const Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                          TextFieldWidgetWithTitle(
+                            filled: false,
+                            prefixIcon: Image.asset(Assets.icons.message.path),
+                            title: 'Общение',
+                            hintText: 'Чаты',
+                            hintStyle: AppStyles.w400f16.copyWith(
+                              color: AppColors.black,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                route.push(
+                                  '/communities/${RouterContants.communityChat}',
+                                );
+                              },
+                              icon: const Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                          TextFieldWidgetWithTitle(
+                            filled: false,
+                            prefixIcon: Image.asset(Assets.icons.managers.path),
+                            title: 'Участники',
+                            hintText: 'Руководители',
+                            hintStyle: AppStyles.w400f16.copyWith(
+                              color: AppColors.black,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                route.push(
+                                  '/communities/${RouterContants.communityManagers}',
+                                );
+                              },
+                              icon: const Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                          TextFieldWidgetButtomSheet(
+                            filled: false,
+                            prefixIcon:
+                                Image.asset(Assets.icons.subscribers.path),
+                            hintText: 'Подписчики',
+                            hintStyle: AppStyles.w400f16.copyWith(
+                              color: AppColors.black,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                route.push(
+                                  '/communities/${RouterContants.communitySubscribers}',
+                                );
+                              },
+                              icon: const Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(width: 6),
-            GestureDetector(
-              onTap: () {
-                route.push('/profile/${RouterContants.profileSettings}');
-              },
-              child: Image.asset(
-                Assets.icons.settings.path,
-                width: 26,
-                height: 26,
-              ),
-            ),
-          ],
+            );
+          },
+          child: Image.asset(
+            Assets.icons.settings.path,
+            width: 26,
+            height: 26,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -71,50 +150,26 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 ProfileNavbarWidget(
-                  avatar: Assets.images.avatar.path,
+                  avatar: Assets.images.ava.path,
                   publications: '23',
-                  followers: '2442',
-                  subscriptions: '51',
+                  followers: '2422',
+                  subscribeText: "Участники",
+                  onPressedFollowers: () {
+                    route.push(
+                      '/communities/${RouterContants.communityMembers}',
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  children: [
-                    const Text("Anna Smirnova", style: AppStyles.w500f18),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Image.asset(Assets.icons.point.path),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Image.asset(
-                      Assets.icons.rating.path,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Image.asset(Assets.icons.location.path),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      "Москва, Россия",
-                      style: AppStyles.w400f16,
-                    ),
-                  ],
-                ),
+                const Text("Комьюнити", style: AppStyles.w500f18),
                 const SizedBox(
                   height: 10,
                 ),
                 const Text(
-                  "Привет я Анна, я из города Москва. Занимаюсь маникюром более 10 лет. Успей записаться на выходные!",
-                  style: AppStyles.w400f14,
+                  "Всем привет, мы публикуем самые трендовые и красивые дизайны для твоего маникюра!",
+                  style: AppStyles.w400f13,
                 ),
                 const SizedBox(
                   height: 10,
@@ -128,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.white,
+                      backgroundColor: AppColors.purple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                         side: const BorderSide(
@@ -137,12 +192,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      route.push('/profile/${RouterContants.profileEdit}');
+                      // route.push('/profile/${RouterContants.profileEdit}');
                     },
                     child: const Text(
-                      "Редактировать профиль",
+                      "Создать чат",
                       style: TextStyle(
-                        color: AppColors.purple,
+                        color: AppColors.white,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -162,7 +217,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     onPressed: () {
-                      route.push('/profile/${RouterContants.profileAddPublic}');
+                      route.push(
+                        '/communities/${RouterContants.communityAddPublic}',
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -170,6 +227,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         Image.asset(
                           Assets.icons.plus.path,
                           color: AppColors.purple,
+                        ),
+                        const SizedBox(
+                          width: 10,
                         ),
                         const Text(
                           "Опубликовать",

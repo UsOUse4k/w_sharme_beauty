@@ -14,51 +14,30 @@ import 'package:w_sharme_beauty/features/profile/presentation/widgets/list_style
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class CommunityProfileSubscribePage extends StatefulWidget {
+  const CommunityProfileSubscribePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<CommunityProfileSubscribePage> createState() =>
+      _CommunityProfileSubscribePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _CommunityProfileSubscribePageState
+    extends State<CommunityProfileSubscribePage> {
   bool _currentIndex = false;
+
+  bool _isSubscribe = false;
 
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
     return GlScaffold(
       appBar: GlAppBar(
-        leading: const Text(
-          'Профиль',
-          style: AppStyles.w500f22,
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
-        action: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            GestureDetector(
-              onTap: () {
-                route.push('/profile/${RouterContants.homeNotification}');
-              },
-              child: Image.asset(
-                Assets.icons.bell.path,
-                width: 26,
-                height: 26,
-              ),
-            ),
-            const SizedBox(width: 6),
-            GestureDetector(
-              onTap: () {
-                route.push('/profile/${RouterContants.profileSettings}');
-              },
-              child: Image.asset(
-                Assets.icons.settings.path,
-                width: 26,
-                height: 26,
-              ),
-            ),
-          ],
-        ),
+        title: const Text('Сообщество', style: AppStyles.w500f22),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -71,50 +50,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 ProfileNavbarWidget(
-                  avatar: Assets.images.avatar.path,
+                  avatar: Assets.images.ava.path,
                   publications: '23',
-                  followers: '2442',
-                  subscriptions: '51',
+                  followers: '2422',
+                  subscribeText: "Участники",
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  children: [
-                    const Text("Anna Smirnova", style: AppStyles.w500f18),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Image.asset(Assets.icons.point.path),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Image.asset(
-                      Assets.icons.rating.path,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Image.asset(Assets.icons.location.path),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      "Москва, Россия",
-                      style: AppStyles.w400f16,
-                    ),
-                  ],
-                ),
+                const Text("Комьюнити", style: AppStyles.w500f18),
                 const SizedBox(
                   height: 10,
                 ),
                 const Text(
-                  "Привет я Анна, я из города Москва. Занимаюсь маникюром более 10 лет. Успей записаться на выходные!",
-                  style: AppStyles.w400f14,
+                  "Всем привет, мы публикуем самые трендовые и красивые дизайны для твоего маникюра!",
+                  style: AppStyles.w400f13,
                 ),
                 const SizedBox(
                   height: 10,
@@ -123,64 +73,59 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(
-                          color: AppColors.purple,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isSubscribe = !_isSubscribe;
+                        });
+                      },
+                      child: Container(
+                        height: 47,
+                        width: 172,
+                        decoration: BoxDecoration(
+                          color: _isSubscribe ? Colors.white : AppColors.purple,
+                          borderRadius: BorderRadius.circular(10),
+                          border: _isSubscribe
+                              ? Border.all(color: AppColors.grey)
+                              : null,
                         ),
-                      ),
-                    ),
-                    onPressed: () {
-                      route.push('/profile/${RouterContants.profileEdit}');
-                    },
-                    child: const Text(
-                      "Редактировать профиль",
-                      style: TextStyle(
-                        color: AppColors.purple,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.lightPurple,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onPressed: () {
-                      route.push('/profile/${RouterContants.profileAddPublic}');
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          Assets.icons.plus.path,
-                          color: AppColors.purple,
-                        ),
-                        const Text(
-                          "Опубликовать",
-                          style: TextStyle(
-                            color: AppColors.purple,
-                            fontWeight: FontWeight.w700,
+                        child: Center(
+                          child: Text(
+                            _isSubscribe ? 'Вы подписаны' : 'Подписаться',
+                            style: AppStyles.w400f16.copyWith(
+                              color:
+                                  _isSubscribe ? AppColors.grey : Colors.white,
+                            ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        route.push('/home/${RouterContants.chat}');
+                      },
+                      child: Container(
+                        height: 47,
+                        width: 172,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.purple),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Перейти в чат',
+                            style: AppStyles.w400f16.copyWith(
+                              color: AppColors.purple,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 50,

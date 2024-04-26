@@ -8,6 +8,15 @@ import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_add_public_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_chat_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_managers_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_members_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_subscribe_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_subscribers_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/create_a_community_page.dart';
 import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
 import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
@@ -163,6 +172,64 @@ mixin AppRouter on State<App> {
                 name: RouterContants.communities,
                 path: RouterContants.communities,
                 builder: (context, state) => const CommunitiesPage(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityCreate,
+                    path: RouterContants.communityCreate,
+                    builder: (context, state) => const CommunityCreatePage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityProfileSubscribe,
+                    path: RouterContants.communityProfileSubscribe,
+                    builder: (context, state) =>
+                        const CommunityProfileSubscribePage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityProfile,
+                    path: RouterContants.communityProfile,
+                    builder: (context, state) => const CommunityProfilePage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityAddPublic,
+                    path: RouterContants.communityAddPublic,
+                    builder: (context, state) => const CommunityAddPublicPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityMembers,
+                    path: RouterContants.communityMembers,
+                    builder: (context, state) => const CommunityMembersPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communitySubscribers,
+                    path: RouterContants.communitySubscribers,
+                    builder: (context, state) =>
+                        const CommunitySubscribersPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityManagers,
+                    path: RouterContants.communityManagers,
+                    builder: (context, state) => const CommunityManagersPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityEdit,
+                    path: RouterContants.communityEdit,
+                    builder: (context, state) => const CommunityEditPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityChat,
+                    path: RouterContants.communityChat,
+                    builder: (context, state) => const CommunityChatPage(),
+                  ),
+                ],
               ),
             ],
           ),
