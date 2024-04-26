@@ -5,6 +5,7 @@ export 'gl_bottom_navigation_bar.dart';
 export 'gl_button.dart';
 export 'gl_circle_avatar.dart';
 export 'gl_icon_button.dart';
+export 'gl_outline_button.dart';
 export 'gl_scaffold.dart';
 export 'gl_subscribe_button.dart';
 export 'gl_tab_bar_widget.dart';

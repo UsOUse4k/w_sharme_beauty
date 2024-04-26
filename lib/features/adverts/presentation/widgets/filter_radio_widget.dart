@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
+import 'package:w_sharme_beauty/features/adverts/data/data/data.dart';
 
 typedef OnSelectCallback = void Function(String text);
 
@@ -46,7 +47,11 @@ class _RadioFilterWidgetState extends State<RadioFilterWidget> {
                 ),
               ),
               child: ListTile(
-                title: Text(widget.list[index]),
+                title: Text(
+                  widget.list == ratingList
+                      ? 'Не ниже ★ ${widget.list[index]}'
+                      : widget.list[index],
+                ),
                 leading: Radio<String>(
                   value: widget.list[index],
                   groupValue: localSelectedValue,

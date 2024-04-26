@@ -149,11 +149,19 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/adver_bg.jpg
+  AssetGenImage get adverBg =>
+      const AssetGenImage('assets/images/adver_bg.jpg');
+
   /// File path: assets/images/ava.png
   AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
   /// File path: assets/images/avatar.png
   AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
+
+  /// File path: assets/images/beauty_center.png
+  AssetGenImage get beautyCenter =>
+      const AssetGenImage('assets/images/beauty_center.png');
 
   /// File path: assets/images/bloc.jpg
   AssetGenImage get bloc => const AssetGenImage('assets/images/bloc.jpg');
@@ -166,7 +174,8 @@ class $AssetsImagesGen {
   AssetGenImage get map => const AssetGenImage('assets/images/map.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [ava, avatar, bloc, mainPicture, map];
+  List<AssetGenImage> get values =>
+      [adverBg, ava, avatar, beautyCenter, bloc, mainPicture, map];
 }
 
 class $AssetsSvgsGen {
@@ -198,6 +207,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/issue.svg
   SvgGenImage get issue => const SvgGenImage('assets/svgs/issue.svg');
 
+  /// File path: assets/svgs/location.svg
+  SvgGenImage get location => const SvgGenImage('assets/svgs/location.svg');
+
   /// File path: assets/svgs/navigator.svg
   SvgGenImage get navigator => const SvgGenImage('assets/svgs/navigator.svg');
 
@@ -210,6 +222,12 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
 
+  /// File path: assets/svgs/telegram.svg
+  SvgGenImage get telegram => const SvgGenImage('assets/svgs/telegram.svg');
+
+  /// File path: assets/svgs/vk.svg
+  SvgGenImage get vk => const SvgGenImage('assets/svgs/vk.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
         add,
@@ -220,10 +238,13 @@ class $AssetsSvgsGen {
         close,
         home,
         issue,
+        location,
         navigator,
         present,
         profile,
-        search
+        search,
+        telegram,
+        vk
       ];
 }
 

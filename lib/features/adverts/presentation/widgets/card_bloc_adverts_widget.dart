@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/card_bloc_navbar.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CardBlocAdvertsWidget extends StatelessWidget {
@@ -24,41 +27,12 @@ class CardBlocAdvertsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppStyles.w500f16,
-                ),
-                Text(
-                  desc,
-                  style: AppStyles.w400f14.copyWith(color: AppColors.grey),
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: AppColors.yellow),
-                    Text(
-                      rating,
-                      style: AppStyles.w500f14,
-                    ),
-                    Text(
-                      ' /5 ',
-                      style: AppStyles.w400f13
-                          .copyWith(fontSize: 10, color: AppColors.grey),
-                    ),
-                    Text(
-                      '(345)',
-                      style: AppStyles.w400f14.copyWith(
-                        color: AppColors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            child: CardBlocNavbar(
+              title: title,
+              desc: desc,
+              rating: rating,
             ),
           ),
           const SizedBox(height: 10),
@@ -70,12 +44,18 @@ class CardBlocAdvertsWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Assets.images.bloc.image(
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      context
+                          .push('/adverts/${RouterContants.advertDetailPage}');
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Assets.images.bloc.image(
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },
