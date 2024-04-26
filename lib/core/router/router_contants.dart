@@ -20,6 +20,8 @@ abstract class RouterContants {
   static const String chat = 'chat';
   static const String chatMessages = 'chatMessages';
   static const String profilePersonPage = 'profilePersonPage';
+  static const String advertDetailPage = 'advertDetailPage';
+
   
 
   static const String homeNotification = 'home-notification';

@@ -3,20 +3,25 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class GlButton extends StatelessWidget {
-  const GlButton( {
+  const GlButton({
     super.key,
     required this.text,
-    required this.onPressed, this.width,
+    required this.onPressed,
+    this.width,
+    this.height,
+    this.style,
   });
 
   final String text;
   final Function() onPressed;
   final double? width;
+  final double? height;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 47,
+      height: height ?? 47,
       width: width ?? double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -31,9 +36,10 @@ class GlButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: AppStyles.w500f16.copyWith(
-            color: AppColors.white,
-          ),
+          style: style ??
+              AppStyles.w500f16.copyWith(
+                color: AppColors.white,
+              ),
         ),
       ),
     );
