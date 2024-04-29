@@ -64,7 +64,7 @@ class _QuestionPageState extends State<QuestionPage> {
               height: 26,
             ),
             const SizedBox(width: 16),
-            const Text(
+             Text(
               'Вопросы и ответы',
               style: AppStyles.w500f22,
             ),

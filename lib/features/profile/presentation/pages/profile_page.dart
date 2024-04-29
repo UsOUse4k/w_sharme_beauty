@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final route = GoRouter.of(context);
     return GlScaffold(
       appBar: GlAppBar(
-        leading: const Text(
+        leading:  Text(
           'Профиль',
           style: AppStyles.w500f22,
         ),
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Row(
                   children: [
-                    const Text("Anna Smirnova", style: AppStyles.w500f18),
+                     Text("Anna Smirnova", style: AppStyles.w500f18),
                     const SizedBox(
                       width: 10,
                     ),
@@ -103,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Text(
+                     Text(
                       "Москва, Россия",
                       style: AppStyles.w400f16,
                     ),
@@ -112,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                 Text(
                   "Привет я Анна, я из города Москва. Занимаюсь маникюром более 10 лет. Успей записаться на выходные!",
                   style: AppStyles.w400f14,
                 ),

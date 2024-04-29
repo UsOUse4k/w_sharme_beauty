@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               height: 26,
             ),
             const SizedBox(width: 16),
-            const CenterTitleAppBar(
+             CenterTitleAppBar(
               title: 'Главная',
               textStyle: AppStyles.w500f22,
             ),

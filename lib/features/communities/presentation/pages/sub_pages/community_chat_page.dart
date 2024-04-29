@@ -23,7 +23,7 @@ class CommunityChatPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Чаты',
           textStyle: AppStyles.w500f18,
         ),
@@ -46,7 +46,7 @@ class CommunityChatPage extends StatelessWidget {
               const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {},
-                child: const Text(
+                child:  Text(
                   "Создать чат",
                   style: AppStyles.w400f16,
                 ),

@@ -25,13 +25,13 @@ class CardReviewContactWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Адрес', style: AppStyles.w500f16),
+                   Text('Адрес', style: AppStyles.w500f16),
                   const SizedBox(width: 10),
                   Row(
                     children: [
                       GestureDetector(
                         onTap: () {},
-                        child: const Text(
+                        child: Text(
                           'Москва, ул. Тюлепина, 31',
                           style: AppStyles.w400f14,
                         ),
@@ -54,7 +54,7 @@ class CardReviewContactWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Контакты', style: AppStyles.w500f16),
+                   Text('Контакты', style: AppStyles.w500f16),
                   const SizedBox(width: 10),
                   Row(
                     children: [
@@ -91,19 +91,19 @@ class CardReviewContactWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 25),
-          const Row(
+           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
+              const Icon(
                 Icons.access_time_filled_rounded,
                 color: Colors.grey,
               ),
-              SizedBox(width: 14),
+              const SizedBox(width: 14),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Часы работы', style: AppStyles.w500f16),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Row(
                     children: [
                       Text(

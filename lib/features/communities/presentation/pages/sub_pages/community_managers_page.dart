@@ -19,7 +19,7 @@ class CommunityManagersPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Руководители',
           textStyle: AppStyles.w500f22,
         ),
@@ -39,7 +39,7 @@ class CommunityManagersPage extends StatelessWidget {
                       width: 50,
                       height: 50,
                     ),
-                    title: const Text("Nasya", style: AppStyles.w500f18),
+                    title:  Text("Nasya", style: AppStyles.w500f18),
                     subtitle: Text(
                       "с 12.02.2024",
                       style:

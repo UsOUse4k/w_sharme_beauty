@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/firebase_options.dart';
@@ -11,6 +12,7 @@ Future<void> lazyBootstrap(
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await ScreenUtil.ensureScreenSize();
 
   configureDependencies(environment: environment);
 

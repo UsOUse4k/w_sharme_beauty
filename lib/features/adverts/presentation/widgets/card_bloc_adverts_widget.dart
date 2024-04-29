@@ -68,7 +68,7 @@ class CardBlocAdvertsWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Работаю до 22:00',
                     style: AppStyles.w400f14,
                   ),

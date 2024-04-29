@@ -46,7 +46,7 @@ class CommentItem extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {},
-              child: const Text(
+              child:  Text(
                 'Ответить',
                 style: AppStyles.w400f14,
               ),

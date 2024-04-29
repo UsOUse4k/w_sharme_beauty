@@ -29,7 +29,7 @@ class _AddQuestionState extends State<AddQuestion> {
           },
         ),
         centerTitle: true,
-        title: const Text(
+        title:  Text(
           'Задать вопрос',
           style: AppStyles.w500f18,
         ),

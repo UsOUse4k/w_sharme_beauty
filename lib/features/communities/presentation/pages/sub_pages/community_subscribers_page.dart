@@ -21,7 +21,7 @@ class CommunitySubscribersPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Подписчики',
           textStyle: AppStyles.w500f22,
         ),

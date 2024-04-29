@@ -37,7 +37,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
           onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        title: const Text('Сообщество', style: AppStyles.w500f22),
+        title:  Text('Сообщество', style: AppStyles.w500f22),
         action: GestureDetector(
           onTap: () {
             BottomSheetUtil.showAppBottomSheet(
@@ -163,11 +163,11 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                 const SizedBox(
                   height: 15,
                 ),
-                const Text("Комьюнити", style: AppStyles.w500f18),
+                 Text("Комьюнити", style: AppStyles.w500f18),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                 Text(
                   "Всем привет, мы публикуем самые трендовые и красивые дизайны для твоего маникюра!",
                   style: AppStyles.w400f13,
                 ),

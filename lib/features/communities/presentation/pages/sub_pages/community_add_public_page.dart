@@ -23,7 +23,7 @@ class CommunityAddPublicPage extends StatelessWidget {
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Публикация',
           textStyle: AppStyles.w500f18,
         ),

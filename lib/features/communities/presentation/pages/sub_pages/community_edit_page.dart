@@ -65,9 +65,9 @@ class CommunityEditPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const TextFieldWidgetWithTitle(
+             TextFieldWidgetWithTitle(
               contentPadding:
-                  EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               title: "Описание сообщества",
               titleStyle: AppStyles.w500f14,
               hintText:

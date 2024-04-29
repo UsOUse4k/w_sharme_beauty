@@ -41,7 +41,7 @@ class _ChatPageState extends State<ChatPage>
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Чат',
           textStyle: AppStyles.w500f18,
         ),

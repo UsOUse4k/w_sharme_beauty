@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
   const BlocProviders({
@@ -17,6 +18,9 @@ class BlocProviders extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (context) => getIt<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<PostBloc>(),
         ),
       ],
       child: child,

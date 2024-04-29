@@ -32,7 +32,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               context.pop();
             },
           ),
-          title: const CenterTitleAppBar(
+          title:  CenterTitleAppBar(
             title: 'Редактировать профиль',
             textStyle: AppStyles.w500f18,
           ),
@@ -49,7 +49,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       "Ваш аватар",
                       style: AppStyles.w500f16,
                     ),

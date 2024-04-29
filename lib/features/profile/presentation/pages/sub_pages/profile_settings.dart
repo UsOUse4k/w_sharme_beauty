@@ -25,7 +25,7 @@ class ProfileSettingsPage extends StatelessWidget {
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Настройки',
           textStyle: AppStyles.w500f22,
         ),

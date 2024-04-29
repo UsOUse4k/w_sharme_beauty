@@ -25,7 +25,7 @@ class ChatMessagesPage extends StatelessWidget {
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CenterTitleAppBar(
+             CenterTitleAppBar(
               title: 'Nastya',
               textStyle: AppStyles.w500f16,
             ),

@@ -55,7 +55,7 @@ class _AdvertsPageState extends State<AdvertsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Объявления',
                           style: AppStyles.w500f22,
                         ),

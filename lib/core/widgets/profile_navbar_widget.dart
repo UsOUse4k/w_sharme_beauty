@@ -40,7 +40,7 @@ class ProfileNavbarWidget extends StatelessWidget {
                 style: AppStyles.w500f16,
               ),
             if (publications != null)
-              const Text("Публикации", style: AppStyles.w400f14),
+              Text("Публикации", style: AppStyles.w400f14),
           ],
         ),
         const SizedBox(
@@ -64,7 +64,7 @@ class ProfileNavbarWidget extends StatelessWidget {
             if (subscriptions != null)
               Text(subscriptions!, style: AppStyles.w500f16),
             if (subscriptions != null)
-              const Text("Подписок", style: AppStyles.w400f14),
+              Text("Подписок", style: AppStyles.w400f14),
           ],
         ),
       ],

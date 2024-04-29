@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
-import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
 
 class AdverServicePage extends StatelessWidget {
   const AdverServicePage({super.key});
@@ -15,48 +15,33 @@ class AdverServicePage extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Container(
-          padding: const EdgeInsets.all(18),
+          padding: const EdgeInsets.symmetric(vertical: 18),
           decoration: const BoxDecoration(
             color: AppColors.white,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Маникюр',
-                style: AppStyles.w500f18.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 15),
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text(
-                      'Маникюр аппаратный/комбинированный/классический',
-                      style: AppStyles.w400f16,
-                    ),
-                  ),
-                  Text('1050 ₽', style: AppStyles.w400f16),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Flexible(
-                    flex: 4,
-                    child: Text(
-                      'В стоимость входит: форма ногтей, обработка вокруг ногтей: кутикулы и валиков.',
-                      style: AppStyles.w400f14.copyWith(
-                        color: AppColors.grey,
-                      ),
-                    ),
-                  ),
-                  const Flexible(child: Text('')),
-                ],
-              ),
-            ],
+          child: const CardPriceListWidget(
+            title: 'Маникюр',
+            text: 'Маникюр аппаратный/комбинированный/классический',
+            price: '1050',
+            text2: 'Мужской маникюр',
+            desc: 'В стоимость входит: форма ногтей, обработка вокруг ногтей: кутикулы и валиков.',
+            price2: '1050',
+            desc2: 'до 1050 ₽',
+          ),
+        ),
+        const SizedBox(height: 15),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          decoration: const BoxDecoration(
+            color: AppColors.white,
+          ),
+          child: const CardPriceListWidget(
+            title: 'Дизайн',
+            text: 'Дизайн одного ногтя (ручная роспись)',
+            desc: 'до 350',
+            price: '100',
+            text2: 'Френч (классический, обратный, лучный)',
+            price2: '1000',
           ),
         ),
       ],

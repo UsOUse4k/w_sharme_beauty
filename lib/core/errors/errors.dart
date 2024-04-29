@@ -14,3 +14,8 @@ class UnexpectedValueError extends Error {
     return Error.safeToString('$explanation Failure was: $valueFailure');
   }
 }
+
+class PostError extends Error {
+  final String messasge;
+  PostError(this.messasge);
+}

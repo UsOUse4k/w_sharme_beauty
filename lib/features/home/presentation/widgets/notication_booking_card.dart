@@ -34,7 +34,7 @@ class NotificationBookingCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       'Nastya',
                       style: AppStyles.w500f16,
                     ),

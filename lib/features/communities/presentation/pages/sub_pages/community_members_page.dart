@@ -20,7 +20,7 @@ class CommunityMembersPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Участники сообщества',
           textStyle: AppStyles.w500f22,
         ),

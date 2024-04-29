@@ -46,7 +46,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
               height: 26,
             ),
             const SizedBox(width: 16),
-            const Text(
+             Text(
               'Сообщество',
               style: AppStyles.w500f18,
             ),

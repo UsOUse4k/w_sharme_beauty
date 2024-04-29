@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
@@ -19,7 +20,7 @@ class GlOutlineButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: height ?? 40,
+        height: height ?? 40.h,
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.purple),
           borderRadius: BorderRadius.circular(10),

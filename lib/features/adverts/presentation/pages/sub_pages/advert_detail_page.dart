@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_grid_image_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_service_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
@@ -70,7 +71,7 @@ class _AdverDetailPageState extends State<AdverDetailPage>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'Открыто до 22:00',
                               style: AppStyles.w400f14,
                             ),
@@ -116,7 +117,7 @@ class _AdverDetailPageState extends State<AdverDetailPage>
                       children: const [
                         AdverReviewPage(),
                         AdverServicePage(),
-                        Text('Фото'),
+                        AdverGridImagePage(),
                         Text('Отзывы'),
                       ],
                     ),

@@ -25,7 +25,7 @@ class _MyQuestionsState extends State<MyQuestions> {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'Вопросы',
           textStyle: AppStyles.w500f18,
         ),
@@ -60,7 +60,7 @@ class _MyQuestionsState extends State<MyQuestions> {
                 ],
               ),
             ),
-            const Row(
+             Row(
               children: [
                 Text(
                   "Посоветуйте каким гель-лаком пользоваться?",

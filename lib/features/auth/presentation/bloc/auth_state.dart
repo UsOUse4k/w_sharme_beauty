@@ -23,7 +23,6 @@ class LoginSuccess extends AuthState {}
 
 class RegisterSucces extends AuthState {
   const RegisterSucces(this.userId);
-
   final String userId;
   @override
   List<Object> get props => [userId];

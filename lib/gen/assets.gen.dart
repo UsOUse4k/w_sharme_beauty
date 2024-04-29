@@ -220,6 +220,30 @@ class $AssetsImagesGen {
   /// File path: assets/images/map.png
   AssetGenImage get map => const AssetGenImage('assets/images/map.png');
 
+  /// File path: assets/images/serviceImg1.jpeg
+  AssetGenImage get serviceImg1 =>
+      const AssetGenImage('assets/images/serviceImg1.jpeg');
+
+  /// File path: assets/images/serviceImg2.jpeg
+  AssetGenImage get serviceImg2 =>
+      const AssetGenImage('assets/images/serviceImg2.jpeg');
+
+  /// File path: assets/images/serviceImg3.jpeg
+  AssetGenImage get serviceImg3 =>
+      const AssetGenImage('assets/images/serviceImg3.jpeg');
+
+  /// File path: assets/images/serviceImg4.jpeg
+  AssetGenImage get serviceImg4 =>
+      const AssetGenImage('assets/images/serviceImg4.jpeg');
+
+  /// File path: assets/images/serviceImg5.jpeg
+  AssetGenImage get serviceImg5 =>
+      const AssetGenImage('assets/images/serviceImg5.jpeg');
+
+  /// File path: assets/images/serviceImg6.jpeg
+  AssetGenImage get serviceImg6 =>
+      const AssetGenImage('assets/images/serviceImg6.jpeg');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         elena,
@@ -233,7 +257,13 @@ class $AssetsImagesGen {
         beautyCenter,
         bloc,
         mainPicture,
-        map
+        map,
+        serviceImg1,
+        serviceImg2,
+        serviceImg3,
+        serviceImg4,
+        serviceImg5,
+        serviceImg6
       ];
 }
 

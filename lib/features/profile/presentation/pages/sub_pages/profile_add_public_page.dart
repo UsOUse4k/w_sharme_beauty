@@ -4,6 +4,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -22,7 +23,7 @@ class ProfileAddPublicPage extends StatelessWidget {
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(
+        title: CenterTitleAppBar(
           title: 'Публикация',
           textStyle: AppStyles.w500f18,
         ),
@@ -42,10 +43,18 @@ class ProfileAddPublicPage extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Image.asset(
-            Assets.icons.addPublic.path,
-            width: 100,
-            height: 100,
+          Row(
+            children: [
+              CardImageProfileAdd(
+                image: Assets.images.bloc.path,
+                onPressed: () {},
+              ),
+              const SizedBox(width: 10),
+              CardImageProfileAdd(
+                image: Assets.images.bloc.path,
+                onPressed: () {},
+              ),
+            ],
           ),
           const SizedBox(height: 20),
           AddingButton(

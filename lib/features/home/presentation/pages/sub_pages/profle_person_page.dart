@@ -22,7 +22,7 @@ class ProfilePersonPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
           title: 'ManicAnna',
           textStyle: AppStyles.w500f22,
         ),
@@ -44,7 +44,7 @@ class ProfilePersonPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      const Text("Anna Smirnova", style: AppStyles.w500f18),
+                       Text("Anna Smirnova", style: AppStyles.w500f18),
                       const SizedBox(
                         width: 10,
                       ),
@@ -64,7 +64,7 @@ class ProfilePersonPage extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      const Text(
+                       Text(
                         "Москва, Россия",
                         style: AppStyles.w400f16,
                       ),
@@ -73,7 +73,7 @@ class ProfilePersonPage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
+                   Text(
                     "Привет я Анна, я из города Москва. Занимаюсь маникюром более 10 лет. Успей записаться на выходные!",
                     style: AppStyles.w400f14,
                   ),

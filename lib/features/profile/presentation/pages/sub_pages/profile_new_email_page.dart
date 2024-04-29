@@ -18,7 +18,7 @@ class ProfileNewEmailPage extends StatelessWidget {
             context.pop();
           },
         ),
-        title: const CenterTitleAppBar(
+        title:  CenterTitleAppBar(
             title: 'Редактировать профиль', textStyle: AppStyles.w500f18,),
       ),
       body: Column(
