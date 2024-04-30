@@ -20,13 +20,13 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
-  String? get id => throw _privateConstructorUsedError;
-  String? get authorId => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
+  String? get postId => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
-  int get comments => throw _privateConstructorUsedError;
+  List<Comment> get comments => throw _privateConstructorUsedError;
   int get reposts => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -43,13 +43,13 @@ abstract class $PostCopyWith<$Res> {
       _$PostCopyWithImpl<$Res, Post>;
   @useResult
   $Res call(
-      {String? id,
-      String? authorId,
+      {String? uid,
+      String? postId,
       String text,
       String? imageUrl,
       String? videoUrl,
       int likes,
-      int comments,
+      List<Comment> comments,
       int reposts,
       bool isFavorite,
       @TimestampConverter() DateTime? createdAt});
@@ -68,8 +68,8 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? authorId = freezed,
+    Object? uid = freezed,
+    Object? postId = freezed,
     Object? text = null,
     Object? imageUrl = freezed,
     Object? videoUrl = freezed,
@@ -80,13 +80,13 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String?,
-      authorId: freezed == authorId
-          ? _value.authorId
-          : authorId // ignore: cast_nullable_to_non_nullable
+      postId: freezed == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -107,7 +107,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<Comment>,
       reposts: null == reposts
           ? _value.reposts
           : reposts // ignore: cast_nullable_to_non_nullable
@@ -132,13 +132,13 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
-      String? authorId,
+      {String? uid,
+      String? postId,
       String text,
       String? imageUrl,
       String? videoUrl,
       int likes,
-      int comments,
+      List<Comment> comments,
       int reposts,
       bool isFavorite,
       @TimestampConverter() DateTime? createdAt});
@@ -154,8 +154,8 @@ class __$$PostImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? authorId = freezed,
+    Object? uid = freezed,
+    Object? postId = freezed,
     Object? text = null,
     Object? imageUrl = freezed,
     Object? videoUrl = freezed,
@@ -166,13 +166,13 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
   }) {
     return _then(_$PostImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String?,
-      authorId: freezed == authorId
-          ? _value.authorId
-          : authorId // ignore: cast_nullable_to_non_nullable
+      postId: freezed == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -191,9 +191,9 @@ class __$$PostImplCopyWithImpl<$Res>
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
       comments: null == comments
-          ? _value.comments
+          ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<Comment>,
       reposts: null == reposts
           ? _value.reposts
           : reposts // ignore: cast_nullable_to_non_nullable
@@ -214,24 +214,25 @@ class __$$PostImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PostImpl implements _Post {
   const _$PostImpl(
-      {this.id,
-      this.authorId,
+      {this.uid,
+      this.postId,
       required this.text,
       this.imageUrl,
       this.videoUrl,
       this.likes = 0,
-      this.comments = 0,
+      final List<Comment> comments = const [],
       this.reposts = 0,
       this.isFavorite = false,
-      @TimestampConverter() this.createdAt});
+      @TimestampConverter() this.createdAt})
+      : _comments = comments;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
 
   @override
-  final String? id;
+  final String? uid;
   @override
-  final String? authorId;
+  final String? postId;
   @override
   final String text;
   @override
@@ -241,9 +242,15 @@ class _$PostImpl implements _Post {
   @override
   @JsonKey()
   final int likes;
+  final List<Comment> _comments;
   @override
   @JsonKey()
-  final int comments;
+  List<Comment> get comments {
+    if (_comments is EqualUnmodifiableListView) return _comments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_comments);
+  }
+
   @override
   @JsonKey()
   final int reposts;
@@ -256,7 +263,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(id: $id, authorId: $authorId, text: $text, imageUrl: $imageUrl, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(uid: $uid, postId: $postId, text: $text, imageUrl: $imageUrl, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -264,17 +271,15 @@ class _$PostImpl implements _Post {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.authorId, authorId) ||
-                other.authorId == authorId) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
             (identical(other.likes, likes) || other.likes == likes) &&
-            (identical(other.comments, comments) ||
-                other.comments == comments) &&
+            const DeepCollectionEquality().equals(other._comments, _comments) &&
             (identical(other.reposts, reposts) || other.reposts == reposts) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
@@ -284,8 +289,18 @@ class _$PostImpl implements _Post {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, authorId, text, imageUrl,
-      videoUrl, likes, comments, reposts, isFavorite, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      uid,
+      postId,
+      text,
+      imageUrl,
+      videoUrl,
+      likes,
+      const DeepCollectionEquality().hash(_comments),
+      reposts,
+      isFavorite,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -303,13 +318,13 @@ class _$PostImpl implements _Post {
 
 abstract class _Post implements Post {
   const factory _Post(
-      {final String? id,
-      final String? authorId,
+      {final String? uid,
+      final String? postId,
       required final String text,
       final String? imageUrl,
       final String? videoUrl,
       final int likes,
-      final int comments,
+      final List<Comment> comments,
       final int reposts,
       final bool isFavorite,
       @TimestampConverter() final DateTime? createdAt}) = _$PostImpl;
@@ -317,9 +332,9 @@ abstract class _Post implements Post {
   factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
   @override
-  String? get id;
+  String? get uid;
   @override
-  String? get authorId;
+  String? get postId;
   @override
   String get text;
   @override
@@ -329,7 +344,7 @@ abstract class _Post implements Post {
   @override
   int get likes;
   @override
-  int get comments;
+  List<Comment> get comments;
   @override
   int get reposts;
   @override

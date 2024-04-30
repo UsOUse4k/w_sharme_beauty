@@ -1,25 +1,17 @@
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:w_sharme_beauty/features/profile/domain/entities/comment.dart';
 
-part 'post.freezed.dart';
-part 'post.g.dart';
+part 'comment.freezed.dart';
+part 'comment.g.dart';
 
-@freezed
-class Post with _$Post {
-  const factory Post({
-    String? uid,
-    String? postId,
-    required String text,
-    String? imageUrl,
-    String? videoUrl,
-    @Default(0) int likes,
-    @Default([]) List<Comment> comments,
-    @Default(0) int reposts,
-    @Default(false) bool isFavorite,
-    @TimestampConverter() DateTime? createdAt,
-  }) = _Post;
+@freezed 
+class Comment with _$Comment {
+  const factory Comment({
+    required String comment,
+   @TimestampConverter() DateTime? createdAt,
+  }) = _Comment;
 
-  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+   factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
 }
 
 class TimestampConverter implements JsonConverter<DateTime?, Map<String, dynamic>?> {

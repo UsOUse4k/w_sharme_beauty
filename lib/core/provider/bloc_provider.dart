@@ -19,7 +19,7 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => getIt<AuthBloc>(),
         ),
-        BlocProvider(
+        BlocProvider<PostBloc>(
           create: (context) => getIt<PostBloc>(),
         ),
       ],

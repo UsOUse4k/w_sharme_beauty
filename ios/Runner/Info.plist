@@ -16,6 +16,8 @@
 	<string>w_sharme_beauty</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+	<string>Your permission message</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

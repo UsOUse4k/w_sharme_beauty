@@ -9,7 +9,7 @@ class CardImageProfileAdd extends StatelessWidget {
     required this.onPressed,
   });
 
-  final String image;
+  final ImageProvider image;
   final Function() onPressed;
 
   @override
@@ -19,9 +19,7 @@ class CardImageProfileAdd extends StatelessWidget {
       height: 100,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(
-            image,
-          ),
+          image: image,
           fit: BoxFit.cover,
         ),
         borderRadius: const BorderRadius.all(
