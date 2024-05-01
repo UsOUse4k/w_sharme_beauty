@@ -19,7 +19,7 @@ class PostImage extends StatelessWidget {
             child: Image(
               height: 394.h,
               fit: BoxFit.cover,
-              image: AssetImage(
+              image: NetworkImage(
                 imageUrls![0],
               ),
             ),
@@ -33,14 +33,12 @@ class PostImage extends StatelessWidget {
                 crossAxisCount: 3,
                 crossAxisSpacing: 5,
                 mainAxisSpacing: 5,
-                
                 children: List.generate(
                   imageUrls!.length,
                   (index) {
-                    // Генерируем 6 виджетов для сетки
                     return Image(
                       fit: BoxFit.cover,
-                      image: AssetImage(imageUrls![index]),
+                      image: NetworkImage(imageUrls![index]),
                     );
                   },
                 ),

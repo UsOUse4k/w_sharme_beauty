@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,7 +21,7 @@ class ProfileAddPublicPage extends StatefulWidget {
 }
 
 class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
-  List<String> selectedImagePaths = [];
+  List<Uint8List> selectedImageBytes = [];
   bool isLoading = false;
   final TextEditingController desc = TextEditingController();
 
@@ -31,15 +29,16 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
+      final Uint8List imageData = await image.readAsBytes();
       setState(() {
-        selectedImagePaths.add(image.path);
+        selectedImageBytes.add(imageData);
       });
     }
   }
 
-  void clearImage(String path) {
+  void clearImage(Uint8List bytes) {
     setState(() {
-      selectedImagePaths.remove(path);
+      selectedImageBytes.removeWhere((element) => element == bytes);
     });
   }
 
@@ -82,7 +81,7 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
                 ),
               );
               setState(() {
-                selectedImagePaths = [];
+                selectedImageBytes = [];
                 desc.clear();
                 isLoading = false;
               });
@@ -96,8 +95,9 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
               setState(() {
                 isLoading = false;
               });
-            }, 
-            getPosts: (value) {}, getMePosts: (value) {  },
+            },
+            getPosts: (value) {},
+            getMePosts: (value) {},
           );
         },
         child: Column(
@@ -118,14 +118,18 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
             Wrap(
               spacing: 5,
               runSpacing: 5,
-              children: selectedImagePaths
-                  .map(
-                    (path) => CardImageProfileAdd(
-                      image: FileImage(File(path)),
-                      onPressed: () => clearImage(path),
-                    ),
-                  )
-                  .toList(),
+              children: selectedImageBytes.map((bytes) {
+                return CardImageProfileAdd(
+                  image: MemoryImage(
+                    bytes,
+                  ), 
+                  onPressed: () {
+                    clearImage(
+                      bytes,
+                    ); 
+                  },
+                );
+              }).toList(),
             ),
             const SizedBox(height: 20),
             AddingButton(
@@ -145,13 +149,12 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
             GlButton(
               text: isLoading ? "Загрузка.." : "Опубликовать",
               onPressed: () {
-                if (selectedImagePaths.isNotEmpty && desc.text.isNotEmpty) {
+                if (selectedImageBytes.isNotEmpty && desc.text.isNotEmpty) {
+                  
                   context.read<PostBloc>().add(
                         PostEvent.createPost(
-                          Post(
-                            text: desc.text,
-                            imageUrls: selectedImagePaths,
-                          ),
+                          Post(text: desc.text),
+                          selectedImageBytes,
                         ),
                       );
                 }

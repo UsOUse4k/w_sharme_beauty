@@ -19,7 +19,7 @@ mixin _$PostEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(Post post) createPost,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
     required TResult Function() getPosts,
     required TResult Function() getMePosts,
   }) =>
@@ -27,7 +27,7 @@ mixin _$PostEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(Post post)? createPost,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult? Function()? getPosts,
     TResult? Function()? getMePosts,
   }) =>
@@ -35,7 +35,7 @@ mixin _$PostEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(Post post)? createPost,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult Function()? getPosts,
     TResult Function()? getMePosts,
     required TResult orElse(),
@@ -124,7 +124,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(Post post) createPost,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
     required TResult Function() getPosts,
     required TResult Function() getMePosts,
   }) {
@@ -135,7 +135,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(Post post)? createPost,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult? Function()? getPosts,
     TResult? Function()? getMePosts,
   }) {
@@ -146,7 +146,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(Post post)? createPost,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult Function()? getPosts,
     TResult Function()? getMePosts,
     required TResult orElse(),
@@ -205,7 +205,7 @@ abstract class _$$CreatePostImplCopyWith<$Res> {
           _$CreatePostImpl value, $Res Function(_$CreatePostImpl) then) =
       __$$CreatePostImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Post post});
+  $Res call({Post post, List<Uint8List> imageFiles});
 
   $PostCopyWith<$Res> get post;
 }
@@ -222,12 +222,17 @@ class __$$CreatePostImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? post = null,
+    Object? imageFiles = null,
   }) {
     return _then(_$CreatePostImpl(
       null == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as Post,
+      null == imageFiles
+          ? _value._imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as List<Uint8List>,
     ));
   }
 
@@ -243,14 +248,22 @@ class __$$CreatePostImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreatePostImpl implements _CreatePost {
-  const _$CreatePostImpl(this.post);
+  const _$CreatePostImpl(this.post, final List<Uint8List> imageFiles)
+      : _imageFiles = imageFiles;
 
   @override
   final Post post;
+  final List<Uint8List> _imageFiles;
+  @override
+  List<Uint8List> get imageFiles {
+    if (_imageFiles is EqualUnmodifiableListView) return _imageFiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageFiles);
+  }
 
   @override
   String toString() {
-    return 'PostEvent.createPost(post: $post)';
+    return 'PostEvent.createPost(post: $post, imageFiles: $imageFiles)';
   }
 
   @override
@@ -258,11 +271,14 @@ class _$CreatePostImpl implements _CreatePost {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreatePostImpl &&
-            (identical(other.post, post) || other.post == post));
+            (identical(other.post, post) || other.post == post) &&
+            const DeepCollectionEquality()
+                .equals(other._imageFiles, _imageFiles));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, post);
+  int get hashCode => Object.hash(
+      runtimeType, post, const DeepCollectionEquality().hash(_imageFiles));
 
   @JsonKey(ignore: true)
   @override
@@ -274,35 +290,35 @@ class _$CreatePostImpl implements _CreatePost {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(Post post) createPost,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
     required TResult Function() getPosts,
     required TResult Function() getMePosts,
   }) {
-    return createPost(post);
+    return createPost(post, imageFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(Post post)? createPost,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult? Function()? getPosts,
     TResult? Function()? getMePosts,
   }) {
-    return createPost?.call(post);
+    return createPost?.call(post, imageFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(Post post)? createPost,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult Function()? getPosts,
     TResult Function()? getMePosts,
     required TResult orElse(),
   }) {
     if (createPost != null) {
-      return createPost(post);
+      return createPost(post, imageFiles);
     }
     return orElse();
   }
@@ -346,9 +362,11 @@ class _$CreatePostImpl implements _CreatePost {
 }
 
 abstract class _CreatePost implements PostEvent {
-  const factory _CreatePost(final Post post) = _$CreatePostImpl;
+  const factory _CreatePost(final Post post, final List<Uint8List> imageFiles) =
+      _$CreatePostImpl;
 
   Post get post;
+  List<Uint8List> get imageFiles;
   @JsonKey(ignore: true)
   _$$CreatePostImplCopyWith<_$CreatePostImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -393,7 +411,7 @@ class _$GetPostImpl implements _GetPost {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(Post post) createPost,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
     required TResult Function() getPosts,
     required TResult Function() getMePosts,
   }) {
@@ -404,7 +422,7 @@ class _$GetPostImpl implements _GetPost {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(Post post)? createPost,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult? Function()? getPosts,
     TResult? Function()? getMePosts,
   }) {
@@ -415,7 +433,7 @@ class _$GetPostImpl implements _GetPost {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(Post post)? createPost,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult Function()? getPosts,
     TResult Function()? getMePosts,
     required TResult orElse(),
@@ -507,7 +525,7 @@ class _$GetMePostImpl implements _GetMePost {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(Post post) createPost,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
     required TResult Function() getPosts,
     required TResult Function() getMePosts,
   }) {
@@ -518,7 +536,7 @@ class _$GetMePostImpl implements _GetMePost {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(Post post)? createPost,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult? Function()? getPosts,
     TResult? Function()? getMePosts,
   }) {
@@ -529,7 +547,7 @@ class _$GetMePostImpl implements _GetMePost {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(Post post)? createPost,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     TResult Function()? getPosts,
     TResult Function()? getMePosts,
     required TResult orElse(),

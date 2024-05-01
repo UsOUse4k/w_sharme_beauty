@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -21,7 +22,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         createPost: (_CreatePost value) async {
           emit(const PostState.loading());
           try {
-            await postRepository.addPost(value.post);
+            await postRepository.addPost(value.post, value.imageFiles);
             emit(const PostState.success());
           } catch (e) {
             emit(PostState.error(message: e.toString()));
@@ -55,7 +56,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
             emit(PostState.error(message: e.toString()));
           }
         },
-        orElse: () {},
+        orElse: () {
+          
+        },
       );
     });
   }
