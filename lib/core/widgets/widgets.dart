@@ -12,4 +12,5 @@ export 'gl_subscribe_button.dart';
 export 'gl_tab_bar_widget.dart';
 export 'gl_text_button.dart';
 export 'gl_text_form_field.dart';
+export 'post_shimmer.dart';
 export 'user_avatar_with_name.dart';

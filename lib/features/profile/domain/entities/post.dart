@@ -10,7 +10,7 @@ class Post with _$Post {
     String? uid,
     String? postId,
     required String text,
-    String? imageUrl,
+    @Default([]) List<String> imageUrls,
     String? videoUrl,
     @Default(0) int likes,
     @Default([]) List<Comment> comments,

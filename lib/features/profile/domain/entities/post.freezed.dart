@@ -23,7 +23,7 @@ mixin _$Post {
   String? get uid => throw _privateConstructorUsedError;
   String? get postId => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  List<String> get imageUrls => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
   List<Comment> get comments => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $PostCopyWith<$Res> {
       {String? uid,
       String? postId,
       String text,
-      String? imageUrl,
+      List<String> imageUrls,
       String? videoUrl,
       int likes,
       List<Comment> comments,
@@ -71,7 +71,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? uid = freezed,
     Object? postId = freezed,
     Object? text = null,
-    Object? imageUrl = freezed,
+    Object? imageUrls = null,
     Object? videoUrl = freezed,
     Object? likes = null,
     Object? comments = null,
@@ -92,10 +92,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      imageUrls: null == imageUrls
+          ? _value.imageUrls
+          : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       videoUrl: freezed == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
@@ -135,7 +135,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       {String? uid,
       String? postId,
       String text,
-      String? imageUrl,
+      List<String> imageUrls,
       String? videoUrl,
       int likes,
       List<Comment> comments,
@@ -157,7 +157,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? postId = freezed,
     Object? text = null,
-    Object? imageUrl = freezed,
+    Object? imageUrls = null,
     Object? videoUrl = freezed,
     Object? likes = null,
     Object? comments = null,
@@ -178,10 +178,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      imageUrls: null == imageUrls
+          ? _value._imageUrls
+          : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       videoUrl: freezed == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
@@ -217,14 +217,15 @@ class _$PostImpl implements _Post {
       {this.uid,
       this.postId,
       required this.text,
-      this.imageUrl,
+      final List<String> imageUrls = const [],
       this.videoUrl,
       this.likes = 0,
       final List<Comment> comments = const [],
       this.reposts = 0,
       this.isFavorite = false,
       @TimestampConverter() this.createdAt})
-      : _comments = comments;
+      : _imageUrls = imageUrls,
+        _comments = comments;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
@@ -235,8 +236,15 @@ class _$PostImpl implements _Post {
   final String? postId;
   @override
   final String text;
+  final List<String> _imageUrls;
   @override
-  final String? imageUrl;
+  @JsonKey()
+  List<String> get imageUrls {
+    if (_imageUrls is EqualUnmodifiableListView) return _imageUrls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageUrls);
+  }
+
   @override
   final String? videoUrl;
   @override
@@ -263,7 +271,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(uid: $uid, postId: $postId, text: $text, imageUrl: $imageUrl, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(uid: $uid, postId: $postId, text: $text, imageUrls: $imageUrls, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -274,8 +282,8 @@ class _$PostImpl implements _Post {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.text, text) || other.text == text) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._imageUrls, _imageUrls) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
             (identical(other.likes, likes) || other.likes == likes) &&
@@ -294,7 +302,7 @@ class _$PostImpl implements _Post {
       uid,
       postId,
       text,
-      imageUrl,
+      const DeepCollectionEquality().hash(_imageUrls),
       videoUrl,
       likes,
       const DeepCollectionEquality().hash(_comments),
@@ -321,7 +329,7 @@ abstract class _Post implements Post {
       {final String? uid,
       final String? postId,
       required final String text,
-      final String? imageUrl,
+      final List<String> imageUrls,
       final String? videoUrl,
       final int likes,
       final List<Comment> comments,
@@ -338,7 +346,7 @@ abstract class _Post implements Post {
   @override
   String get text;
   @override
-  String? get imageUrl;
+  List<String> get imageUrls;
   @override
   String? get videoUrl;
   @override

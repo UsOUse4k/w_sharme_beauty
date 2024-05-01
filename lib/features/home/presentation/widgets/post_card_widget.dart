@@ -1,19 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_subscribe_button.dart';
 import 'package:w_sharme_beauty/core/widgets/user_avatar_with_name.dart';
-import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
-import 'package:w_sharme_beauty/features/home/presentation/widgets/post_icons_widget.dart';
+import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/domain/entities/post.dart';
+
+final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
 
 class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
     required this.onPressed,
     this.index,
-    required this.post,
+    this.post,
   });
 
-  final PostCardModel post;
+  final Post? post;
   final Function() onPressed;
   final int? index;
 
@@ -32,44 +37,50 @@ class PostCard extends StatelessWidget {
             children: [
               Flexible(
                 child: UserAvatarWithName(
-                  width: 40,
-                  height: 40,
-                  avatar: post.avatar,
-                  name: post.username,
-                  subTitle: post.data,
+                  width: 40.w,
+                  height: 40.h,
+                  name: 'Alina',
+                  subTitle: post!.createdAt.toString(),
                 ),
               ),
-              const Flexible(
-                child: GlSubscribeButton(),
-              ),
+              if (firebaseAuth.currentUser!.uid == post!.uid)
+                const Icon(Icons.more_horiz)
+              else
+                const Flexible(
+                  child: GlSubscribeButton(),
+                ),
             ],
           ),
           const SizedBox(height: 6),
           Text(
-            post.text,
+            post!.text,
             style: AppStyles.w400f16,
           ),
-          if (post.postImages != null) const SizedBox(height: 6),
-          if (post.postImages != null) post.postImages!,
+          if (post != null && post!.imageUrls.isNotEmpty)
+            const SizedBox(height: 6),
+          if (post != null && post!.imageUrls.isNotEmpty)
+            PostImage(
+              imageUrls: post!.imageUrls,
+            ),
           const SizedBox(height: 6),
           Row(
             children: [
               PostIconsWidget(
                 onPessed: () {},
                 icon: 'assets/icons/heart.png',
-                text: post.like,
+                text: post!.likes.toString(),
               ),
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: onPressed,
                 icon: 'assets/icons/comment.png',
-                text: post.comments,
+                text: post!.comments.length.toString(),
               ),
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: () {},
                 icon: 'assets/icons/repost.png',
-                text: post.repost,
+                text: post!.reposts.toString(),
               ),
             ],
           ),

@@ -4,4 +4,7 @@ import 'package:w_sharme_beauty/features/profile/domain/entities/entities.dart';
 
 abstract class PostRepository {
   Future<Either<PostError, Unit>> addPost(Post post);
+  Future<Either<PostError, List<Post>>> getPosts();
+  Future<Either<PostError, List<Post>>> getMePosts();
+
 }

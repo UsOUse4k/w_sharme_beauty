@@ -32,6 +32,7 @@ dependencies:
   json_annotation: ^4.8.1
   kt_dart: ^1.1.0
   pinput: ^4.0.0
+  shimmer: ^3.0.0
   uuid: ^4.4.0
 
 

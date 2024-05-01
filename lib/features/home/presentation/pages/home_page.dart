@@ -1,17 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
-import 'package:w_sharme_beauty/features/home/presentation/widgets/post_card_widget.dart';
+import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/domain/entities/post.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<PostBloc>().add(const PostEvent.getPosts());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +35,11 @@ class HomePage extends StatelessWidget {
           children: [
             GlCircleAvatar(
               avatar: Assets.images.avatar.path,
-              width: 26,
-              height: 26,
+              width: 26.w,
+              height: 26.h,
             ),
-            const SizedBox(width: 16),
-             CenterTitleAppBar(
+            SizedBox(width: 16.w),
+            CenterTitleAppBar(
               title: 'Главная',
               textStyle: AppStyles.w500f22,
             ),
@@ -39,7 +52,7 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 route.push('/home/${RouterContants.homeNotification}');
               },
-              child: Assets.icons.bell.image(width: 26, height: 26),
+              child: Assets.icons.bell.image(width: 26.w, height: 26.h),
             ),
             const SizedBox(width: 6),
             GestureDetector(
@@ -53,18 +66,30 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        child: ListView(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          children: List.generate(posts.length, (index) {
-            final post = posts[index];
-            return PostCard(
-              onPressed: () {
-                context.push('/home/post/${post.id}');
+        child: BlocBuilder<PostBloc, PostState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loading: () => ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemCount: 5,
+                itemBuilder: (context, index) => const PostShimmer(),
+              ),
+              getPosts: (List<Post> posts) {
+                return ListView.builder(
+                  key: const PageStorageKey<String>('postsPage'),
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) => PostCard(
+                    onPressed: () {},
+                    post: posts[index],
+                  ),
+                );
               },
-              post: post,
+              orElse: () => Container(),
             );
-          }),
+          },
         ),
       ),
     );

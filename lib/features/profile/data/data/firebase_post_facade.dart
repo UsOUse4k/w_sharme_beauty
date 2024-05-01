@@ -29,4 +29,35 @@ class FirestorePostRepository implements PostRepository {
       return left(PostError(e.toString()));
     }
   }
+
+  @override
+  Future<Either<PostError, List<Post>>> getPosts() async {
+    try {
+      final QuerySnapshot querySnapshot =
+          await firestore.collection('posts').get();
+      final List<Post> posts = querySnapshot.docs
+          .map((doc) => Post.fromJson(doc.data()! as Map<String, dynamic>))
+          .toList();
+      return right(posts);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, List<Post>>> getMePosts() async {
+    try {
+      final uuid = auth.currentUser!.uid;
+      final QuerySnapshot querySnapshot = await firestore
+          .collection('posts')
+          .where('uid', isEqualTo: uuid)
+          .get();
+      final List<Post> posts = querySnapshot.docs
+          .map((doc) => Post.fromJson(doc.data()! as Map<String, dynamic>))
+          .toList();
+      return right(posts);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

@@ -34,7 +34,7 @@ class HomePostPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: ListView(
             children: [
-              PostCard(onPressed: () {}, post: post),
+              PostCard(onPressed: () {},),
               CustomContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

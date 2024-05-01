@@ -23,7 +23,8 @@ class ProfileAddPublicPage extends StatefulWidget {
 }
 
 class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
-  String? selectedImagePath;
+  List<String> selectedImagePaths = [];
+  bool isLoading = false;
   final TextEditingController desc = TextEditingController();
 
   Future pickImage(BuildContext context) async {
@@ -31,14 +32,14 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        selectedImagePath = image.path;
+        selectedImagePaths.add(image.path);
       });
     }
   }
 
-  void clearImage() {
+  void clearImage(String path) {
     setState(() {
-      selectedImagePath = null;
+      selectedImagePaths.remove(path);
     });
   }
 
@@ -67,33 +68,36 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
       ),
       body: BlocListener<PostBloc, PostState>(
         listener: (context, state) {
-          state.when(
-            initial: () {},
-            loading: () {},
-            loaded: (posts) {
+          state.map(
+            initial: (value) {},
+            loading: (value) {
+              setState(() {
+                isLoading = true;
+              });
+            },
+            success: (value) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("Загрузка завершена!"),
-                ),
-              );
-            },
-            error: (message) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Ошибка: $message"),
-                ),
-              );
-            },
-            success: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Загрузка завершена!"),
+                  content: Text("Загрузка успешно завершена!"),
                 ),
               );
               setState(() {
-                selectedImagePath = null;
+                selectedImagePaths = [];
+                desc.clear();
+                isLoading = false;
               });
             },
+            error: (value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Ошибка: ${value.message}"),
+                ),
+              );
+              setState(() {
+                isLoading = false;
+              });
+            }, 
+            getPosts: (value) {}, getMePosts: (value) {  },
           );
         },
         child: Column(
@@ -111,15 +115,18 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
             const SizedBox(
               height: 10,
             ),
-            if (selectedImagePath != null)
-              Row(
-                children: [
-                  CardImageProfileAdd(
-                    image: FileImage(File(selectedImagePath!)),
-                    onPressed: clearImage,
-                  ),
-                ],
-              ),
+            Wrap(
+              spacing: 5,
+              runSpacing: 5,
+              children: selectedImagePaths
+                  .map(
+                    (path) => CardImageProfileAdd(
+                      image: FileImage(File(path)),
+                      onPressed: () => clearImage(path),
+                    ),
+                  )
+                  .toList(),
+            ),
             const SizedBox(height: 20),
             AddingButton(
               text: "+ Выбрать из галереи",
@@ -136,14 +143,14 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
             ),
             const Spacer(),
             GlButton(
-              text: "Опубликовать",
+              text: isLoading ? "Загрузка.." : "Опубликовать",
               onPressed: () {
-                if (selectedImagePath != null && desc.text.isNotEmpty) {
+                if (selectedImagePaths.isNotEmpty && desc.text.isNotEmpty) {
                   context.read<PostBloc>().add(
                         PostEvent.createPost(
                           Post(
                             text: desc.text,
-                            imageUrl: selectedImagePath,
+                            imageUrls: selectedImagePaths,
                           ),
                         ),
                       );

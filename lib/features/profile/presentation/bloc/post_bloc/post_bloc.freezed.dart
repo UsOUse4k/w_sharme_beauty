@@ -20,18 +20,24 @@ mixin _$PostEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(Post post) createPost,
+    required TResult Function() getPosts,
+    required TResult Function() getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(Post post)? createPost,
+    TResult? Function()? getPosts,
+    TResult? Function()? getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(Post post)? createPost,
+    TResult Function()? getPosts,
+    TResult Function()? getMePosts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +45,24 @@ mixin _$PostEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_CreatePost value) createPost,
+    required TResult Function(_GetPost value) getPosts,
+    required TResult Function(_GetMePost value) getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_CreatePost value)? createPost,
+    TResult? Function(_GetPost value)? getPosts,
+    TResult? Function(_GetMePost value)? getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_CreatePost value)? createPost,
+    TResult Function(_GetPost value)? getPosts,
+    TResult Function(_GetMePost value)? getMePosts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +125,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(Post post) createPost,
+    required TResult Function() getPosts,
+    required TResult Function() getMePosts,
   }) {
     return started();
   }
@@ -122,6 +136,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(Post post)? createPost,
+    TResult? Function()? getPosts,
+    TResult? Function()? getMePosts,
   }) {
     return started?.call();
   }
@@ -131,6 +147,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(Post post)? createPost,
+    TResult Function()? getPosts,
+    TResult Function()? getMePosts,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -144,6 +162,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_CreatePost value) createPost,
+    required TResult Function(_GetPost value) getPosts,
+    required TResult Function(_GetMePost value) getMePosts,
   }) {
     return started(this);
   }
@@ -153,6 +173,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_CreatePost value)? createPost,
+    TResult? Function(_GetPost value)? getPosts,
+    TResult? Function(_GetMePost value)? getMePosts,
   }) {
     return started?.call(this);
   }
@@ -162,6 +184,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_CreatePost value)? createPost,
+    TResult Function(_GetPost value)? getPosts,
+    TResult Function(_GetMePost value)? getMePosts,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -251,6 +275,8 @@ class _$CreatePostImpl implements _CreatePost {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(Post post) createPost,
+    required TResult Function() getPosts,
+    required TResult Function() getMePosts,
   }) {
     return createPost(post);
   }
@@ -260,6 +286,8 @@ class _$CreatePostImpl implements _CreatePost {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(Post post)? createPost,
+    TResult? Function()? getPosts,
+    TResult? Function()? getMePosts,
   }) {
     return createPost?.call(post);
   }
@@ -269,6 +297,8 @@ class _$CreatePostImpl implements _CreatePost {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(Post post)? createPost,
+    TResult Function()? getPosts,
+    TResult Function()? getMePosts,
     required TResult orElse(),
   }) {
     if (createPost != null) {
@@ -282,6 +312,8 @@ class _$CreatePostImpl implements _CreatePost {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_CreatePost value) createPost,
+    required TResult Function(_GetPost value) getPosts,
+    required TResult Function(_GetMePost value) getMePosts,
   }) {
     return createPost(this);
   }
@@ -291,6 +323,8 @@ class _$CreatePostImpl implements _CreatePost {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_CreatePost value)? createPost,
+    TResult? Function(_GetPost value)? getPosts,
+    TResult? Function(_GetMePost value)? getMePosts,
   }) {
     return createPost?.call(this);
   }
@@ -300,6 +334,8 @@ class _$CreatePostImpl implements _CreatePost {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_CreatePost value)? createPost,
+    TResult Function(_GetPost value)? getPosts,
+    TResult Function(_GetMePost value)? getMePosts,
     required TResult orElse(),
   }) {
     if (createPost != null) {
@@ -319,32 +355,263 @@ abstract class _CreatePost implements PostEvent {
 }
 
 /// @nodoc
+abstract class _$$GetPostImplCopyWith<$Res> {
+  factory _$$GetPostImplCopyWith(
+          _$GetPostImpl value, $Res Function(_$GetPostImpl) then) =
+      __$$GetPostImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetPostImplCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$GetPostImpl>
+    implements _$$GetPostImplCopyWith<$Res> {
+  __$$GetPostImplCopyWithImpl(
+      _$GetPostImpl _value, $Res Function(_$GetPostImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetPostImpl implements _GetPost {
+  const _$GetPostImpl();
+
+  @override
+  String toString() {
+    return 'PostEvent.getPosts()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetPostImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(Post post) createPost,
+    required TResult Function() getPosts,
+    required TResult Function() getMePosts,
+  }) {
+    return getPosts();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(Post post)? createPost,
+    TResult? Function()? getPosts,
+    TResult? Function()? getMePosts,
+  }) {
+    return getPosts?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Post post)? createPost,
+    TResult Function()? getPosts,
+    TResult Function()? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getPosts != null) {
+      return getPosts();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_CreatePost value) createPost,
+    required TResult Function(_GetPost value) getPosts,
+    required TResult Function(_GetMePost value) getMePosts,
+  }) {
+    return getPosts(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_CreatePost value)? createPost,
+    TResult? Function(_GetPost value)? getPosts,
+    TResult? Function(_GetMePost value)? getMePosts,
+  }) {
+    return getPosts?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_CreatePost value)? createPost,
+    TResult Function(_GetPost value)? getPosts,
+    TResult Function(_GetMePost value)? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getPosts != null) {
+      return getPosts(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetPost implements PostEvent {
+  const factory _GetPost() = _$GetPostImpl;
+}
+
+/// @nodoc
+abstract class _$$GetMePostImplCopyWith<$Res> {
+  factory _$$GetMePostImplCopyWith(
+          _$GetMePostImpl value, $Res Function(_$GetMePostImpl) then) =
+      __$$GetMePostImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetMePostImplCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$GetMePostImpl>
+    implements _$$GetMePostImplCopyWith<$Res> {
+  __$$GetMePostImplCopyWithImpl(
+      _$GetMePostImpl _value, $Res Function(_$GetMePostImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetMePostImpl implements _GetMePost {
+  const _$GetMePostImpl();
+
+  @override
+  String toString() {
+    return 'PostEvent.getMePosts()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetMePostImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(Post post) createPost,
+    required TResult Function() getPosts,
+    required TResult Function() getMePosts,
+  }) {
+    return getMePosts();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(Post post)? createPost,
+    TResult? Function()? getPosts,
+    TResult? Function()? getMePosts,
+  }) {
+    return getMePosts?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Post post)? createPost,
+    TResult Function()? getPosts,
+    TResult Function()? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getMePosts != null) {
+      return getMePosts();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_CreatePost value) createPost,
+    required TResult Function(_GetPost value) getPosts,
+    required TResult Function(_GetMePost value) getMePosts,
+  }) {
+    return getMePosts(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_CreatePost value)? createPost,
+    TResult? Function(_GetPost value)? getPosts,
+    TResult? Function(_GetMePost value)? getMePosts,
+  }) {
+    return getMePosts?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_CreatePost value)? createPost,
+    TResult Function(_GetPost value)? getPosts,
+    TResult Function(_GetMePost value)? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getMePosts != null) {
+      return getMePosts(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMePost implements PostEvent {
+  const factory _GetMePost() = _$GetMePostImpl;
+}
+
+/// @nodoc
 mixin _$PostState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Post> posts)? loaded,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -352,27 +619,30 @@ mixin _$PostState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -435,9 +705,10 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
   }) {
     return initial();
   }
@@ -447,9 +718,10 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Post> posts)? loaded,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
   }) {
     return initial?.call();
   }
@@ -459,9 +731,10 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -475,9 +748,10 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
   }) {
     return initial(this);
   }
@@ -487,9 +761,10 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
   }) {
     return initial?.call(this);
   }
@@ -499,9 +774,10 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -555,9 +831,10 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
   }) {
     return loading();
   }
@@ -567,9 +844,10 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Post> posts)? loaded,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
   }) {
     return loading?.call();
   }
@@ -579,9 +857,10 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -595,9 +874,10 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
   }) {
     return loading(this);
   }
@@ -607,9 +887,10 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
   }) {
     return loading?.call(this);
   }
@@ -619,9 +900,10 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -633,163 +915,6 @@ class _$LoadingImpl implements _Loading {
 
 abstract class _Loading implements PostState {
   const factory _Loading() = _$LoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
-      __$$LoadedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Post> posts});
-}
-
-/// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$PostStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? posts = null,
-  }) {
-    return _then(_$LoadedImpl(
-      posts: null == posts
-          ? _value._posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<Post>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required final List<Post> posts}) : _posts = posts;
-
-  final List<Post> _posts;
-  @override
-  List<Post> get posts {
-    if (_posts is EqualUnmodifiableListView) return _posts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_posts);
-  }
-
-  @override
-  String toString() {
-    return 'PostState.loaded(posts: $posts)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
-            const DeepCollectionEquality().equals(other._posts, _posts));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_posts));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
-    required TResult Function() success,
-    required TResult Function(String message) error,
-  }) {
-    return loaded(posts);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Post> posts)? loaded,
-    TResult? Function()? success,
-    TResult? Function(String message)? error,
-  }) {
-    return loaded?.call(posts);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
-    TResult Function()? success,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(posts);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-  }) {
-    return loaded(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-  }) {
-    return loaded?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (loaded != null) {
-      return loaded(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loaded implements PostState {
-  const factory _Loaded({required final List<Post> posts}) = _$LoadedImpl;
-
-  List<Post> get posts;
-  @JsonKey(ignore: true)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -832,9 +957,10 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
   }) {
     return success();
   }
@@ -844,9 +970,10 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Post> posts)? loaded,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
   }) {
     return success?.call();
   }
@@ -856,9 +983,10 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -872,9 +1000,10 @@ class _$SuccessImpl implements _Success {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
   }) {
     return success(this);
   }
@@ -884,9 +1013,10 @@ class _$SuccessImpl implements _Success {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
   }) {
     return success?.call(this);
   }
@@ -896,9 +1026,10 @@ class _$SuccessImpl implements _Success {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -978,9 +1109,10 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Post> posts) loaded,
     required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
   }) {
     return error(message);
   }
@@ -990,9 +1122,10 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Post> posts)? loaded,
     TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
   }) {
     return error?.call(message);
   }
@@ -1002,9 +1135,10 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Post> posts)? loaded,
     TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1018,9 +1152,10 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
   }) {
     return error(this);
   }
@@ -1030,9 +1165,10 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
   }) {
     return error?.call(this);
   }
@@ -1042,9 +1178,10 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1060,5 +1197,334 @@ abstract class _Error implements PostState {
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessGetPostImplCopyWith<$Res> {
+  factory _$$SuccessGetPostImplCopyWith(_$SuccessGetPostImpl value,
+          $Res Function(_$SuccessGetPostImpl) then) =
+      __$$SuccessGetPostImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Post> posts});
+}
+
+/// @nodoc
+class __$$SuccessGetPostImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$SuccessGetPostImpl>
+    implements _$$SuccessGetPostImplCopyWith<$Res> {
+  __$$SuccessGetPostImplCopyWithImpl(
+      _$SuccessGetPostImpl _value, $Res Function(_$SuccessGetPostImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? posts = null,
+  }) {
+    return _then(_$SuccessGetPostImpl(
+      null == posts
+          ? _value._posts
+          : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessGetPostImpl implements _SuccessGetPost {
+  const _$SuccessGetPostImpl(final List<Post> posts) : _posts = posts;
+
+  final List<Post> _posts;
+  @override
+  List<Post> get posts {
+    if (_posts is EqualUnmodifiableListView) return _posts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_posts);
+  }
+
+  @override
+  String toString() {
+    return 'PostState.getPosts(posts: $posts)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessGetPostImpl &&
+            const DeepCollectionEquality().equals(other._posts, _posts));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_posts));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessGetPostImplCopyWith<_$SuccessGetPostImpl> get copyWith =>
+      __$$SuccessGetPostImplCopyWithImpl<_$SuccessGetPostImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
+  }) {
+    return getPosts(posts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
+  }) {
+    return getPosts?.call(posts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getPosts != null) {
+      return getPosts(posts);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
+  }) {
+    return getPosts(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
+  }) {
+    return getPosts?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getPosts != null) {
+      return getPosts(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessGetPost implements PostState {
+  const factory _SuccessGetPost(final List<Post> posts) = _$SuccessGetPostImpl;
+
+  List<Post> get posts;
+  @JsonKey(ignore: true)
+  _$$SuccessGetPostImplCopyWith<_$SuccessGetPostImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessGetMePostImplCopyWith<$Res> {
+  factory _$$SuccessGetMePostImplCopyWith(_$SuccessGetMePostImpl value,
+          $Res Function(_$SuccessGetMePostImpl) then) =
+      __$$SuccessGetMePostImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Post> posts});
+}
+
+/// @nodoc
+class __$$SuccessGetMePostImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$SuccessGetMePostImpl>
+    implements _$$SuccessGetMePostImplCopyWith<$Res> {
+  __$$SuccessGetMePostImplCopyWithImpl(_$SuccessGetMePostImpl _value,
+      $Res Function(_$SuccessGetMePostImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? posts = null,
+  }) {
+    return _then(_$SuccessGetMePostImpl(
+      null == posts
+          ? _value._posts
+          : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessGetMePostImpl implements _SuccessGetMePost {
+  const _$SuccessGetMePostImpl(final List<Post> posts) : _posts = posts;
+
+  final List<Post> _posts;
+  @override
+  List<Post> get posts {
+    if (_posts is EqualUnmodifiableListView) return _posts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_posts);
+  }
+
+  @override
+  String toString() {
+    return 'PostState.getMePosts(posts: $posts)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessGetMePostImpl &&
+            const DeepCollectionEquality().equals(other._posts, _posts));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_posts));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessGetMePostImplCopyWith<_$SuccessGetMePostImpl> get copyWith =>
+      __$$SuccessGetMePostImplCopyWithImpl<_$SuccessGetMePostImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function(String message) error,
+    required TResult Function(List<Post> posts) getPosts,
+    required TResult Function(List<Post> posts) getMePosts,
+  }) {
+    return getMePosts(posts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(String message)? error,
+    TResult? Function(List<Post> posts)? getPosts,
+    TResult? Function(List<Post> posts)? getMePosts,
+  }) {
+    return getMePosts?.call(posts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function(String message)? error,
+    TResult Function(List<Post> posts)? getPosts,
+    TResult Function(List<Post> posts)? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getMePosts != null) {
+      return getMePosts(posts);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+    required TResult Function(_SuccessGetPost value) getPosts,
+    required TResult Function(_SuccessGetMePost value) getMePosts,
+  }) {
+    return getMePosts(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_SuccessGetPost value)? getPosts,
+    TResult? Function(_SuccessGetMePost value)? getMePosts,
+  }) {
+    return getMePosts?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    TResult Function(_SuccessGetPost value)? getPosts,
+    TResult Function(_SuccessGetMePost value)? getMePosts,
+    required TResult orElse(),
+  }) {
+    if (getMePosts != null) {
+      return getMePosts(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SuccessGetMePost implements PostState {
+  const factory _SuccessGetMePost(final List<Post> posts) =
+      _$SuccessGetMePostImpl;
+
+  List<Post> get posts;
+  @JsonKey(ignore: true)
+  _$$SuccessGetMePostImplCopyWith<_$SuccessGetMePostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

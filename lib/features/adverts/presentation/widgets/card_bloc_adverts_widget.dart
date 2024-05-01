@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/card_bloc_navbar.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
+
 class CardBlocAdvertsWidget extends StatelessWidget {
   const CardBlocAdvertsWidget({
     super.key,

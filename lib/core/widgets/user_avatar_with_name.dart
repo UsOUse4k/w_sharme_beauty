@@ -8,15 +8,14 @@ class UserAvatarWithName extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
-    required this.avatar,
+    this.avatar,
     required this.name,
     required this.subTitle,
   });
 
-
   final double width;
   final double height;
-  final String avatar;
+  final String? avatar;
   final String name;
   final String subTitle;
 
@@ -25,11 +24,12 @@ class UserAvatarWithName extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GlCircleAvatar(
-          width: width,
-          height: height,
-          avatar: avatar,
-        ),
+        if (avatar != null)
+          GlCircleAvatar(
+            width: width,
+            height: height,
+            avatar: avatar!,
+          ),
         const SizedBox(width: 5),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
