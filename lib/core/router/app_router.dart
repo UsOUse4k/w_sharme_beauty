@@ -268,8 +268,8 @@ mixin AppRouter on State<App> {
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    path: RouterContants.profileAddPublic,
-                    builder: (context, state) => const ProfileAddPublicPage(),
+                    path: RouterContants.createPost,
+                    builder: (context, state) => const CreatePostPage(),
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

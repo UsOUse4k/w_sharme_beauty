@@ -7,21 +7,22 @@ import 'package:image_picker/image_picker.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/domain/entities/entities.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart';
+import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 
-class ProfileAddPublicPage extends StatefulWidget {
-  const ProfileAddPublicPage({super.key});
+class CreatePostPage extends StatefulWidget {
+  const CreatePostPage({super.key});
 
   @override
-  State<ProfileAddPublicPage> createState() => _ProfileAddPublicPageState();
+  State<CreatePostPage> createState() => _CreatePostPageState();
 }
 
-class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
+class _CreatePostPageState extends State<CreatePostPage> {
   List<Uint8List> selectedImageBytes = [];
+
   bool isLoading = false;
   final TextEditingController desc = TextEditingController();
 
@@ -65,7 +66,7 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
           textStyle: AppStyles.w500f18,
         ),
       ),
-      body: BlocListener<PostBloc, PostState>(
+      body: BlocListener<PostCreateBloc, PostCreateState>(
         listener: (context, state) {
           state.maybeMap(
             loading: (value) {
@@ -147,9 +148,9 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
             GlButton(
               text: isLoading ? "Загрузка.." : "Опубликовать",
               onPressed: () {
-                if (selectedImageBytes.isNotEmpty && desc.text.isNotEmpty) {
-                  context.read<PostBloc>().add(
-                        PostEvent.createPost(
+                if (desc.text.isNotEmpty && selectedImageBytes.isNotEmpty) {
+                  context.read<PostCreateBloc>().add(
+                        PostCreateEvent.createPost(
                           Post(text: desc.text),
                           selectedImageBytes,
                         ),

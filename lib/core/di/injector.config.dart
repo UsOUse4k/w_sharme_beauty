@@ -27,13 +27,19 @@ import 'package:w_sharme_beauty/features/auth/domain/usecases/register_with_emai
     as _i11;
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart'
     as _i10;
-import 'package:w_sharme_beauty/features/profile/data/data/firebase_post_facade.dart'
+import 'package:w_sharme_beauty/features/post/data/firebase_post_repository.dart'
     as _i14;
-import 'package:w_sharme_beauty/features/profile/domain/repositories/repositories.dart'
+import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart'
     as _i13;
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart'
+import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart'
+    as _i16;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
+    as _i18;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
     as _i15;
-import 'package:w_sharme_beauty/firebase_module.dart' as _i16;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
+    as _i17;
+import 'package:w_sharme_beauty/firebase_module.dart' as _i19;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -61,14 +67,23 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i11.RegisterWithEmailUC(repository: gh<_i6.IAuthFacade>()));
     gh.factory<_i12.LoginWithEmailUC>(
         () => _i12.LoginWithEmailUC(repository: gh<_i6.IAuthFacade>()));
-    gh.lazySingleton<_i13.PostRepository>(() => _i14.FirestorePostRepository(
+    gh.lazySingleton<_i13.IPostRepository>(() => _i14.FirestorePostRepository(
           gh<_i4.FirebaseFirestore>(),
           gh<_i3.FirebaseAuth>(),
           gh<_i5.FirebaseStorage>(),
         ));
-    gh.factory<_i15.PostBloc>(() => _i15.PostBloc(gh<_i13.PostRepository>()));
+    gh.factory<_i15.PostLikeBloc>(
+        () => _i15.PostLikeBloc(gh<_i13.IPostRepository>()));
+    gh.factory<_i16.MyPostListBloc>(() => _i16.MyPostListBloc(
+          gh<_i13.IPostRepository>(),
+          gh<_i9.IAuthFacade>(),
+        ));
+    gh.factory<_i17.PostListBloc>(
+        () => _i17.PostListBloc(gh<_i13.IPostRepository>()));
+    gh.factory<_i18.PostCreateBloc>(
+        () => _i18.PostCreateBloc(gh<_i13.IPostRepository>()));
     return this;
   }
 }
 
-class _$FirebaseModule extends _i16.FirebaseModule {}
+class _$FirebaseModule extends _i19.FirebaseModule {}

@@ -290,6 +290,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/close.svg
   SvgGenImage get close => const SvgGenImage('assets/svgs/close.svg');
 
+  /// File path: assets/svgs/comment.svg
+  SvgGenImage get comment => const SvgGenImage('assets/svgs/comment.svg');
+
   /// File path: assets/svgs/edit.svg
   SvgGenImage get edit => const SvgGenImage('assets/svgs/edit.svg');
 
@@ -298,6 +301,12 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/issue.svg
   SvgGenImage get issue => const SvgGenImage('assets/svgs/issue.svg');
+
+  /// File path: assets/svgs/like.svg
+  SvgGenImage get like => const SvgGenImage('assets/svgs/like.svg');
+
+  /// File path: assets/svgs/likeRound.svg
+  SvgGenImage get likeRound => const SvgGenImage('assets/svgs/likeRound.svg');
 
   /// File path: assets/svgs/location.svg
   SvgGenImage get location => const SvgGenImage('assets/svgs/location.svg');
@@ -320,6 +329,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
 
+  /// File path: assets/svgs/share.svg
+  SvgGenImage get share => const SvgGenImage('assets/svgs/share.svg');
+
   /// File path: assets/svgs/subscribers.svg
   SvgGenImage get subscribers =>
       const SvgGenImage('assets/svgs/subscribers.svg');
@@ -338,9 +350,12 @@ class $AssetsSvgsGen {
         chat,
         checkDouble,
         close,
+        comment,
         edit,
         home,
         issue,
+        like,
+        likeRound,
         location,
         managers,
         message,
@@ -348,6 +363,7 @@ class $AssetsSvgsGen {
         present,
         profile,
         search,
+        share,
         subscribers,
         telegram,
         vk

@@ -20,14 +20,14 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
-  String? get uid => throw _privateConstructorUsedError;
+  String? get authorId => throw _privateConstructorUsedError;
   String? get postId => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   List<String> get imageUrls => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
-  int get likes => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
   List<Comment> get comments => throw _privateConstructorUsedError;
-  int get reposts => throw _privateConstructorUsedError;
+  List<String> get reposts => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -43,14 +43,14 @@ abstract class $PostCopyWith<$Res> {
       _$PostCopyWithImpl<$Res, Post>;
   @useResult
   $Res call(
-      {String? uid,
+      {String? authorId,
       String? postId,
       String text,
       List<String> imageUrls,
       String? videoUrl,
-      int likes,
+      List<String> likes,
       List<Comment> comments,
-      int reposts,
+      List<String> reposts,
       bool isFavorite,
       @TimestampConverter() DateTime? createdAt});
 }
@@ -68,7 +68,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? authorId = freezed,
     Object? postId = freezed,
     Object? text = null,
     Object? imageUrls = null,
@@ -80,9 +80,9 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      authorId: freezed == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as String?,
       postId: freezed == postId
           ? _value.postId
@@ -103,7 +103,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
       comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
@@ -111,7 +111,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       reposts: null == reposts
           ? _value.reposts
           : reposts // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -132,14 +132,14 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? uid,
+      {String? authorId,
       String? postId,
       String text,
       List<String> imageUrls,
       String? videoUrl,
-      int likes,
+      List<String> likes,
       List<Comment> comments,
-      int reposts,
+      List<String> reposts,
       bool isFavorite,
       @TimestampConverter() DateTime? createdAt});
 }
@@ -154,7 +154,7 @@ class __$$PostImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? authorId = freezed,
     Object? postId = freezed,
     Object? text = null,
     Object? imageUrls = null,
@@ -166,9 +166,9 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
   }) {
     return _then(_$PostImpl(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      authorId: freezed == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as String?,
       postId: freezed == postId
           ? _value.postId
@@ -187,17 +187,17 @@ class __$$PostImplCopyWithImpl<$Res>
           : videoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       likes: null == likes
-          ? _value.likes
+          ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
       comments: null == comments
           ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
               as List<Comment>,
       reposts: null == reposts
-          ? _value.reposts
+          ? _value._reposts
           : reposts // ignore: cast_nullable_to_non_nullable
-              as int,
+              as List<String>,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -214,24 +214,26 @@ class __$$PostImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PostImpl implements _Post {
   const _$PostImpl(
-      {this.uid,
+      {this.authorId,
       this.postId,
       required this.text,
       final List<String> imageUrls = const [],
       this.videoUrl,
-      this.likes = 0,
+      final List<String> likes = const [],
       final List<Comment> comments = const [],
-      this.reposts = 0,
+      final List<String> reposts = const [],
       this.isFavorite = false,
       @TimestampConverter() this.createdAt})
       : _imageUrls = imageUrls,
-        _comments = comments;
+        _likes = likes,
+        _comments = comments,
+        _reposts = reposts;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
 
   @override
-  final String? uid;
+  final String? authorId;
   @override
   final String? postId;
   @override
@@ -247,9 +249,15 @@ class _$PostImpl implements _Post {
 
   @override
   final String? videoUrl;
+  final List<String> _likes;
   @override
   @JsonKey()
-  final int likes;
+  List<String> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
+
   final List<Comment> _comments;
   @override
   @JsonKey()
@@ -259,9 +267,15 @@ class _$PostImpl implements _Post {
     return EqualUnmodifiableListView(_comments);
   }
 
+  final List<String> _reposts;
   @override
   @JsonKey()
-  final int reposts;
+  List<String> get reposts {
+    if (_reposts is EqualUnmodifiableListView) return _reposts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_reposts);
+  }
+
   @override
   @JsonKey()
   final bool isFavorite;
@@ -271,7 +285,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(uid: $uid, postId: $postId, text: $text, imageUrls: $imageUrls, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(authorId: $authorId, postId: $postId, text: $text, imageUrls: $imageUrls, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -279,16 +293,17 @@ class _$PostImpl implements _Post {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostImpl &&
-            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.authorId, authorId) ||
+                other.authorId == authorId) &&
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.text, text) || other.text == text) &&
             const DeepCollectionEquality()
                 .equals(other._imageUrls, _imageUrls) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
-            (identical(other.likes, likes) || other.likes == likes) &&
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
             const DeepCollectionEquality().equals(other._comments, _comments) &&
-            (identical(other.reposts, reposts) || other.reposts == reposts) &&
+            const DeepCollectionEquality().equals(other._reposts, _reposts) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
             (identical(other.createdAt, createdAt) ||
@@ -299,14 +314,14 @@ class _$PostImpl implements _Post {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      uid,
+      authorId,
       postId,
       text,
       const DeepCollectionEquality().hash(_imageUrls),
       videoUrl,
-      likes,
+      const DeepCollectionEquality().hash(_likes),
       const DeepCollectionEquality().hash(_comments),
-      reposts,
+      const DeepCollectionEquality().hash(_reposts),
       isFavorite,
       createdAt);
 
@@ -326,21 +341,21 @@ class _$PostImpl implements _Post {
 
 abstract class _Post implements Post {
   const factory _Post(
-      {final String? uid,
+      {final String? authorId,
       final String? postId,
       required final String text,
       final List<String> imageUrls,
       final String? videoUrl,
-      final int likes,
+      final List<String> likes,
       final List<Comment> comments,
-      final int reposts,
+      final List<String> reposts,
       final bool isFavorite,
       @TimestampConverter() final DateTime? createdAt}) = _$PostImpl;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
   @override
-  String? get uid;
+  String? get authorId;
   @override
   String? get postId;
   @override
@@ -350,11 +365,11 @@ abstract class _Post implements Post {
   @override
   String? get videoUrl;
   @override
-  int get likes;
+  List<String> get likes;
   @override
   List<Comment> get comments;
   @override
-  int get reposts;
+  List<String> get reposts;
   @override
   bool get isFavorite;
   @override

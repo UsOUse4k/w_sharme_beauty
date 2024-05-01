@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
@@ -9,7 +10,7 @@ class PostIconsWidget extends StatelessWidget {
     required this.text, required this.onPessed,
   });
 
-  final String icon;
+  final SvgPicture icon;
   final String text;
   final Function() onPessed;
 
@@ -24,13 +25,7 @@ class PostIconsWidget extends StatelessWidget {
             color: AppColors.lightGrey, borderRadius: BorderRadius.circular(20),),
         child: Row(
           children: [
-            Image(
-              width: 20,
-              height: 20,
-              image: AssetImage(
-                icon,
-              ),
-            ),
+            icon,
             const SizedBox(width: 6),
             Text(
               text,

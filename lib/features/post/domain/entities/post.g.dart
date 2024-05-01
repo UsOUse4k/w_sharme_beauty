@@ -7,7 +7,7 @@ part of 'post.dart';
 // **************************************************************************
 
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
-      uid: json['uid'] as String?,
+      authorId: json['authorId'] as String?,
       postId: json['postId'] as String?,
       text: json['text'] as String,
       imageUrls: (json['imageUrls'] as List<dynamic>?)
@@ -15,12 +15,17 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
               .toList() ??
           const [],
       videoUrl: json['videoUrl'] as String?,
-      likes: json['likes'] as int? ?? 0,
+      likes:
+          (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
       comments: (json['comments'] as List<dynamic>?)
               ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      reposts: json['reposts'] as int? ?? 0,
+      reposts: (json['reposts'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       isFavorite: json['isFavorite'] as bool? ?? false,
       createdAt: const TimestampConverter()
           .fromJson(json['createdAt'] as Map<String, dynamic>?),
@@ -28,7 +33,7 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
 
 Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
+      'authorId': instance.authorId,
       'postId': instance.postId,
       'text': instance.text,
       'imageUrls': instance.imageUrls,
