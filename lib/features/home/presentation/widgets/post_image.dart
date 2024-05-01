@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 
 class PostImage extends StatelessWidget {
   const PostImage({
@@ -16,12 +17,9 @@ class PostImage extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
-            child: Image(
+            child: GlCachedNetworImage(
               height: 394.h,
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                imageUrls![0],
-              ),
+              urlImage: imageUrls![0],
             ),
           )
         : SizedBox(
@@ -36,9 +34,8 @@ class PostImage extends StatelessWidget {
                 children: List.generate(
                   imageUrls!.length,
                   (index) {
-                    return Image(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(imageUrls![index]),
+                    return GlCachedNetworImage(
+                      urlImage: imageUrls![index],
                     );
                   },
                 ),

@@ -4,6 +4,5 @@ part of 'post_bloc.dart';
 class PostEvent with _$PostEvent {
   const factory PostEvent.started() = _Started;
   const factory PostEvent.createPost(Post post, List<Uint8List> imageFiles) = _CreatePost;
-  const factory PostEvent.getPosts() = _GetPost;
   const factory PostEvent.getMePosts() = _GetMePost;
 }

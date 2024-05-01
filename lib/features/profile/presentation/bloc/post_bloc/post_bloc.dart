@@ -18,26 +18,11 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc(this.postRepository) : super(const _Initial()) {
     on<PostEvent>((event, emit) async {
       await event.maybeMap(
-        started: (_Started value) {},
         createPost: (_CreatePost value) async {
           emit(const PostState.loading());
           try {
             await postRepository.addPost(value.post, value.imageFiles);
             emit(const PostState.success());
-          } catch (e) {
-            emit(PostState.error(message: e.toString()));
-          }
-        },
-        getPosts: (_GetPost value) async {
-          emit(const PostState.loading());
-          try {
-            final Either<PostError, List<Post>> result =
-                await postRepository.getPosts();
-            result.fold((error) {
-              emit(PostState.error(message: error.messasge));
-            }, (posts) {
-              emit(PostState.getPosts(posts));
-            });
           } catch (e) {
             emit(PostState.error(message: e.toString()));
           }

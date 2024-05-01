@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    context.read<PostBloc>().add(const PostEvent.getPosts());
+    context.read<PostBloc>().add(const PostEvent.getMePosts());
     super.initState();
   }
 
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 5,
                 itemBuilder: (context, index) => const PostShimmer(),
               ),
-              getPosts: (List<Post> posts) {
+              getMePosts: (List<Post> posts) {
                 return ListView.builder(
                   key: const PageStorageKey<String>('postsPage'),
                   shrinkWrap: true,

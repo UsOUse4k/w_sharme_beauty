@@ -8,5 +8,4 @@ abstract class PostRepository {
   Future<Either<PostError, Unit>> addPost(Post post, List<Uint8List> imageFiles);
   Future<Either<PostError, List<Post>>> getPosts();
   Future<Either<PostError, List<Post>>> getMePosts();
-
 }

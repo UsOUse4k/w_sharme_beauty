@@ -4,14 +4,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseStorageImageMethods {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  //FirebaseStorageImageMethods(this._auth, this._storage);
+  final FirebaseAuth _auth;
+  final FirebaseStorage _storage;
+  FirebaseStorageImageMethods(this._auth, this._storage);
 
   Future<List<String>> uploadImageToStorage(
     List<Uint8List> files,
     bool isPost,
-    String childName
+    String childName,
   ) async {
     final List<String> downloadUrls = [];
     try {

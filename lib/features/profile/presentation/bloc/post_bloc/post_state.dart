@@ -6,6 +6,5 @@ class PostState with _$PostState {
   const factory PostState.loading() = _Loading;
   const factory PostState.success() = _Success;
   const factory PostState.error({required String message}) = _Error;
-  const factory PostState.getPosts(List<Post> posts) = _SuccessGetPost;
   const factory PostState.getMePosts(List<Post> posts) = _SuccessGetMePost;
 }

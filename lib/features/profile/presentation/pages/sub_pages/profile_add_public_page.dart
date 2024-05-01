@@ -67,8 +67,7 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
       ),
       body: BlocListener<PostBloc, PostState>(
         listener: (context, state) {
-          state.map(
-            initial: (value) {},
+          state.maybeMap(
             loading: (value) {
               setState(() {
                 isLoading = true;
@@ -96,8 +95,7 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
                 isLoading = false;
               });
             },
-            getPosts: (value) {},
-            getMePosts: (value) {},
+            orElse: () {},
           );
         },
         child: Column(
@@ -122,11 +120,11 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
                 return CardImageProfileAdd(
                   image: MemoryImage(
                     bytes,
-                  ), 
+                  ),
                   onPressed: () {
                     clearImage(
                       bytes,
-                    ); 
+                    );
                   },
                 );
               }).toList(),
@@ -150,7 +148,6 @@ class _ProfileAddPublicPageState extends State<ProfileAddPublicPage> {
               text: isLoading ? "Загрузка.." : "Опубликовать",
               onPressed: () {
                 if (selectedImageBytes.isNotEmpty && desc.text.isNotEmpty) {
-                  
                   context.read<PostBloc>().add(
                         PostEvent.createPost(
                           Post(text: desc.text),

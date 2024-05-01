@@ -26,7 +26,8 @@ class FirestorePostRepository implements PostRepository {
       final String postId = const Uuid().v1();
       final String uid = auth.currentUser!.uid;
       final List<String> imageUrls =
-          await FirebaseStorageImageMethods().uploadImageToStorage(imageFiles, true, 'posts');
+          await FirebaseStorageImageMethods(auth, storage)
+              .uploadImageToStorage(imageFiles, true, 'posts');
       final updatedPost = post.copyWith(
         postId: postId,
         createdAt: DateTime.now(),
@@ -48,8 +49,10 @@ class FirestorePostRepository implements PostRepository {
       final List<Post> posts = querySnapshot.docs
           .map((doc) => Post.fromJson(doc.data()! as Map<String, dynamic>))
           .toList();
+
       return right(posts);
     } catch (e) {
+
       return left(PostError(e.toString()));
     }
   }
