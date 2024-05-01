@@ -7,9 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/domain/entities/post.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +21,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    context.read<PostBloc>().add(const PostEvent.getPosts());
     super.initState();
+
+    context.read<PostListBloc>().add(const PostListEvent.getPosts());
   }
 
   @override
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        child: BlocBuilder<PostBloc, PostState>(
+        child: BlocBuilder<PostListBloc, PostListState>(
           builder: (context, state) {
             return state.maybeWhen(
               loading: () => ListView.builder(
@@ -75,7 +75,8 @@ class _HomePageState extends State<HomePage> {
                 itemCount: 5,
                 itemBuilder: (context, index) => const PostShimmer(),
               ),
-              getPosts: (List<Post> posts) {
+              error: (message) => Text('Ошибка: $message'),
+              success: (posts) {
                 return ListView.builder(
                   key: const PageStorageKey<String>('postsPage'),
                   shrinkWrap: true,
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              orElse: () => Container(),
+              orElse: () => const SizedBox.shrink(),
             );
           },
         ),

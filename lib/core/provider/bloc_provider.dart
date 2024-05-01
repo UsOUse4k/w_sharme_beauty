@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
   const BlocProviders({
@@ -19,8 +21,14 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => getIt<AuthBloc>(),
         ),
-        BlocProvider<PostBloc>(
-          create: (context) => getIt<PostBloc>(),
+        BlocProvider<PostListBloc>(
+          create: (context) => getIt<PostListBloc>(),
+        ),
+        BlocProvider<MyPostListBloc>(
+          create: (context) => getIt<MyPostListBloc>(),
+        ),
+        BlocProvider<PostCreateBloc>(
+          create: (context) => getIt<PostCreateBloc>(),
         ),
       ],
       child: child,

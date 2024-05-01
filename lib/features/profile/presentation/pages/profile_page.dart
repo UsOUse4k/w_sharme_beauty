@@ -6,10 +6,9 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
-import 'package:w_sharme_beauty/features/profile/domain/entities/post.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/post_bloc/post_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -23,8 +22,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
-    context.read<PostBloc>().add(const PostEvent.getMePosts());
     super.initState();
+
+    context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
   }
 
   @override
@@ -163,7 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   onPressed: () {
-                    route.push('/profile/${RouterContants.profileAddPublic}');
+                    route.push('/profile/${RouterContants.createPost}');
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 50,
               ),
-              BlocBuilder<PostBloc, PostState>(
+              BlocBuilder<MyPostListBloc, MyPostListState>(
                 builder: (context, state) {
                   return state.maybeWhen(
                     loading: () => ListView.builder(
@@ -196,19 +196,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       itemBuilder: (context, index) => const PostShimmer(),
                     ),
                     error: (message) => Text('Ошибка: $message'),
-                    getMePosts: (List<Post> post) {
+                    success: (posts) {
                       return ListView.builder(
                         key: const PageStorageKey<String>('postsMePage'),
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
-                        itemCount: post.length,
+                        itemCount: posts.length,
                         itemBuilder: (context, index) => PostCard(
                           onPressed: () {},
-                          post: post[index],
+                          post: posts[index],
                         ),
                       );
                     },
-                    orElse: () => Container(),
+                    orElse: () => const SizedBox.shrink(),
                   );
                 },
               ),

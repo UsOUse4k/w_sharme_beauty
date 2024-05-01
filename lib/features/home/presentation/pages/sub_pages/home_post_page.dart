@@ -7,6 +7,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/data/data/comments_data.dart';
 import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class HomePostPage extends StatelessWidget {

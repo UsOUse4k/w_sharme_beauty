@@ -22,13 +22,11 @@ abstract class RouterContants {
   static const String profilePersonPage = 'profilePersonPage';
   static const String advertDetailPage = 'advertDetailPage';
 
-  
-
   static const String homeNotification = 'home-notification';
   static const String profileSettings = 'profile_settings';
   static const String profileNewEmail = 'profile-new-email';
   static const String profileChangePassword = 'profile-change-password';
-  static const String profileAddPublic = 'profile-add-public';
+  static const String createPost = 'create-post';
 
   // community sub pages
   static const String communityCreate = 'community-create';
