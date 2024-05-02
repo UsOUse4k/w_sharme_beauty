@@ -21,6 +21,8 @@ class FirebaseCommentFacade implements ICommentRepository {
   ) async {
     try {
       final String commentId = const Uuid().v1();
+      //final DateTime now = DateTime.now();
+      //final String formatter = DateFormatter.format(now);
       await firestore
           .collection('posts')
           .doc()

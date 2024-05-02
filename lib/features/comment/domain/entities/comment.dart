@@ -12,7 +12,7 @@ class Comment with _$Comment {
     @Default('') String? username,
     @Default('') String? avatarUrl,
     @Default([]) List<String> likes,
-    @TimestampConverter() DateTime? createdAt,
+    @Default('') String? createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>

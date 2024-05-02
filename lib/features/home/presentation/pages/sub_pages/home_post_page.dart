@@ -7,7 +7,6 @@ import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/data/data/comments_data.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -25,8 +24,6 @@ class HomePostPage extends StatefulWidget {
 }
 
 class _HomePostPageState extends State<HomePostPage> {
-  Post? selectedPost;
-  bool isLoading = false;
   @override
   void initState() {
     context.read<PostDetailBloc>().add(PostDetailEvent.getPost(widget.postId!));
@@ -51,39 +48,32 @@ class _HomePostPageState extends State<HomePostPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
-          child: BlocListener<PostDetailBloc, PostDetailState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                loading: () => setState(() => isLoading = true),
+          child: BlocBuilder<PostDetailBloc, PostDetailState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.purple,
+                  ),
+                ),
+                error: (message) => const Center(
+                  child: Text('not post found'),
+                ),
                 success: (post) {
-                  setState(() {
-                    selectedPost = post;
-                    isLoading = false;
-                  });
-                },
-                error: (message) => setState(() => isLoading = false),
-                orElse: () {},
-              );
-            },
-            child: isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(color: AppColors.purple),
-                  )
-                : ListView(
+                  return ListView(
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      if (selectedPost != null)
-                        PostCard(
-                          show: 'show',
-                          post: selectedPost,
-                        ),
+                      PostCard(
+                        show: 'show',
+                        post: post,
+                      ),
                       CustomContainer(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${selectedPost?.comments.length ?? 0} Комментариев',
+                              '${post.comments.length} Комментариев',
                               style: AppStyles.w500f14.copyWith(
                                 color: AppColors.grey,
                               ),
@@ -91,7 +81,8 @@ class _HomePostPageState extends State<HomePostPage> {
                             const SizedBox(height: 6),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: List.generate(commentItems.length, (index) {
+                              children:
+                                  List.generate(commentItems.length, (index) {
                                 final item = commentItems[index];
                                 return Column(
                                   children: [
@@ -123,7 +114,11 @@ class _HomePostPageState extends State<HomePostPage> {
                         ),
                       ),
                     ],
-                  ),
+                  );
+                },
+                orElse: () => const SizedBox.shrink(),
+              );
+            },
           ),
         ),
       ),

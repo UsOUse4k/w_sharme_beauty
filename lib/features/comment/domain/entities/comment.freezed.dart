@@ -26,8 +26,7 @@ mixin _$Comment {
   String? get username => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +45,7 @@ abstract class $CommentCopyWith<$Res> {
       String? username,
       String? avatarUrl,
       List<String> likes,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -98,7 +97,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ) as $Val);
   }
 }
@@ -117,7 +116,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       String? username,
       String? avatarUrl,
       List<String> likes,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -167,7 +166,7 @@ class __$$CommentImplCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ));
   }
 }
@@ -182,7 +181,7 @@ class _$CommentImpl implements _Comment {
       this.username = '',
       this.avatarUrl = '',
       final List<String> likes = const [],
-      @TimestampConverter() this.createdAt})
+      this.createdAt = ''})
       : _likes = likes;
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
@@ -213,8 +212,8 @@ class _$CommentImpl implements _Comment {
   }
 
   @override
-  @TimestampConverter()
-  final DateTime? createdAt;
+  @JsonKey()
+  final String? createdAt;
 
   @override
   String toString() {
@@ -273,7 +272,7 @@ abstract class _Comment implements Comment {
       final String? username,
       final String? avatarUrl,
       final List<String> likes,
-      @TimestampConverter() final DateTime? createdAt}) = _$CommentImpl;
+      final String? createdAt}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -290,8 +289,7 @@ abstract class _Comment implements Comment {
   @override
   List<String> get likes;
   @override
-  @TimestampConverter()
-  DateTime? get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$CommentImplCopyWith<_$CommentImpl> get copyWith =>

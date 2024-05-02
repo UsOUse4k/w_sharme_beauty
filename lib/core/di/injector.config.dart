@@ -40,15 +40,15 @@ import 'package:w_sharme_beauty/features/post/data/firebase_post_repository.dart
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart'
     as _i22;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart'
-    as _i28;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
     as _i29;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
-    as _i27;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
-    as _i26;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
     as _i30;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
+    as _i28;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
+    as _i27;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
+    as _i26;
 import 'package:w_sharme_beauty/features/profile/data/data/firebase_profile_facade.dart'
     as _i15;
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart'
@@ -125,23 +125,25 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i11.IAuthFacade>(),
           gh<_i14.IProfileInfoRepository>(),
         ));
-    gh.factory<_i26.PostLikeBloc>(
-        () => _i26.PostLikeBloc(gh<_i22.IPostRepository>()));
-    gh.factory<_i27.PostDetailBloc>(() => _i27.PostDetailBloc(
+    gh.factory<_i26.PostListBloc>(() => _i26.PostListBloc(
+          gh<_i22.IPostRepository>(),
+          gh<_i25.MyProfileInfoBloc>(),
+        ));
+    gh.factory<_i27.PostLikeBloc>(
+        () => _i27.PostLikeBloc(gh<_i22.IPostRepository>()));
+    gh.factory<_i28.PostDetailBloc>(() => _i28.PostDetailBloc(
           gh<_i22.IPostRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i28.MyPostListBloc>(() => _i28.MyPostListBloc(
+    gh.factory<_i29.MyPostListBloc>(() => _i29.MyPostListBloc(
           gh<_i22.IPostRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i29.PostCreateBloc>(() => _i29.PostCreateBloc(
+    gh.factory<_i30.PostCreateBloc>(() => _i30.PostCreateBloc(
           gh<_i22.IPostRepository>(),
           gh<_i14.IProfileInfoRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i30.PostListBloc>(
-        () => _i30.PostListBloc(gh<_i22.IPostRepository>()));
     return this;
   }
 }

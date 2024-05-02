@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 
@@ -29,8 +30,8 @@ class ProfileNavbarWidget extends StatelessWidget {
             Radius.circular(50),
           ),
           child: GlCachedNetworImage(
-            height: 100,
-            width: 100,
+            height: 100.h,
+            width: 100.w,
             urlImage: avatar,
           ),
         ),
