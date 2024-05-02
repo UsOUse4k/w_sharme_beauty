@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'communities.dart';
+part of 'community.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Communities _$CommunitiesFromJson(Map<String, dynamic> json) {
-  return _Communities.fromJson(json);
+Community _$CommunityFromJson(Map<String, dynamic> json) {
+  return _Community.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Communities {
+mixin _$Community {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
@@ -27,23 +27,22 @@ mixin _$Communities {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CommunitiesCopyWith<Communities> get copyWith =>
+  $CommunityCopyWith<Community> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CommunitiesCopyWith<$Res> {
-  factory $CommunitiesCopyWith(
-          Communities value, $Res Function(Communities) then) =
-      _$CommunitiesCopyWithImpl<$Res, Communities>;
+abstract class $CommunityCopyWith<$Res> {
+  factory $CommunityCopyWith(Community value, $Res Function(Community) then) =
+      _$CommunityCopyWithImpl<$Res, Community>;
   @useResult
   $Res call({String id, String name, String imageUrl, String description});
 }
 
 /// @nodoc
-class _$CommunitiesCopyWithImpl<$Res, $Val extends Communities>
-    implements $CommunitiesCopyWith<$Res> {
-  _$CommunitiesCopyWithImpl(this._value, this._then);
+class _$CommunityCopyWithImpl<$Res, $Val extends Community>
+    implements $CommunityCopyWith<$Res> {
+  _$CommunityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,22 +79,22 @@ class _$CommunitiesCopyWithImpl<$Res, $Val extends Communities>
 }
 
 /// @nodoc
-abstract class _$$CommunitiesImplCopyWith<$Res>
-    implements $CommunitiesCopyWith<$Res> {
-  factory _$$CommunitiesImplCopyWith(
-          _$CommunitiesImpl value, $Res Function(_$CommunitiesImpl) then) =
-      __$$CommunitiesImplCopyWithImpl<$Res>;
+abstract class _$$CommunityImplCopyWith<$Res>
+    implements $CommunityCopyWith<$Res> {
+  factory _$$CommunityImplCopyWith(
+          _$CommunityImpl value, $Res Function(_$CommunityImpl) then) =
+      __$$CommunityImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name, String imageUrl, String description});
 }
 
 /// @nodoc
-class __$$CommunitiesImplCopyWithImpl<$Res>
-    extends _$CommunitiesCopyWithImpl<$Res, _$CommunitiesImpl>
-    implements _$$CommunitiesImplCopyWith<$Res> {
-  __$$CommunitiesImplCopyWithImpl(
-      _$CommunitiesImpl _value, $Res Function(_$CommunitiesImpl) _then)
+class __$$CommunityImplCopyWithImpl<$Res>
+    extends _$CommunityCopyWithImpl<$Res, _$CommunityImpl>
+    implements _$$CommunityImplCopyWith<$Res> {
+  __$$CommunityImplCopyWithImpl(
+      _$CommunityImpl _value, $Res Function(_$CommunityImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +105,7 @@ class __$$CommunitiesImplCopyWithImpl<$Res>
     Object? imageUrl = null,
     Object? description = null,
   }) {
-    return _then(_$CommunitiesImpl(
+    return _then(_$CommunityImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -129,15 +128,15 @@ class __$$CommunitiesImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CommunitiesImpl implements _Communities {
-  _$CommunitiesImpl(
+class _$CommunityImpl implements _Community {
+  _$CommunityImpl(
       {required this.id,
       required this.name,
       required this.imageUrl,
       required this.description});
 
-  factory _$CommunitiesImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CommunitiesImplFromJson(json);
+  factory _$CommunityImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CommunityImplFromJson(json);
 
   @override
   final String id;
@@ -150,14 +149,14 @@ class _$CommunitiesImpl implements _Communities {
 
   @override
   String toString() {
-    return 'Communities(id: $id, name: $name, imageUrl: $imageUrl, description: $description)';
+    return 'Community(id: $id, name: $name, imageUrl: $imageUrl, description: $description)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CommunitiesImpl &&
+            other is _$CommunityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imageUrl, imageUrl) ||
@@ -173,26 +172,26 @@ class _$CommunitiesImpl implements _Communities {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CommunitiesImplCopyWith<_$CommunitiesImpl> get copyWith =>
-      __$$CommunitiesImplCopyWithImpl<_$CommunitiesImpl>(this, _$identity);
+  _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>
+      __$$CommunityImplCopyWithImpl<_$CommunityImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CommunitiesImplToJson(
+    return _$$CommunityImplToJson(
       this,
     );
   }
 }
 
-abstract class _Communities implements Communities {
-  factory _Communities(
+abstract class _Community implements Community {
+  factory _Community(
       {required final String id,
       required final String name,
       required final String imageUrl,
-      required final String description}) = _$CommunitiesImpl;
+      required final String description}) = _$CommunityImpl;
 
-  factory _Communities.fromJson(Map<String, dynamic> json) =
-      _$CommunitiesImpl.fromJson;
+  factory _Community.fromJson(Map<String, dynamic> json) =
+      _$CommunityImpl.fromJson;
 
   @override
   String get id;
@@ -204,6 +203,6 @@ abstract class _Communities implements Communities {
   String get description;
   @override
   @JsonKey(ignore: true)
-  _$$CommunitiesImplCopyWith<_$CommunitiesImpl> get copyWith =>
+  _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
