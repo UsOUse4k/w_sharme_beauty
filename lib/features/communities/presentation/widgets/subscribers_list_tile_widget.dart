@@ -21,6 +21,7 @@ class SubscribersListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       leading: GlCircleAvatar(
         avatar: avatar,
         width: 50,

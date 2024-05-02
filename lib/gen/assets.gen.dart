@@ -44,6 +44,10 @@ class $AssetsIconsGen {
   AssetGenImage get addCommunity =>
       const AssetGenImage('assets/icons/add_community.png');
 
+  /// File path: assets/icons/add_people.png
+  AssetGenImage get addPeople =>
+      const AssetGenImage('assets/icons/add_people.png');
+
   /// File path: assets/icons/add_public.png
   AssetGenImage get addPublic =>
       const AssetGenImage('assets/icons/add_public.png');
@@ -144,6 +148,7 @@ class $AssetsIconsGen {
         activeIssue,
         addChat,
         addCommunity,
+        addPeople,
         addPublic,
         announcement,
         bell,
@@ -192,19 +197,35 @@ class $AssetsImagesGen {
   /// File path: assets/images/Nastya.png
   AssetGenImage get nastya => const AssetGenImage('assets/images/Nastya.png');
 
+  /// File path: assets/images/Nasya.png
+  AssetGenImage get nasya => const AssetGenImage('assets/images/Nasya.png');
+
   /// File path: assets/images/ava.png
   AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
   /// File path: assets/images/avatar.png
   AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
 
+  /// File path: assets/images/camera.png
+  AssetGenImage get camera => const AssetGenImage('assets/images/camera.png');
+
   /// File path: assets/images/main_picture.png
   AssetGenImage get mainPicture =>
       const AssetGenImage('assets/images/main_picture.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [elena, ella, irina, nastii, nastya, ava, avatar, mainPicture];
+  List<AssetGenImage> get values => [
+        elena,
+        ella,
+        irina,
+        nastii,
+        nastya,
+        nasya,
+        ava,
+        avatar,
+        camera,
+        mainPicture
+      ];
 }
 
 class $AssetsSvgsGen {

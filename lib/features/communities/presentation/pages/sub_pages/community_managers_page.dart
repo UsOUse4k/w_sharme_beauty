@@ -34,6 +34,7 @@ class CommunityManagersPage extends StatelessWidget {
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
+                    contentPadding: EdgeInsets.zero,
                     leading: GlCircleAvatar(
                       avatar: Assets.images.avatar.path,
                       width: 50,

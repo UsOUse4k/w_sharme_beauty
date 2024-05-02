@@ -46,8 +46,10 @@ class CommunityEditPage extends StatelessWidget {
               titleStyle: AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
               hintText: "Маникюр, педикюр, ресницы",
               hintStyle: AppStyles.w400f16,
-              suffixIcon: const Icon(Icons.expand_more_outlined,
-                  color: AppColors.black),
+              suffixIcon: const Icon(
+                Icons.expand_more_outlined,
+                color: AppColors.black,
+              ),
             ),
             const SizedBox(height: 14),
             Text(

@@ -1,35 +1,34 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CustomBottomSheetCenterTitle extends StatelessWidget {
   const CustomBottomSheetCenterTitle({
     super.key,
+    this.onTap1,
+    this.onTap2,
     required this.navbarTitle1,
     required this.navbarTitle2,
-    required this.widget,
     this.maxHeight,
   });
-
+  final Function()? onTap1;
+  final Function()? onTap2;
   final String navbarTitle1;
   final String navbarTitle2;
-  final Widget widget;
+
   final double? maxHeight;
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: maxHeight ?? 0.4,
+      initialChildSize: maxHeight ?? 0.25,
       maxChildSize: maxHeight ?? 0.4,
       expand: false,
       builder: (_, controller) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 24),
           decoration: const BoxDecoration(
-            color: AppColors.white,
+            color: Colors.transparent,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -50,16 +49,19 @@ class CustomBottomSheetCenterTitle extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      navbarTitle1,
-                      style: AppStyles.w500f18.copyWith(
-                        color: AppColors.purple,
+                    GestureDetector(
+                      onTap: onTap1,
+                      child: Text(
+                        navbarTitle1,
+                        style: AppStyles.w500f18.copyWith(
+                          color: AppColors.purple,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -75,21 +77,47 @@ class CustomBottomSheetCenterTitle extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      navbarTitle2,
-                      style: AppStyles.w500f18.copyWith(
-                        color: AppColors.red,
+                    GestureDetector(
+                      onTap: onTap2,
+                      child: Text(
+                        navbarTitle2,
+                        style: AppStyles.w500f18.copyWith(
+                          color: AppColors.red,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Expanded(
-                child: ListView(
-                  controller: controller,
-                  children: [
-                    widget,
-                  ],
+                child: Container(
+                  height: 47,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.transparent,
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      backgroundColor: AppColors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Отменить",
+                      style: AppStyles.w500f16.copyWith(
+                        color: AppColors.purple,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
