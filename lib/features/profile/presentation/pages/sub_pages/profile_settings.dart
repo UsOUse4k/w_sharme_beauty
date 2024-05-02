@@ -7,8 +7,8 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
 
-import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_card_item_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_item_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/profile_setting_card_item_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/profile_setting_item_widget.dart';
 
 class ProfileSettingsPage extends StatelessWidget {
   const ProfileSettingsPage({super.key});

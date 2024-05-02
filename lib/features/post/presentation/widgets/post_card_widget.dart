@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_subscribe_button.dart';
@@ -17,15 +18,16 @@ final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
 class PostCard extends StatefulWidget {
   const PostCard({
     super.key,
-    required this.onPressed,
+    this.onPressed,
     this.index,
-    this.post,
+    this.post, 
+    this.show = 'hide',
   });
 
   final Post? post;
-  final Function() onPressed;
+  final Function()? onPressed;
   final int? index;
-
+  final String? show;
   @override
   State<PostCard> createState() => _PostCardState();
 }
@@ -47,14 +49,10 @@ class _PostCardState extends State<PostCard> {
     final postId = widget.post!.postId.toString();
     final bool newLikeStatus = !isLike;
     if (isLike) {
-      context
-          .read<PostLikeBloc>()
-          .add(PostLikeEvent.dislike(postId, authorId));
+      context.read<PostLikeBloc>().add(PostLikeEvent.dislike(postId, authorId));
       countLike = countLike - 1;
     } else {
-      context
-          .read<PostLikeBloc>()
-          .add(PostLikeEvent.like(postId, authorId));
+      context.read<PostLikeBloc>().add(PostLikeEvent.like(postId, authorId));
       countLike = countLike + 1;
     }
     if (mounted) {
@@ -116,8 +114,12 @@ class _PostCardState extends State<PostCard> {
                 text: countLike.toString(),
               ),
               const SizedBox(width: 6),
-              PostIconsWidget(
-                onPessed: () {},
+              if(widget.show == 'hide') PostIconsWidget(
+                onPessed: () {
+                  if (widget.post != null && widget.post!.postId != null) {
+                    context.push('/home/post/${widget.post!.postId}');
+                  }
+                },
                 icon: Assets.svgs.comment.svg(),
                 text: widget.post!.comments.length.toString(),
               ),

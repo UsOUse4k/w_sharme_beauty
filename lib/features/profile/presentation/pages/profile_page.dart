@@ -10,7 +10,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_blo
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePage extends StatefulWidget {

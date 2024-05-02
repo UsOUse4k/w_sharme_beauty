@@ -35,7 +35,7 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
         'username': user.username,
         'profilePictureUrl': photoUrl,
         'email': email,
-        'uid': userId
+        'uid': userId,
       });
       return right(unit);
     } catch (e) {

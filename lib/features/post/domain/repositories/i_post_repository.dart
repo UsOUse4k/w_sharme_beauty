@@ -10,5 +10,10 @@ abstract class IPostRepository {
     List<Uint8List> imageFiles,
   );
   Future<Either<PostError, List<Post>>> getPosts({String? userId});
-  Future<Either<PostError, Unit>> updateLikes(String postId, String authorId, bool add);
+  Future<Either<PostError, Unit>> updateLikes(
+    String postId,
+    String authorId,
+    bool add,
+  );
+  Future<Either<PostError, Post>> getPost(String postId, String? userId);
 }

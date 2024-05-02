@@ -5,7 +5,7 @@ import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePersonPage extends StatelessWidget {

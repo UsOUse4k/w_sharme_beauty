@@ -8,7 +8,7 @@ abstract class IProfileInfoRepository {
   Future<Either<PostError, Unit>> updateInfiProfile(
     UserProfile user,
     Uint8List avatar,
-    String? email
+    String? email,
   );
   Future<Either<PostError, UserProfile>> getMeInfo(String? userId);
 }
