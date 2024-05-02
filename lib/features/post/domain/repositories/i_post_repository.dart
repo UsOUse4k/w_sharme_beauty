@@ -8,6 +8,7 @@ abstract class IPostRepository {
   Future<Either<PostError, Unit>> createPost(
     Post post,
     List<Uint8List> imageFiles,
+    String username,
   );
   Future<Either<PostError, List<Post>>> getPosts({String? userId});
   Future<Either<PostError, Unit>> updateLikes(

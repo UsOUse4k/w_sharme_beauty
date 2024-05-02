@@ -9,6 +9,7 @@ class Post with _$Post {
   const factory Post({
     String? authorId,
     String? postId,
+    String? username,
     required String text,
     @Default([]) List<String> imageUrls,
     String? videoUrl,
@@ -16,7 +17,7 @@ class Post with _$Post {
     @Default([]) List<Comment> comments,
     @Default([]) List<String> reposts,
     @Default(false) bool isFavorite,
-    @TimestampConverter() DateTime? createdAt,
+    @Default('') String? createdAt,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
@@ -24,8 +25,10 @@ class Post with _$Post {
   factory Post.fromStoreData(Map<String, dynamic> firestoreData) {
     return Post(
       authorId: firestoreData['authorId'] as String?,
+      username: firestoreData['username'] as String?,
       postId: firestoreData['postId'] as String?,
       text: firestoreData['text'] as String? ?? '',
+      createdAt: firestoreData['createdAt'] as String? ?? '',
       imageUrls:
           List<String>.from(firestoreData['imageUrls'] as List<dynamic>? ?? []),
       videoUrl: firestoreData['videoUrl'] as String? ?? '',
@@ -33,8 +36,6 @@ class Post with _$Post {
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
       comments:
           List<Comment>.from(firestoreData['comments'] as List<dynamic>? ?? []),
-      //createdAt: firestoreData['createdAt'] as DateTime?,
-
     );
   }
 }

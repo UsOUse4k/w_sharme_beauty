@@ -20,7 +20,7 @@ class PostCard extends StatefulWidget {
     super.key,
     this.onPressed,
     this.index,
-    this.post, 
+    this.post,
     this.show = 'hide',
   });
 
@@ -43,7 +43,6 @@ class _PostCardState extends State<PostCard> {
       countLike = widget.post!.likes.length;
     });
   }
-
   void toggleLike() {
     final authorId = firebaseAuth.currentUser!.uid;
     final postId = widget.post!.postId.toString();
@@ -79,7 +78,7 @@ class _PostCardState extends State<PostCard> {
                 child: UserAvatarWithName(
                   width: 40.w,
                   height: 40.h,
-                  name: 'Alina',
+                  name: widget.post!.username.toString(),
                   subTitle: widget.post!.createdAt.toString(),
                 ),
               ),
@@ -114,15 +113,16 @@ class _PostCardState extends State<PostCard> {
                 text: countLike.toString(),
               ),
               const SizedBox(width: 6),
-              if(widget.show == 'hide') PostIconsWidget(
-                onPessed: () {
-                  if (widget.post != null && widget.post!.postId != null) {
-                    context.push('/home/post/${widget.post!.postId}');
-                  }
-                },
-                icon: Assets.svgs.comment.svg(),
-                text: widget.post!.comments.length.toString(),
-              ),
+              if (widget.show == 'hide')
+                PostIconsWidget(
+                  onPessed: () {
+                    if (widget.post != null && widget.post!.postId != null) {
+                      context.push('/home/post/${widget.post!.postId}');
+                    }
+                  },
+                  icon: Assets.svgs.comment.svg(),
+                  text: widget.post!.comments.length.toString(),
+                ),
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: () {},

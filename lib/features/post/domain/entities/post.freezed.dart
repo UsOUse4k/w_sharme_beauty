@@ -22,6 +22,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 mixin _$Post {
   String? get authorId => throw _privateConstructorUsedError;
   String? get postId => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   List<String> get imageUrls => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
@@ -29,8 +30,7 @@ mixin _$Post {
   List<Comment> get comments => throw _privateConstructorUsedError;
   List<String> get reposts => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,6 +45,7 @@ abstract class $PostCopyWith<$Res> {
   $Res call(
       {String? authorId,
       String? postId,
+      String? username,
       String text,
       List<String> imageUrls,
       String? videoUrl,
@@ -52,7 +53,7 @@ abstract class $PostCopyWith<$Res> {
       List<Comment> comments,
       List<String> reposts,
       bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -70,6 +71,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   $Res call({
     Object? authorId = freezed,
     Object? postId = freezed,
+    Object? username = freezed,
     Object? text = null,
     Object? imageUrls = null,
     Object? videoUrl = freezed,
@@ -87,6 +89,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       postId: freezed == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -119,7 +125,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ) as $Val);
   }
 }
@@ -134,6 +140,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   $Res call(
       {String? authorId,
       String? postId,
+      String? username,
       String text,
       List<String> imageUrls,
       String? videoUrl,
@@ -141,7 +148,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       List<Comment> comments,
       List<String> reposts,
       bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -156,6 +163,7 @@ class __$$PostImplCopyWithImpl<$Res>
   $Res call({
     Object? authorId = freezed,
     Object? postId = freezed,
+    Object? username = freezed,
     Object? text = null,
     Object? imageUrls = null,
     Object? videoUrl = freezed,
@@ -173,6 +181,10 @@ class __$$PostImplCopyWithImpl<$Res>
       postId: freezed == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -205,7 +217,7 @@ class __$$PostImplCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ));
   }
 }
@@ -216,6 +228,7 @@ class _$PostImpl implements _Post {
   const _$PostImpl(
       {this.authorId,
       this.postId,
+      this.username,
       required this.text,
       final List<String> imageUrls = const [],
       this.videoUrl,
@@ -223,7 +236,7 @@ class _$PostImpl implements _Post {
       final List<Comment> comments = const [],
       final List<String> reposts = const [],
       this.isFavorite = false,
-      @TimestampConverter() this.createdAt})
+      this.createdAt = ''})
       : _imageUrls = imageUrls,
         _likes = likes,
         _comments = comments,
@@ -236,6 +249,8 @@ class _$PostImpl implements _Post {
   final String? authorId;
   @override
   final String? postId;
+  @override
+  final String? username;
   @override
   final String text;
   final List<String> _imageUrls;
@@ -280,12 +295,12 @@ class _$PostImpl implements _Post {
   @JsonKey()
   final bool isFavorite;
   @override
-  @TimestampConverter()
-  final DateTime? createdAt;
+  @JsonKey()
+  final String? createdAt;
 
   @override
   String toString() {
-    return 'Post(authorId: $authorId, postId: $postId, text: $text, imageUrls: $imageUrls, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(authorId: $authorId, postId: $postId, username: $username, text: $text, imageUrls: $imageUrls, videoUrl: $videoUrl, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -296,6 +311,8 @@ class _$PostImpl implements _Post {
             (identical(other.authorId, authorId) ||
                 other.authorId == authorId) &&
             (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.text, text) || other.text == text) &&
             const DeepCollectionEquality()
                 .equals(other._imageUrls, _imageUrls) &&
@@ -316,6 +333,7 @@ class _$PostImpl implements _Post {
       runtimeType,
       authorId,
       postId,
+      username,
       text,
       const DeepCollectionEquality().hash(_imageUrls),
       videoUrl,
@@ -343,6 +361,7 @@ abstract class _Post implements Post {
   const factory _Post(
       {final String? authorId,
       final String? postId,
+      final String? username,
       required final String text,
       final List<String> imageUrls,
       final String? videoUrl,
@@ -350,7 +369,7 @@ abstract class _Post implements Post {
       final List<Comment> comments,
       final List<String> reposts,
       final bool isFavorite,
-      @TimestampConverter() final DateTime? createdAt}) = _$PostImpl;
+      final String? createdAt}) = _$PostImpl;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$PostImpl.fromJson;
 
@@ -358,6 +377,8 @@ abstract class _Post implements Post {
   String? get authorId;
   @override
   String? get postId;
+  @override
+  String? get username;
   @override
   String get text;
   @override
@@ -373,8 +394,7 @@ abstract class _Post implements Post {
   @override
   bool get isFavorite;
   @override
-  @TimestampConverter()
-  DateTime? get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$PostImplCopyWith<_$PostImpl> get copyWith =>

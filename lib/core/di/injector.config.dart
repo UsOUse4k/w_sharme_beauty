@@ -34,21 +34,21 @@ import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart'
     as _i19;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/bloc/community_list_bloc.dart'
-    as _i7;
+    as _i6;
 import 'package:w_sharme_beauty/features/post/data/firebase_post_repository.dart'
     as _i23;
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart'
     as _i22;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart'
-    as _i27;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
-    as _i30;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
     as _i28;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
+    as _i29;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
+    as _i27;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
     as _i26;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
-    as _i29;
+    as _i30;
 import 'package:w_sharme_beauty/features/profile/data/data/firebase_profile_facade.dart'
     as _i15;
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart'
@@ -62,7 +62,7 @@ import 'package:w_sharme_beauty/features/question/data/data/firebase_add_questio
 import 'package:w_sharme_beauty/features/question/domain/repositories/add_question_repository.dart'
     as _i12;
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart'
-    as _i6;
+    as _i7;
 import 'package:w_sharme_beauty/firebase_module.dart' as _i31;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -80,8 +80,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i3.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.factory<_i4.FirebaseFirestore>(() => firebaseModule.firebaseFirestore);
     gh.factory<_i5.FirebaseStorage>(() => firebaseModule.firebaseStorage);
-    gh.factory<_i6.QuestionBloc>(() => _i6.QuestionBloc());
-    gh.factory<_i7.CommunityListBloc>(() => _i7.CommunityListBloc());
+    gh.factory<_i6.CommunityListBloc>(() => _i6.CommunityListBloc());
+    gh.factory<_i7.QuestionBloc>(() => _i7.QuestionBloc());
     gh.lazySingleton<_i8.IAuthFacade>(() => _i9.FirebaseAuthFacade(
           gh<_i3.FirebaseAuth>(),
           gh<_i4.FirebaseFirestore>(),
@@ -127,18 +127,21 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i26.PostLikeBloc>(
         () => _i26.PostLikeBloc(gh<_i22.IPostRepository>()));
-    gh.factory<_i27.MyPostListBloc>(() => _i27.MyPostListBloc(
+    gh.factory<_i27.PostDetailBloc>(() => _i27.PostDetailBloc(
           gh<_i22.IPostRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i28.PostDetailBloc>(() => _i28.PostDetailBloc(
+    gh.factory<_i28.MyPostListBloc>(() => _i28.MyPostListBloc(
           gh<_i22.IPostRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i29.PostListBloc>(
-        () => _i29.PostListBloc(gh<_i22.IPostRepository>()));
-    gh.factory<_i30.PostCreateBloc>(
-        () => _i30.PostCreateBloc(gh<_i22.IPostRepository>()));
+    gh.factory<_i29.PostCreateBloc>(() => _i29.PostCreateBloc(
+          gh<_i22.IPostRepository>(),
+          gh<_i14.IProfileInfoRepository>(),
+          gh<_i11.IAuthFacade>(),
+        ));
+    gh.factory<_i30.PostListBloc>(
+        () => _i30.PostListBloc(gh<_i22.IPostRepository>()));
     return this;
   }
 }
