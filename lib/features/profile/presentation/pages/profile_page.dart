@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -20,10 +21,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String publics = '0';
+  String followers = '0';
+  String subscriptions = '0';
+  String? username;
+  String? city;
+  String? aboutYourself;
+  String? rating;
+  String? avatarUrl;
+
   @override
   void initState() {
     super.initState();
     context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
+    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
   }
 
   @override
@@ -64,154 +75,194 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              ProfileNavbarWidget(
-                avatar: Assets.images.avatar.path,
-                publications: '23',
-                followers: '2442',
-                subscriptions: '51',
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  Text("Anna Smirnova", style: AppStyles.w500f18),
-                  const SizedBox(
-                    width: 10,
+          child: BlocListener<MyProfileInfoBloc, MyProfileInfoState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                succes: (user) {
+                  setState(() {
+                    publics = user.publics!.length.toString();
+                    followers = user.followers!.length.toString();
+                    subscriptions = user.subscriptions!.length.toString();
+                    username = user.username;
+                    aboutYourself = user.aboutYourself;
+                    rating = user.rating;
+                    city = user.city;
+                    avatarUrl = user.profilePictureUrl;
+                  });
+                },
+                orElse: () {},
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                if (avatarUrl != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: ProfileNavbarWidget(
+                      avatar: avatarUrl!,
+                      publications: publics,
+                      followers: followers,
+                      subscriptions: subscriptions,
+                    ),
                   ),
-                  Image.asset(Assets.icons.point.path),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Image.asset(
-                    Assets.icons.rating.path,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Image.asset(Assets.icons.location.path),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Москва, Россия",
-                    style: AppStyles.w400f16,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Привет я Анна, я из города Москва. Занимаюсь маникюром более 10 лет. Успей записаться на выходные!",
-                style: AppStyles.w400f14,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              StoriesWidget(storiesModel: storiesModel),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: const BorderSide(
-                        color: AppColors.purple,
+                const SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Row(
+                    
+                    children: [
+                      Text(username.toString(), style: AppStyles.w500f18),
+                      const SizedBox(
+                        width: 10,
                       ),
-                    ),
-                  ),
-                  onPressed: () {
-                    route.push('/profile/${RouterContants.profileEdit}');
-                  },
-                  child: const Text(
-                    "Редактировать профиль",
-                    style: TextStyle(
-                      color: AppColors.purple,
-                      fontWeight: FontWeight.w700,
-                    ),
+                      Image.asset(Assets.icons.point.path),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(rating.toString()),
+                    ],
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.lightPurple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    route.push('/profile/${RouterContants.createPost}');
-                  },
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        Assets.icons.plus.path,
-                        color: AppColors.purple,
+                      Image.asset(Assets.icons.location.path),
+                      const SizedBox(
+                        width: 10,
                       ),
-                      const Text(
-                        "Опубликовать",
+                      Text(
+                        city.toString(),
+                        style: AppStyles.w400f16,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Text(
+                    aboutYourself.toString(),
+                    style: AppStyles.w400f14,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: StoriesWidget(storiesModel: storiesModel),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: AppColors.purple,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        route.push('/profile/${RouterContants.profileEdit}');
+                      },
+                      child: const Text(
+                        "Редактировать профиль",
                         style: TextStyle(
                           color: AppColors.purple,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              BlocBuilder<MyPostListBloc, MyPostListState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    loading: () => ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: 5,
-                      itemBuilder: (context, index) => const PostShimmer(),
+                const SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.lightPurple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        route.push('/profile/${RouterContants.createPost}');
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            Assets.icons.plus.path,
+                            color: AppColors.purple,
+                          ),
+                          const Text(
+                            "Опубликовать",
+                            style: TextStyle(
+                              color: AppColors.purple,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    error: (message) => Text('Ошибка: $message'),
-                    success: (posts) {
-                      return ListView.builder(
-                        key: const PageStorageKey<String>('postsMePage'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                BlocBuilder<MyPostListBloc, MyPostListState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      loading: () => ListView.builder(
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
-                        itemCount: posts.length,
-                        itemBuilder: (context, index) => PostCard(
-                          onPressed: () {},
-                          post: posts[index],
-                        ),
-                      );
-                    },
-                    orElse: () => const SizedBox.shrink(),
-                  );
-                },
-              ),
-            ],
+                        itemCount: 5,
+                        itemBuilder: (context, index) => const PostShimmer(),
+                      ),
+                      error: (message) => Text('Ошибка: $message'),
+                      success: (posts) {
+                        return ListView.builder(
+                          key: const PageStorageKey<String>('postsMePage'),
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: posts.length,
+                          itemBuilder: (context, index) => PostCard(
+                            onPressed: () {},
+                            post: posts[index],
+                          ),
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

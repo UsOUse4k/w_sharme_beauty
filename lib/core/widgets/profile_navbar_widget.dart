@@ -24,10 +24,15 @@ class ProfileNavbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        GlCircleAvatar(
-          avatar: avatar,
-          width: 70,
-          height: 70,
+        ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(50),
+          ),
+          child: GlCachedNetworImage(
+            height: 100,
+            width: 100,
+            urlImage: avatar,
+          ),
         ),
         const SizedBox(
           width: 15,
