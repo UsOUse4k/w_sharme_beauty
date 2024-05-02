@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_blo
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
   const BlocProviders({
@@ -31,8 +32,11 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<PostCreateBloc>(
           create: (context) => getIt<PostCreateBloc>(),
         ),
-          BlocProvider<PostLikeBloc>(
+        BlocProvider<PostLikeBloc>(
           create: (context) => getIt<PostLikeBloc>(),
+        ),
+        BlocProvider<QuestionBloc>(
+          create: (context) => getIt<QuestionBloc>(),
         ),
       ],
       child: child,

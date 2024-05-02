@@ -46,11 +46,14 @@ class CustomBottomSheetLeading extends StatelessWidget {
                         icon: const Icon(Icons.arrow_back_ios),
                         onPressed: () => context.pop(),
                       ),
-                      const SizedBox(width: 20),
-                      Text(
-                        navbarTitle,
-                        style: AppStyles.w500f18.copyWith(
-                          fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            navbarTitle,
+                            style: AppStyles.w500f18.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ),
                     ],

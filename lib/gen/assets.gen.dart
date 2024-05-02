@@ -44,6 +44,10 @@ class $AssetsIconsGen {
   AssetGenImage get addCommunity =>
       const AssetGenImage('assets/icons/add_community.png');
 
+  /// File path: assets/icons/add_people.png
+  AssetGenImage get addPeople =>
+      const AssetGenImage('assets/icons/add_people.png');
+
   /// File path: assets/icons/add_public.png
   AssetGenImage get addPublic =>
       const AssetGenImage('assets/icons/add_public.png');
@@ -147,6 +151,7 @@ class $AssetsIconsGen {
         activeIssue,
         addChat,
         addCommunity,
+        addPeople,
         addPublic,
         ads,
         announcement,
@@ -196,6 +201,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/Nastya.png
   AssetGenImage get nastya => const AssetGenImage('assets/images/Nastya.png');
 
+  /// File path: assets/images/Nasya.png
+  AssetGenImage get nasya => const AssetGenImage('assets/images/Nasya.png');
+
   /// File path: assets/images/adver_bg.jpg
   AssetGenImage get adverBg =>
       const AssetGenImage('assets/images/adver_bg.jpg');
@@ -212,6 +220,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/bloc.jpg
   AssetGenImage get bloc => const AssetGenImage('assets/images/bloc.jpg');
+
+  /// File path: assets/images/camera.png
+  AssetGenImage get camera => const AssetGenImage('assets/images/camera.png');
 
   /// File path: assets/images/main_picture.png
   AssetGenImage get mainPicture =>
@@ -251,11 +262,13 @@ class $AssetsImagesGen {
         irina,
         nastii,
         nastya,
+        nasya,
         adverBg,
         ava,
         avatar,
         beautyCenter,
         bloc,
+        camera,
         mainPicture,
         map,
         serviceImg1,

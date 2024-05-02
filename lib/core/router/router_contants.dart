@@ -38,4 +38,6 @@ abstract class RouterContants {
   static const String communityManagers = 'community-managers';
   static const String communityEdit = 'community-edit';
   static const String communityChat = 'community-chat';
+  static const String communityEditManagers = 'community-edit-managers';
+  static const String communityLeoMonicChat = 'community-leo-monic-chat';
 }

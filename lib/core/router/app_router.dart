@@ -11,7 +11,9 @@ import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_p
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_add_public_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_chat_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_managers.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_leo_monic_chat_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_managers_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_members_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_page.dart';
@@ -238,6 +240,20 @@ mixin AppRouter on State<App> {
                     name: RouterContants.communityChat,
                     path: RouterContants.communityChat,
                     builder: (context, state) => const CommunityChatPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityEditManagers,
+                    path: RouterContants.communityEditManagers,
+                    builder: (context, state) =>
+                        const CommunityEditManagersPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.communityLeoMonicChat,
+                    path: RouterContants.communityLeoMonicChat,
+                    builder: (context, state) =>
+                        const CommunityLeoMonicChatPage(),
                   ),
                 ],
               ),
