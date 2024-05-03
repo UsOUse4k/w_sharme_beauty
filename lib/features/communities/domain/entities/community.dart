@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 
 
 part 'community.freezed.dart';
@@ -8,16 +7,15 @@ part 'community.g.dart';
 @freezed
 class Community with _$Community {
   factory Community({
-    required String id,
-    required String name,
-    required String description,
-    String? videoUrl,
-    @Default([]) List<String> imageUrls,
-    @Default([]) List<String> likes,
-    @Default([]) List<Comment> comments,
-    @Default([]) List<String> reposts,
+
+    String? communityId,
+    String? uid,
+    String? communityName,
+    String? description,
+    @Default("") String? avatarUrls,
+    @Default([]) List<String>? participants,
     @Default(false) bool isFavorite,
-    @TimestampConverter() DateTime? createdAt,
+    @Default("") String? createdAt,
   }) = _Community;
 
   factory Community.fromJson(Map<String, dynamic> json) =>

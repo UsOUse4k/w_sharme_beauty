@@ -8,40 +8,27 @@ part of 'community.dart';
 
 _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
     _$CommunityImpl(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      videoUrl: json['videoUrl'] as String?,
-      imageUrls: (json['imageUrls'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      likes:
-          (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              const [],
-      comments: (json['comments'] as List<dynamic>?)
-              ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-      reposts: (json['reposts'] as List<dynamic>?)
+      communityId: json['communityId'] as String?,
+      uid: json['uid'] as String?,
+      communityName: json['communityName'] as String?,
+      description: json['description'] as String?,
+      avatarUrls: json['avatarUrls'] as String? ?? "",
+      participants: (json['participants'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
       isFavorite: json['isFavorite'] as bool? ?? false,
-      createdAt: const TimestampConverter()
-          .fromJson(json['createdAt'] as Map<String, dynamic>?),
+      createdAt: json['createdAt'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
+      'communityId': instance.communityId,
+      'uid': instance.uid,
+      'communityName': instance.communityName,
       'description': instance.description,
-      'videoUrl': instance.videoUrl,
-      'imageUrls': instance.imageUrls,
-      'likes': instance.likes,
-      'comments': instance.comments,
-      'reposts': instance.reposts,
+      'avatarUrls': instance.avatarUrls,
+      'participants': instance.participants,
       'isFavorite': instance.isFavorite,
-      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'createdAt': instance.createdAt,
     };

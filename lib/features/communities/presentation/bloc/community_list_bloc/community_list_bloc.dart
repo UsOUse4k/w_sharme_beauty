@@ -9,8 +9,8 @@ part 'community_list_bloc.freezed.dart';
 
 @injectable
 class CommunityListBloc extends Bloc<CommunityListEvent, CommunityListState> {
-  CommunityListBloc() : super(const _Initial()) {
-    on<CommunityListEvent>((event, emit) {
-    });
+
+  CommunityListBloc() : super(_Initial()) {
+    on<CommunityListEvent>((event, emit) {});
   }
 }

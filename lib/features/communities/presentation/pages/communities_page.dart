@@ -46,7 +46,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
               height: 26,
             ),
             const SizedBox(width: 16),
-             Text(
+            Text(
               'Сообщество',
               style: AppStyles.w500f18,
             ),
@@ -57,7 +57,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
           children: [
             GestureDetector(
               onTap: () {
-                route.push('/communities/${RouterContants.communityProfile}');
+                route.push('/communities/${RouterContants.communityCreate}');
               },
               child: Image.asset(
                 Assets.icons.addCommunity.path,

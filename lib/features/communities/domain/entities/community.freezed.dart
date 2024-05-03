@@ -20,17 +20,14 @@ Community _$CommunityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Community {
-  String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String? get videoUrl => throw _privateConstructorUsedError;
-  List<String> get imageUrls => throw _privateConstructorUsedError;
-  List<String> get likes => throw _privateConstructorUsedError;
-  List<Comment> get comments => throw _privateConstructorUsedError;
-  List<String> get reposts => throw _privateConstructorUsedError;
+  String? get communityId => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
+  String? get communityName => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get avatarUrls => throw _privateConstructorUsedError;
+  List<String>? get participants => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,16 +41,14 @@ abstract class $CommunityCopyWith<$Res> {
       _$CommunityCopyWithImpl<$Res, Community>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String? videoUrl,
-      List<String> imageUrls,
-      List<String> likes,
-      List<Comment> comments,
-      List<String> reposts,
+      {String? communityId,
+      String? uid,
+      String? communityName,
+      String? description,
+      String? avatarUrls,
+      List<String>? participants,
       bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -69,50 +64,40 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? videoUrl = freezed,
-    Object? imageUrls = null,
-    Object? likes = null,
-    Object? comments = null,
-    Object? reposts = null,
+    Object? communityId = freezed,
+    Object? uid = freezed,
+    Object? communityName = freezed,
+    Object? description = freezed,
+    Object? avatarUrls = freezed,
+    Object? participants = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+      communityId: freezed == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      communityName: freezed == communityName
+          ? _value.communityName
+          : communityName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      videoUrl: freezed == videoUrl
-          ? _value.videoUrl
-          : videoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrls: null == imageUrls
-          ? _value.imageUrls
-          : imageUrls // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      likes: null == likes
-          ? _value.likes
-          : likes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      comments: null == comments
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
-      reposts: null == reposts
-          ? _value.reposts
-          : reposts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      avatarUrls: freezed == avatarUrls
+          ? _value.avatarUrls
+          : avatarUrls // ignore: cast_nullable_to_non_nullable
+              as String?,
+      participants: freezed == participants
+          ? _value.participants
+          : participants // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -120,7 +105,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ) as $Val);
   }
 }
@@ -134,16 +119,14 @@ abstract class _$$CommunityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String? videoUrl,
-      List<String> imageUrls,
-      List<String> likes,
-      List<Comment> comments,
-      List<String> reposts,
+      {String? communityId,
+      String? uid,
+      String? communityName,
+      String? description,
+      String? avatarUrls,
+      List<String>? participants,
       bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -157,50 +140,40 @@ class __$$CommunityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? videoUrl = freezed,
-    Object? imageUrls = null,
-    Object? likes = null,
-    Object? comments = null,
-    Object? reposts = null,
+    Object? communityId = freezed,
+    Object? uid = freezed,
+    Object? communityName = freezed,
+    Object? description = freezed,
+    Object? avatarUrls = freezed,
+    Object? participants = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
     return _then(_$CommunityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+      communityId: freezed == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      communityName: freezed == communityName
+          ? _value.communityName
+          : communityName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      videoUrl: freezed == videoUrl
-          ? _value.videoUrl
-          : videoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrls: null == imageUrls
-          ? _value._imageUrls
-          : imageUrls // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      likes: null == likes
-          ? _value._likes
-          : likes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      comments: null == comments
-          ? _value._comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
-      reposts: null == reposts
-          ? _value._reposts
-          : reposts // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      avatarUrls: freezed == avatarUrls
+          ? _value.avatarUrls
+          : avatarUrls // ignore: cast_nullable_to_non_nullable
+              as String?,
+      participants: freezed == participants
+          ? _value._participants
+          : participants // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -208,7 +181,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ));
   }
 }
@@ -217,78 +190,51 @@ class __$$CommunityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommunityImpl implements _Community {
   _$CommunityImpl(
-      {required this.id,
-      required this.name,
-      required this.description,
-      this.videoUrl,
-      final List<String> imageUrls = const [],
-      final List<String> likes = const [],
-      final List<Comment> comments = const [],
-      final List<String> reposts = const [],
+      {this.communityId,
+      this.uid,
+      this.communityName,
+      this.description,
+      this.avatarUrls = "",
+      final List<String>? participants = const [],
       this.isFavorite = false,
-      @TimestampConverter() this.createdAt})
-      : _imageUrls = imageUrls,
-        _likes = likes,
-        _comments = comments,
-        _reposts = reposts;
+      this.createdAt = ""})
+      : _participants = participants;
 
   factory _$CommunityImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommunityImplFromJson(json);
 
   @override
-  final String id;
+  final String? communityId;
   @override
-  final String name;
+  final String? uid;
   @override
-  final String description;
+  final String? communityName;
   @override
-  final String? videoUrl;
-  final List<String> _imageUrls;
-  @override
-  @JsonKey()
-  List<String> get imageUrls {
-    if (_imageUrls is EqualUnmodifiableListView) return _imageUrls;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageUrls);
-  }
-
-  final List<String> _likes;
+  final String? description;
   @override
   @JsonKey()
-  List<String> get likes {
-    if (_likes is EqualUnmodifiableListView) return _likes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_likes);
-  }
-
-  final List<Comment> _comments;
+  final String? avatarUrls;
+  final List<String>? _participants;
   @override
   @JsonKey()
-  List<Comment> get comments {
-    if (_comments is EqualUnmodifiableListView) return _comments;
+  List<String>? get participants {
+    final value = _participants;
+    if (value == null) return null;
+    if (_participants is EqualUnmodifiableListView) return _participants;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
-  }
-
-  final List<String> _reposts;
-  @override
-  @JsonKey()
-  List<String> get reposts {
-    if (_reposts is EqualUnmodifiableListView) return _reposts;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_reposts);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
   @JsonKey()
   final bool isFavorite;
   @override
-  @TimestampConverter()
-  final DateTime? createdAt;
+  @JsonKey()
+  final String? createdAt;
 
   @override
   String toString() {
-    return 'Community(id: $id, name: $name, description: $description, videoUrl: $videoUrl, imageUrls: $imageUrls, likes: $likes, comments: $comments, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Community(communityId: $communityId, uid: $uid, communityName: $communityName, description: $description, avatarUrls: $avatarUrls, participants: $participants, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -296,17 +242,17 @@ class _$CommunityImpl implements _Community {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CommunityImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.communityName, communityName) ||
+                other.communityName == communityName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.videoUrl, videoUrl) ||
-                other.videoUrl == videoUrl) &&
+            (identical(other.avatarUrls, avatarUrls) ||
+                other.avatarUrls == avatarUrls) &&
             const DeepCollectionEquality()
-                .equals(other._imageUrls, _imageUrls) &&
-            const DeepCollectionEquality().equals(other._likes, _likes) &&
-            const DeepCollectionEquality().equals(other._comments, _comments) &&
-            const DeepCollectionEquality().equals(other._reposts, _reposts) &&
+                .equals(other._participants, _participants) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
             (identical(other.createdAt, createdAt) ||
@@ -317,14 +263,12 @@ class _$CommunityImpl implements _Community {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
-      name,
+      communityId,
+      uid,
+      communityName,
       description,
-      videoUrl,
-      const DeepCollectionEquality().hash(_imageUrls),
-      const DeepCollectionEquality().hash(_likes),
-      const DeepCollectionEquality().hash(_comments),
-      const DeepCollectionEquality().hash(_reposts),
+      avatarUrls,
+      const DeepCollectionEquality().hash(_participants),
       isFavorite,
       createdAt);
 
@@ -344,41 +288,34 @@ class _$CommunityImpl implements _Community {
 
 abstract class _Community implements Community {
   factory _Community(
-      {required final String id,
-      required final String name,
-      required final String description,
-      final String? videoUrl,
-      final List<String> imageUrls,
-      final List<String> likes,
-      final List<Comment> comments,
-      final List<String> reposts,
+      {final String? communityId,
+      final String? uid,
+      final String? communityName,
+      final String? description,
+      final String? avatarUrls,
+      final List<String>? participants,
       final bool isFavorite,
-      @TimestampConverter() final DateTime? createdAt}) = _$CommunityImpl;
+      final String? createdAt}) = _$CommunityImpl;
 
   factory _Community.fromJson(Map<String, dynamic> json) =
       _$CommunityImpl.fromJson;
 
   @override
-  String get id;
+  String? get communityId;
   @override
-  String get name;
+  String? get uid;
   @override
-  String get description;
+  String? get communityName;
   @override
-  String? get videoUrl;
+  String? get description;
   @override
-  List<String> get imageUrls;
+  String? get avatarUrls;
   @override
-  List<String> get likes;
-  @override
-  List<Comment> get comments;
-  @override
-  List<String> get reposts;
+  List<String>? get participants;
   @override
   bool get isFavorite;
   @override
-  @TimestampConverter()
-  DateTime? get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>

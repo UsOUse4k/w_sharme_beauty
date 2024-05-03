@@ -15,6 +15,7 @@ Future<void> lazyBootstrap(
   await ScreenUtil.ensureScreenSize();
 
   configureDependencies(environment: environment);
+
   initializeDateFormatting('ru_RU').then((_) {
     runApp(const App());
   });
