@@ -12,6 +12,7 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
       uid: json['uid'] as String?,
       communityName: json['communityName'] as String?,
       description: json['description'] as String?,
+      category: json['category'] as String?,
       avatarUrls: json['avatarUrls'] as String? ?? "",
       participants: (json['participants'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -27,6 +28,7 @@ Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
       'uid': instance.uid,
       'communityName': instance.communityName,
       'description': instance.description,
+      'category': instance.category,
       'avatarUrls': instance.avatarUrls,
       'participants': instance.participants,
       'isFavorite': instance.isFavorite,

@@ -24,6 +24,7 @@ mixin _$Community {
   String? get uid => throw _privateConstructorUsedError;
   String? get communityName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   String? get avatarUrls => throw _privateConstructorUsedError;
   List<String>? get participants => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $CommunityCopyWith<$Res> {
       String? uid,
       String? communityName,
       String? description,
+      String? category,
       String? avatarUrls,
       List<String>? participants,
       bool isFavorite,
@@ -68,6 +70,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? uid = freezed,
     Object? communityName = freezed,
     Object? description = freezed,
+    Object? category = freezed,
     Object? avatarUrls = freezed,
     Object? participants = freezed,
     Object? isFavorite = null,
@@ -89,6 +92,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       avatarUrls: freezed == avatarUrls
           ? _value.avatarUrls
@@ -123,6 +130,7 @@ abstract class _$$CommunityImplCopyWith<$Res>
       String? uid,
       String? communityName,
       String? description,
+      String? category,
       String? avatarUrls,
       List<String>? participants,
       bool isFavorite,
@@ -144,6 +152,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? communityName = freezed,
     Object? description = freezed,
+    Object? category = freezed,
     Object? avatarUrls = freezed,
     Object? participants = freezed,
     Object? isFavorite = null,
@@ -165,6 +174,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       avatarUrls: freezed == avatarUrls
           ? _value.avatarUrls
@@ -194,6 +207,7 @@ class _$CommunityImpl implements _Community {
       this.uid,
       this.communityName,
       this.description,
+      this.category,
       this.avatarUrls = "",
       final List<String>? participants = const [],
       this.isFavorite = false,
@@ -211,6 +225,8 @@ class _$CommunityImpl implements _Community {
   final String? communityName;
   @override
   final String? description;
+  @override
+  final String? category;
   @override
   @JsonKey()
   final String? avatarUrls;
@@ -234,7 +250,7 @@ class _$CommunityImpl implements _Community {
 
   @override
   String toString() {
-    return 'Community(communityId: $communityId, uid: $uid, communityName: $communityName, description: $description, avatarUrls: $avatarUrls, participants: $participants, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Community(communityId: $communityId, uid: $uid, communityName: $communityName, description: $description, category: $category, avatarUrls: $avatarUrls, participants: $participants, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -249,6 +265,8 @@ class _$CommunityImpl implements _Community {
                 other.communityName == communityName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.avatarUrls, avatarUrls) ||
                 other.avatarUrls == avatarUrls) &&
             const DeepCollectionEquality()
@@ -267,6 +285,7 @@ class _$CommunityImpl implements _Community {
       uid,
       communityName,
       description,
+      category,
       avatarUrls,
       const DeepCollectionEquality().hash(_participants),
       isFavorite,
@@ -292,6 +311,7 @@ abstract class _Community implements Community {
       final String? uid,
       final String? communityName,
       final String? description,
+      final String? category,
       final String? avatarUrls,
       final List<String>? participants,
       final bool isFavorite,
@@ -308,6 +328,8 @@ abstract class _Community implements Community {
   String? get communityName;
   @override
   String? get description;
+  @override
+  String? get category;
   @override
   String? get avatarUrls;
   @override

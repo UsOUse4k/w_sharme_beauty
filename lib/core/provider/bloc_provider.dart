@@ -5,6 +5,7 @@ import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
@@ -61,6 +62,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommunityCreateBloc>(
           create: (context) => getIt<CommunityCreateBloc>(),
+        ),
+        BlocProvider<CommunityListBloc>(
+          create: (context) => getIt<CommunityListBloc>(),
+        ),
+        BlocProvider<MyCommunityListBloc>(
+          create: (context) => getIt<MyCommunityListBloc>(),
         ),
       ],
       child: child,

@@ -21,7 +21,10 @@ class FirestoreCommunityRepository implements ICommunityRepository {
 
   @override
   Future<Either<PostError, Unit>> createCommunity(
-      Community community, Uint8List avatar, String userId,) async {
+    Community community,
+    Uint8List avatar,
+    String userId,
+  ) async {
     try {
       final String communityId = const Uuid().v1();
       final DateTime now = DateTime.now();
@@ -72,11 +75,25 @@ class FirestoreCommunityRepository implements ICommunityRepository {
   }
 
   @override
-  Future<Either<PostError, List<Community>>> communitiesList(
-    List<Community> community,
-  ) async {
+  Future<Either<PostError, List<Community>>> communitiesList({
+    String? userId,
+  }) async {
     try {
-      return right(community);
+      late final QuerySnapshot querySnapshot;
+      if (userId != null) {
+        querySnapshot = await firestore
+            .collection('communities')
+            .where('uid', isEqualTo: userId)
+            .get();
+      } else {
+        querySnapshot = await firestore.collection('communities').get();
+      }
+      final List<Community> communities = querySnapshot.docs
+          .map(
+            (doc) => Community.fromJson(doc.data()! as Map<String, dynamic>),
+          )
+          .toList();
+      return right(communities);
     } catch (e) {
       return left(PostError(e.toString()));
     }

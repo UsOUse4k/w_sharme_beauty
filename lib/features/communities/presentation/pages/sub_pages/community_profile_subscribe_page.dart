@@ -15,8 +15,9 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stor
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityProfileSubscribePage extends StatefulWidget {
-  const CommunityProfileSubscribePage({super.key});
+  const CommunityProfileSubscribePage({super.key, this.communityId});
 
+  final String? communityId;
   @override
   State<CommunityProfileSubscribePage> createState() =>
       _CommunityProfileSubscribePageState();
@@ -37,7 +38,7 @@ class _CommunityProfileSubscribePageState
           onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        title:  Text('Сообщество', style: AppStyles.w500f22),
+        title: Text('Сообщество', style: AppStyles.w500f22),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -52,17 +53,17 @@ class _CommunityProfileSubscribePageState
                 ProfileNavbarWidget(
                   avatar: Assets.images.ava.path,
                   publications: '23',
-                  followers: '2422',
+                  followers: widget.communityId,
                   subscribeText: "Участники",
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                 Text("Комьюнити", style: AppStyles.w500f18),
+                Text("Комьюнити", style: AppStyles.w500f18),
                 const SizedBox(
                   height: 10,
                 ),
-                 Text(
+                Text(
                   "Всем привет, мы публикуем самые трендовые и красивые дизайны для твоего маникюра!",
                   style: AppStyles.w400f13,
                 ),
