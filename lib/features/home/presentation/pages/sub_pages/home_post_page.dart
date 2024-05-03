@@ -5,6 +5,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
 import 'package:w_sharme_beauty/features/home/data/data/comments_data.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
@@ -24,6 +25,7 @@ class HomePostPage extends StatefulWidget {
 }
 
 class _HomePostPageState extends State<HomePostPage> {
+  final TextEditingController comment = TextEditingController();
   @override
   void initState() {
     context.read<PostDetailBloc>().add(PostDetailEvent.getPost(widget.postId!));
@@ -43,6 +45,17 @@ class _HomePostPageState extends State<HomePostPage> {
           title: 'Запись',
           textStyle: AppStyles.w500f22,
           key: ValueKey(widget.postId),
+        ),
+      ),
+      bottomBar: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.white,
+        ),
+        child: TextFieldSendMessageWidget(
+          hintext: 'Ваш комментарий',
+          show: 'show',
+          controller: comment,
+          onPressed: () {},
         ),
       ),
       body: SafeArea(

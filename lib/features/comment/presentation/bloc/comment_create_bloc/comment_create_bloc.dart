@@ -25,6 +25,7 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
               user.username,
               event.comment,
               user.profilePictureUrl,
+              event.postId
             );
             result.fold(
               (l) => {

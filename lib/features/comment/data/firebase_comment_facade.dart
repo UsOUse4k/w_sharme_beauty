@@ -18,6 +18,7 @@ class FirebaseCommentFacade implements ICommentRepository {
     String? username,
     Comment? comment,
     String? avatarUrl,
+    String? postId,
   ) async {
     try {
       final String commentId = const Uuid().v1();

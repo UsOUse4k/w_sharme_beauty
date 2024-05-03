@@ -8,5 +8,6 @@ abstract class ICommentRepository {
     String? username,
     Comment? comment,
     String? avatarUrl,
+    String? postId,
   );
 }
