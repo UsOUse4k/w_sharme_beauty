@@ -27,7 +27,7 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
 
             await userOption.fold(() {
               emit(const PostCreateState.error(
-                  message: 'not user authentication'));
+                  message: 'not user authentication',),);
             }, (user) async {
               final username =
                   await _iProfileInfoRepository.getMeInfo(user.uid);
@@ -35,7 +35,7 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
                 emit(const PostCreateState.error(message: 'not username'));
               }, (post) async {
                 final result = await _repository.createPost(
-                    event.post, event.imageFiles, post.username.toString());
+                    event.post, event.imageFiles, post.username.toString(),);
 
                 result.fold(
                   (error) {
