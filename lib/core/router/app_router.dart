@@ -185,9 +185,14 @@ mixin AppRouter on State<App> {
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.communityProfileSubscribe,
-                    path: RouterContants.communityProfileSubscribe,
-                    builder: (context, state) =>
-                        const CommunityProfileSubscribePage(),
+                    path:
+                        "${RouterContants.communityProfileSubscribe}/:communityId",
+                    builder: (BuildContext context, GoRouterState state) {
+                      final communityId = state.pathParameters['communityId'];
+                      return CommunityProfileSubscribePage(
+                        communityId: communityId,
+                      );
+                    },
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

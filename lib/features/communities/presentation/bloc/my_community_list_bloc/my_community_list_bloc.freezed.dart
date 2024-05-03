@@ -19,38 +19,38 @@ mixin _$MyCommunityListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMyCommunity,
-    required TResult Function() addMyCommunity,
+    required TResult Function(Community community) addNewCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMyCommunity,
-    TResult? Function()? addMyCommunity,
+    TResult? Function(Community community)? addNewCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMyCommunity,
-    TResult Function()? addMyCommunity,
+    TResult Function(Community community)? addNewCommunity,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMyCommunity value) getMyCommunity,
-    required TResult Function(_addMyCommunity value) addMyCommunity,
+    required TResult Function(_AddNewCommunity value) addNewCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMyCommunity value)? getMyCommunity,
-    TResult? Function(_addMyCommunity value)? addMyCommunity,
+    TResult? Function(_AddNewCommunity value)? addNewCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMyCommunity value)? getMyCommunity,
-    TResult Function(_addMyCommunity value)? addMyCommunity,
+    TResult Function(_AddNewCommunity value)? addNewCommunity,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,7 +114,7 @@ class _$GetMyCommunityImpl implements _GetMyCommunity {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMyCommunity,
-    required TResult Function() addMyCommunity,
+    required TResult Function(Community community) addNewCommunity,
   }) {
     return getMyCommunity();
   }
@@ -123,7 +123,7 @@ class _$GetMyCommunityImpl implements _GetMyCommunity {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMyCommunity,
-    TResult? Function()? addMyCommunity,
+    TResult? Function(Community community)? addNewCommunity,
   }) {
     return getMyCommunity?.call();
   }
@@ -132,7 +132,7 @@ class _$GetMyCommunityImpl implements _GetMyCommunity {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMyCommunity,
-    TResult Function()? addMyCommunity,
+    TResult Function(Community community)? addNewCommunity,
     required TResult orElse(),
   }) {
     if (getMyCommunity != null) {
@@ -145,7 +145,7 @@ class _$GetMyCommunityImpl implements _GetMyCommunity {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMyCommunity value) getMyCommunity,
-    required TResult Function(_addMyCommunity value) addMyCommunity,
+    required TResult Function(_AddNewCommunity value) addNewCommunity,
   }) {
     return getMyCommunity(this);
   }
@@ -154,7 +154,7 @@ class _$GetMyCommunityImpl implements _GetMyCommunity {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMyCommunity value)? getMyCommunity,
-    TResult? Function(_addMyCommunity value)? addMyCommunity,
+    TResult? Function(_AddNewCommunity value)? addNewCommunity,
   }) {
     return getMyCommunity?.call(this);
   }
@@ -163,7 +163,7 @@ class _$GetMyCommunityImpl implements _GetMyCommunity {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMyCommunity value)? getMyCommunity,
-    TResult Function(_addMyCommunity value)? addMyCommunity,
+    TResult Function(_AddNewCommunity value)? addNewCommunity,
     required TResult orElse(),
   }) {
     if (getMyCommunity != null) {
@@ -178,67 +178,105 @@ abstract class _GetMyCommunity implements MyCommunityListEvent {
 }
 
 /// @nodoc
-abstract class _$$addMyCommunityImplCopyWith<$Res> {
-  factory _$$addMyCommunityImplCopyWith(_$addMyCommunityImpl value,
-          $Res Function(_$addMyCommunityImpl) then) =
-      __$$addMyCommunityImplCopyWithImpl<$Res>;
+abstract class _$$AddNewCommunityImplCopyWith<$Res> {
+  factory _$$AddNewCommunityImplCopyWith(_$AddNewCommunityImpl value,
+          $Res Function(_$AddNewCommunityImpl) then) =
+      __$$AddNewCommunityImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Community community});
+
+  $CommunityCopyWith<$Res> get community;
 }
 
 /// @nodoc
-class __$$addMyCommunityImplCopyWithImpl<$Res>
-    extends _$MyCommunityListEventCopyWithImpl<$Res, _$addMyCommunityImpl>
-    implements _$$addMyCommunityImplCopyWith<$Res> {
-  __$$addMyCommunityImplCopyWithImpl(
-      _$addMyCommunityImpl _value, $Res Function(_$addMyCommunityImpl) _then)
+class __$$AddNewCommunityImplCopyWithImpl<$Res>
+    extends _$MyCommunityListEventCopyWithImpl<$Res, _$AddNewCommunityImpl>
+    implements _$$AddNewCommunityImplCopyWith<$Res> {
+  __$$AddNewCommunityImplCopyWithImpl(
+      _$AddNewCommunityImpl _value, $Res Function(_$AddNewCommunityImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? community = null,
+  }) {
+    return _then(_$AddNewCommunityImpl(
+      null == community
+          ? _value.community
+          : community // ignore: cast_nullable_to_non_nullable
+              as Community,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CommunityCopyWith<$Res> get community {
+    return $CommunityCopyWith<$Res>(_value.community, (value) {
+      return _then(_value.copyWith(community: value));
+    });
+  }
 }
 
 /// @nodoc
 
-class _$addMyCommunityImpl implements _addMyCommunity {
-  const _$addMyCommunityImpl();
+class _$AddNewCommunityImpl implements _AddNewCommunity {
+  const _$AddNewCommunityImpl(this.community);
+
+  @override
+  final Community community;
 
   @override
   String toString() {
-    return 'MyCommunityListEvent.addMyCommunity()';
+    return 'MyCommunityListEvent.addNewCommunity(community: $community)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$addMyCommunityImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$AddNewCommunityImpl &&
+            (identical(other.community, community) ||
+                other.community == community));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, community);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddNewCommunityImplCopyWith<_$AddNewCommunityImpl> get copyWith =>
+      __$$AddNewCommunityImplCopyWithImpl<_$AddNewCommunityImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getMyCommunity,
-    required TResult Function() addMyCommunity,
+    required TResult Function(Community community) addNewCommunity,
   }) {
-    return addMyCommunity();
+    return addNewCommunity(community);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getMyCommunity,
-    TResult? Function()? addMyCommunity,
+    TResult? Function(Community community)? addNewCommunity,
   }) {
-    return addMyCommunity?.call();
+    return addNewCommunity?.call(community);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getMyCommunity,
-    TResult Function()? addMyCommunity,
+    TResult Function(Community community)? addNewCommunity,
     required TResult orElse(),
   }) {
-    if (addMyCommunity != null) {
-      return addMyCommunity();
+    if (addNewCommunity != null) {
+      return addNewCommunity(community);
     }
     return orElse();
   }
@@ -247,36 +285,42 @@ class _$addMyCommunityImpl implements _addMyCommunity {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetMyCommunity value) getMyCommunity,
-    required TResult Function(_addMyCommunity value) addMyCommunity,
+    required TResult Function(_AddNewCommunity value) addNewCommunity,
   }) {
-    return addMyCommunity(this);
+    return addNewCommunity(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetMyCommunity value)? getMyCommunity,
-    TResult? Function(_addMyCommunity value)? addMyCommunity,
+    TResult? Function(_AddNewCommunity value)? addNewCommunity,
   }) {
-    return addMyCommunity?.call(this);
+    return addNewCommunity?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetMyCommunity value)? getMyCommunity,
-    TResult Function(_addMyCommunity value)? addMyCommunity,
+    TResult Function(_AddNewCommunity value)? addNewCommunity,
     required TResult orElse(),
   }) {
-    if (addMyCommunity != null) {
-      return addMyCommunity(this);
+    if (addNewCommunity != null) {
+      return addNewCommunity(this);
     }
     return orElse();
   }
 }
 
-abstract class _addMyCommunity implements MyCommunityListEvent {
-  const factory _addMyCommunity() = _$addMyCommunityImpl;
+abstract class _AddNewCommunity implements MyCommunityListEvent {
+  const factory _AddNewCommunity(final Community community) =
+      _$AddNewCommunityImpl;
+
+  Community get community;
+  @JsonKey(ignore: true)
+  _$$AddNewCommunityImplCopyWith<_$AddNewCommunityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
