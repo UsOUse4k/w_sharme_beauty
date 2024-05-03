@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
@@ -7,11 +6,12 @@ class CardImageProfileAdd extends StatelessWidget {
     super.key,
     required this.image,
     required this.onPressed,
+    this.radius,
   });
 
   final ImageProvider image;
   final Function() onPressed;
-
+  final double? radius;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,8 +22,8 @@ class CardImageProfileAdd extends StatelessWidget {
           image: image,
           fit: BoxFit.cover,
         ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
+        borderRadius: BorderRadius.all(
+          Radius.circular(radius ?? 10),
         ),
       ),
       child: Stack(

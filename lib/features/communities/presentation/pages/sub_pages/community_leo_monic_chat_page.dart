@@ -11,7 +11,7 @@ import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/card_message__with_image_widget.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/text_field_widget_buttom_sheet.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityLeoMonicChatPage extends StatefulWidget {

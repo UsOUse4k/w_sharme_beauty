@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
+import 'package:w_sharme_beauty/core/utils/date_formatter.dart';
 import 'package:w_sharme_beauty/features/post/data/firebase_storage_image_methods.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart';
@@ -21,18 +22,22 @@ class FirestorePostRepository implements IPostRepository {
   Future<Either<PostError, Unit>> createPost(
     Post post,
     List<Uint8List>? imageFiles,
+    String? username,
   ) async {
     try {
       final String postId = const Uuid().v1();
       final String authorId = auth.currentUser!.uid;
+      final DateTime now = DateTime.now();
+      final String formattedDate = DateFormatter.format(now);
       final List<String> imageUrls =
           await FirebaseStorageImageMethods(auth, storage)
               .uploadImageToStorage(imageFiles!, true, 'posts');
       final updatedPost = post.copyWith(
         postId: postId,
-        createdAt: DateTime.now(),
+        createdAt: formattedDate,
         authorId: authorId,
         imageUrls: imageUrls,
+        username: username,
       );
       await firestore.collection('posts').doc(postId).set(updatedPost.toJson());
       return right(unit);
@@ -66,7 +71,11 @@ class FirestorePostRepository implements IPostRepository {
   }
 
   @override
-  Future<Either<PostError, Unit>> updateLikes(String postId, String userId, bool add) async {
+  Future<Either<PostError, Unit>> updateLikes(
+    String postId,
+    String userId,
+    bool add,
+  ) async {
     try {
       await firestore.collection('posts').doc(postId).update({
         'likes': add
@@ -74,6 +83,28 @@ class FirestorePostRepository implements IPostRepository {
             : FieldValue.arrayRemove([userId]),
       });
       return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Post>> getPost(
+    String? postId,
+    String? userId,
+  ) async {
+    try {
+      if (postId == null) {
+        return left(PostError('no Post id'));
+      }
+      final DocumentSnapshot post =
+          await firestore.collection('posts').doc(postId).get();
+      if (!post.exists) {
+        return left(PostError('Post not found.'));
+      }
+      final Post userProfile =
+          Post.fromStoreData(post.data()! as Map<String, dynamic>);
+      return right(userProfile);
     } catch (e) {
       return left(PostError(e.toString()));
     }

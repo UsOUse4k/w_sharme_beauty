@@ -18,6 +18,7 @@ abstract class RouterContants {
   // bottom sub pages
   static const String profileEdit = 'profile-edit';
   static const String chat = 'chat';
+  static const String post = 'post';
   static const String chatMessages = 'chatMessages';
   static const String profilePersonPage = 'profilePersonPage';
   static const String advertDetailPage = 'advertDetailPage';

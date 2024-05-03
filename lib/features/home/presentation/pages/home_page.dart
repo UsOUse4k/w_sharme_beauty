@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,10 +33,27 @@ class _HomePageState extends State<HomePage> {
       appBar: GlAppBar(
         leading: Row(
           children: [
-            GlCircleAvatar(
-              avatar: Assets.images.avatar.path,
-              width: 26.w,
-              height: 26.h,
+            BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  succes: (profile) => ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(14),
+                    ),
+                    child: GlCachedNetworImage(
+                      height: 28.h,
+                      width: 28.w,
+                      urlImage: profile.profilePictureUrl,
+                    ),
+                  ),
+                  error: () => GlCircleAvatar(
+                    avatar: Assets.images.avatar.path,
+                    width: 26.w,
+                    height: 26.h,
+                  ),
+                  orElse: () => Container(),
+                );
+              },
             ),
             SizedBox(width: 16.w),
             CenterTitleAppBar(

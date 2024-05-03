@@ -38,6 +38,7 @@ class CardMessageWithImageWidget extends StatelessWidget {
             height: 30,
           )
         else
+          // ignore: deprecated_member_use_from_same_package
           Assets.svgs.checkDouble.svg(color: AppColors.purple),
         const SizedBox(width: 10),
         Column(

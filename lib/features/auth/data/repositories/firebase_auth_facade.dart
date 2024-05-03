@@ -13,15 +13,15 @@ class FirebaseAuthFacade implements IAuthFacade {
   FirebaseAuthFacade(this._firebaseAuth, this._store);
 
   @override
-  Future<Option<User>> getSignedInUser() async {
+  Future<Option<UserProfile>> getSignedInUser() async {
     final firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser == null) {
       return none();
     } else {
       return some(
-        User(
+        UserProfile(
           uid: firebaseUser.uid,
-          email: firebaseUser.email!,
+          email: firebaseUser.email,
           name: firebaseUser.displayName,
           profilePictureUrl: firebaseUser.photoURL,
         ),

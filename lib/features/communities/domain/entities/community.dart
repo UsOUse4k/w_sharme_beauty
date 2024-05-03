@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:w_sharme_beauty/features/post/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+
 
 part 'community.freezed.dart';
 part 'community.g.dart';

@@ -20,8 +20,6 @@ import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_page
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_subscribe_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_subscribers_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/create_a_community_page.dart';
-import 'package:w_sharme_beauty/features/home/data/data/post_data.dart';
-import 'package:w_sharme_beauty/features/home/data/model/post_card_model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
@@ -102,18 +100,11 @@ mixin AppRouter on State<App> {
                 routes: [
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    path: 'post/:postId',
+                    path: '${RouterContants.post}/:postId',
                     builder: (BuildContext context, GoRouterState state) {
-                      PostCardModel? fetchPostById(String? postId) {
-                        return posts.firstWhere(
-                          (post) => post.id == postId,
-                        );
-                      }
-
                       final postId = state.pathParameters['postId'];
-                      final post = fetchPostById(postId);
                       return HomePostPage(
-                        post: post!,
+                        postId: postId,
                       );
                     },
                   ),

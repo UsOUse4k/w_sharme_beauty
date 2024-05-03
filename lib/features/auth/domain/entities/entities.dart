@@ -1,2 +1,2 @@
 export 'auth_failure.dart';
-export 'user.dart';
+export 'user_profile.dart';

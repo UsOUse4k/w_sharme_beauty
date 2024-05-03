@@ -51,7 +51,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
-                      flex: 5,
+                      flex: 15,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +114,6 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                       },
                       color: AppColors.purple,
                     ),
-                    const SizedBox(height: 20),
                   ],
                 );
               },

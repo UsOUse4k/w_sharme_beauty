@@ -4,7 +4,7 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 typedef AuthFacadeResult = Either<AuthFailure, Unit>;
 
 abstract class IAuthFacade {
-  Future<Option<User>> getSignedInUser();
+  Future<Option<UserProfile>> getSignedInUser();
   Future<AuthFacadeResult> loginWithEmail(
     String email,
     String password,
