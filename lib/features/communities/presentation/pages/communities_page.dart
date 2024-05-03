@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
@@ -46,7 +47,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
               height: 26,
             ),
             const SizedBox(width: 16),
-             Text(
+            Text(
               'Сообщество',
               style: AppStyles.w500f18,
             ),
@@ -57,7 +58,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
           children: [
             GestureDetector(
               onTap: () {
-                route.push('/communities/${RouterContants.communityProfile}');
+                route.push('/communities/${RouterContants.communityCreate}');
               },
               child: Image.asset(
                 Assets.icons.addCommunity.path,

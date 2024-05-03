@@ -8,16 +8,27 @@ part of 'community.dart';
 
 _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
     _$CommunityImpl(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      imageUrl: json['imageUrl'] as String,
-      description: json['description'] as String,
+      communityId: json['communityId'] as String?,
+      uid: json['uid'] as String?,
+      communityName: json['communityName'] as String?,
+      description: json['description'] as String?,
+      avatarUrls: json['avatarUrls'] as String? ?? "",
+      participants: (json['participants'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      isFavorite: json['isFavorite'] as bool? ?? false,
+      createdAt: json['createdAt'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'imageUrl': instance.imageUrl,
+      'communityId': instance.communityId,
+      'uid': instance.uid,
+      'communityName': instance.communityName,
       'description': instance.description,
+      'avatarUrls': instance.avatarUrls,
+      'participants': instance.participants,
+      'isFavorite': instance.isFavorite,
+      'createdAt': instance.createdAt,
     };

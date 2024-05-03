@@ -6,10 +6,14 @@ part 'community.g.dart';
 @freezed
 class Community with _$Community {
   factory Community({
-    required String id,
-    required String name,
-    required String imageUrl,
-    required String description,
+    String? communityId,
+    String? uid,
+    String? communityName,
+    String? description,
+    @Default("") String? avatarUrls,
+    @Default([]) List<String>? participants,
+    @Default(false) bool isFavorite,
+    @Default("") String? createdAt,
   }) = _Community;
 
   factory Community.fromJson(Map<String, dynamic> json) =>
