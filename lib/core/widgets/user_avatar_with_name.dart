@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_circle_avatar.dart';
+import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 
 class UserAvatarWithName extends StatelessWidget {
   const UserAvatarWithName({
@@ -25,10 +26,15 @@ class UserAvatarWithName extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (avatar != null)
-          GlCircleAvatar(
-            width: width,
-            height: height,
-            avatar: avatar!,
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20),
+            ),
+            child: GlCachedNetworImage(
+              height: height.h,
+              width: width.w,
+              urlImage: avatar,
+            ),
           ),
         const SizedBox(width: 5),
         Column(

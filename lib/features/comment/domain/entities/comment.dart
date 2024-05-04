@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comment.freezed.dart';
@@ -12,29 +13,27 @@ class Comment with _$Comment {
     @Default('') String? username,
     @Default('') String? avatarUrl,
     @Default([]) List<String> likes,
-    @Default('') String? createdAt,
+    @Default('') String? parentCommentId,
+    @TimestampConverter() Timestamp? createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
 }
 
-class TimestampConverter
-    implements JsonConverter<DateTime?, Map<String, dynamic>?> {
+class TimestampConverter implements JsonConverter<Timestamp?, dynamic> {
   const TimestampConverter();
 
   @override
-  DateTime? fromJson(Map<String, dynamic>? json) {
-    if (json == null || json['seconds'] == null) {
+  Timestamp? fromJson(dynamic json) {
+    if (json == null) {
       return null;
     }
-    return DateTime.fromMillisecondsSinceEpoch((json['seconds'] as int) * 1000);
+    return json is Timestamp ? json : null;
   }
 
   @override
-  Map<String, dynamic>? toJson(DateTime? dateTime) {
-    return dateTime != null
-        ? {'seconds': dateTime.millisecondsSinceEpoch ~/ 1000}
-        : null;
+  dynamic toJson(Timestamp? timestamp) {
+    return timestamp;
   }
 }

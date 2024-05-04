@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_subscribe_button.dart';
-import 'package:w_sharme_beauty/core/widgets/user_avatar_with_name.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
@@ -35,6 +36,8 @@ class PostCard extends StatefulWidget {
 class _PostCardState extends State<PostCard> {
   bool isLike = false;
   int countLike = 0;
+  int counterComment = 0;
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +45,11 @@ class _PostCardState extends State<PostCard> {
       isLike = widget.post!.likes.contains(firebaseAuth.currentUser!.uid);
       countLike = widget.post!.likes.length;
     });
+    context
+        .read<CommentListBloc>()
+        .add(CommentListEvent.getComments(postId: widget.post!.postId));
   }
+
   void toggleLike() {
     final authorId = firebaseAuth.currentUser!.uid;
     final postId = widget.post!.postId.toString();
@@ -63,6 +70,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    final postId = widget.post!.postId;
     return Container(
       margin: EdgeInsets.only(bottom: 16, top: widget.index == 0 ? 16 : 0),
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
@@ -76,6 +84,7 @@ class _PostCardState extends State<PostCard> {
             children: [
               Flexible(
                 child: UserAvatarWithName(
+                  avatar: widget.post!.avatarUrl,
                   width: 40.w,
                   height: 40.h,
                   name: widget.post!.username.toString(),
@@ -114,14 +123,29 @@ class _PostCardState extends State<PostCard> {
               ),
               const SizedBox(width: 6),
               if (widget.show == 'hide')
-                PostIconsWidget(
-                  onPessed: () {
-                    if (widget.post != null && widget.post!.postId != null) {
-                      context.push('/home/post/${widget.post!.postId}');
-                    }
+                BlocListener<CommentListBloc, CommentListState>(
+                  listener: (context, state) {
+                    state.maybeWhen(
+                      success: (comments) {
+                        setState(() {
+                          counterComment = comments.length;
+                        });
+                      },
+                      orElse: () {},
+                    );
                   },
-                  icon: Assets.svgs.comment.svg(),
-                  text: widget.post!.comments.length.toString(),
+                  child: PostIconsWidget(
+                    onPessed: () {
+                      BottomSheetUtil.showAppBottomSheet(
+                        context,
+                        CommentBottomSheet(
+                          postId: postId!,
+                        ),
+                      );
+                    },
+                    icon: Assets.svgs.comment.svg(),
+                    text: '$counterComment',
+                  ),
                 ),
               const SizedBox(width: 6),
               PostIconsWidget(

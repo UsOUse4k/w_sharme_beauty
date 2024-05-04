@@ -23,6 +23,7 @@ class FirestorePostRepository implements IPostRepository {
     Post post,
     List<Uint8List>? imageFiles,
     String? username,
+    String? avatarUrl,
   ) async {
     try {
       final String postId = const Uuid().v1();
@@ -38,6 +39,7 @@ class FirestorePostRepository implements IPostRepository {
         authorId: authorId,
         imageUrls: imageUrls,
         username: username,
+        avatarUrl: avatarUrl,
       );
       await firestore.collection('posts').doc(postId).set(updatedPost.toJson());
       return right(unit);

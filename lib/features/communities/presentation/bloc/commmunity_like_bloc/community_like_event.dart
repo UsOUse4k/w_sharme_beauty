@@ -6,5 +6,5 @@ class CommunityLikeEvent with _$CommunityLikeEvent {
       _Like;
 
   const factory CommunityLikeEvent.dislike(
-      String communityId, String authorId) = _Dislike;
+      String communityId, String authorId,) = _Dislike;
 }

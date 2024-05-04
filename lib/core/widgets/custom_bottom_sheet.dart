@@ -8,13 +8,13 @@ import 'package:w_sharme_beauty/gen/assets.gen.dart';
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
     super.key,
-    required this.navbarTitle,
+    this.navbarTitle,
 
     required this.widget,
     this.maxHeight,
   });
 
-  final String navbarTitle;
+  final String? navbarTitle;
   final Widget widget;
   final double? maxHeight;
   @override
@@ -51,8 +51,8 @@ class CustomBottomSheet extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        navbarTitle,
+                      if(navbarTitle != null) Text(
+                        navbarTitle!,
                         style: AppStyles.w500f18.copyWith(
                           fontWeight: FontWeight.w700,
                         ),

@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              orElse: () => const SizedBox.shrink(),
+              orElse: () => Container(),
             );
           },
         ),

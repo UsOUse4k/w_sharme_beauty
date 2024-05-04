@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
-
 class CommentItem extends StatelessWidget {
   const CommentItem({
     super.key,
@@ -10,12 +9,17 @@ class CommentItem extends StatelessWidget {
     required this.data,
     required this.like,
     required this.username,
+    required this.onPressedComment,
+    required this.onPressedLike,
   });
 
   final String comment;
   final String data;
   final String like;
   final String username;
+
+  final Function() onPressedComment;
+  final Function() onPressedLike;
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +42,15 @@ class CommentItem extends StatelessWidget {
               style: AppStyles.w400f14.copyWith(color: AppColors.grey),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: onPressedLike,
               child: Text(
                 'Нравится: $like',
                 style: AppStyles.w400f14,
               ),
             ),
             GestureDetector(
-              onTap: () {},
-              child:  Text(
+              onTap: onPressedComment,
+              child: Text(
                 'Ответить',
                 style: AppStyles.w400f14,
               ),

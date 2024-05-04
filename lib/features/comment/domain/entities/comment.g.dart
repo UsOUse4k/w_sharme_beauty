@@ -16,7 +16,8 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       likes:
           (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
-      createdAt: json['createdAt'] as String? ?? '',
+      parentCommentId: json['parentCommentId'] as String? ?? '',
+      createdAt: const TimestampConverter().fromJson(json['createdAt']),
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
@@ -27,5 +28,6 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'username': instance.username,
       'avatarUrl': instance.avatarUrl,
       'likes': instance.likes,
-      'createdAt': instance.createdAt,
+      'parentCommentId': instance.parentCommentId,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

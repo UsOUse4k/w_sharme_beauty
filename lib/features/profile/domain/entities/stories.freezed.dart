@@ -25,8 +25,7 @@ mixin _$Stories {
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +43,7 @@ abstract class $StoriesCopyWith<$Res> {
       String? imageUrl,
       String? videoUrl,
       bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -91,7 +90,7 @@ class _$StoriesCopyWithImpl<$Res, $Val extends Stories>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ) as $Val);
   }
 }
@@ -109,7 +108,7 @@ abstract class _$$StoriesImplCopyWith<$Res> implements $StoriesCopyWith<$Res> {
       String? imageUrl,
       String? videoUrl,
       bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      String? createdAt});
 }
 
 /// @nodoc
@@ -154,7 +153,7 @@ class __$$StoriesImplCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
     ));
   }
 }
@@ -168,7 +167,7 @@ class _$StoriesImpl implements _Stories {
       this.imageUrl,
       this.videoUrl,
       this.isFavorite = false,
-      @TimestampConverter() this.createdAt});
+      this.createdAt = ''});
 
   factory _$StoriesImpl.fromJson(Map<String, dynamic> json) =>
       _$$StoriesImplFromJson(json);
@@ -185,8 +184,8 @@ class _$StoriesImpl implements _Stories {
   @JsonKey()
   final bool isFavorite;
   @override
-  @TimestampConverter()
-  final DateTime? createdAt;
+  @JsonKey()
+  final String? createdAt;
 
   @override
   String toString() {
@@ -236,7 +235,7 @@ abstract class _Stories implements Stories {
       final String? imageUrl,
       final String? videoUrl,
       final bool isFavorite,
-      @TimestampConverter() final DateTime? createdAt}) = _$StoriesImpl;
+      final String? createdAt}) = _$StoriesImpl;
 
   factory _Stories.fromJson(Map<String, dynamic> json) = _$StoriesImpl.fromJson;
 
@@ -251,8 +250,7 @@ abstract class _Stories implements Stories {
   @override
   bool get isFavorite;
   @override
-  @TimestampConverter()
-  DateTime? get createdAt;
+  String? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$StoriesImplCopyWith<_$StoriesImpl> get copyWith =>

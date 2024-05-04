@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_circle_avatar.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 
-import 'package:w_sharme_beauty/features/home/data/model/model.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -10,40 +14,103 @@ class CommentBookingCard extends StatelessWidget {
     super.key,
     required this.avatar,
     required this.item,
+    required this.onPressed,
   });
   final String avatar;
-  final CommentsModel item;
-
+  final Comment item;
+  final Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        Flexible(
-          child: GlCircleAvatar(
-            avatar: avatar,
-            width: 48,
-            height: 48,
-          ),
-        ),
-        Flexible(
-          flex: 8,
-          child: CommentItem(
-            username: item.username,
-            comment: item.comment,
-            data: 'сегодня в 15:53',
-            like: item.like,
-          ),
-        ),
-        Flexible(
-          child: Image(
-            width: 16,
-            height: 16,
-            image: AssetImage(
-              Assets.icons.heart.path,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: GlCachedNetworImage(
+                  height: 40.h,
+                  width: 40.w,
+                  urlImage: avatar,
+                ),
+              ),
             ),
-          ),
+            Flexible(
+              flex: 8,
+              child: CommentItem(
+                username: item.username.toString(),
+                comment: item.comment.toString(),
+                data: 'сегодня в 15:53',
+                like: '0',
+                onPressedComment: onPressed,
+                onPressedLike: () {},
+              ),
+            ),
+            Flexible(
+              child: Image(
+                width: 16,
+                height: 16,
+                image: AssetImage(
+                  Assets.icons.heart.path,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        BlocBuilder<ReplyCommentListBloc, ReplyCommentListState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              success: (comment) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 30,
+                    ),
+                    Flexible(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        child: GlCachedNetworImage(
+                          height: 40.h,
+                          width: 40.w,
+                          urlImage: avatar,
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 8,
+                      child: CommentItem(
+                        username: '',
+                        comment: item.comment.toString(),
+                        data: 'сегодня в 15:53',
+                        like: '0',
+                        onPressedComment: onPressed,
+                        onPressedLike: () {},
+                      ),
+                    ),
+                    Flexible(
+                      child: Image(
+                        width: 16,
+                        height: 16,
+                        image: AssetImage(
+                          Assets.icons.heart.path,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
         ),
       ],
     );

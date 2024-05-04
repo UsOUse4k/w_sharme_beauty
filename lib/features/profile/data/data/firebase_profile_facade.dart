@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,7 +52,6 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
       }
       final DocumentSnapshot userDoc =
           await firestore.collection('users').doc(effectiveUserId).get();
-
       if (!userDoc.exists) {
         return left(PostError('User not found.'));
       }

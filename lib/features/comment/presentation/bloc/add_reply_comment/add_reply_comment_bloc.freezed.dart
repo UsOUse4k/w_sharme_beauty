@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'comment_create_bloc.dart';
+part of 'add_reply_comment_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,62 +15,68 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CommentCreateEvent {
+mixin _$AddReplyCommentEvent {
   Comment get comment => throw _privateConstructorUsedError;
+  String get parentCommentId => throw _privateConstructorUsedError;
   String get postId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Comment comment, String postId) addComment,
+    required TResult Function(
+            Comment comment, String parentCommentId, String postId)
+        addReplyComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Comment comment, String postId)? addComment,
+    TResult? Function(Comment comment, String parentCommentId, String postId)?
+        addReplyComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Comment comment, String postId)? addComment,
+    TResult Function(Comment comment, String parentCommentId, String postId)?
+        addReplyComment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddComment value) addComment,
+    required TResult Function(_AddReplyComment value) addReplyComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddComment value)? addComment,
+    TResult? Function(_AddReplyComment value)? addReplyComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddComment value)? addComment,
+    TResult Function(_AddReplyComment value)? addReplyComment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CommentCreateEventCopyWith<CommentCreateEvent> get copyWith =>
+  $AddReplyCommentEventCopyWith<AddReplyCommentEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CommentCreateEventCopyWith<$Res> {
-  factory $CommentCreateEventCopyWith(
-          CommentCreateEvent value, $Res Function(CommentCreateEvent) then) =
-      _$CommentCreateEventCopyWithImpl<$Res, CommentCreateEvent>;
+abstract class $AddReplyCommentEventCopyWith<$Res> {
+  factory $AddReplyCommentEventCopyWith(AddReplyCommentEvent value,
+          $Res Function(AddReplyCommentEvent) then) =
+      _$AddReplyCommentEventCopyWithImpl<$Res, AddReplyCommentEvent>;
   @useResult
-  $Res call({Comment comment, String postId});
+  $Res call({Comment comment, String parentCommentId, String postId});
 
   $CommentCopyWith<$Res> get comment;
 }
 
 /// @nodoc
-class _$CommentCreateEventCopyWithImpl<$Res, $Val extends CommentCreateEvent>
-    implements $CommentCreateEventCopyWith<$Res> {
-  _$CommentCreateEventCopyWithImpl(this._value, this._then);
+class _$AddReplyCommentEventCopyWithImpl<$Res,
+        $Val extends AddReplyCommentEvent>
+    implements $AddReplyCommentEventCopyWith<$Res> {
+  _$AddReplyCommentEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -81,6 +87,7 @@ class _$CommentCreateEventCopyWithImpl<$Res, $Val extends CommentCreateEvent>
   @override
   $Res call({
     Object? comment = null,
+    Object? parentCommentId = null,
     Object? postId = null,
   }) {
     return _then(_value.copyWith(
@@ -88,6 +95,10 @@ class _$CommentCreateEventCopyWithImpl<$Res, $Val extends CommentCreateEvent>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as Comment,
+      parentCommentId: null == parentCommentId
+          ? _value.parentCommentId
+          : parentCommentId // ignore: cast_nullable_to_non_nullable
+              as String,
       postId: null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
@@ -105,38 +116,43 @@ class _$CommentCreateEventCopyWithImpl<$Res, $Val extends CommentCreateEvent>
 }
 
 /// @nodoc
-abstract class _$$AddCommentImplCopyWith<$Res>
-    implements $CommentCreateEventCopyWith<$Res> {
-  factory _$$AddCommentImplCopyWith(
-          _$AddCommentImpl value, $Res Function(_$AddCommentImpl) then) =
-      __$$AddCommentImplCopyWithImpl<$Res>;
+abstract class _$$AddReplyCommentImplCopyWith<$Res>
+    implements $AddReplyCommentEventCopyWith<$Res> {
+  factory _$$AddReplyCommentImplCopyWith(_$AddReplyCommentImpl value,
+          $Res Function(_$AddReplyCommentImpl) then) =
+      __$$AddReplyCommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Comment comment, String postId});
+  $Res call({Comment comment, String parentCommentId, String postId});
 
   @override
   $CommentCopyWith<$Res> get comment;
 }
 
 /// @nodoc
-class __$$AddCommentImplCopyWithImpl<$Res>
-    extends _$CommentCreateEventCopyWithImpl<$Res, _$AddCommentImpl>
-    implements _$$AddCommentImplCopyWith<$Res> {
-  __$$AddCommentImplCopyWithImpl(
-      _$AddCommentImpl _value, $Res Function(_$AddCommentImpl) _then)
+class __$$AddReplyCommentImplCopyWithImpl<$Res>
+    extends _$AddReplyCommentEventCopyWithImpl<$Res, _$AddReplyCommentImpl>
+    implements _$$AddReplyCommentImplCopyWith<$Res> {
+  __$$AddReplyCommentImplCopyWithImpl(
+      _$AddReplyCommentImpl _value, $Res Function(_$AddReplyCommentImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? comment = null,
+    Object? parentCommentId = null,
     Object? postId = null,
   }) {
-    return _then(_$AddCommentImpl(
+    return _then(_$AddReplyCommentImpl(
       null == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as Comment,
+      null == parentCommentId
+          ? _value.parentCommentId
+          : parentCommentId // ignore: cast_nullable_to_non_nullable
+              as String,
       null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
@@ -147,61 +163,71 @@ class __$$AddCommentImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddCommentImpl implements _AddComment {
-  const _$AddCommentImpl(this.comment, this.postId);
+class _$AddReplyCommentImpl implements _AddReplyComment {
+  const _$AddReplyCommentImpl(this.comment, this.parentCommentId, this.postId);
 
   @override
   final Comment comment;
+  @override
+  final String parentCommentId;
   @override
   final String postId;
 
   @override
   String toString() {
-    return 'CommentCreateEvent.addComment(comment: $comment, postId: $postId)';
+    return 'AddReplyCommentEvent.addReplyComment(comment: $comment, parentCommentId: $parentCommentId, postId: $postId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddCommentImpl &&
+            other is _$AddReplyCommentImpl &&
             (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.parentCommentId, parentCommentId) ||
+                other.parentCommentId == parentCommentId) &&
             (identical(other.postId, postId) || other.postId == postId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, comment, postId);
+  int get hashCode =>
+      Object.hash(runtimeType, comment, parentCommentId, postId);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddCommentImplCopyWith<_$AddCommentImpl> get copyWith =>
-      __$$AddCommentImplCopyWithImpl<_$AddCommentImpl>(this, _$identity);
+  _$$AddReplyCommentImplCopyWith<_$AddReplyCommentImpl> get copyWith =>
+      __$$AddReplyCommentImplCopyWithImpl<_$AddReplyCommentImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Comment comment, String postId) addComment,
+    required TResult Function(
+            Comment comment, String parentCommentId, String postId)
+        addReplyComment,
   }) {
-    return addComment(comment, postId);
+    return addReplyComment(comment, parentCommentId, postId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Comment comment, String postId)? addComment,
+    TResult? Function(Comment comment, String parentCommentId, String postId)?
+        addReplyComment,
   }) {
-    return addComment?.call(comment, postId);
+    return addReplyComment?.call(comment, parentCommentId, postId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Comment comment, String postId)? addComment,
+    TResult Function(Comment comment, String parentCommentId, String postId)?
+        addReplyComment,
     required TResult orElse(),
   }) {
-    if (addComment != null) {
-      return addComment(comment, postId);
+    if (addReplyComment != null) {
+      return addReplyComment(comment, parentCommentId, postId);
     }
     return orElse();
   }
@@ -209,70 +235,74 @@ class _$AddCommentImpl implements _AddComment {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddComment value) addComment,
+    required TResult Function(_AddReplyComment value) addReplyComment,
   }) {
-    return addComment(this);
+    return addReplyComment(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddComment value)? addComment,
+    TResult? Function(_AddReplyComment value)? addReplyComment,
   }) {
-    return addComment?.call(this);
+    return addReplyComment?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddComment value)? addComment,
+    TResult Function(_AddReplyComment value)? addReplyComment,
     required TResult orElse(),
   }) {
-    if (addComment != null) {
-      return addComment(this);
+    if (addReplyComment != null) {
+      return addReplyComment(this);
     }
     return orElse();
   }
 }
 
-abstract class _AddComment implements CommentCreateEvent {
-  const factory _AddComment(final Comment comment, final String postId) =
-      _$AddCommentImpl;
+abstract class _AddReplyComment implements AddReplyCommentEvent {
+  const factory _AddReplyComment(
+      final Comment comment,
+      final String parentCommentId,
+      final String postId) = _$AddReplyCommentImpl;
 
   @override
   Comment get comment;
   @override
+  String get parentCommentId;
+  @override
   String get postId;
   @override
   @JsonKey(ignore: true)
-  _$$AddCommentImplCopyWith<_$AddCommentImpl> get copyWith =>
+  _$$AddReplyCommentImplCopyWith<_$AddReplyCommentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$CommentCreateState {
+mixin _$AddReplyCommentState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Comment comment) success,
+    required TResult Function(String error) error,
     required TResult Function() loading,
-    required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Comment comment)? success,
+    TResult? Function(String error)? error,
     TResult? Function()? loading,
-    TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comment comment)? success,
+    TResult Function(String error)? error,
     TResult Function()? loading,
-    TResult Function()? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -280,40 +310,41 @@ mixin _$CommentCreateState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Success value) success,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Success value)? success,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Success value)? success,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CommentCreateStateCopyWith<$Res> {
-  factory $CommentCreateStateCopyWith(
-          CommentCreateState value, $Res Function(CommentCreateState) then) =
-      _$CommentCreateStateCopyWithImpl<$Res, CommentCreateState>;
+abstract class $AddReplyCommentStateCopyWith<$Res> {
+  factory $AddReplyCommentStateCopyWith(AddReplyCommentState value,
+          $Res Function(AddReplyCommentState) then) =
+      _$AddReplyCommentStateCopyWithImpl<$Res, AddReplyCommentState>;
 }
 
 /// @nodoc
-class _$CommentCreateStateCopyWithImpl<$Res, $Val extends CommentCreateState>
-    implements $CommentCreateStateCopyWith<$Res> {
-  _$CommentCreateStateCopyWithImpl(this._value, this._then);
+class _$AddReplyCommentStateCopyWithImpl<$Res,
+        $Val extends AddReplyCommentState>
+    implements $AddReplyCommentStateCopyWith<$Res> {
+  _$AddReplyCommentStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -330,7 +361,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$CommentCreateStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$AddReplyCommentStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -344,7 +375,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CommentCreateState.initial()';
+    return 'AddReplyCommentState.initial()';
   }
 
   @override
@@ -361,8 +392,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Comment comment) success,
+    required TResult Function(String error) error,
     required TResult Function() loading,
-    required TResult Function() error,
   }) {
     return initial();
   }
@@ -372,8 +403,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Comment comment)? success,
+    TResult? Function(String error)? error,
     TResult? Function()? loading,
-    TResult? Function()? error,
   }) {
     return initial?.call();
   }
@@ -383,8 +414,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comment comment)? success,
+    TResult Function(String error)? error,
     TResult Function()? loading,
-    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -398,8 +429,8 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Success value) success,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) {
     return initial(this);
   }
@@ -409,8 +440,8 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Success value)? success,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) {
     return initial?.call(this);
   }
@@ -420,8 +451,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Success value)? success,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -431,7 +462,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements CommentCreateState {
+abstract class _Initial implements AddReplyCommentState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -448,7 +479,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$CommentCreateStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$AddReplyCommentStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -486,7 +517,7 @@ class _$SuccessImpl implements _Success {
 
   @override
   String toString() {
-    return 'CommentCreateState.success(comment: $comment)';
+    return 'AddReplyCommentState.success(comment: $comment)';
   }
 
   @override
@@ -511,8 +542,8 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Comment comment) success,
+    required TResult Function(String error) error,
     required TResult Function() loading,
-    required TResult Function() error,
   }) {
     return success(comment);
   }
@@ -522,8 +553,8 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Comment comment)? success,
+    TResult? Function(String error)? error,
     TResult? Function()? loading,
-    TResult? Function()? error,
   }) {
     return success?.call(comment);
   }
@@ -533,8 +564,8 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comment comment)? success,
+    TResult Function(String error)? error,
     TResult Function()? loading,
-    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -548,8 +579,8 @@ class _$SuccessImpl implements _Success {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Success value) success,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) {
     return success(this);
   }
@@ -559,8 +590,8 @@ class _$SuccessImpl implements _Success {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Success value)? success,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) {
     return success?.call(this);
   }
@@ -570,8 +601,8 @@ class _$SuccessImpl implements _Success {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Success value)? success,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -581,12 +612,157 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements CommentCreateState {
+abstract class _Success implements AddReplyCommentState {
   const factory _Success(final Comment comment) = _$SuccessImpl;
 
   Comment get comment;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ErrorImplCopyWith<$Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$AddReplyCommentStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ErrorImpl(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ErrorImpl implements _Error {
+  const _$ErrorImpl({required this.error});
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'AddReplyCommentState.error(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(Comment comment) success,
+    required TResult Function(String error) error,
+    required TResult Function() loading,
+  }) {
+    return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(Comment comment)? success,
+    TResult? Function(String error)? error,
+    TResult? Function()? loading,
+  }) {
+    return error?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Comment comment)? success,
+    TResult Function(String error)? error,
+    TResult Function()? loading,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error implements AddReplyCommentState {
+  const factory _Error({required final String error}) = _$ErrorImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -599,7 +775,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$CommentCreateStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$AddReplyCommentStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -613,7 +789,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'CommentCreateState.loading()';
+    return 'AddReplyCommentState.loading()';
   }
 
   @override
@@ -630,8 +806,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(Comment comment) success,
+    required TResult Function(String error) error,
     required TResult Function() loading,
-    required TResult Function() error,
   }) {
     return loading();
   }
@@ -641,8 +817,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(Comment comment)? success,
+    TResult? Function(String error)? error,
     TResult? Function()? loading,
-    TResult? Function()? error,
   }) {
     return loading?.call();
   }
@@ -652,8 +828,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comment comment)? success,
+    TResult Function(String error)? error,
     TResult Function()? loading,
-    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -667,8 +843,8 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Success value) success,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) {
     return loading(this);
   }
@@ -678,8 +854,8 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Success value)? success,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) {
     return loading?.call(this);
   }
@@ -689,8 +865,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Success value)? success,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -700,120 +876,6 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements CommentCreateState {
+abstract class _Loading implements AddReplyCommentState {
   const factory _Loading() = _$LoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$ErrorImplCopyWith<$Res> {
-  factory _$$ErrorImplCopyWith(
-          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
-      __$$ErrorImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$CommentCreateStateCopyWithImpl<$Res, _$ErrorImpl>
-    implements _$$ErrorImplCopyWith<$Res> {
-  __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$ErrorImpl implements _Error {
-  const _$ErrorImpl();
-
-  @override
-  String toString() {
-    return 'CommentCreateState.error()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ErrorImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(Comment comment) success,
-    required TResult Function() loading,
-    required TResult Function() error,
-  }) {
-    return error();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(Comment comment)? success,
-    TResult? Function()? loading,
-    TResult? Function()? error,
-  }) {
-    return error?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(Comment comment)? success,
-    TResult Function()? loading,
-    TResult Function()? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Error value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Error value)? error,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Success value)? success,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Error implements CommentCreateState {
-  const factory _Error() = _$ErrorImpl;
 }

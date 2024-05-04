@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 
 part 'stories.freezed.dart';
 part 'stories.g.dart';
@@ -13,7 +12,7 @@ class Stories with _$Stories {
     String? imageUrl,
     String? videoUrl,
     @Default(false) bool isFavorite,
-    @TimestampConverter() DateTime? createdAt,
+    @Default('') String? createdAt,
   }) = _Stories;
 
   factory Stories.fromJson(Map<String, dynamic> json) =>

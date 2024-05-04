@@ -98,4 +98,24 @@ class FirestoreCommunityRepository implements ICommunityRepository {
       return left(PostError(e.toString()));
     }
   }
+
+  @override
+  Future<Either<PostError, Community>> getDetail(
+      {String? userId, String? communityId,}) async {
+    try {
+      if (communityId == null) {
+        return left(PostError('no Post id'));
+      }
+      final DocumentSnapshot community =
+          await firestore.collection('communities').doc(communityId).get();
+      if (!community.exists) {
+        return left(PostError('Post not found.'));
+      }
+      final Community userProfile =
+          Community.fromStoreData(community.data()! as Map<String, dynamic>);
+      return right(userProfile);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

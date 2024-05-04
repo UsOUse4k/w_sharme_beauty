@@ -6,55 +6,62 @@ import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
-part 'comment_create_event.dart';
-part 'comment_create_state.dart';
-part 'comment_create_bloc.freezed.dart';
+part 'add_reply_comment_event.dart';
+part 'add_reply_comment_state.dart';
+part 'add_reply_comment_bloc.freezed.dart';
 
 @injectable
-class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
-  CommentCreateBloc(
-    this._repository,
-    this._authFacade,
+class AddReplyCommentBloc
+    extends Bloc<AddReplyCommentEvent, AddReplyCommentState> {
+  AddReplyCommentBloc(
+    this._commentRepository,
     this._iProfileInfoRepository,
-    this._commentListBloc,
+    this._authFacade,
+    this._replyCommentListBloc,
   ) : super(const _Initial()) {
-    on<CommentCreateEvent>((event, emit) async {
-      await event.maybeMap(
-        addComment: (event) async {
-          emit(const CommentCreateState.loading());
+    on<AddReplyCommentEvent>((event, emit) async {
+      await event.map(
+        addReplyComment: (value) async {
+          emit(const AddReplyCommentState.loading());
           final userOption = await _authFacade.getSignedInUser();
           await userOption.fold(
             () {
-              emit(const CommentCreateState.error());
+              emit(const AddReplyCommentState.error(error: 'not sign user'));
             },
             (user) async {
               final userData =
                   await _iProfileInfoRepository.getMeInfo(user.uid);
-              await userData.fold((l) {}, (data) async {
+              await userData.fold((l) {
+                emit(const AddReplyCommentState.error(error: 'no sign in '));
+              }, (data) async {
                 final newCommentId = const Uuid().v1();
                 final updateComment = Comment(
                   commentId: newCommentId,
-                  uid: data.uid,
                   username: data.username,
                   avatarUrl: data.profilePictureUrl,
                   comment: event.comment.comment,
                   createdAt: Timestamp.now(),
+                  parentCommentId: value.parentCommentId,
                 );
-                final result = await _repository.createComment(
+                final result = await _commentRepository.createComment(
                   comment: updateComment,
-                  postId: event.postId,
+                  postId: event.parentCommentId,
+                  parentCommentId: event.parentCommentId,
                 );
                 result.fold(
                   (l) => {
-                    emit(const CommentCreateState.error()),
+                    emit(AddReplyCommentState.error(error: l.toString())),
                   },
                   (comment) => {
-                    emit(CommentCreateState.success(updateComment)),
-                    _commentListBloc.add(
-                      CommentListEvent.getComments(postId: event.postId),
+                    emit(AddReplyCommentState.success(updateComment)),
+                    _replyCommentListBloc.add(
+                      ReplyCommentListEvent.getReplyComments(
+                        parentCommentId: event.parentCommentId,
+                        postId: event.postId,
+                      ),
                     ),
                   },
                 );
@@ -62,13 +69,11 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
             },
           );
         },
-        orElse: () {},
       );
     });
   }
-
-  final ICommentRepository _repository;
+  final ICommentRepository _commentRepository;
   final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
-  final CommentListBloc _commentListBloc;
+  final ReplyCommentListBloc _replyCommentListBloc;
 }
