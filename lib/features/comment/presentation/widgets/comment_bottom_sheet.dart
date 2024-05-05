@@ -107,6 +107,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                               return CommentBookingCard(
                                 avatar: comments[index].avatarUrl.toString(),
                                 item: comments[index],
+                                postId: widget.postId,
                                 onPressed: () {
                                   setState(() {
                                     isFound = true;

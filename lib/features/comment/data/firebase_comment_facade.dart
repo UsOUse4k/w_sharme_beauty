@@ -28,7 +28,7 @@ class FirebaseCommentFacade implements ICommentRepository {
           .doc(postId)
           .collection('comments')
           .doc(updatedComment.commentId)
-          .set(comment.toJson());
+          .set(updatedComment.toJson());
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -50,14 +50,8 @@ class FirebaseCommentFacade implements ICommentRepository {
       final comments = querySnapshot.docs
           .map((doc) => Comment.fromJson(doc.data()))
           .toList();
-      print('success ${comments.length}');
-      final filteredComments =
-          comments.where((c) => c.parentCommentId == parentCommentId).toList();
-      print('Filtered comments: ${filteredComments.length}');
-
       return right(comments);
     } catch (e) {
-      print('error $e');
       return left(PostError(e.toString()));
     }
   }

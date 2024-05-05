@@ -48,7 +48,7 @@ class AddReplyCommentBloc
                 );
                 final result = await _commentRepository.createComment(
                   comment: updateComment,
-                  postId: event.parentCommentId,
+                  postId: event.postId,
                   parentCommentId: event.parentCommentId,
                 );
                 result.fold(

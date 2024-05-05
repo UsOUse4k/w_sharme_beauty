@@ -9,16 +9,34 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class CommentBookingCard extends StatelessWidget {
+class CommentBookingCard extends StatefulWidget {
   const CommentBookingCard({
     super.key,
     required this.avatar,
     required this.item,
     required this.onPressed,
+    required this.postId,
   });
   final String avatar;
   final Comment item;
   final Function() onPressed;
+  final String postId;
+  @override
+  State<CommentBookingCard> createState() => _CommentBookingCardState();
+}
+
+class _CommentBookingCardState extends State<CommentBookingCard> {
+  @override
+  void initState() {
+    context.read<ReplyCommentListBloc>().add(
+          ReplyCommentListEvent.getReplyComments(
+            postId: widget.postId,
+            parentCommentId: widget.item.parentCommentId,
+          ),
+        );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,18 +53,18 @@ class CommentBookingCard extends StatelessWidget {
                 child: GlCachedNetworImage(
                   height: 40.h,
                   width: 40.w,
-                  urlImage: avatar,
+                  urlImage: widget.avatar,
                 ),
               ),
             ),
             Flexible(
               flex: 8,
               child: CommentItem(
-                username: item.username.toString(),
-                comment: item.comment.toString(),
+                username: widget.item.username.toString(),
+                comment: widget.item.comment.toString(),
                 data: 'сегодня в 15:53',
                 like: '0',
-                onPressedComment: onPressed,
+                onPressedComment: widget.onPressed,
                 onPressedLike: () {},
               ),
             ),
@@ -81,7 +99,7 @@ class CommentBookingCard extends StatelessWidget {
                         child: GlCachedNetworImage(
                           height: 40.h,
                           width: 40.w,
-                          urlImage: avatar,
+                          urlImage: widget.avatar,
                         ),
                       ),
                     ),
@@ -89,10 +107,10 @@ class CommentBookingCard extends StatelessWidget {
                       flex: 8,
                       child: CommentItem(
                         username: '',
-                        comment: item.comment.toString(),
+                        comment: widget.item.comment.toString(),
                         data: 'сегодня в 15:53',
                         like: '0',
-                        onPressedComment: onPressed,
+                        onPressedComment: widget.onPressed,
                         onPressedLike: () {},
                       ),
                     ),
