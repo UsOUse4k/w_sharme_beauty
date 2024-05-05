@@ -19,32 +19,38 @@ mixin _$PostListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getPosts,
+    required TResult Function(Post post) addNewPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getPosts,
+    TResult? Function(Post post)? addNewPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getPosts,
+    TResult Function(Post post)? addNewPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddNewPost value) addNewPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddNewPost value)? addNewPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddNewPost value)? addNewPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$GetPostsImpl implements _GetPosts {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getPosts,
+    required TResult Function(Post post) addNewPost,
   }) {
     return getPosts();
   }
@@ -115,6 +122,7 @@ class _$GetPostsImpl implements _GetPosts {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getPosts,
+    TResult? Function(Post post)? addNewPost,
   }) {
     return getPosts?.call();
   }
@@ -123,6 +131,7 @@ class _$GetPostsImpl implements _GetPosts {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getPosts,
+    TResult Function(Post post)? addNewPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -135,6 +144,7 @@ class _$GetPostsImpl implements _GetPosts {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddNewPost value) addNewPost,
   }) {
     return getPosts(this);
   }
@@ -143,6 +153,7 @@ class _$GetPostsImpl implements _GetPosts {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddNewPost value)? addNewPost,
   }) {
     return getPosts?.call(this);
   }
@@ -151,6 +162,7 @@ class _$GetPostsImpl implements _GetPosts {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddNewPost value)? addNewPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -162,6 +174,149 @@ class _$GetPostsImpl implements _GetPosts {
 
 abstract class _GetPosts implements PostListEvent {
   const factory _GetPosts() = _$GetPostsImpl;
+}
+
+/// @nodoc
+abstract class _$$AddNewPostImplCopyWith<$Res> {
+  factory _$$AddNewPostImplCopyWith(
+          _$AddNewPostImpl value, $Res Function(_$AddNewPostImpl) then) =
+      __$$AddNewPostImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Post post});
+
+  $PostCopyWith<$Res> get post;
+}
+
+/// @nodoc
+class __$$AddNewPostImplCopyWithImpl<$Res>
+    extends _$PostListEventCopyWithImpl<$Res, _$AddNewPostImpl>
+    implements _$$AddNewPostImplCopyWith<$Res> {
+  __$$AddNewPostImplCopyWithImpl(
+      _$AddNewPostImpl _value, $Res Function(_$AddNewPostImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? post = null,
+  }) {
+    return _then(_$AddNewPostImpl(
+      null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PostCopyWith<$Res> get post {
+    return $PostCopyWith<$Res>(_value.post, (value) {
+      return _then(_value.copyWith(post: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$AddNewPostImpl implements _AddNewPost {
+  const _$AddNewPostImpl(this.post);
+
+  @override
+  final Post post;
+
+  @override
+  String toString() {
+    return 'PostListEvent.addNewPost(post: $post)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddNewPostImpl &&
+            (identical(other.post, post) || other.post == post));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, post);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddNewPostImplCopyWith<_$AddNewPostImpl> get copyWith =>
+      __$$AddNewPostImplCopyWithImpl<_$AddNewPostImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getPosts,
+    required TResult Function(Post post) addNewPost,
+  }) {
+    return addNewPost(post);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getPosts,
+    TResult? Function(Post post)? addNewPost,
+  }) {
+    return addNewPost?.call(post);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getPosts,
+    TResult Function(Post post)? addNewPost,
+    required TResult orElse(),
+  }) {
+    if (addNewPost != null) {
+      return addNewPost(post);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddNewPost value) addNewPost,
+  }) {
+    return addNewPost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddNewPost value)? addNewPost,
+  }) {
+    return addNewPost?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddNewPost value)? addNewPost,
+    required TResult orElse(),
+  }) {
+    if (addNewPost != null) {
+      return addNewPost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddNewPost implements PostListEvent {
+  const factory _AddNewPost(final Post post) = _$AddNewPostImpl;
+
+  Post get post;
+  @JsonKey(ignore: true)
+  _$$AddNewPostImplCopyWith<_$AddNewPostImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

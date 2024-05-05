@@ -8,7 +8,7 @@ import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
-import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 
 class CommentBottomSheet extends StatefulWidget {
   const CommentBottomSheet({super.key, required this.postId});
@@ -90,45 +90,16 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   ),
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 10,
-                  ),
-                  child: BlocBuilder<CommentListBloc, CommentListState>(
-                    builder: (context, state) {
-                      return state.maybeWhen(
-                        success: (comments) {
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return CommentBookingCard(
-                                avatar: comments[index].avatarUrl.toString(),
-                                item: comments[index],
-                                postId: widget.postId,
-                                onPressed: () {
-                                  setState(() {
-                                    isFound = true;
-                                    username = comments[index].username;
-                                    parentCommentId = comments[index].commentId;
-                                  });
-                                  commentController.text =
-                                      comments[index].username.toString();
-                                },
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 6),
-                            itemCount: comments.length,
-                          );
-                        },
-                        orElse: () => Container(),
-                      );
-                    },
-                  ),
-                ),
+              CommentList(
+                onPressed: (Comment comment) {
+                  setState(() {
+                    isFound = true;
+                    username = comment.username;
+                    parentCommentId = comment.commentId;
+                  });
+                  commentController.text = comment.username.toString();
+                },
+                postId: widget.postId,
               ),
               Padding(
                 padding: EdgeInsets.only(

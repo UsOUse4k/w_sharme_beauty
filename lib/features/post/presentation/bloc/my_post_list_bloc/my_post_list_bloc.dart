@@ -39,7 +39,7 @@ class MyPostListBloc extends Bloc<MyPostListEvent, MyPostListState> {
           addNewPost: (event) async {
             state.maybeWhen(
               success: (posts) async {
-                final data = [...posts, event.post];    
+                final data = [event.post, ...posts];
                 emit(MyPostListState.success(data));
               },
               orElse: () {},

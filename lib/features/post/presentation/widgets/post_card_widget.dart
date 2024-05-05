@@ -36,7 +36,6 @@ class PostCard extends StatefulWidget {
 class _PostCardState extends State<PostCard> {
   bool isLike = false;
   int countLike = 0;
-  int counterComment = 0;
 
   @override
   void initState() {
@@ -45,9 +44,9 @@ class _PostCardState extends State<PostCard> {
       isLike = widget.post!.likes.contains(firebaseAuth.currentUser!.uid);
       countLike = widget.post!.likes.length;
     });
-    context
-        .read<CommentListBloc>()
-        .add(CommentListEvent.getComments(postId: widget.post!.postId));
+    //context
+    //    .read<CommentListBloc>()
+    //    .add(CommentListEvent.getComments(postId: widget.post!.postId));
   }
 
   void toggleLike() {
@@ -122,31 +121,19 @@ class _PostCardState extends State<PostCard> {
                 text: countLike.toString(),
               ),
               const SizedBox(width: 6),
-              if (widget.show == 'hide')
-                BlocListener<CommentListBloc, CommentListState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      success: (comments) {
-                        setState(() {
-                          counterComment = comments.length;
-                        });
-                      },
-                      orElse: () {},
-                    );
-                  },
-                  child: PostIconsWidget(
-                    onPessed: () {
-                      BottomSheetUtil.showAppBottomSheet(
-                        context,
-                        CommentBottomSheet(
-                          postId: postId!,
-                        ),
-                      );
-                    },
-                    icon: Assets.svgs.comment.svg(),
-                    text: '$counterComment',
-                  ),
-                ),
+              //if (widget.show == 'hide')
+              PostIconsWidget(
+                onPessed: () {
+                  BottomSheetUtil.showAppBottomSheet(
+                    context,
+                    CommentBottomSheet(
+                      postId: postId!,
+                    ),
+                  );
+                },
+                icon: Assets.svgs.comment.svg(),
+                text: '0',
+              ),
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: () {},

@@ -20,9 +20,9 @@ class GlCachedNetworImage extends StatelessWidget {
       height: width,
       imageUrl: urlImage ?? '',
       fit: BoxFit.cover,
-      placeholder: (context, url) => Container(
-        color: AppColors.lightGrey,
-      ),
+      //placeholder: (context, url) => Container(
+      //  color: AppColors.lightGrey,
+      //),
       errorWidget: (context, url, error) => Container(
         decoration: const BoxDecoration(
           color: AppColors.lightGrey,

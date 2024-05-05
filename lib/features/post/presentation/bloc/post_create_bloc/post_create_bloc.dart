@@ -20,8 +20,6 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
     this._repository,
     this._iProfileInfoRepository,
     this._authFacade,
-    this._myListBloc,
-    this._listBloc,
   ) : super(const PostCreateState.initial()) {
     on<PostCreateEvent>(
       (event, emit) async {
@@ -53,8 +51,6 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
                   },
                   (post) {
                     emit(PostCreateState.success(event.post));
-                    _myListBloc.add(const MyPostListEvent.getPosts());
-                    _listBloc.add(const PostListEvent.getPosts());
                   },
                 );
               });
@@ -64,8 +60,7 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
       },
     );
   }
-  final MyPostListBloc _myListBloc;
-  final PostListBloc _listBloc;
+
   final IPostRepository _repository;
   final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;

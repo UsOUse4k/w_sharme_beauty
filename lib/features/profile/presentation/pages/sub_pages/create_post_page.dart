@@ -8,7 +8,9 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
@@ -75,6 +77,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
               });
             },
             success: (value) {
+              context.read<PostListBloc>().add(const PostListEvent.getPosts());
+              context
+                  .read<MyPostListBloc>()
+                  .add(const MyPostListEvent.getPosts());
+
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Загрузка успешно завершена!"),
