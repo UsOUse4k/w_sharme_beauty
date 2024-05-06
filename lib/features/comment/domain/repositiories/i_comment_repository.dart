@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
@@ -9,7 +10,9 @@ abstract class ICommentRepository {
     String? parentCommentId,
   });
   Future<Either<PostError, List<Comment>>> getComments({
-    String? postId,
+    required String postId,
     String? parentCommentId,
+    int limit,
+    DocumentSnapshot? lastDocSnapshot,
   });
 }

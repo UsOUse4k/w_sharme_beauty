@@ -1,0 +1,121 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
+
+class CommentItemCard extends StatefulWidget {
+  const CommentItemCard({
+    super.key,
+    required this.avatar,
+    required this.item,
+    required this.onPressed,
+    required this.postId,
+  });
+  final String avatar;
+  final Comment item;
+  final Function() onPressed;
+  final String postId;
+
+  @override
+  State<CommentItemCard> createState() => _CommentItemCardState();
+}
+
+class _CommentItemCardState extends State<CommentItemCard> {
+  @override
+  void initState() {
+    context.read<ReplyCommentListBloc>().add(
+          ReplyCommentListEvent.getReplyComments(
+            postId: widget.postId,
+            parentCommentId: widget.item.commentId.toString(),
+          ),
+        );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: GlCachedNetworImage(
+                  height: 40.h,
+                  width: 40.w,
+                  urlImage: widget.avatar,
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 8,
+              child: Column(
+                children: [
+                  CommentItemText(
+                    username: widget.item.username.toString(),
+                    comment: widget.item.comment.toString(),
+                    data: 'сегодня в 15:53',
+                    like: '0',
+                    onPressedComment: widget.onPressed,
+                    onPressedLike: () {},
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              child: Image(
+                width: 16,
+                height: 16,
+                image: AssetImage(
+                  Assets.icons.heart.path,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Column(
+          children: [
+            BlocBuilder<ReplyCommentListBloc, ReplyCommentListState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  success: (comments) {
+                    final filteredComments = comments
+                        .where(
+                          (comment) =>
+                              comment.parentCommentId == widget.item.commentId,
+                        )
+                        .toList();
+                    return Column(
+                      children: filteredComments.map((reply) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: CommentItemReplyCard(
+                            onPressed: () {},
+                            item: reply,
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  },
+                  orElse: () => Container(),
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}

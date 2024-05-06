@@ -17,6 +17,10 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
           const [],
       avatarUrl: json['avatarUrl'] as String? ?? '',
       videoUrl: json['videoUrl'] as String?,
+      comments: (json['comments'] as List<dynamic>?)
+              ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       likes:
           (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -37,6 +41,7 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'imageUrls': instance.imageUrls,
       'avatarUrl': instance.avatarUrl,
       'videoUrl': instance.videoUrl,
+      'comments': instance.comments,
       'likes': instance.likes,
       'reposts': instance.reposts,
       'isFavorite': instance.isFavorite,

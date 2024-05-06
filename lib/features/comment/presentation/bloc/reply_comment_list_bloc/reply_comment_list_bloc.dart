@@ -16,7 +16,6 @@ class ReplyCommentListBloc
       await event.maybeWhen(
         getReplyComments: (postId, parentCommentId) async {
           emit(const ReplyCommentListState.loading());
-          print(' проверка $postId, $parentCommentId');
           final result = await _commentRepository.getComments(
             postId: postId,
             parentCommentId: parentCommentId,

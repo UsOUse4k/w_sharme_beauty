@@ -23,12 +23,23 @@ class FirebaseCommentFacade implements ICommentRepository {
         parentCommentId: parentCommentId ?? '',
         uid: auth.currentUser!.uid,
       );
-      await firestore
-          .collection('posts')
-          .doc(postId)
-          .collection('comments')
-          .doc(updatedComment.commentId)
-          .set(updatedComment.toJson());
+      if (parentCommentId != null && parentCommentId.isNotEmpty) {
+        await firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(parentCommentId)
+            .collection('reply_comments')
+            .doc(updatedComment.commentId)
+            .set(updatedComment.toJson());
+      } else {
+        await firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(updatedComment.commentId)
+            .set(updatedComment.toJson());
+      }
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -37,15 +48,29 @@ class FirebaseCommentFacade implements ICommentRepository {
 
   @override
   Future<Either<PostError, List<Comment>>> getComments({
-    String? postId,
+    required String postId,
     String? parentCommentId,
+    int limit = 10,
+    DocumentSnapshot? lastDocSnapshot,
   }) async {
     try {
-      Query<Map<String, dynamic>> query =
-          firestore.collection('posts').doc(postId).collection('comments');
-      if (parentCommentId != null) {
-        query = query.where('parentCommentId', isEqualTo: parentCommentId);
+      //print("parentCommentId $parentCommentId");
+      Query<Map<String, dynamic>> query;
+      if (parentCommentId != null && parentCommentId.isNotEmpty) {
+        query = firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(parentCommentId)
+            .collection('reply_comments');
+      } else {
+        query =
+            firestore.collection('posts').doc(postId).collection('comments');
       }
+      if (lastDocSnapshot != null) {
+        query = query.startAfterDocument(lastDocSnapshot);
+      }
+      query = query.limit(limit);
       final querySnapshot = await query.get();
       final comments = querySnapshot.docs
           .map((doc) => Comment.fromJson(doc.data()))

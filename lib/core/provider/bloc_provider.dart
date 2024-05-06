@@ -32,7 +32,11 @@ class BlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
-        BlocProvider<PostListBloc>(create: (context) => getIt<PostListBloc>()),
+        BlocProvider<PostListBloc>(create: (context) {
+          final postListBloc = getIt<PostListBloc>();
+          postListBloc.add(const PostListEvent.getPosts());
+          return postListBloc;
+        }),
         BlocProvider<MyPostListBloc>(
           create: (context) => getIt<MyPostListBloc>(),
         ),

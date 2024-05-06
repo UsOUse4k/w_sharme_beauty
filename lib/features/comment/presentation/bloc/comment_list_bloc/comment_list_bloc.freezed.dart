@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CommentListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? postId) getComments,
+    required TResult Function(String postId) getComments,
     required TResult Function(Comment comment) addNewComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? postId)? getComments,
+    TResult? Function(String postId)? getComments,
     TResult? Function(Comment comment)? addNewComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? postId)? getComments,
+    TResult Function(String postId)? getComments,
     TResult Function(Comment comment)? addNewComments,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$GetCommentsImplCopyWith<$Res> {
           _$GetCommentsImpl value, $Res Function(_$GetCommentsImpl) then) =
       __$$GetCommentsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? postId});
+  $Res call({String postId});
 }
 
 /// @nodoc
@@ -94,13 +94,13 @@ class __$$GetCommentsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? postId = freezed,
+    Object? postId = null,
   }) {
     return _then(_$GetCommentsImpl(
-      postId: freezed == postId
+      postId: null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -108,10 +108,10 @@ class __$$GetCommentsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetCommentsImpl implements _GetComments {
-  const _$GetCommentsImpl({this.postId});
+  const _$GetCommentsImpl({required this.postId});
 
   @override
-  final String? postId;
+  final String postId;
 
   @override
   String toString() {
@@ -138,7 +138,7 @@ class _$GetCommentsImpl implements _GetComments {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? postId) getComments,
+    required TResult Function(String postId) getComments,
     required TResult Function(Comment comment) addNewComments,
   }) {
     return getComments(postId);
@@ -147,7 +147,7 @@ class _$GetCommentsImpl implements _GetComments {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? postId)? getComments,
+    TResult? Function(String postId)? getComments,
     TResult? Function(Comment comment)? addNewComments,
   }) {
     return getComments?.call(postId);
@@ -156,7 +156,7 @@ class _$GetCommentsImpl implements _GetComments {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? postId)? getComments,
+    TResult Function(String postId)? getComments,
     TResult Function(Comment comment)? addNewComments,
     required TResult orElse(),
   }) {
@@ -199,9 +199,10 @@ class _$GetCommentsImpl implements _GetComments {
 }
 
 abstract class _GetComments implements CommentListEvent {
-  const factory _GetComments({final String? postId}) = _$GetCommentsImpl;
+  const factory _GetComments({required final String postId}) =
+      _$GetCommentsImpl;
 
-  String? get postId;
+  String get postId;
   @JsonKey(ignore: true)
   _$$GetCommentsImplCopyWith<_$GetCommentsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -282,7 +283,7 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? postId) getComments,
+    required TResult Function(String postId) getComments,
     required TResult Function(Comment comment) addNewComments,
   }) {
     return addNewComments(comment);
@@ -291,7 +292,7 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? postId)? getComments,
+    TResult? Function(String postId)? getComments,
     TResult? Function(Comment comment)? addNewComments,
   }) {
     return addNewComments?.call(comment);
@@ -300,7 +301,7 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? postId)? getComments,
+    TResult Function(String postId)? getComments,
     TResult Function(Comment comment)? addNewComments,
     required TResult orElse(),
   }) {

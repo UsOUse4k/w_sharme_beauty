@@ -25,7 +25,8 @@ class CommentListBloc extends Bloc<CommentListEvent, CommentListState> {
         addNewComments: (comment) {
           state.maybeWhen(
             success: (comments) {
-              emit(CommentListState.success([comment, ...comments]));
+              final data = [ comment, ...comments];
+              emit(CommentListState.success(data));
             },
             orElse: () {},
           );

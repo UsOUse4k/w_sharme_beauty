@@ -32,13 +32,13 @@ import 'package:w_sharme_beauty/features/comment/data/firebase_comment_facade.da
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart'
     as _i17;
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart'
-    as _i37;
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart'
     as _i38;
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart'
+    as _i26;
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart'
-    as _i33;
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart'
     as _i34;
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart'
+    as _i35;
 import 'package:w_sharme_beauty/features/communities/data/data/firebase_community_repository.dart'
     as _i20;
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_repository.dart'
@@ -50,31 +50,31 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart'
     as _i25;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart'
-    as _i27;
+    as _i28;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart'
-    as _i30;
+    as _i31;
 import 'package:w_sharme_beauty/features/post/data/firebase_post_repository.dart'
     as _i24;
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart'
     as _i23;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart'
-    as _i32;
+    as _i33;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
-    as _i35;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
-    as _i31;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
-    as _i29;
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
     as _i36;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
+    as _i32;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
+    as _i30;
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
+    as _i37;
 import 'package:w_sharme_beauty/features/profile/data/data/firebase_profile_facade.dart'
     as _i15;
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart'
     as _i14;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart'
-    as _i28;
+    as _i29;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart'
-    as _i26;
+    as _i27;
 import 'package:w_sharme_beauty/features/question/data/data/firebase_add_question_data.dart'
     as _i13;
 import 'package:w_sharme_beauty/features/question/domain/repositories/add_question_repository.dart'
@@ -139,61 +139,60 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i25.CommunityDetailBloc>(
         () => _i25.CommunityDetailBloc(gh<_i19.ICommunityRepository>()));
-    gh.factory<_i26.ProfileInfoUpdateBloc>(() => _i26.ProfileInfoUpdateBloc(
+    gh.factory<_i26.CommentCreateBloc>(() => _i26.CommentCreateBloc(
+          gh<_i17.ICommentRepository>(),
+          gh<_i8.IAuthFacade>(),
+          gh<_i14.IProfileInfoRepository>(),
+        ));
+    gh.factory<_i27.ProfileInfoUpdateBloc>(() => _i27.ProfileInfoUpdateBloc(
           gh<_i14.IProfileInfoRepository>(),
           gh<_i8.IAuthFacade>(),
         ));
-    gh.factory<_i27.CommunityListBloc>(
-        () => _i27.CommunityListBloc(gh<_i19.ICommunityRepository>()));
-    gh.factory<_i28.MyProfileInfoBloc>(() => _i28.MyProfileInfoBloc(
+    gh.factory<_i28.CommunityListBloc>(
+        () => _i28.CommunityListBloc(gh<_i19.ICommunityRepository>()));
+    gh.factory<_i29.MyProfileInfoBloc>(() => _i29.MyProfileInfoBloc(
           gh<_i11.IAuthFacade>(),
           gh<_i14.IProfileInfoRepository>(),
         ));
-    gh.factory<_i29.PostLikeBloc>(
-        () => _i29.PostLikeBloc(gh<_i23.IPostRepository>()));
-    gh.factory<_i30.MyCommunityListBloc>(() => _i30.MyCommunityListBloc(
+    gh.factory<_i30.PostLikeBloc>(
+        () => _i30.PostLikeBloc(gh<_i23.IPostRepository>()));
+    gh.factory<_i31.MyCommunityListBloc>(() => _i31.MyCommunityListBloc(
           gh<_i19.ICommunityRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i31.PostDetailBloc>(() => _i31.PostDetailBloc(
+    gh.factory<_i32.PostDetailBloc>(() => _i32.PostDetailBloc(
           gh<_i23.IPostRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i32.MyPostListBloc>(() => _i32.MyPostListBloc(
+    gh.factory<_i33.MyPostListBloc>(() => _i33.MyPostListBloc(
           gh<_i23.IPostRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i33.CommentListBloc>(
-        () => _i33.CommentListBloc(gh<_i17.ICommentRepository>()));
-    gh.factory<_i34.ReplyCommentListBloc>(
-        () => _i34.ReplyCommentListBloc(gh<_i17.ICommentRepository>()));
-    gh.factory<_i35.PostCreateBloc>(() => _i35.PostCreateBloc(
+    gh.factory<_i34.CommentListBloc>(
+        () => _i34.CommentListBloc(gh<_i17.ICommentRepository>()));
+    gh.factory<_i35.ReplyCommentListBloc>(
+        () => _i35.ReplyCommentListBloc(gh<_i17.ICommentRepository>()));
+    gh.factory<_i36.PostCreateBloc>(() => _i36.PostCreateBloc(
           gh<_i23.IPostRepository>(),
           gh<_i14.IProfileInfoRepository>(),
           gh<_i11.IAuthFacade>(),
         ));
-    gh.factory<_i36.PostListBloc>(() => _i36.PostListBloc(
+    gh.factory<_i37.PostListBloc>(() => _i37.PostListBloc(
           gh<_i23.IPostRepository>(),
-          gh<_i28.MyProfileInfoBloc>(),
-          gh<_i32.MyPostListBloc>(),
+          gh<_i29.MyProfileInfoBloc>(),
+          gh<_i33.MyPostListBloc>(),
         ));
-    gh.factory<_i37.AddReplyCommentBloc>(() => _i37.AddReplyCommentBloc(
+    gh.factory<_i38.AddReplyCommentBloc>(() => _i38.AddReplyCommentBloc(
           gh<_i17.ICommentRepository>(),
           gh<_i14.IProfileInfoRepository>(),
           gh<_i8.IAuthFacade>(),
-          gh<_i34.ReplyCommentListBloc>(),
-        ));
-    gh.factory<_i38.CommentCreateBloc>(() => _i38.CommentCreateBloc(
-          gh<_i17.ICommentRepository>(),
-          gh<_i8.IAuthFacade>(),
-          gh<_i14.IProfileInfoRepository>(),
-          gh<_i33.CommentListBloc>(),
+          gh<_i35.ReplyCommentListBloc>(),
         ));
     gh.factory<_i39.CommunityCreateBloc>(() => _i39.CommunityCreateBloc(
           gh<_i19.ICommunityRepository>(),
           gh<_i11.IAuthFacade>(),
-          gh<_i30.MyCommunityListBloc>(),
-          gh<_i27.CommunityListBloc>(),
+          gh<_i31.MyCommunityListBloc>(),
+          gh<_i28.CommunityListBloc>(),
         ));
     return this;
   }

@@ -42,14 +42,14 @@ class AddReplyCommentBloc
                   commentId: newCommentId,
                   username: data.username,
                   avatarUrl: data.profilePictureUrl,
-                  comment: event.comment.comment,
+                  comment: value.comment.comment,
                   createdAt: Timestamp.now(),
                   parentCommentId: value.parentCommentId,
                 );
                 final result = await _commentRepository.createComment(
                   comment: updateComment,
-                  postId: event.postId,
-                  parentCommentId: event.parentCommentId,
+                  postId: value.postId,
+                  parentCommentId: value.parentCommentId,
                 );
                 result.fold(
                   (l) => {
@@ -59,8 +59,8 @@ class AddReplyCommentBloc
                     emit(AddReplyCommentState.success(updateComment)),
                     _replyCommentListBloc.add(
                       ReplyCommentListEvent.getReplyComments(
-                        parentCommentId: event.parentCommentId,
-                        postId: event.postId,
+                        parentCommentId: value.parentCommentId,
+                        postId: value.postId,
                       ),
                     ),
                   },

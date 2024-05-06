@@ -6,7 +6,6 @@ import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
@@ -44,13 +43,10 @@ class _PostCardState extends State<PostCard> {
       isLike = widget.post!.likes.contains(firebaseAuth.currentUser!.uid);
       countLike = widget.post!.likes.length;
     });
-    //context
-    //    .read<CommentListBloc>()
-    //    .add(CommentListEvent.getComments(postId: widget.post!.postId));
   }
 
   void toggleLike() {
-    final authorId = firebaseAuth.currentUser!.uid;
+    final authorId = widget.post!.authorId.toString();
     final postId = widget.post!.postId.toString();
     final bool newLikeStatus = !isLike;
     if (isLike) {
@@ -106,8 +102,11 @@ class _PostCardState extends State<PostCard> {
           if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
             const SizedBox(height: 6),
           if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
-            PostImage(
-              imageUrls: widget.post!.imageUrls,
+            SizedBox(
+              height: 394.h,
+              child: PostImage(
+                imageUrls: widget.post!.imageUrls,
+              ),
             ),
           const SizedBox(height: 6),
           Row(

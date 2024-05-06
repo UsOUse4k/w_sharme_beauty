@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
@@ -24,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<PostListBloc>().add(const PostListEvent.getPosts());
   }
 
   @override
@@ -85,7 +83,6 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: BlocBuilder<PostListBloc, PostListState>(
-
           builder: (context, state) {
             return state.maybeWhen(
               loading: () => ListView.builder(
@@ -97,7 +94,6 @@ class _HomePageState extends State<HomePage> {
               error: (message) => Text('Ошибка: $message'),
               success: (posts) {
                 return ListView.builder(
-                  key: const PageStorageKey<String>('postsPage'),
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: posts.length,
@@ -107,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              orElse: () => Container(),
+              orElse: () => const SizedBox.shrink(),
             );
           },
         ),

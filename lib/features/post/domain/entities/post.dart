@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 
 part 'post.freezed.dart';
 part 'post.g.dart';
@@ -13,6 +14,7 @@ class Post with _$Post {
     @Default([]) List<String> imageUrls,
     @Default('') String? avatarUrl,
     String? videoUrl,
+    @Default([]) List<Comment> comments,
     @Default([]) List<String> likes,
     @Default([]) List<String> reposts,
     @Default(false) bool isFavorite,
@@ -33,6 +35,8 @@ class Post with _$Post {
           List<String>.from(firestoreData['imageUrls'] as List<dynamic>? ?? []),
       videoUrl: firestoreData['videoUrl'] as String? ?? '',
       likes: List<String>.from(firestoreData['likes'] as List<dynamic>? ?? []),
+      comments:
+          List<Comment>.from(firestoreData['comments'] as List<dynamic>? ?? []),
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
     );
   }
