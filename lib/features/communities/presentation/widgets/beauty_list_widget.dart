@@ -46,7 +46,8 @@ class _BeutyListState extends State<BeutyList> {
                 return GestureDetector(
                   onTap: () {
                     context.push(
-                      '/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
+                      //'/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
+                      "/communities/${RouterContants.communityProfile}",
                     );
                   },
                   child: ListTile(

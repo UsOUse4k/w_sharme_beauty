@@ -24,11 +24,18 @@ class ProfileInfoUpdateBloc
           await userOption.fold(() async {
             emit(const ProfileInfoUpdateState.error(message: 'error'));
           }, (users) async {
-            await firebaseProfileFacade.updateInfiProfile(
-              event.user,
-              event.avatar,
-              users.email,
-            );
+            if (event.avatar != null && event.avatar!.isNotEmpty) {
+              await firebaseProfileFacade.updateInfiProfile(
+                user: event.user,
+                avatar: event.avatar,
+                email: users.email.toString(),
+              );
+            } else {
+              await firebaseProfileFacade.updateInfiProfile(
+                user: event.user,
+                email: users.email.toString(),
+              );
+            }
             emit(const ProfileInfoUpdateState.success());
           });
         },

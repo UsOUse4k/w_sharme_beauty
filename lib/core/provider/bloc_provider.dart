@@ -9,8 +9,11 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_post_bloc/community_create_post_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
@@ -90,6 +93,15 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommentLikesBloc>(
           create: (context) => getIt<CommentLikesBloc>(),
+        ),
+        BlocProvider<CommunityCreatePostBloc>(
+          create: (context) => getIt<CommunityCreatePostBloc>(),
+        ),
+        BlocProvider<CommunityPostListBloc>(
+          create: (context) => getIt<CommunityPostListBloc>(),
+        ),
+        BlocProvider<CommunityProfileInfoBloc>(
+          create: (context) => getIt<CommunityProfileInfoBloc>(),
         ),
       ],
       child: child,

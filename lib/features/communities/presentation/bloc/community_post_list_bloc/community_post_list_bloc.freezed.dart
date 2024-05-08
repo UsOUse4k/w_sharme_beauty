@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'post_like_bloc.dart';
+part of 'community_post_list_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,174 +15,128 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$PostLikeEvent {
-  String get postId => throw _privateConstructorUsedError;
+mixin _$CommunityPostListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String postId) like,
-    required TResult Function(String postId) dislike,
+    required TResult Function() getPosts,
+    required TResult Function(Post post) addPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String postId)? like,
-    TResult? Function(String postId)? dislike,
+    TResult? Function()? getPosts,
+    TResult? Function(Post post)? addPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String postId)? like,
-    TResult Function(String postId)? dislike,
+    TResult Function()? getPosts,
+    TResult Function(Post post)? addPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Like value) like,
-    required TResult Function(_Dislike value) dislike,
+    required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddPost value) addPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Like value)? like,
-    TResult? Function(_Dislike value)? dislike,
+    TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddPost value)? addPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Like value)? like,
-    TResult Function(_Dislike value)? dislike,
+    TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddPost value)? addPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $PostLikeEventCopyWith<PostLikeEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PostLikeEventCopyWith<$Res> {
-  factory $PostLikeEventCopyWith(
-          PostLikeEvent value, $Res Function(PostLikeEvent) then) =
-      _$PostLikeEventCopyWithImpl<$Res, PostLikeEvent>;
-  @useResult
-  $Res call({String postId});
+abstract class $CommunityPostListEventCopyWith<$Res> {
+  factory $CommunityPostListEventCopyWith(CommunityPostListEvent value,
+          $Res Function(CommunityPostListEvent) then) =
+      _$CommunityPostListEventCopyWithImpl<$Res, CommunityPostListEvent>;
 }
 
 /// @nodoc
-class _$PostLikeEventCopyWithImpl<$Res, $Val extends PostLikeEvent>
-    implements $PostLikeEventCopyWith<$Res> {
-  _$PostLikeEventCopyWithImpl(this._value, this._then);
+class _$CommunityPostListEventCopyWithImpl<$Res,
+        $Val extends CommunityPostListEvent>
+    implements $CommunityPostListEventCopyWith<$Res> {
+  _$CommunityPostListEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? postId = null,
-  }) {
-    return _then(_value.copyWith(
-      postId: null == postId
-          ? _value.postId
-          : postId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$LikeImplCopyWith<$Res>
-    implements $PostLikeEventCopyWith<$Res> {
-  factory _$$LikeImplCopyWith(
-          _$LikeImpl value, $Res Function(_$LikeImpl) then) =
-      __$$LikeImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String postId});
+abstract class _$$GetPostsImplCopyWith<$Res> {
+  factory _$$GetPostsImplCopyWith(
+          _$GetPostsImpl value, $Res Function(_$GetPostsImpl) then) =
+      __$$GetPostsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LikeImplCopyWithImpl<$Res>
-    extends _$PostLikeEventCopyWithImpl<$Res, _$LikeImpl>
-    implements _$$LikeImplCopyWith<$Res> {
-  __$$LikeImplCopyWithImpl(_$LikeImpl _value, $Res Function(_$LikeImpl) _then)
+class __$$GetPostsImplCopyWithImpl<$Res>
+    extends _$CommunityPostListEventCopyWithImpl<$Res, _$GetPostsImpl>
+    implements _$$GetPostsImplCopyWith<$Res> {
+  __$$GetPostsImplCopyWithImpl(
+      _$GetPostsImpl _value, $Res Function(_$GetPostsImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? postId = null,
-  }) {
-    return _then(_$LikeImpl(
-      null == postId
-          ? _value.postId
-          : postId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$LikeImpl implements _Like {
-  const _$LikeImpl(this.postId);
-
-  @override
-  final String postId;
+class _$GetPostsImpl implements _GetPosts {
+  const _$GetPostsImpl();
 
   @override
   String toString() {
-    return 'PostLikeEvent.like(postId: $postId)';
+    return 'CommunityPostListEvent.getPosts()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LikeImpl &&
-            (identical(other.postId, postId) || other.postId == postId));
+        (other.runtimeType == runtimeType && other is _$GetPostsImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, postId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LikeImplCopyWith<_$LikeImpl> get copyWith =>
-      __$$LikeImplCopyWithImpl<_$LikeImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String postId) like,
-    required TResult Function(String postId) dislike,
+    required TResult Function() getPosts,
+    required TResult Function(Post post) addPost,
   }) {
-    return like(postId);
+    return getPosts();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String postId)? like,
-    TResult? Function(String postId)? dislike,
+    TResult? Function()? getPosts,
+    TResult? Function(Post post)? addPost,
   }) {
-    return like?.call(postId);
+    return getPosts?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String postId)? like,
-    TResult Function(String postId)? dislike,
+    TResult Function()? getPosts,
+    TResult Function(Post post)? addPost,
     required TResult orElse(),
   }) {
-    if (like != null) {
-      return like(postId);
+    if (getPosts != null) {
+      return getPosts();
     }
     return orElse();
   }
@@ -190,136 +144,137 @@ class _$LikeImpl implements _Like {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Like value) like,
-    required TResult Function(_Dislike value) dislike,
+    required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddPost value) addPost,
   }) {
-    return like(this);
+    return getPosts(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Like value)? like,
-    TResult? Function(_Dislike value)? dislike,
+    TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddPost value)? addPost,
   }) {
-    return like?.call(this);
+    return getPosts?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Like value)? like,
-    TResult Function(_Dislike value)? dislike,
+    TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddPost value)? addPost,
     required TResult orElse(),
   }) {
-    if (like != null) {
-      return like(this);
+    if (getPosts != null) {
+      return getPosts(this);
     }
     return orElse();
   }
 }
 
-abstract class _Like implements PostLikeEvent {
-  const factory _Like(final String postId) = _$LikeImpl;
-
-  @override
-  String get postId;
-  @override
-  @JsonKey(ignore: true)
-  _$$LikeImplCopyWith<_$LikeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _GetPosts implements CommunityPostListEvent {
+  const factory _GetPosts() = _$GetPostsImpl;
 }
 
 /// @nodoc
-abstract class _$$DislikeImplCopyWith<$Res>
-    implements $PostLikeEventCopyWith<$Res> {
-  factory _$$DislikeImplCopyWith(
-          _$DislikeImpl value, $Res Function(_$DislikeImpl) then) =
-      __$$DislikeImplCopyWithImpl<$Res>;
-  @override
+abstract class _$$AddPostImplCopyWith<$Res> {
+  factory _$$AddPostImplCopyWith(
+          _$AddPostImpl value, $Res Function(_$AddPostImpl) then) =
+      __$$AddPostImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String postId});
+  $Res call({Post post});
+
+  $PostCopyWith<$Res> get post;
 }
 
 /// @nodoc
-class __$$DislikeImplCopyWithImpl<$Res>
-    extends _$PostLikeEventCopyWithImpl<$Res, _$DislikeImpl>
-    implements _$$DislikeImplCopyWith<$Res> {
-  __$$DislikeImplCopyWithImpl(
-      _$DislikeImpl _value, $Res Function(_$DislikeImpl) _then)
+class __$$AddPostImplCopyWithImpl<$Res>
+    extends _$CommunityPostListEventCopyWithImpl<$Res, _$AddPostImpl>
+    implements _$$AddPostImplCopyWith<$Res> {
+  __$$AddPostImplCopyWithImpl(
+      _$AddPostImpl _value, $Res Function(_$AddPostImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? postId = null,
+    Object? post = null,
   }) {
-    return _then(_$DislikeImpl(
-      null == postId
-          ? _value.postId
-          : postId // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$AddPostImpl(
+      null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PostCopyWith<$Res> get post {
+    return $PostCopyWith<$Res>(_value.post, (value) {
+      return _then(_value.copyWith(post: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$DislikeImpl implements _Dislike {
-  const _$DislikeImpl(this.postId);
+class _$AddPostImpl implements _AddPost {
+  const _$AddPostImpl(this.post);
 
   @override
-  final String postId;
+  final Post post;
 
   @override
   String toString() {
-    return 'PostLikeEvent.dislike(postId: $postId)';
+    return 'CommunityPostListEvent.addPost(post: $post)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DislikeImpl &&
-            (identical(other.postId, postId) || other.postId == postId));
+            other is _$AddPostImpl &&
+            (identical(other.post, post) || other.post == post));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, postId);
+  int get hashCode => Object.hash(runtimeType, post);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DislikeImplCopyWith<_$DislikeImpl> get copyWith =>
-      __$$DislikeImplCopyWithImpl<_$DislikeImpl>(this, _$identity);
+  _$$AddPostImplCopyWith<_$AddPostImpl> get copyWith =>
+      __$$AddPostImplCopyWithImpl<_$AddPostImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String postId) like,
-    required TResult Function(String postId) dislike,
+    required TResult Function() getPosts,
+    required TResult Function(Post post) addPost,
   }) {
-    return dislike(postId);
+    return addPost(post);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String postId)? like,
-    TResult? Function(String postId)? dislike,
+    TResult? Function()? getPosts,
+    TResult? Function(Post post)? addPost,
   }) {
-    return dislike?.call(postId);
+    return addPost?.call(post);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String postId)? like,
-    TResult Function(String postId)? dislike,
+    TResult Function()? getPosts,
+    TResult Function(Post post)? addPost,
     required TResult orElse(),
   }) {
-    if (dislike != null) {
-      return dislike(postId);
+    if (addPost != null) {
+      return addPost(post);
     }
     return orElse();
   }
@@ -327,73 +282,71 @@ class _$DislikeImpl implements _Dislike {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Like value) like,
-    required TResult Function(_Dislike value) dislike,
+    required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddPost value) addPost,
   }) {
-    return dislike(this);
+    return addPost(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Like value)? like,
-    TResult? Function(_Dislike value)? dislike,
+    TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddPost value)? addPost,
   }) {
-    return dislike?.call(this);
+    return addPost?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Like value)? like,
-    TResult Function(_Dislike value)? dislike,
+    TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddPost value)? addPost,
     required TResult orElse(),
   }) {
-    if (dislike != null) {
-      return dislike(this);
+    if (addPost != null) {
+      return addPost(this);
     }
     return orElse();
   }
 }
 
-abstract class _Dislike implements PostLikeEvent {
-  const factory _Dislike(final String postId) = _$DislikeImpl;
+abstract class _AddPost implements CommunityPostListEvent {
+  const factory _AddPost(final Post post) = _$AddPostImpl;
 
-  @override
-  String get postId;
-  @override
+  Post get post;
   @JsonKey(ignore: true)
-  _$$DislikeImplCopyWith<_$DislikeImpl> get copyWith =>
+  _$$AddPostImplCopyWith<_$AddPostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$PostLikeState {
+mixin _$CommunityPostListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() notSignedIn,
+    required TResult Function(List<Post> posts) success,
     required TResult Function(String message) error,
-    required TResult Function() liked,
-    required TResult Function() unliked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? notSignedIn,
+    TResult? Function(List<Post> posts)? success,
     TResult? Function(String message)? error,
-    TResult? Function()? liked,
-    TResult? Function()? unliked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? notSignedIn,
+    TResult Function(List<Post> posts)? success,
     TResult Function(String message)? error,
-    TResult Function()? liked,
-    TResult Function()? unliked,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -401,43 +354,44 @@ mixin _$PostLikeState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_NotSignedIn value) notSignedIn,
+    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Liked value) liked,
-    required TResult Function(_UnLiked value) unliked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotSignedIn value)? notSignedIn,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Liked value)? liked,
-    TResult? Function(_UnLiked value)? unliked,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_NotSignedIn value)? notSignedIn,
+    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Liked value)? liked,
-    TResult Function(_UnLiked value)? unliked,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PostLikeStateCopyWith<$Res> {
-  factory $PostLikeStateCopyWith(
-          PostLikeState value, $Res Function(PostLikeState) then) =
-      _$PostLikeStateCopyWithImpl<$Res, PostLikeState>;
+abstract class $CommunityPostListStateCopyWith<$Res> {
+  factory $CommunityPostListStateCopyWith(CommunityPostListState value,
+          $Res Function(CommunityPostListState) then) =
+      _$CommunityPostListStateCopyWithImpl<$Res, CommunityPostListState>;
 }
 
 /// @nodoc
-class _$PostLikeStateCopyWithImpl<$Res, $Val extends PostLikeState>
-    implements $PostLikeStateCopyWith<$Res> {
-  _$PostLikeStateCopyWithImpl(this._value, this._then);
+class _$CommunityPostListStateCopyWithImpl<$Res,
+        $Val extends CommunityPostListState>
+    implements $CommunityPostListStateCopyWith<$Res> {
+  _$CommunityPostListStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -454,7 +408,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$PostLikeStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$CommunityPostListStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -468,7 +422,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'PostLikeState.initial()';
+    return 'CommunityPostListState.initial()';
   }
 
   @override
@@ -485,9 +439,9 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() notSignedIn,
+    required TResult Function(List<Post> posts) success,
     required TResult Function(String message) error,
-    required TResult Function() liked,
-    required TResult Function() unliked,
   }) {
     return initial();
   }
@@ -497,9 +451,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? notSignedIn,
+    TResult? Function(List<Post> posts)? success,
     TResult? Function(String message)? error,
-    TResult? Function()? liked,
-    TResult? Function()? unliked,
   }) {
     return initial?.call();
   }
@@ -509,9 +463,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? notSignedIn,
+    TResult Function(List<Post> posts)? success,
     TResult Function(String message)? error,
-    TResult Function()? liked,
-    TResult Function()? unliked,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -525,9 +479,9 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_NotSignedIn value) notSignedIn,
+    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Liked value) liked,
-    required TResult Function(_UnLiked value) unliked,
   }) {
     return initial(this);
   }
@@ -537,9 +491,9 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotSignedIn value)? notSignedIn,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Liked value)? liked,
-    TResult? Function(_UnLiked value)? unliked,
   }) {
     return initial?.call(this);
   }
@@ -549,9 +503,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_NotSignedIn value)? notSignedIn,
+    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Liked value)? liked,
-    TResult Function(_UnLiked value)? unliked,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -561,7 +515,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements PostLikeState {
+abstract class _Initial implements CommunityPostListState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -574,7 +528,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$PostLikeStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$CommunityPostListStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -588,7 +542,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'PostLikeState.loading()';
+    return 'CommunityPostListState.loading()';
   }
 
   @override
@@ -605,9 +559,9 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() notSignedIn,
+    required TResult Function(List<Post> posts) success,
     required TResult Function(String message) error,
-    required TResult Function() liked,
-    required TResult Function() unliked,
   }) {
     return loading();
   }
@@ -617,9 +571,9 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? notSignedIn,
+    TResult? Function(List<Post> posts)? success,
     TResult? Function(String message)? error,
-    TResult? Function()? liked,
-    TResult? Function()? unliked,
   }) {
     return loading?.call();
   }
@@ -629,9 +583,9 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? notSignedIn,
+    TResult Function(List<Post> posts)? success,
     TResult Function(String message)? error,
-    TResult Function()? liked,
-    TResult Function()? unliked,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -645,9 +599,9 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_NotSignedIn value) notSignedIn,
+    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Liked value) liked,
-    required TResult Function(_UnLiked value) unliked,
   }) {
     return loading(this);
   }
@@ -657,9 +611,9 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotSignedIn value)? notSignedIn,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Liked value)? liked,
-    TResult? Function(_UnLiked value)? unliked,
   }) {
     return loading?.call(this);
   }
@@ -669,9 +623,9 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_NotSignedIn value)? notSignedIn,
+    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Liked value)? liked,
-    TResult Function(_UnLiked value)? unliked,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -681,8 +635,285 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements PostLikeState {
+abstract class _Loading implements CommunityPostListState {
   const factory _Loading() = _$LoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$NotSignedInImplCopyWith<$Res> {
+  factory _$$NotSignedInImplCopyWith(
+          _$NotSignedInImpl value, $Res Function(_$NotSignedInImpl) then) =
+      __$$NotSignedInImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$NotSignedInImplCopyWithImpl<$Res>
+    extends _$CommunityPostListStateCopyWithImpl<$Res, _$NotSignedInImpl>
+    implements _$$NotSignedInImplCopyWith<$Res> {
+  __$$NotSignedInImplCopyWithImpl(
+      _$NotSignedInImpl _value, $Res Function(_$NotSignedInImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$NotSignedInImpl implements _NotSignedIn {
+  const _$NotSignedInImpl();
+
+  @override
+  String toString() {
+    return 'CommunityPostListState.notSignedIn()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$NotSignedInImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() notSignedIn,
+    required TResult Function(List<Post> posts) success,
+    required TResult Function(String message) error,
+  }) {
+    return notSignedIn();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? notSignedIn,
+    TResult? Function(List<Post> posts)? success,
+    TResult? Function(String message)? error,
+  }) {
+    return notSignedIn?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? notSignedIn,
+    TResult Function(List<Post> posts)? success,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (notSignedIn != null) {
+      return notSignedIn();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_NotSignedIn value) notSignedIn,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+  }) {
+    return notSignedIn(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotSignedIn value)? notSignedIn,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+  }) {
+    return notSignedIn?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_NotSignedIn value)? notSignedIn,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (notSignedIn != null) {
+      return notSignedIn(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NotSignedIn implements CommunityPostListState {
+  const factory _NotSignedIn() = _$NotSignedInImpl;
+}
+
+/// @nodoc
+abstract class _$$SuccessImplCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Post> posts});
+}
+
+/// @nodoc
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$CommunityPostListStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? posts = null,
+  }) {
+    return _then(_$SuccessImpl(
+      null == posts
+          ? _value._posts
+          : posts // ignore: cast_nullable_to_non_nullable
+              as List<Post>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessImpl implements _Success {
+  const _$SuccessImpl(final List<Post> posts) : _posts = posts;
+
+  final List<Post> _posts;
+  @override
+  List<Post> get posts {
+    if (_posts is EqualUnmodifiableListView) return _posts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_posts);
+  }
+
+  @override
+  String toString() {
+    return 'CommunityPostListState.success(posts: $posts)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            const DeepCollectionEquality().equals(other._posts, _posts));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_posts));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() notSignedIn,
+    required TResult Function(List<Post> posts) success,
+    required TResult Function(String message) error,
+  }) {
+    return success(posts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? notSignedIn,
+    TResult? Function(List<Post> posts)? success,
+    TResult? Function(String message)? error,
+  }) {
+    return success?.call(posts);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? notSignedIn,
+    TResult Function(List<Post> posts)? success,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(posts);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_NotSignedIn value) notSignedIn,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotSignedIn value)? notSignedIn,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_NotSignedIn value)? notSignedIn,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Success implements CommunityPostListState {
+  const factory _Success(final List<Post> posts) = _$SuccessImpl;
+
+  List<Post> get posts;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -696,7 +927,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$PostLikeStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$CommunityPostListStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -726,7 +957,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'PostLikeState.error(message: $message)';
+    return 'CommunityPostListState.error(message: $message)';
   }
 
   @override
@@ -751,9 +982,9 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() notSignedIn,
+    required TResult Function(List<Post> posts) success,
     required TResult Function(String message) error,
-    required TResult Function() liked,
-    required TResult Function() unliked,
   }) {
     return error(message);
   }
@@ -763,9 +994,9 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
+    TResult? Function()? notSignedIn,
+    TResult? Function(List<Post> posts)? success,
     TResult? Function(String message)? error,
-    TResult? Function()? liked,
-    TResult? Function()? unliked,
   }) {
     return error?.call(message);
   }
@@ -775,9 +1006,9 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? notSignedIn,
+    TResult Function(List<Post> posts)? success,
     TResult Function(String message)? error,
-    TResult Function()? liked,
-    TResult Function()? unliked,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -791,9 +1022,9 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_NotSignedIn value) notSignedIn,
+    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Liked value) liked,
-    required TResult Function(_UnLiked value) unliked,
   }) {
     return error(this);
   }
@@ -803,9 +1034,9 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
+    TResult? Function(_NotSignedIn value)? notSignedIn,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Liked value)? liked,
-    TResult? Function(_UnLiked value)? unliked,
   }) {
     return error?.call(this);
   }
@@ -815,9 +1046,9 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
+    TResult Function(_NotSignedIn value)? notSignedIn,
+    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Liked value)? liked,
-    TResult Function(_UnLiked value)? unliked,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -827,251 +1058,11 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements PostLikeState {
+abstract class _Error implements CommunityPostListState {
   const factory _Error({required final String message}) = _$ErrorImpl;
 
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LikedImplCopyWith<$Res> {
-  factory _$$LikedImplCopyWith(
-          _$LikedImpl value, $Res Function(_$LikedImpl) then) =
-      __$$LikedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LikedImplCopyWithImpl<$Res>
-    extends _$PostLikeStateCopyWithImpl<$Res, _$LikedImpl>
-    implements _$$LikedImplCopyWith<$Res> {
-  __$$LikedImplCopyWithImpl(
-      _$LikedImpl _value, $Res Function(_$LikedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LikedImpl implements _Liked {
-  const _$LikedImpl();
-
-  @override
-  String toString() {
-    return 'PostLikeState.liked()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LikedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String message) error,
-    required TResult Function() liked,
-    required TResult Function() unliked,
-  }) {
-    return liked();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(String message)? error,
-    TResult? Function()? liked,
-    TResult? Function()? unliked,
-  }) {
-    return liked?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String message)? error,
-    TResult Function()? liked,
-    TResult Function()? unliked,
-    required TResult orElse(),
-  }) {
-    if (liked != null) {
-      return liked();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Error value) error,
-    required TResult Function(_Liked value) liked,
-    required TResult Function(_UnLiked value) unliked,
-  }) {
-    return liked(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Error value)? error,
-    TResult? Function(_Liked value)? liked,
-    TResult? Function(_UnLiked value)? unliked,
-  }) {
-    return liked?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
-    TResult Function(_Liked value)? liked,
-    TResult Function(_UnLiked value)? unliked,
-    required TResult orElse(),
-  }) {
-    if (liked != null) {
-      return liked(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Liked implements PostLikeState {
-  const factory _Liked() = _$LikedImpl;
-}
-
-/// @nodoc
-abstract class _$$UnLikedImplCopyWith<$Res> {
-  factory _$$UnLikedImplCopyWith(
-          _$UnLikedImpl value, $Res Function(_$UnLikedImpl) then) =
-      __$$UnLikedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$UnLikedImplCopyWithImpl<$Res>
-    extends _$PostLikeStateCopyWithImpl<$Res, _$UnLikedImpl>
-    implements _$$UnLikedImplCopyWith<$Res> {
-  __$$UnLikedImplCopyWithImpl(
-      _$UnLikedImpl _value, $Res Function(_$UnLikedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$UnLikedImpl implements _UnLiked {
-  const _$UnLikedImpl();
-
-  @override
-  String toString() {
-    return 'PostLikeState.unliked()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UnLikedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String message) error,
-    required TResult Function() liked,
-    required TResult Function() unliked,
-  }) {
-    return unliked();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(String message)? error,
-    TResult? Function()? liked,
-    TResult? Function()? unliked,
-  }) {
-    return unliked?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String message)? error,
-    TResult Function()? liked,
-    TResult Function()? unliked,
-    required TResult orElse(),
-  }) {
-    if (unliked != null) {
-      return unliked();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Error value) error,
-    required TResult Function(_Liked value) liked,
-    required TResult Function(_UnLiked value) unliked,
-  }) {
-    return unliked(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Error value)? error,
-    TResult? Function(_Liked value)? liked,
-    TResult? Function(_UnLiked value)? unliked,
-  }) {
-    return unliked?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
-    TResult Function(_Liked value)? liked,
-    TResult Function(_UnLiked value)? unliked,
-    required TResult orElse(),
-  }) {
-    if (unliked != null) {
-      return unliked(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UnLiked implements PostLikeState {
-  const factory _UnLiked() = _$UnLikedImpl;
 }

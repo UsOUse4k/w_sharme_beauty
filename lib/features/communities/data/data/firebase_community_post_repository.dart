@@ -8,12 +8,12 @@ import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/core/utils/date_formatter.dart';
+import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_post_repository.dart';
 import 'package:w_sharme_beauty/features/post/data/firebase_storage_image_methods.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
-import 'package:w_sharme_beauty/features/post/domain/repositories/i_post_repository.dart';
 
-@LazySingleton(as: IPostRepository)
-class FirestorePostRepository implements IPostRepository {
+@LazySingleton(as: ICommunityPostRepository)
+class FirestorePostRepository implements ICommunityPostRepository {
   final FirebaseFirestore firestore;
   final FirebaseAuth auth;
   final FirebaseStorage storage;
@@ -22,8 +22,6 @@ class FirestorePostRepository implements IPostRepository {
   Future<Either<PostError, Unit>> createPost(
     Post post,
     List<Uint8List>? imageFiles,
-    String? username,
-    String? avatarUrl,
   ) async {
     try {
       final String postId = const Uuid().v1();
@@ -32,16 +30,17 @@ class FirestorePostRepository implements IPostRepository {
       final String formattedDate = DateFormatter.format(now);
       final List<String> imageUrls =
           await FirebaseStorageImageMethods(auth, storage)
-              .uploadImageToStorage(imageFiles!, true, 'posts');
+              .uploadImageToStorage(imageFiles!, true, 'communities_posts');
       final updatedPost = post.copyWith(
         postId: postId,
         createdAt: formattedDate,
         authorId: authorId,
         imageUrls: imageUrls,
-        username: username,
-        avatarUrl: avatarUrl,
       );
-      await firestore.collection('posts').doc(postId).set(updatedPost.toJson());
+      await firestore
+          .collection('communities_posts')
+          .doc(postId)
+          .set(updatedPost.toJson());
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -55,11 +54,11 @@ class FirestorePostRepository implements IPostRepository {
 
       if (userId != null) {
         querySnapshot = await firestore
-            .collection('posts')
+            .collection('communities_posts')
             .where('authorId', isEqualTo: userId)
             .get();
       } else {
-        querySnapshot = await firestore.collection('posts').get();
+        querySnapshot = await firestore.collection('communities_posts').get();
       }
       final List<Post> posts = querySnapshot.docs
           .map(
@@ -79,7 +78,12 @@ class FirestorePostRepository implements IPostRepository {
     bool add,
   ) async {
     try {
-      await firestore.collection('posts').doc(postId).update({
+      await firestore
+          .collection('communities')
+          .doc()
+          .collection('new_posts')
+          .doc(postId)
+          .update({
         'likes': add
             ? FieldValue.arrayUnion([userId])
             : FieldValue.arrayRemove([userId]),
@@ -99,8 +103,12 @@ class FirestorePostRepository implements IPostRepository {
       if (postId == null) {
         return left(PostError('no Post id'));
       }
-      final DocumentSnapshot post =
-          await firestore.collection('posts').doc(postId).get();
+      final DocumentSnapshot post = await firestore
+          .collection('communities')
+          .doc()
+          .collection('new_posts')
+          .doc(postId)
+          .get();
       if (!post.exists) {
         return left(PostError('Post not found.'));
       }

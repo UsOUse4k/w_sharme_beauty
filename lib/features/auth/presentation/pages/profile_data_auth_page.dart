@@ -57,7 +57,7 @@ class _ProfileDataAuthPageState extends State<ProfileDataAuthPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
-                      flex: 5,
+                      flex: 15,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,

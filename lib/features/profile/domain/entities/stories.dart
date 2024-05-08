@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'stories.freezed.dart';
 part 'stories.g.dart';
 
-
 @freezed
 class Stories with _$Stories {
   const factory Stories({

@@ -14,18 +14,18 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
   FirebaseProfileFacade(this.firestore, this.auth, this.storage);
 
   @override
-  Future<Either<PostError, Unit>> updateInfiProfile(
-    UserProfile user,
-    Uint8List avatar,
+  Future<Either<PostError, Unit>> updateInfiProfile({
+    UserProfile? user,
+    Uint8List? avatar,
     String? email,
-  ) async {
+  }) async {
     final userId = auth.currentUser!.uid;
     try {
       final photoUrl = await StorageMethods(auth, storage)
-          .uploadImageToStorage('users', avatar, true);
+          .uploadImageToStorage('users', avatar!, true);
       final users = firestore.collection('users');
-      await users.doc(userId).update({
-        'aboutYourself': user.aboutYourself,
+        await users.doc(userId).update({
+        'aboutYourself': user!.aboutYourself,
         'category': user.category,
         'theme': user.theme,
         'location': user.city,
@@ -36,6 +36,7 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
         'email': email,
         'uid': userId,
       });
+      
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -48,7 +49,8 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
       final effectiveUserId = userId ?? auth.currentUser?.uid;
       if (effectiveUserId == null) {
         return left(
-            PostError('No user id provided and no authenticated user.'),);
+          PostError('No user id provided and no authenticated user.'),
+        );
       }
       final DocumentSnapshot userDoc =
           await firestore.collection('users').doc(effectiveUserId).get();
@@ -66,6 +68,4 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
   final FirebaseFirestore firestore;
   final FirebaseAuth auth;
   final FirebaseStorage storage;
-  
-  
 }

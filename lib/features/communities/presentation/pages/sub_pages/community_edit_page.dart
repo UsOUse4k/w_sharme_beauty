@@ -5,7 +5,6 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityEditPage extends StatelessWidget {
   const CommunityEditPage({super.key});
@@ -57,7 +56,7 @@ class CommunityEditPage extends StatelessWidget {
               style: AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
             ),
             const SizedBox(height: 8),
-            Image.asset(Assets.images.ava.path),
+            //Image.asset(Assets.images.ava.path),
             const SizedBox(
               height: 50,
             ),
@@ -65,7 +64,7 @@ class CommunityEditPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-             TextFieldWidgetWithTitle(
+            TextFieldWidgetWithTitle(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               title: "Описание сообщества",

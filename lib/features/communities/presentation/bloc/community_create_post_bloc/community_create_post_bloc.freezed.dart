@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'profile_info_update_bloc.dart';
+part of 'community_create_post_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,63 +15,63 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$ProfileInfoUpdateEvent {
-  UserProfile get user => throw _privateConstructorUsedError;
-  Uint8List? get avatar => throw _privateConstructorUsedError;
+mixin _$CommunityCreatePostEvent {
+  Post get post => throw _privateConstructorUsedError;
+  List<Uint8List> get imageFiles => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserProfile user, Uint8List? avatar) update,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserProfile user, Uint8List? avatar)? update,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserProfile user, Uint8List? avatar)? update,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Update value) update,
+    required TResult Function(_CreatePost value) createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Update value)? update,
+    TResult? Function(_CreatePost value)? createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Update value)? update,
+    TResult Function(_CreatePost value)? createPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ProfileInfoUpdateEventCopyWith<ProfileInfoUpdateEvent> get copyWith =>
+  $CommunityCreatePostEventCopyWith<CommunityCreatePostEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProfileInfoUpdateEventCopyWith<$Res> {
-  factory $ProfileInfoUpdateEventCopyWith(ProfileInfoUpdateEvent value,
-          $Res Function(ProfileInfoUpdateEvent) then) =
-      _$ProfileInfoUpdateEventCopyWithImpl<$Res, ProfileInfoUpdateEvent>;
+abstract class $CommunityCreatePostEventCopyWith<$Res> {
+  factory $CommunityCreatePostEventCopyWith(CommunityCreatePostEvent value,
+          $Res Function(CommunityCreatePostEvent) then) =
+      _$CommunityCreatePostEventCopyWithImpl<$Res, CommunityCreatePostEvent>;
   @useResult
-  $Res call({UserProfile user, Uint8List? avatar});
+  $Res call({Post post, List<Uint8List> imageFiles});
 
-  $UserProfileCopyWith<$Res> get user;
+  $PostCopyWith<$Res> get post;
 }
 
 /// @nodoc
-class _$ProfileInfoUpdateEventCopyWithImpl<$Res,
-        $Val extends ProfileInfoUpdateEvent>
-    implements $ProfileInfoUpdateEventCopyWith<$Res> {
-  _$ProfileInfoUpdateEventCopyWithImpl(this._value, this._then);
+class _$CommunityCreatePostEventCopyWithImpl<$Res,
+        $Val extends CommunityCreatePostEvent>
+    implements $CommunityCreatePostEventCopyWith<$Res> {
+  _$CommunityCreatePostEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -81,129 +81,136 @@ class _$ProfileInfoUpdateEventCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
-    Object? avatar = freezed,
+    Object? post = null,
+    Object? imageFiles = null,
   }) {
     return _then(_value.copyWith(
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserProfile,
-      avatar: freezed == avatar
-          ? _value.avatar
-          : avatar // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+      post: null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post,
+      imageFiles: null == imageFiles
+          ? _value.imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as List<Uint8List>,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $UserProfileCopyWith<$Res> get user {
-    return $UserProfileCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
+  $PostCopyWith<$Res> get post {
+    return $PostCopyWith<$Res>(_value.post, (value) {
+      return _then(_value.copyWith(post: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$UpdateImplCopyWith<$Res>
-    implements $ProfileInfoUpdateEventCopyWith<$Res> {
-  factory _$$UpdateImplCopyWith(
-          _$UpdateImpl value, $Res Function(_$UpdateImpl) then) =
-      __$$UpdateImplCopyWithImpl<$Res>;
+abstract class _$$CreatePostImplCopyWith<$Res>
+    implements $CommunityCreatePostEventCopyWith<$Res> {
+  factory _$$CreatePostImplCopyWith(
+          _$CreatePostImpl value, $Res Function(_$CreatePostImpl) then) =
+      __$$CreatePostImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserProfile user, Uint8List? avatar});
+  $Res call({Post post, List<Uint8List> imageFiles});
 
   @override
-  $UserProfileCopyWith<$Res> get user;
+  $PostCopyWith<$Res> get post;
 }
 
 /// @nodoc
-class __$$UpdateImplCopyWithImpl<$Res>
-    extends _$ProfileInfoUpdateEventCopyWithImpl<$Res, _$UpdateImpl>
-    implements _$$UpdateImplCopyWith<$Res> {
-  __$$UpdateImplCopyWithImpl(
-      _$UpdateImpl _value, $Res Function(_$UpdateImpl) _then)
+class __$$CreatePostImplCopyWithImpl<$Res>
+    extends _$CommunityCreatePostEventCopyWithImpl<$Res, _$CreatePostImpl>
+    implements _$$CreatePostImplCopyWith<$Res> {
+  __$$CreatePostImplCopyWithImpl(
+      _$CreatePostImpl _value, $Res Function(_$CreatePostImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
-    Object? avatar = freezed,
+    Object? post = null,
+    Object? imageFiles = null,
   }) {
-    return _then(_$UpdateImpl(
-      null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserProfile,
-      avatar: freezed == avatar
-          ? _value.avatar
-          : avatar // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+    return _then(_$CreatePostImpl(
+      null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post,
+      null == imageFiles
+          ? _value._imageFiles
+          : imageFiles // ignore: cast_nullable_to_non_nullable
+              as List<Uint8List>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$UpdateImpl implements _Update {
-  const _$UpdateImpl(this.user, {this.avatar});
+class _$CreatePostImpl implements _CreatePost {
+  const _$CreatePostImpl(this.post, final List<Uint8List> imageFiles)
+      : _imageFiles = imageFiles;
 
   @override
-  final UserProfile user;
+  final Post post;
+  final List<Uint8List> _imageFiles;
   @override
-  final Uint8List? avatar;
+  List<Uint8List> get imageFiles {
+    if (_imageFiles is EqualUnmodifiableListView) return _imageFiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageFiles);
+  }
 
   @override
   String toString() {
-    return 'ProfileInfoUpdateEvent.update(user: $user, avatar: $avatar)';
+    return 'CommunityCreatePostEvent.createPost(post: $post, imageFiles: $imageFiles)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateImpl &&
-            (identical(other.user, user) || other.user == user) &&
-            const DeepCollectionEquality().equals(other.avatar, avatar));
+            other is _$CreatePostImpl &&
+            (identical(other.post, post) || other.post == post) &&
+            const DeepCollectionEquality()
+                .equals(other._imageFiles, _imageFiles));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, user, const DeepCollectionEquality().hash(avatar));
+      runtimeType, post, const DeepCollectionEquality().hash(_imageFiles));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateImplCopyWith<_$UpdateImpl> get copyWith =>
-      __$$UpdateImplCopyWithImpl<_$UpdateImpl>(this, _$identity);
+  _$$CreatePostImplCopyWith<_$CreatePostImpl> get copyWith =>
+      __$$CreatePostImplCopyWithImpl<_$CreatePostImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserProfile user, Uint8List? avatar) update,
+    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
   }) {
-    return update(user, avatar);
+    return createPost(post, imageFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserProfile user, Uint8List? avatar)? update,
+    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
   }) {
-    return update?.call(user, avatar);
+    return createPost?.call(post, imageFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserProfile user, Uint8List? avatar)? update,
+    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
     required TResult orElse(),
   }) {
-    if (update != null) {
-      return update(user, avatar);
+    if (createPost != null) {
+      return createPost(post, imageFiles);
     }
     return orElse();
   }
@@ -211,112 +218,112 @@ class _$UpdateImpl implements _Update {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Update value) update,
+    required TResult Function(_CreatePost value) createPost,
   }) {
-    return update(this);
+    return createPost(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Update value)? update,
+    TResult? Function(_CreatePost value)? createPost,
   }) {
-    return update?.call(this);
+    return createPost?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Update value)? update,
+    TResult Function(_CreatePost value)? createPost,
     required TResult orElse(),
   }) {
-    if (update != null) {
-      return update(this);
+    if (createPost != null) {
+      return createPost(this);
     }
     return orElse();
   }
 }
 
-abstract class _Update implements ProfileInfoUpdateEvent {
-  const factory _Update(final UserProfile user, {final Uint8List? avatar}) =
-      _$UpdateImpl;
+abstract class _CreatePost implements CommunityCreatePostEvent {
+  const factory _CreatePost(final Post post, final List<Uint8List> imageFiles) =
+      _$CreatePostImpl;
 
   @override
-  UserProfile get user;
+  Post get post;
   @override
-  Uint8List? get avatar;
+  List<Uint8List> get imageFiles;
   @override
   @JsonKey(ignore: true)
-  _$$UpdateImplCopyWith<_$UpdateImpl> get copyWith =>
+  _$$CreatePostImplCopyWith<_$CreatePostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$ProfileInfoUpdateState {
+mixin _$CommunityCreatePostState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
-    required TResult Function(String message) error,
     required TResult Function() loading,
+    required TResult Function(Post post) success,
+    required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
-    TResult? Function(String message)? error,
     TResult? Function()? loading,
+    TResult? Function(Post post)? success,
+    TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
-    TResult Function(String message)? error,
     TResult Function()? loading,
+    TResult Function(Post post)? success,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Loading value) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Loading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProfileInfoUpdateStateCopyWith<$Res> {
-  factory $ProfileInfoUpdateStateCopyWith(ProfileInfoUpdateState value,
-          $Res Function(ProfileInfoUpdateState) then) =
-      _$ProfileInfoUpdateStateCopyWithImpl<$Res, ProfileInfoUpdateState>;
+abstract class $CommunityCreatePostStateCopyWith<$Res> {
+  factory $CommunityCreatePostStateCopyWith(CommunityCreatePostState value,
+          $Res Function(CommunityCreatePostState) then) =
+      _$CommunityCreatePostStateCopyWithImpl<$Res, CommunityCreatePostState>;
 }
 
 /// @nodoc
-class _$ProfileInfoUpdateStateCopyWithImpl<$Res,
-        $Val extends ProfileInfoUpdateState>
-    implements $ProfileInfoUpdateStateCopyWith<$Res> {
-  _$ProfileInfoUpdateStateCopyWithImpl(this._value, this._then);
+class _$CommunityCreatePostStateCopyWithImpl<$Res,
+        $Val extends CommunityCreatePostState>
+    implements $CommunityCreatePostStateCopyWith<$Res> {
+  _$CommunityCreatePostStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -333,7 +340,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$ProfileInfoUpdateStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$CommunityCreatePostStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -347,7 +354,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'ProfileInfoUpdateState.initial()';
+    return 'CommunityCreatePostState.initial()';
   }
 
   @override
@@ -363,9 +370,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
-    required TResult Function(String message) error,
     required TResult Function() loading,
+    required TResult Function(Post post) success,
+    required TResult Function(String message) error,
   }) {
     return initial();
   }
@@ -374,9 +381,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
-    TResult? Function(String message)? error,
     TResult? Function()? loading,
+    TResult? Function(Post post)? success,
+    TResult? Function(String message)? error,
   }) {
     return initial?.call();
   }
@@ -385,9 +392,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
-    TResult Function(String message)? error,
     TResult Function()? loading,
+    TResult Function(Post post)? success,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -400,9 +407,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Loading value) loading,
   }) {
     return initial(this);
   }
@@ -411,9 +418,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Loading value)? loading,
   }) {
     return initial?.call(this);
   }
@@ -422,9 +429,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -434,40 +441,40 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements ProfileInfoUpdateState {
+abstract class _Initial implements CommunityCreatePostState {
   const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$ProfileInfoUpdateStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$CommunityCreatePostStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl();
+class _$LoadingImpl implements _Loading {
+  const _$LoadingImpl();
 
   @override
   String toString() {
-    return 'ProfileInfoUpdateState.success()';
+    return 'CommunityCreatePostState.loading()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
   @override
@@ -477,35 +484,35 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
-    required TResult Function(String message) error,
     required TResult Function() loading,
+    required TResult Function(Post post) success,
+    required TResult Function(String message) error,
   }) {
-    return success();
+    return loading();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
-    TResult? Function(String message)? error,
     TResult? Function()? loading,
+    TResult? Function(Post post)? success,
+    TResult? Function(String message)? error,
   }) {
-    return success?.call();
+    return loading?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
-    TResult Function(String message)? error,
     TResult Function()? loading,
+    TResult Function(Post post)? success,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success();
+    if (loading != null) {
+      return loading();
     }
     return orElse();
   }
@@ -514,9 +521,159 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loading implements CommunityCreatePostState {
+  const factory _Loading() = _$LoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$SuccessImplCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Post post});
+
+  $PostCopyWith<$Res> get post;
+}
+
+/// @nodoc
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$CommunityCreatePostStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? post = null,
+  }) {
+    return _then(_$SuccessImpl(
+      null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PostCopyWith<$Res> get post {
+    return $PostCopyWith<$Res>(_value.post, (value) {
+      return _then(_value.copyWith(post: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$SuccessImpl implements _Success {
+  const _$SuccessImpl(this.post);
+
+  @override
+  final Post post;
+
+  @override
+  String toString() {
+    return 'CommunityCreatePostState.success(post: $post)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.post, post) || other.post == post));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, post);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(Post post) success,
+    required TResult Function(String message) error,
+  }) {
+    return success(post);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(Post post)? success,
+    TResult? Function(String message)? error,
+  }) {
+    return success?.call(post);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(Post post)? success,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(post);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
   }) {
     return success(this);
   }
@@ -525,9 +682,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Loading value)? loading,
   }) {
     return success?.call(this);
   }
@@ -536,9 +693,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -548,8 +705,13 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements ProfileInfoUpdateState {
-  const factory _Success() = _$SuccessImpl;
+abstract class _Success implements CommunityCreatePostState {
+  const factory _Success(final Post post) = _$SuccessImpl;
+
+  Post get post;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -563,7 +725,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$ProfileInfoUpdateStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$CommunityCreatePostStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -593,7 +755,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'ProfileInfoUpdateState.error(message: $message)';
+    return 'CommunityCreatePostState.error(message: $message)';
   }
 
   @override
@@ -617,9 +779,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
-    required TResult Function(String message) error,
     required TResult Function() loading,
+    required TResult Function(Post post) success,
+    required TResult Function(String message) error,
   }) {
     return error(message);
   }
@@ -628,9 +790,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
-    TResult? Function(String message)? error,
     TResult? Function()? loading,
+    TResult? Function(Post post)? success,
+    TResult? Function(String message)? error,
   }) {
     return error?.call(message);
   }
@@ -639,9 +801,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
-    TResult Function(String message)? error,
     TResult Function()? loading,
+    TResult Function(Post post)? success,
+    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -654,9 +816,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
-    required TResult Function(_Loading value) loading,
   }) {
     return error(this);
   }
@@ -665,9 +827,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
-    TResult? Function(_Loading value)? loading,
   }) {
     return error?.call(this);
   }
@@ -676,9 +838,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
-    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -688,125 +850,11 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements ProfileInfoUpdateState {
+abstract class _Error implements CommunityCreatePostState {
   const factory _Error({required final String message}) = _$ErrorImpl;
 
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$ProfileInfoUpdateStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
-
-  @override
-  String toString() {
-    return 'ProfileInfoUpdateState.loading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() success,
-    required TResult Function(String message) error,
-    required TResult Function() loading,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? success,
-    TResult? Function(String message)? error,
-    TResult? Function()? loading,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? success,
-    TResult Function(String message)? error,
-    TResult Function()? loading,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-    required TResult Function(_Loading value) loading,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-    TResult? Function(_Loading value)? loading,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    TResult Function(_Loading value)? loading,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loading implements ProfileInfoUpdateState {
-  const factory _Loading() = _$LoadingImpl;
 }

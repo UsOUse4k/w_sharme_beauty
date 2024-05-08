@@ -46,14 +46,13 @@ class _PostCardState extends State<PostCard> {
   }
 
   void toggleLike() {
-    final authorId = widget.post!.authorId.toString();
     final postId = widget.post!.postId.toString();
     final bool newLikeStatus = !isLike;
     if (isLike) {
-      context.read<PostLikeBloc>().add(PostLikeEvent.dislike(postId, authorId));
+      context.read<PostLikeBloc>().add(PostLikeEvent.dislike(postId));
       countLike = countLike - 1;
     } else {
-      context.read<PostLikeBloc>().add(PostLikeEvent.like(postId, authorId));
+      context.read<PostLikeBloc>().add(PostLikeEvent.like(postId));
       countLike = countLike + 1;
     }
     if (mounted) {

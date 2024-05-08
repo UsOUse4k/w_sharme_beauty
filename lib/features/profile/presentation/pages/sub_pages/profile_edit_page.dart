@@ -24,6 +24,7 @@ class ProfileEditPage extends StatefulWidget {
 class _ProfileEditPageState extends State<ProfileEditPage> {
   Uint8List? avatar;
   String? avatarUrl;
+  bool isLoading = false;
   final TextEditingController themeText = TextEditingController();
   final TextEditingController location = TextEditingController();
   final TextEditingController aboutYourself = TextEditingController();
@@ -60,7 +61,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     username.text = user.username ?? '';
                     location.text = user.city ?? '';
                     aboutYourself.text = user.aboutYourself ?? '';
-                    avatarUrl = user.profilePictureUrl;
+                    avatarUrl = user.profilePictureUrl ?? '';
+                    isLoading = false;
                     setState(() {});
                   },
                   orElse: () {},
@@ -70,7 +72,15 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   BlocListener<ProfileInfoUpdateBloc, ProfileInfoUpdateState>(
                 listener: (context, state) {
                   state.maybeWhen(
+                    loading: () {
+                      setState(() {
+                        isLoading = true;
+                      });
+                    },
                     success: () {
+                      setState(() {
+                        isLoading = false;
+                      });
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Успешно сохранились'),
@@ -78,6 +88,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       );
                     },
                     error: (e) {
+                      setState(() {
+                        isLoading = false;
+                      });
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Ошибка при сохрание'),
@@ -187,10 +200,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       height: 20,
                     ),
                     GlButton(
-                      text: 'Сохранить изменения',
+                      text: isLoading ? 'Сохранение...' : 'Сохранить изменения',
                       onPressed: () {
-                        if ((avatar != null && avatar!.isNotEmpty) ||
-                            (avatarUrl != null && avatarUrl!.isNotEmpty)) {
+                        if (avatar != null && avatar!.isNotEmpty) {
                           context.read<ProfileInfoUpdateBloc>().add(
                                 ProfileInfoUpdateEvent.update(
                                   UserProfile(
@@ -199,15 +211,20 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     city: location.text,
                                     username: username.text,
                                   ),
-                                  avatar!,
+                                  avatar: avatar,
                                 ),
                               );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Простите. Аватар должен выбрать'),
-                            ),
-                          );
+                          context.read<ProfileInfoUpdateBloc>().add(
+                                ProfileInfoUpdateEvent.update(
+                                  UserProfile(
+                                    theme: themeText.text,
+                                    aboutYourself: aboutYourself.text,
+                                    city: location.text,
+                                    username: username.text,
+                                  ),
+                                ),
+                              );
                         }
                       },
                     ),
