@@ -1,41 +1,90 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommentItemCard extends StatefulWidget {
+  final String avatar;
+  final Comment item;
+  final String postId;
   const CommentItemCard({
     super.key,
     required this.avatar,
     required this.item,
-    required this.onPressed,
     required this.postId,
   });
-  final String avatar;
-  final Comment item;
-  final Function() onPressed;
-  final String postId;
 
   @override
-  State<CommentItemCard> createState() => _CommentItemCardState();
+  _CommentItemCardState createState() => _CommentItemCardState();
 }
 
 class _CommentItemCardState extends State<CommentItemCard> {
+  bool _isRepliesVisible = false;
+  int likeCount = 0;
+  bool isLiked = false;
+  int replyCommentsLength = 0;
+
   @override
   void initState() {
-    context.read<ReplyCommentListBloc>().add(
-          ReplyCommentListEvent.getReplyComments(
-            postId: widget.postId,
-            parentCommentId: widget.item.commentId.toString(),
-          ),
-        );
     super.initState();
+    if (_isRepliesVisible) {
+      getRepliesComment();
+    }
+    setState(() {
+      isLiked = widget.item.likes.contains(widget.item.uid);
+      likeCount = widget.item.likes.length;
+    });
+  }
+
+  void toggleIsLiked() {
+    if (!isLiked) {
+      context.read<CommentLikesBloc>().add(
+            CommentLikesEvent.likeComment(
+              commentId: widget.item.commentId,
+              postId: widget.postId,
+              isLiked: isLiked,
+            ),
+          );
+      likeCount += 1;
+    } else {
+      context.read<CommentLikesBloc>().add(
+            CommentLikesEvent.likeComment(
+              commentId: widget.item.commentId,
+              postId: widget.postId,
+              isLiked: isLiked,
+            ),
+          );
+      likeCount -= 1;
+    }
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
+  void getRepliesComment() => {
+        if (widget.item.commentId != null)
+          {
+            context.read<ReplyCommentListBloc>().add(
+                  ReplyCommentListEvent.getReplyComments(
+                    postId: widget.postId,
+                    parentCommentId: widget.item.commentId.toString(),
+                  ),
+                ),
+          },
+      };
+
+  void _toggleReplies() {
+    setState(() {
+      _isRepliesVisible = !_isRepliesVisible;
+    });
+    if (_isRepliesVisible) {
+      getRepliesComment();
+    }
   }
 
   @override
@@ -63,58 +112,82 @@ class _CommentItemCardState extends State<CommentItemCard> {
               child: Column(
                 children: [
                   CommentItemText(
-                    username: widget.item.username.toString(),
-                    comment: widget.item.comment.toString(),
+                    username: widget.item.username ?? '',
+                    comment: widget.item.comment ?? '',
                     data: 'сегодня в 15:53',
-                    like: '0',
-                    onPressedComment: widget.onPressed,
-                    onPressedLike: () {},
+                    like: '$likeCount',
+                    id: widget.item.commentId.toString(),
                   ),
                 ],
               ),
             ),
             Flexible(
-              child: Image(
-                width: 16,
-                height: 16,
-                image: AssetImage(
-                  Assets.icons.heart.path,
-                ),
+              child: GestureDetector(
+                onTap: toggleIsLiked,
+                child: isLiked
+                    ? const Icon(Icons.favorite, color: AppColors.red)
+                    : const Icon(Icons.favorite_outline),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 8),
-        Column(
-          children: [
-            BlocBuilder<ReplyCommentListBloc, ReplyCommentListState>(
-              builder: (context, state) {
-                return state.maybeWhen(
-                  success: (comments) {
-                    final filteredComments = comments
-                        .where(
-                          (comment) =>
-                              comment.parentCommentId == widget.item.commentId,
-                        )
-                        .toList();
-                    return Column(
-                      children: filteredComments.map((reply) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 6),
-                          child: CommentItemReplyCard(
-                            onPressed: () {},
-                            item: reply,
-                          ),
-                        );
-                      }).toList(),
-                    );
-                  },
-                  orElse: () => Container(),
-                );
-              },
+        if (_isRepliesVisible)
+          BlocConsumer<ReplyCommentListBloc, ReplyCommentListState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                success: (comments) {
+                  _isRepliesVisible = true;
+                  setState(() {});
+                },
+                error: (error) {
+                  _isRepliesVisible = false;
+                  setState(() {});
+                },
+                orElse: () {},
+              );
+            },
+            builder: (context, state) {
+              return state.maybeWhen(
+                success: (replies) {
+                  return Column(
+                    children: replies.map((reply) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: CommentItemReplyCard(
+                          onPressed: () {},
+                          item: reply,
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+                orElse: () => Container(),
+              );
+            },
+          ),
+        //if (widget.item)
+        Padding(
+          padding: const EdgeInsets.only(left: 50, top: 25),
+          child: InkWell(
+            onTap: _toggleReplies,
+            child: Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 2,
+                  decoration: const BoxDecoration(
+                    color: AppColors.lightGrey,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  _isRepliesVisible ? 'Скрыть ответы' : 'Смотреть  $replyCommentsLength ответов',
+                ),
+              ],
             ),
-          ],
+          ),
         ),
+        const SizedBox(height: 8),
       ],
     );
   }

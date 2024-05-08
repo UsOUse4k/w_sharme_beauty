@@ -11,8 +11,14 @@ abstract class ICommentRepository {
   });
   Future<Either<PostError, List<Comment>>> getComments({
     required String postId,
-    String? parentCommentId,
     int limit,
     DocumentSnapshot? lastDocSnapshot,
+    String? parentCommentId,
+  });
+  Future<Either<PostError, Unit>> updateLikes({
+    required String postId,
+    required String commentId,
+    String? subCommentId,
+    required bool isLike,
   });
 }

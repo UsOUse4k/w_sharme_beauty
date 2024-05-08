@@ -20,7 +20,6 @@ class FirebaseCommentFacade implements ICommentRepository {
   }) async {
     try {
       final updatedComment = comment.copyWith(
-        parentCommentId: parentCommentId ?? '',
         uid: auth.currentUser!.uid,
       );
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
@@ -49,12 +48,11 @@ class FirebaseCommentFacade implements ICommentRepository {
   @override
   Future<Either<PostError, List<Comment>>> getComments({
     required String postId,
-    String? parentCommentId,
     int limit = 10,
     DocumentSnapshot? lastDocSnapshot,
+    String? parentCommentId,
   }) async {
     try {
-      //print("parentCommentId $parentCommentId");
       Query<Map<String, dynamic>> query;
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
         query = firestore
@@ -76,6 +74,45 @@ class FirebaseCommentFacade implements ICommentRepository {
           .map((doc) => Comment.fromJson(doc.data()))
           .toList();
       return right(comments);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Unit>> updateLikes({
+    required String postId,
+    required String commentId,
+    String? subCommentId,
+    required bool isLike,
+  }) async {
+    final userId = auth.currentUser!.uid;
+    DocumentReference reference;
+    try {
+      if (subCommentId != null) {
+        reference = firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .collection('reply_comments')
+            .doc(subCommentId);
+      } else {
+        reference = firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId);
+      }
+
+      await reference.update(
+        {
+          'likes': isLike
+              ? FieldValue.arrayRemove([userId])
+              : FieldValue.arrayUnion([userId]),
+        },
+      );
+      return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
     }

@@ -35,7 +35,6 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
                 final newCommentId = const Uuid().v1();
                 final updateComment = Comment(
                   commentId: newCommentId,
-                  uid: data.uid,
                   username: data.username,
                   avatarUrl: data.profilePictureUrl,
                   comment: event.comment.comment,
@@ -51,7 +50,6 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
                   },
                   (comment) => {
                     emit(CommentCreateState.success(updateComment)),
-                  
                   },
                 );
               });

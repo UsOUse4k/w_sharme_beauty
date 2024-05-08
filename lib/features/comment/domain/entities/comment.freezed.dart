@@ -20,12 +20,13 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Comment {
-  String? get uid => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   String? get commentId => throw _privateConstructorUsedError;
   String? get comment => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
+  List<String> get replies => throw _privateConstructorUsedError;
   String? get parentCommentId => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
@@ -41,12 +42,13 @@ abstract class $CommentCopyWith<$Res> {
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
   $Res call(
-      {String? uid,
+      {String uid,
       String? commentId,
       String? comment,
       String? username,
       String? avatarUrl,
       List<String> likes,
+      List<String> replies,
       String? parentCommentId,
       @TimestampConverter() Timestamp? createdAt});
 }
@@ -64,20 +66,21 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? uid = null,
     Object? commentId = freezed,
     Object? comment = freezed,
     Object? username = freezed,
     Object? avatarUrl = freezed,
     Object? likes = null,
+    Object? replies = null,
     Object? parentCommentId = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: freezed == uid
+      uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       commentId: freezed == commentId
           ? _value.commentId
           : commentId // ignore: cast_nullable_to_non_nullable
@@ -97,6 +100,10 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      replies: null == replies
+          ? _value.replies
+          : replies // ignore: cast_nullable_to_non_nullable
               as List<String>,
       parentCommentId: freezed == parentCommentId
           ? _value.parentCommentId
@@ -118,12 +125,13 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? uid,
+      {String uid,
       String? commentId,
       String? comment,
       String? username,
       String? avatarUrl,
       List<String> likes,
+      List<String> replies,
       String? parentCommentId,
       @TimestampConverter() Timestamp? createdAt});
 }
@@ -139,20 +147,21 @@ class __$$CommentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? uid = null,
     Object? commentId = freezed,
     Object? comment = freezed,
     Object? username = freezed,
     Object? avatarUrl = freezed,
     Object? likes = null,
+    Object? replies = null,
     Object? parentCommentId = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_$CommentImpl(
-      uid: freezed == uid
+      uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       commentId: freezed == commentId
           ? _value.commentId
           : commentId // ignore: cast_nullable_to_non_nullable
@@ -172,6 +181,10 @@ class __$$CommentImplCopyWithImpl<$Res>
       likes: null == likes
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      replies: null == replies
+          ? _value._replies
+          : replies // ignore: cast_nullable_to_non_nullable
               as List<String>,
       parentCommentId: freezed == parentCommentId
           ? _value.parentCommentId
@@ -195,16 +208,18 @@ class _$CommentImpl implements _Comment {
       this.username = '',
       this.avatarUrl = '',
       final List<String> likes = const [],
+      final List<String> replies = const [],
       this.parentCommentId = '',
       @TimestampConverter() this.createdAt})
-      : _likes = likes;
+      : _likes = likes,
+        _replies = replies;
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentImplFromJson(json);
 
   @override
   @JsonKey()
-  final String? uid;
+  final String uid;
   @override
   @JsonKey()
   final String? commentId;
@@ -226,6 +241,15 @@ class _$CommentImpl implements _Comment {
     return EqualUnmodifiableListView(_likes);
   }
 
+  final List<String> _replies;
+  @override
+  @JsonKey()
+  List<String> get replies {
+    if (_replies is EqualUnmodifiableListView) return _replies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_replies);
+  }
+
   @override
   @JsonKey()
   final String? parentCommentId;
@@ -235,7 +259,7 @@ class _$CommentImpl implements _Comment {
 
   @override
   String toString() {
-    return 'Comment(uid: $uid, commentId: $commentId, comment: $comment, username: $username, avatarUrl: $avatarUrl, likes: $likes, parentCommentId: $parentCommentId, createdAt: $createdAt)';
+    return 'Comment(uid: $uid, commentId: $commentId, comment: $comment, username: $username, avatarUrl: $avatarUrl, likes: $likes, replies: $replies, parentCommentId: $parentCommentId, createdAt: $createdAt)';
   }
 
   @override
@@ -252,6 +276,7 @@ class _$CommentImpl implements _Comment {
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             const DeepCollectionEquality().equals(other._likes, _likes) &&
+            const DeepCollectionEquality().equals(other._replies, _replies) &&
             (identical(other.parentCommentId, parentCommentId) ||
                 other.parentCommentId == parentCommentId) &&
             (identical(other.createdAt, createdAt) ||
@@ -268,6 +293,7 @@ class _$CommentImpl implements _Comment {
       username,
       avatarUrl,
       const DeepCollectionEquality().hash(_likes),
+      const DeepCollectionEquality().hash(_replies),
       parentCommentId,
       createdAt);
 
@@ -287,19 +313,20 @@ class _$CommentImpl implements _Comment {
 
 abstract class _Comment implements Comment {
   const factory _Comment(
-      {final String? uid,
+      {final String uid,
       final String? commentId,
       final String? comment,
       final String? username,
       final String? avatarUrl,
       final List<String> likes,
+      final List<String> replies,
       final String? parentCommentId,
       @TimestampConverter() final Timestamp? createdAt}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
   @override
-  String? get uid;
+  String get uid;
   @override
   String? get commentId;
   @override
@@ -310,6 +337,8 @@ abstract class _Comment implements Comment {
   String? get avatarUrl;
   @override
   List<String> get likes;
+  @override
+  List<String> get replies;
   @override
   String? get parentCommentId;
   @override

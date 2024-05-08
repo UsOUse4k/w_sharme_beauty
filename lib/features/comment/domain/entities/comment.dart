@@ -7,18 +7,33 @@ part 'comment.g.dart';
 @freezed
 class Comment with _$Comment {
   const factory Comment({
-    @Default('') String? uid,
+    @Default('') String uid,
     @Default('') String? commentId,
     @Default('') String? comment,
     @Default('') String? username,
     @Default('') String? avatarUrl,
     @Default([]) List<String> likes,
+    @Default([]) List<String> replies,
     @Default('') String? parentCommentId,
     @TimestampConverter() Timestamp? createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
+
+  factory Comment.fromFirestore(DocumentSnapshot firestoreData) {
+    return Comment(
+      commentId: firestoreData['commentId'] as String? ?? '',
+      uid: firestoreData['uid'] as String? ?? '',
+      comment: firestoreData['comment'] as String? ?? '',
+      username: firestoreData['username'] as String? ?? '',
+      avatarUrl: firestoreData['avatarUrl'] as String? ?? '',
+      createdAt: firestoreData['createdAt'] as Timestamp?,
+      likes: List<String>.from(firestoreData['likes'] as List<dynamic>? ?? []),
+      replies:
+          List<String>.from(firestoreData['replies'] as List<dynamic>? ?? []),
+    );
+  }
 }
 
 class TimestampConverter implements JsonConverter<Timestamp?, dynamic> {

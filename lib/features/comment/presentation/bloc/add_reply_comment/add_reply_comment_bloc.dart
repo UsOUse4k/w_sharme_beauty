@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'add_reply_comment_event.dart';
@@ -20,7 +19,6 @@ class AddReplyCommentBloc
     this._commentRepository,
     this._iProfileInfoRepository,
     this._authFacade,
-    this._replyCommentListBloc,
   ) : super(const _Initial()) {
     on<AddReplyCommentEvent>((event, emit) async {
       await event.map(
@@ -44,7 +42,6 @@ class AddReplyCommentBloc
                   avatarUrl: data.profilePictureUrl,
                   comment: value.comment.comment,
                   createdAt: Timestamp.now(),
-                  parentCommentId: value.parentCommentId,
                 );
                 final result = await _commentRepository.createComment(
                   comment: updateComment,
@@ -57,12 +54,6 @@ class AddReplyCommentBloc
                   },
                   (comment) => {
                     emit(AddReplyCommentState.success(updateComment)),
-                    _replyCommentListBloc.add(
-                      ReplyCommentListEvent.getReplyComments(
-                        parentCommentId: value.parentCommentId,
-                        postId: value.postId,
-                      ),
-                    ),
                   },
                 );
               });
@@ -75,5 +66,4 @@ class AddReplyCommentBloc
   final ICommentRepository _commentRepository;
   final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
-  final ReplyCommentListBloc _replyCommentListBloc;
 }

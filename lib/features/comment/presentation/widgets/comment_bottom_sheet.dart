@@ -5,9 +5,11 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/parent_id.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 
@@ -18,16 +20,12 @@ class CommentBottomSheet extends StatefulWidget {
   });
 
   final String postId;
-
   @override
   State<CommentBottomSheet> createState() => _CommentBottomSheetState();
 }
 
 class _CommentBottomSheetState extends State<CommentBottomSheet> {
   final TextEditingController commentController = TextEditingController();
-  bool isFound = false;
-  String? username;
-  String? parentCommentId;
 
   @override
   void dispose() {
@@ -58,8 +56,11 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   context.read<ReplyCommentListBloc>().add(
                         ReplyCommentListEvent.getReplyComments(
                           postId: widget.postId,
-                          parentCommentId: comment.parentCommentId.toString(),
+                          parentCommentId: comment.toString(),
                         ),
+                      );
+                  context.read<ParentCommentIdBloc>().add(
+                        const ParentCommentIdEvent.addParentCommentId('', ''),
                       );
                 },
                 orElse: () {},
@@ -112,91 +113,85 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                     ),
                   ),
                   CommentList(
-                    onPressed: (Comment comment) {
-                      setState(() {
-                        isFound = true;
-                        username = comment.username;
-                        parentCommentId = comment.commentId.toString();
-                      });
-                      commentController.text = comment.username.toString();
-                    },
                     postId: widget.postId,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom,
-                    ),
-                    child: Column(
-                      children: [
-                        if (isFound)
-                          Container(
-                            height: 50,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 5,
-                            ),
-                            decoration: const BoxDecoration(
-                              color: AppColors.lightGrey,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(username.toString()),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isFound = false;
-                                      username = null;
-                                      parentCommentId = null;
-                                      commentController.clear();
-                                    });
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        SizedBox(height: 5.h),
-                        TextFieldSendMessageWidget(
-                          show: 'show',
-                          controller: commentController,
-                          onPressed: () {
-                            if (commentController.text.isNotEmpty) {
-                              if (isFound) {
-                                context.read<AddReplyCommentBloc>().add(
-                                      AddReplyCommentEvent.addReplyComment(
-                                        Comment(
-                                          comment: commentController.text,
-                                        ),
-                                        parentCommentId.toString(),
-                                        widget.postId,
-                                      ),
-                                    );
-                                setState(() {
-                                  isFound = false;
-                                  username = null;
-                                  parentCommentId = null;
-                                });
-                              } else {
-                                context.read<CommentCreateBloc>().add(
-                                      CommentCreateEvent.addComment(
-                                        Comment(
-                                          comment: commentController.text,
-                                        ),
-                                        widget.postId,
-                                      ),
-                                    );
-                              }
-                            }
-                            commentController.clear();
-                          },
+                  BlocBuilder<ParentCommentIdBloc, ParentIdUsername?>(
+                    builder: (context, state) {
+                      if (state != null && state.username != '') {
+                        commentController.text = state.username.toString();
+                      }
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
                         ),
-                      ],
-                    ),
+                        child: Column(
+                          children: [
+                            if (state != null && state.id != '')
+                              Container(
+                                height: 50,
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 5,
+                                ),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.lightGrey,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(state.username.toString()),
+                                    GestureDetector(
+                                      onTap: () {
+                                        commentController.clear();
+                                        context.read<ParentCommentIdBloc>().add(
+                                              const ParentCommentIdEvent
+                                                  .addParentCommentId('', ''),
+                                            );
+                                      },
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            SizedBox(height: 5.h),
+                            TextFieldSendMessageWidget(
+                              show: 'show',
+                              controller: commentController,
+                              onPressed: () {
+                                if (commentController.text.isNotEmpty) {
+                                  if (state != null && state.id != '') {
+                                    context.read<AddReplyCommentBloc>().add(
+                                          AddReplyCommentEvent.addReplyComment(
+                                            Comment(
+                                              comment: commentController.text,
+                                            ),
+                                            state.id.toString(),
+                                            widget.postId,
+                                          ),
+                                        );
+                                  } else {
+                                    context.read<CommentCreateBloc>().add(
+                                          CommentCreateEvent.addComment(
+                                            Comment(
+                                              comment: commentController.text,
+                                            ),
+                                            widget.postId,
+                                          ),
+                                        );
+                                  }
+                                }
+                                commentController.clear();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

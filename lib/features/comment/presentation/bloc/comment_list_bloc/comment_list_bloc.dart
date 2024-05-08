@@ -10,7 +10,9 @@ part 'comment_list_bloc.freezed.dart';
 
 @injectable
 class CommentListBloc extends Bloc<CommentListEvent, CommentListState> {
-  CommentListBloc(this._commentRepository) : super(const _Initial()) {
+  CommentListBloc(
+    this._commentRepository,
+  ) : super(const _Initial()) {
     on<CommentListEvent>((event, emit) async {
       await event.maybeWhen(
         getComments: (postId) async {
@@ -22,10 +24,10 @@ class CommentListBloc extends Bloc<CommentListEvent, CommentListState> {
             emit(CommentListState.success(comments));
           });
         },
-        addNewComments: (comment) {
+        addNewComments: (comment) async {
           state.maybeWhen(
             success: (comments) {
-              final data = [ comment, ...comments];
+              final data = [comment, ...comments];
               emit(CommentListState.success(data));
             },
             orElse: () {},

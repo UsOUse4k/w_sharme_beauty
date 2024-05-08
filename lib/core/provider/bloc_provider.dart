@@ -4,7 +4,9 @@ import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
@@ -32,11 +34,13 @@ class BlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
-        BlocProvider<PostListBloc>(create: (context) {
-          final postListBloc = getIt<PostListBloc>();
-          postListBloc.add(const PostListEvent.getPosts());
-          return postListBloc;
-        }),
+        BlocProvider<PostListBloc>(
+          create: (context) {
+            final postListBloc = getIt<PostListBloc>();
+            postListBloc.add(const PostListEvent.getPosts());
+            return postListBloc;
+          },
+        ),
         BlocProvider<MyPostListBloc>(
           create: (context) => getIt<MyPostListBloc>(),
         ),
@@ -80,6 +84,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<ReplyCommentListBloc>(
           create: (context) => getIt<ReplyCommentListBloc>(),
+        ),
+        BlocProvider<ParentCommentIdBloc>(
+          create: (context) => getIt<ParentCommentIdBloc>(),
+        ),
+        BlocProvider<CommentLikesBloc>(
+          create: (context) => getIt<CommentLikesBloc>(),
         ),
       ],
       child: child,

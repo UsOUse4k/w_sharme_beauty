@@ -1,19 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
-
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_item_card.dart';
 
 class CommentList extends StatefulWidget {
   const CommentList({
     super.key,
-    required this.onPressed,
     required this.postId,
   });
 
-  final void Function(Comment comments) onPressed;
   final String postId;
 
   @override
@@ -50,7 +46,6 @@ class _CommentListState extends State<CommentList> {
                       avatar: comments[index].avatarUrl.toString(),
                       item: comments[index],
                       postId: widget.postId,
-                      onPressed: () => widget.onPressed(comments[index]),
                     );
                   },
                   separatorBuilder: (context, index) =>
