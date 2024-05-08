@@ -21,22 +21,37 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
   }) async {
     final userId = auth.currentUser!.uid;
     try {
-      final photoUrl = await StorageMethods(auth, storage)
-          .uploadImageToStorage('users', avatar!, true);
       final users = firestore.collection('users');
+
+      if (avatar != null && avatar.isNotEmpty) {
+        final photoUrl = await StorageMethods(auth, storage)
+            .uploadImageToStorage('users', avatar!, true);
         await users.doc(userId).update({
-        'aboutYourself': user!.aboutYourself,
-        'category': user.category,
-        'theme': user.theme,
-        'location': user.city,
-        'date': user.date,
-        'name': user.name,
-        'username': user.username,
-        'profilePictureUrl': photoUrl,
-        'email': email,
-        'uid': userId,
-      });
-      
+          'aboutYourself': user!.aboutYourself,
+          'category': user.category,
+          'theme': user.theme,
+          'location': user.city,
+          'date': user.date,
+          'name': user.name,
+          'username': user.username,
+          'profilePictureUrl': photoUrl,
+          'email': email,
+          'uid': userId,
+        });
+      } else {
+        await users.doc(userId).update({
+          'aboutYourself': user!.aboutYourself,
+          'category': user.category,
+          'theme': user.theme,
+          'location': user.city,
+          'date': user.date,
+          'name': user.name,
+          'username': user.username,
+          'email': email,
+          'uid': userId,
+        });
+      }
+
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));

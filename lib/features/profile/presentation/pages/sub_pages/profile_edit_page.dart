@@ -78,24 +78,25 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       });
                     },
                     success: () {
-                      setState(() {
-                        isLoading = false;
-                      });
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Успешно сохранились'),
                         ),
                       );
-                    },
-                    error: (e) {
+                      context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
                       setState(() {
                         isLoading = false;
                       });
+                    },
+                    error: (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Ошибка при сохрание'),
                         ),
                       );
+                      setState(() {
+                        isLoading = false;
+                      });
                     },
                     orElse: () {},
                   );

@@ -30,13 +30,14 @@ class ProfileInfoUpdateBloc
                 avatar: event.avatar,
                 email: users.email.toString(),
               );
+              emit(const ProfileInfoUpdateState.success());
             } else {
               await firebaseProfileFacade.updateInfiProfile(
                 user: event.user,
                 email: users.email.toString(),
               );
+              emit(const ProfileInfoUpdateState.success());
             }
-            emit(const ProfileInfoUpdateState.success());
           });
         },
         orElse: () {},
