@@ -7,6 +7,7 @@ import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_item_text.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 class CommentItemReplyCard extends StatefulWidget {
   const CommentItemReplyCard({
@@ -33,7 +34,7 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
   @override
   void initState() {
     likeCount = widget.item.likes.length;
-    isLiked = widget.item.likes.contains(widget.item.uid);
+    isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
     setState(() {});
     super.initState();
   }

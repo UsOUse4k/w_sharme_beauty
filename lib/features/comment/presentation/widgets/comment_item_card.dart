@@ -14,6 +14,7 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_shimer.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 class CommentItemCard extends StatefulWidget {
   final String avatar;
@@ -43,7 +44,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
       getRepliesComment();
     }
     setState(() {
-      isLiked = widget.item.likes.contains(widget.item.uid);
+      
+      isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
     });
   }
