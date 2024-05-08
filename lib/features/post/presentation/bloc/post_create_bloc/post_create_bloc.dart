@@ -15,8 +15,10 @@ part 'post_create_bloc.freezed.dart';
 @injectable
 class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
   PostCreateBloc(
-      this._repository, this._iProfileInfoRepository, this._authFacade,)
-      : super(const PostCreateState.initial()) {
+    this._repository,
+    this._iProfileInfoRepository,
+    this._authFacade,
+  ) : super(const PostCreateState.initial()) {
     on<PostCreateEvent>(
       (event, emit) async {
         await event.map(
@@ -26,8 +28,11 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
             final userOption = await _authFacade.getSignedInUser();
 
             await userOption.fold(() {
-              emit(const PostCreateState.error(
-                  message: 'not user authentication',),);
+              emit(
+                const PostCreateState.error(
+                  message: 'not user authentication',
+                ),
+              );
             }, (user) async {
               final username =
                   await _iProfileInfoRepository.getMeInfo(user.uid);
@@ -35,7 +40,10 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
                 emit(const PostCreateState.error(message: 'not username'));
               }, (post) async {
                 final result = await _repository.createPost(
-                    event.post, event.imageFiles, post.username.toString(),);
+                  event.post,
+                  event.imageFiles,
+                  post.username.toString(),
+                );
 
                 result.fold(
                   (error) {

@@ -13,8 +13,6 @@ _$StoriesImpl _$$StoriesImplFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String?,
       videoUrl: json['videoUrl'] as String?,
       isFavorite: json['isFavorite'] as bool? ?? false,
-      createdAt: const TimestampConverter()
-          .fromJson(json['createdAt'] as Map<String, dynamic>?),
     );
 
 Map<String, dynamic> _$$StoriesImplToJson(_$StoriesImpl instance) =>
@@ -24,5 +22,4 @@ Map<String, dynamic> _$$StoriesImplToJson(_$StoriesImpl instance) =>
       'imageUrl': instance.imageUrl,
       'videoUrl': instance.videoUrl,
       'isFavorite': instance.isFavorite,
-      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

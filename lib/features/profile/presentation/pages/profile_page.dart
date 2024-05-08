@@ -115,7 +115,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: Row(
-                    
                     children: [
                       Text(username.toString(), style: AppStyles.w500f18),
                       const SizedBox(

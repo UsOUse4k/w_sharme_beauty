@@ -25,8 +25,6 @@ mixin _$Stories {
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime? get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,8 +41,7 @@ abstract class $StoriesCopyWith<$Res> {
       String? title,
       String? imageUrl,
       String? videoUrl,
-      bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      bool isFavorite});
 }
 
 /// @nodoc
@@ -65,7 +62,6 @@ class _$StoriesCopyWithImpl<$Res, $Val extends Stories>
     Object? imageUrl = freezed,
     Object? videoUrl = freezed,
     Object? isFavorite = null,
-    Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -88,10 +84,6 @@ class _$StoriesCopyWithImpl<$Res, $Val extends Stories>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ) as $Val);
   }
 }
@@ -108,8 +100,7 @@ abstract class _$$StoriesImplCopyWith<$Res> implements $StoriesCopyWith<$Res> {
       String? title,
       String? imageUrl,
       String? videoUrl,
-      bool isFavorite,
-      @TimestampConverter() DateTime? createdAt});
+      bool isFavorite});
 }
 
 /// @nodoc
@@ -128,7 +119,6 @@ class __$$StoriesImplCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? videoUrl = freezed,
     Object? isFavorite = null,
-    Object? createdAt = freezed,
   }) {
     return _then(_$StoriesImpl(
       uid: freezed == uid
@@ -151,10 +141,6 @@ class __$$StoriesImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -167,8 +153,7 @@ class _$StoriesImpl implements _Stories {
       this.title,
       this.imageUrl,
       this.videoUrl,
-      this.isFavorite = false,
-      @TimestampConverter() this.createdAt});
+      this.isFavorite = false});
 
   factory _$StoriesImpl.fromJson(Map<String, dynamic> json) =>
       _$$StoriesImplFromJson(json);
@@ -184,13 +169,10 @@ class _$StoriesImpl implements _Stories {
   @override
   @JsonKey()
   final bool isFavorite;
-  @override
-  @TimestampConverter()
-  final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'Stories(uid: $uid, title: $title, imageUrl: $imageUrl, videoUrl: $videoUrl, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Stories(uid: $uid, title: $title, imageUrl: $imageUrl, videoUrl: $videoUrl, isFavorite: $isFavorite)';
   }
 
   @override
@@ -205,15 +187,13 @@ class _$StoriesImpl implements _Stories {
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
             (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.isFavorite == isFavorite));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, uid, title, imageUrl, videoUrl, isFavorite, createdAt);
+  int get hashCode =>
+      Object.hash(runtimeType, uid, title, imageUrl, videoUrl, isFavorite);
 
   @JsonKey(ignore: true)
   @override
@@ -235,8 +215,7 @@ abstract class _Stories implements Stories {
       final String? title,
       final String? imageUrl,
       final String? videoUrl,
-      final bool isFavorite,
-      @TimestampConverter() final DateTime? createdAt}) = _$StoriesImpl;
+      final bool isFavorite}) = _$StoriesImpl;
 
   factory _Stories.fromJson(Map<String, dynamic> json) = _$StoriesImpl.fromJson;
 
@@ -250,9 +229,6 @@ abstract class _Stories implements Stories {
   String? get videoUrl;
   @override
   bool get isFavorite;
-  @override
-  @TimestampConverter()
-  DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$StoriesImplCopyWith<_$StoriesImpl> get copyWith =>

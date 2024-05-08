@@ -8,7 +8,7 @@ part 'community_like_bloc.freezed.dart';
 
 @injectable
 class CommunityLikeBloc extends Bloc<CommunityLikeEvent, CommunityLikeState> {
-  CommunityLikeBloc() : super(_Initial()) {
+  CommunityLikeBloc() : super(const _Initial()) {
     on<CommunityLikeEvent>((event, emit) {});
 
     on<CommunityLikeEvent>((event, emit) {

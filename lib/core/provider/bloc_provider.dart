@@ -4,7 +4,10 @@ import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_post_bloc/community_create_post_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
@@ -68,6 +71,15 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<MyCommunityListBloc>(
           create: (context) => getIt<MyCommunityListBloc>(),
+        ),
+        BlocProvider<CommunityCreatePostBloc>(
+          create: (context) => getIt<CommunityCreatePostBloc>(),
+        ),
+        BlocProvider<CommunityPostListBloc>(
+          create: (context) => getIt<CommunityPostListBloc>(),
+        ),
+        BlocProvider<CommunityProfileInfoBloc>(
+          create: (context) => getIt<CommunityProfileInfoBloc>(),
         ),
       ],
       child: child,
