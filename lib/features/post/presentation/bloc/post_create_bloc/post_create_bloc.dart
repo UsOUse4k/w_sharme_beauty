@@ -43,7 +43,6 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
                   post.username.toString(),
                   post.profilePictureUrl,
                 );
-
                 result.fold(
                   (error) {
                     emit(PostCreateState.error(message: error.messasge));

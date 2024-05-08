@@ -21,12 +21,12 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
   }) async {
     final userId = auth.currentUser!.uid;
     try {
-      final users = firestore.collection('users');
+      final users = firestore.collection('users').doc(userId);
 
       if (avatar != null && avatar.isNotEmpty) {
         final photoUrl = await StorageMethods(auth, storage)
-            .uploadImageToStorage('users', avatar!, true);
-        await users.doc(userId).update({
+            .uploadImageToStorage('users', avatar, true);
+        await users.update({
           'aboutYourself': user!.aboutYourself,
           'category': user.category,
           'theme': user.theme,
@@ -39,7 +39,7 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
           'uid': userId,
         });
       } else {
-        await users.doc(userId).update({
+        await users.update({
           'aboutYourself': user!.aboutYourself,
           'category': user.category,
           'theme': user.theme,

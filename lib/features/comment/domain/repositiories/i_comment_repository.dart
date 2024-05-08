@@ -21,4 +21,8 @@ abstract class ICommentRepository {
     String? subCommentId,
     required bool isLike,
   });
+  Future<Either<PostError, Unit>> updateCountsComment({
+    required String postId,
+    String? commentId,
+  });
 }

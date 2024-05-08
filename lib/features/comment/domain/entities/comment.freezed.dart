@@ -26,7 +26,7 @@ mixin _$Comment {
   String? get username => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
-  List<String> get replies => throw _privateConstructorUsedError;
+  int get replies => throw _privateConstructorUsedError;
   String? get parentCommentId => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $CommentCopyWith<$Res> {
       String? username,
       String? avatarUrl,
       List<String> likes,
-      List<String> replies,
+      int replies,
       String? parentCommentId,
       @TimestampConverter() Timestamp? createdAt});
 }
@@ -104,7 +104,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
       replies: null == replies
           ? _value.replies
           : replies // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as int,
       parentCommentId: freezed == parentCommentId
           ? _value.parentCommentId
           : parentCommentId // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       String? username,
       String? avatarUrl,
       List<String> likes,
-      List<String> replies,
+      int replies,
       String? parentCommentId,
       @TimestampConverter() Timestamp? createdAt});
 }
@@ -183,9 +183,9 @@ class __$$CommentImplCopyWithImpl<$Res>
           : likes // ignore: cast_nullable_to_non_nullable
               as List<String>,
       replies: null == replies
-          ? _value._replies
+          ? _value.replies
           : replies // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as int,
       parentCommentId: freezed == parentCommentId
           ? _value.parentCommentId
           : parentCommentId // ignore: cast_nullable_to_non_nullable
@@ -208,11 +208,10 @@ class _$CommentImpl implements _Comment {
       this.username = '',
       this.avatarUrl = '',
       final List<String> likes = const [],
-      final List<String> replies = const [],
+      this.replies = 0,
       this.parentCommentId = '',
       @TimestampConverter() this.createdAt})
-      : _likes = likes,
-        _replies = replies;
+      : _likes = likes;
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentImplFromJson(json);
@@ -241,15 +240,9 @@ class _$CommentImpl implements _Comment {
     return EqualUnmodifiableListView(_likes);
   }
 
-  final List<String> _replies;
   @override
   @JsonKey()
-  List<String> get replies {
-    if (_replies is EqualUnmodifiableListView) return _replies;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_replies);
-  }
-
+  final int replies;
   @override
   @JsonKey()
   final String? parentCommentId;
@@ -276,7 +269,7 @@ class _$CommentImpl implements _Comment {
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             const DeepCollectionEquality().equals(other._likes, _likes) &&
-            const DeepCollectionEquality().equals(other._replies, _replies) &&
+            (identical(other.replies, replies) || other.replies == replies) &&
             (identical(other.parentCommentId, parentCommentId) ||
                 other.parentCommentId == parentCommentId) &&
             (identical(other.createdAt, createdAt) ||
@@ -293,7 +286,7 @@ class _$CommentImpl implements _Comment {
       username,
       avatarUrl,
       const DeepCollectionEquality().hash(_likes),
-      const DeepCollectionEquality().hash(_replies),
+      replies,
       parentCommentId,
       createdAt);
 
@@ -319,7 +312,7 @@ abstract class _Comment implements Comment {
       final String? username,
       final String? avatarUrl,
       final List<String> likes,
-      final List<String> replies,
+      final int replies,
       final String? parentCommentId,
       @TimestampConverter() final Timestamp? createdAt}) = _$CommentImpl;
 
@@ -338,7 +331,7 @@ abstract class _Comment implements Comment {
   @override
   List<String> get likes;
   @override
-  List<String> get replies;
+  int get replies;
   @override
   String? get parentCommentId;
   @override

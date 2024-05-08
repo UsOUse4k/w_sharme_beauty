@@ -46,6 +46,27 @@ class FirebaseCommentFacade implements ICommentRepository {
   }
 
   @override
+  Future<Either<PostError, Unit>> updateCountsComment({
+    required String postId,
+    String? commentId,
+  }) async {
+    try {
+      DocumentReference reference;
+      reference = firestore.collection('posts').doc(postId);
+      await reference.update({'commentsCount': FieldValue.increment(1)});
+      if (commentId != null && commentId.isNotEmpty) {
+        await reference
+            .collection('comments')
+            .doc(commentId)
+            .update({'replies': FieldValue.increment(1)});
+      }
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<PostError, List<Comment>>> getComments({
     required String postId,
     int limit = 10,
@@ -87,31 +108,29 @@ class FirebaseCommentFacade implements ICommentRepository {
     required bool isLike,
   }) async {
     final userId = auth.currentUser!.uid;
-    DocumentReference reference;
+    final DocumentReference reference = firestore
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc(commentId);
     try {
       if (subCommentId != null) {
-        reference = firestore
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
-            .doc(commentId)
-            .collection('reply_comments')
-            .doc(subCommentId);
+        await reference.collection('reply_comments').doc(subCommentId).update(
+          {
+            'likes': isLike
+                ? FieldValue.arrayRemove([userId])
+                : FieldValue.arrayUnion([userId]),
+          },
+        );
       } else {
-        reference = firestore
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
-            .doc(commentId);
+        await reference.update(
+          {
+            'likes': isLike
+                ? FieldValue.arrayRemove([userId])
+                : FieldValue.arrayUnion([userId]),
+          },
+        );
       }
-
-      await reference.update(
-        {
-          'likes': isLike
-              ? FieldValue.arrayRemove([userId])
-              : FieldValue.arrayUnion([userId]),
-        },
-      );
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));

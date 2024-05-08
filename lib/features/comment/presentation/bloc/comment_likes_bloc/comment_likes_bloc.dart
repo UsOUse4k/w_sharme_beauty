@@ -15,15 +15,23 @@ class CommentLikesBloc extends Bloc<CommentLikesEvent, CommentLikesState> {
     on<CommentLikesEvent>((event, emit) async {
       await event.maybeWhen(
         likeComment: (commentId, subCommentId, postId, isLiked) async {
-          print('commentId $isLiked');
           emit(const CommentLikesState.loading());
           try {
-            await _commentRepository.updateLikes(
-              postId: postId.toString(),
-              commentId: commentId.toString(),
-              isLike: isLiked,
-            );
-            emit(const CommentLikesState.success());
+            if (subCommentId != null && subCommentId.isNotEmpty) {
+              await _commentRepository.updateLikes(
+                  postId: postId.toString(),
+                  commentId: commentId.toString(),
+                  isLike: isLiked,
+                  subCommentId: subCommentId);
+              emit(const CommentLikesState.success());
+            } else {
+              await _commentRepository.updateLikes(
+                postId: postId.toString(),
+                commentId: commentId.toString(),
+                isLike: isLiked,
+              );
+              emit(const CommentLikesState.success());
+            }
           } catch (e) {
             emit(const CommentLikesState.error());
           }

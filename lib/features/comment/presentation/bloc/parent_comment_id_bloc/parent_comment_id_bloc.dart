@@ -11,6 +11,7 @@ class ParentCommentIdBloc
     extends Bloc<ParentCommentIdEvent, ParentIdUsername?> {
   ParentCommentIdBloc() : super(null) {
     on<ParentCommentIdEvent>((event, emit) {
+      //print('event ${event.username}');
       emit(
         ParentIdUsername(id: event.parentCommentId, username: event.username),
       );

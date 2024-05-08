@@ -13,7 +13,6 @@ Future<void> lazyBootstrap(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await ScreenUtil.ensureScreenSize();
-
   configureDependencies(environment: environment);
 
   initializeDateFormatting('ru_RU').then((_) {

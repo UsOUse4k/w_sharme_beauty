@@ -23,7 +23,6 @@ class PostCard extends StatefulWidget {
     this.post,
     this.show = 'hide',
   });
-
   final Post? post;
   final Function()? onPressed;
   final int? index;
@@ -130,7 +129,7 @@ class _PostCardState extends State<PostCard> {
                   );
                 },
                 icon: Assets.svgs.comment.svg(),
-                text: '0',
+                text: widget.post!.commentsCount.toString(),
               ),
               const SizedBox(width: 6),
               PostIconsWidget(

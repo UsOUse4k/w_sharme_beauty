@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'comment_create_event.dart';
@@ -18,6 +19,7 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
     this._repository,
     this._authFacade,
     this._iProfileInfoRepository,
+    this._listBloc,
   ) : super(const _Initial()) {
     on<CommentCreateEvent>((event, emit) async {
       await event.maybeMap(
@@ -31,7 +33,9 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
             (user) async {
               final userData =
                   await _iProfileInfoRepository.getMeInfo(user.uid);
-              await userData.fold((l) {}, (data) async {
+              await userData.fold((l) async {
+                emit(const CommentCreateState.error());
+              }, (data) async {
                 final newCommentId = const Uuid().v1();
                 final updateComment = Comment(
                   commentId: newCommentId,
@@ -48,8 +52,12 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
                   (l) => {
                     emit(const CommentCreateState.error()),
                   },
-                  (comment) => {
-                    emit(CommentCreateState.success(updateComment)),
+                  (comment) async {
+                    _listBloc.add(
+                      CommentListEvent.getComments(postId: event.postId),
+                    );
+                    emit(CommentCreateState.success(updateComment));
+                    await _repository.updateCountsComment(postId: event.postId);
                   },
                 );
               });
@@ -64,4 +72,5 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
   final ICommentRepository _repository;
   final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
+  final CommentListBloc _listBloc;
 }

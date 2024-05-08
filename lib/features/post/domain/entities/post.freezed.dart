@@ -27,7 +27,7 @@ mixin _$Post {
   List<String> get imageUrls => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
-  List<Comment> get comments => throw _privateConstructorUsedError;
+  int get commentsCount => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
   List<String> get reposts => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $PostCopyWith<$Res> {
       List<String> imageUrls,
       String? avatarUrl,
       String? videoUrl,
-      List<Comment> comments,
+      int commentsCount,
       List<String> likes,
       List<String> reposts,
       bool isFavorite,
@@ -78,7 +78,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? imageUrls = null,
     Object? avatarUrl = freezed,
     Object? videoUrl = freezed,
-    Object? comments = null,
+    Object? commentsCount = null,
     Object? likes = null,
     Object? reposts = null,
     Object? isFavorite = null,
@@ -113,10 +113,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      comments: null == comments
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
+      commentsCount: null == commentsCount
+          ? _value.commentsCount
+          : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -152,7 +152,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       List<String> imageUrls,
       String? avatarUrl,
       String? videoUrl,
-      List<Comment> comments,
+      int commentsCount,
       List<String> likes,
       List<String> reposts,
       bool isFavorite,
@@ -176,7 +176,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? imageUrls = null,
     Object? avatarUrl = freezed,
     Object? videoUrl = freezed,
-    Object? comments = null,
+    Object? commentsCount = null,
     Object? likes = null,
     Object? reposts = null,
     Object? isFavorite = null,
@@ -211,10 +211,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      comments: null == comments
-          ? _value._comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
+      commentsCount: null == commentsCount
+          ? _value.commentsCount
+          : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       likes: null == likes
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -246,13 +246,12 @@ class _$PostImpl implements _Post {
       final List<String> imageUrls = const [],
       this.avatarUrl = '',
       this.videoUrl,
-      final List<Comment> comments = const [],
+      this.commentsCount = 0,
       final List<String> likes = const [],
       final List<String> reposts = const [],
       this.isFavorite = false,
       this.createdAt = ''})
       : _imageUrls = imageUrls,
-        _comments = comments,
         _likes = likes,
         _reposts = reposts;
 
@@ -281,15 +280,9 @@ class _$PostImpl implements _Post {
   final String? avatarUrl;
   @override
   final String? videoUrl;
-  final List<Comment> _comments;
   @override
   @JsonKey()
-  List<Comment> get comments {
-    if (_comments is EqualUnmodifiableListView) return _comments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
-  }
-
+  final int commentsCount;
   final List<String> _likes;
   @override
   @JsonKey()
@@ -317,7 +310,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(authorId: $authorId, postId: $postId, username: $username, text: $text, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, comments: $comments, likes: $likes, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(authorId: $authorId, postId: $postId, username: $username, text: $text, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, likes: $likes, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -337,7 +330,8 @@ class _$PostImpl implements _Post {
                 other.avatarUrl == avatarUrl) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl) &&
-            const DeepCollectionEquality().equals(other._comments, _comments) &&
+            (identical(other.commentsCount, commentsCount) ||
+                other.commentsCount == commentsCount) &&
             const DeepCollectionEquality().equals(other._likes, _likes) &&
             const DeepCollectionEquality().equals(other._reposts, _reposts) &&
             (identical(other.isFavorite, isFavorite) ||
@@ -357,7 +351,7 @@ class _$PostImpl implements _Post {
       const DeepCollectionEquality().hash(_imageUrls),
       avatarUrl,
       videoUrl,
-      const DeepCollectionEquality().hash(_comments),
+      commentsCount,
       const DeepCollectionEquality().hash(_likes),
       const DeepCollectionEquality().hash(_reposts),
       isFavorite,
@@ -386,7 +380,7 @@ abstract class _Post implements Post {
       final List<String> imageUrls,
       final String? avatarUrl,
       final String? videoUrl,
-      final List<Comment> comments,
+      final int commentsCount,
       final List<String> likes,
       final List<String> reposts,
       final bool isFavorite,
@@ -409,7 +403,7 @@ abstract class _Post implements Post {
   @override
   String? get videoUrl;
   @override
-  List<Comment> get comments;
+  int get commentsCount;
   @override
   List<String> get likes;
   @override

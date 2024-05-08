@@ -13,7 +13,7 @@ class Comment with _$Comment {
     @Default('') String? username,
     @Default('') String? avatarUrl,
     @Default([]) List<String> likes,
-    @Default([]) List<String> replies,
+    @Default(0) int replies,
     @Default('') String? parentCommentId,
     @TimestampConverter() Timestamp? createdAt,
   }) = _Comment;
@@ -30,8 +30,7 @@ class Comment with _$Comment {
       avatarUrl: firestoreData['avatarUrl'] as String? ?? '',
       createdAt: firestoreData['createdAt'] as Timestamp?,
       likes: List<String>.from(firestoreData['likes'] as List<dynamic>? ?? []),
-      replies:
-          List<String>.from(firestoreData['replies'] as List<dynamic>? ?? []),
+      replies: firestoreData['replies'] as int,
     );
   }
 }

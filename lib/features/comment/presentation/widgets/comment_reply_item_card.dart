@@ -1,19 +1,70 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_item_text.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class CommentItemReplyCard extends StatelessWidget {
+class CommentItemReplyCard extends StatefulWidget {
   const CommentItemReplyCard({
     super.key,
     required this.onPressed,
     required this.item,
+    required this.parentCommentId,
+    required this.postId,
   });
 
   final Function() onPressed;
   final Comment item;
+  final String parentCommentId;
+  final String postId;
+
+  @override
+  State<CommentItemReplyCard> createState() => _CommentItemReplyCardState();
+}
+
+class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
+  bool isLiked = false;
+  int likeCount = 0;
+
+  @override
+  void initState() {
+    likeCount = widget.item.likes.length;
+    isLiked = widget.item.likes.contains(widget.item.uid);
+    setState(() {});
+    super.initState();
+  }
+
+  void toggleIsLiked() {
+    if (!isLiked) {
+      context.read<CommentLikesBloc>().add(
+            CommentLikesEvent.likeComment(
+              commentId: widget.parentCommentId,
+              postId: widget.postId,
+              isLiked: isLiked,
+              subCommentId: widget.item.commentId,
+            ),
+          );
+      likeCount += 1;
+    } else {
+      context.read<CommentLikesBloc>().add(
+            CommentLikesEvent.likeComment(
+              commentId: widget.parentCommentId,
+              postId: widget.postId,
+              isLiked: isLiked,
+              subCommentId: widget.item.commentId,
+            ),
+          );
+      likeCount -= 1;
+    }
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +84,7 @@ class CommentItemReplyCard extends StatelessWidget {
                   child: GlCachedNetworImage(
                     height: 40.h,
                     width: 40.w,
-                    urlImage: item.avatarUrl,
+                    urlImage: widget.item.avatarUrl,
                   ),
                 ),
               ),
@@ -42,22 +93,21 @@ class CommentItemReplyCard extends StatelessWidget {
                 child: Column(
                   children: [
                     CommentItemText(
-                      username: item.username.toString(),
-                      comment: item.comment.toString(),
+                      username: widget.item.username.toString(),
+                      comment: widget.item.comment.toString(),
                       data: 'сегодня в 15:53',
-                      like: '0',
-                      id: '',
+                      like: likeCount.toString(),
+                      id: widget.parentCommentId,
                     ),
                   ],
                 ),
               ),
               Flexible(
-                child: Image(
-                  width: 16,
-                  height: 16,
-                  image: AssetImage(
-                    Assets.icons.heart.path,
-                  ),
+                child: GestureDetector(
+                  onTap: toggleIsLiked,
+                  child: isLiked
+                      ? const Icon(Icons.favorite, color: AppColors.red)
+                      : const Icon(Icons.favorite_outline),
                 ),
               ),
             ],
