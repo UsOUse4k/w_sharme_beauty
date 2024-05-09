@@ -77,6 +77,7 @@ class _PostCardState extends State<PostCard> {
             children: [
               Flexible(
                 child: UserAvatarWithName(
+                  uid: widget.post!.authorId,
                   avatar: widget.post!.avatarUrl,
                   width: 40.w,
                   height: 40.h,

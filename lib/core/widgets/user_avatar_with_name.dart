@@ -11,7 +11,7 @@ class UserAvatarWithName extends StatelessWidget {
     required this.height,
     this.avatar,
     required this.name,
-    required this.subTitle,
+    required this.subTitle, this.uid,
   });
 
   final double width;
@@ -19,38 +19,44 @@ class UserAvatarWithName extends StatelessWidget {
   final String? avatar;
   final String name;
   final String subTitle;
+  final String? uid;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (avatar != null)
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20),
+    return GestureDetector(
+      onTap: () {
+        //context.push('/home/profile/$uid');
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (avatar != null)
+            ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20),
+              ),
+              child: GlCachedNetworImage(
+                height: height.h,
+                width: width.w,
+                urlImage: avatar,
+              ),
             ),
-            child: GlCachedNetworImage(
-              height: height.h,
-              width: width.w,
-              urlImage: avatar,
-            ),
+          const SizedBox(width: 5),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: AppStyles.w500f18.copyWith(color: AppColors.black),
+              ),
+              Text(
+                subTitle,
+                style: AppStyles.w400f14.copyWith(color: AppColors.grey),
+              ),
+            ],
           ),
-        const SizedBox(width: 5),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: AppStyles.w500f18.copyWith(color: AppColors.black),
-            ),
-            Text(
-              subTitle,
-              style: AppStyles.w400f14.copyWith(color: AppColors.grey),
-            ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

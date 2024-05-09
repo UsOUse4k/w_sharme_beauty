@@ -14,7 +14,8 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stor
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final String? uid;
+  const ProfilePage({super.key, this.uid});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
