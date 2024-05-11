@@ -6,6 +6,6 @@ class CommentLikesEvent with _$CommentLikesEvent {
     String? commentId,
     String? subCommentId,
     String? postId,
-    required bool isLiked
+    required bool isLiked,
   }) = _LikeComment;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -29,8 +30,8 @@ class TextFieldSendMessageWidget extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {},
                 child: Container(
-                  height: 40,
-                  width: 40,
+                  height: 40.h,
+                  width: 40.w,
                   decoration: BoxDecoration(
                     color: AppColors.lightGrey,
                     borderRadius: BorderRadius.circular(15),
@@ -46,7 +47,7 @@ class TextFieldSendMessageWidget extends StatelessWidget {
           Flexible(
             flex: 8,
             child: Container(
-              height: 38,
+              height: 38.h,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: const BoxDecoration(
                 color: AppColors.lightGrey,
@@ -64,11 +65,11 @@ class TextFieldSendMessageWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
           Flexible(
             child: GestureDetector(
               onTap: onPressed,
-              child: Assets.svgs.add.svg(width: 38, height: 38),
+              child: Assets.svgs.add.svg(width: 38.w, height: 38.h),
             ),
           ),
         ],

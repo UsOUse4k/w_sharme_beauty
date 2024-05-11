@@ -34,7 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
-    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
   }
 
   @override
@@ -78,6 +77,14 @@ class _ProfilePageState extends State<ProfilePage> {
           child: BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
             builder: (context, state) {
               return state.maybeWhen(
+                error: () => const Center(
+                  child:Text('error not Profile Page'),
+                ),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.purple,
+                  ),
+                ),
                 succes: (user) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: ProfileNavbarWidget(
                           avatar: user.profilePictureUrl.toString(),
-                          publications: user.publics!.length.toString(),
+                          publications: user.publics.toString(),
                           followers: user.followers!.length.toString(),
                           subscriptions: user.subscriptions!.length.toString(),
                         ),
@@ -168,7 +175,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             onPressed: () {
                               route.push(
-                                  '/profile/${RouterContants.profileEdit}');
+                                '/profile/${RouterContants.profileEdit}',
+                              );
                             },
                             child: const Text(
                               "Редактировать профиль",

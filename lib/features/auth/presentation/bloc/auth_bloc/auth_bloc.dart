@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 
 part 'auth_event.dart';
-part 'auth_state.dart';
+part "auth_state.dart";
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {

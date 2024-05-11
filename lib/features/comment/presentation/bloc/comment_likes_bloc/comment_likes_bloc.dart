@@ -22,7 +22,7 @@ class CommentLikesBloc extends Bloc<CommentLikesEvent, CommentLikesState> {
                   postId: postId.toString(),
                   commentId: commentId.toString(),
                   isLike: isLiked,
-                  subCommentId: subCommentId);
+                  subCommentId: subCommentId,);
               emit(const CommentLikesState.success());
             } else {
               await _commentRepository.updateLikes(

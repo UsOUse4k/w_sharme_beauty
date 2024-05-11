@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bloc/get_all_chats_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_bloc/get_messages_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/seen_message_bloc/seen_message_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
@@ -20,9 +26,11 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart';
+import 'package:w_sharme_beauty/features/user_details/presentations/bloc/user_detail_bloc/user_detail_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
   const BlocProviders({
@@ -59,7 +67,11 @@ class BlocProviders extends StatelessWidget {
           create: (context) => getIt<ProfileInfoUpdateBloc>(),
         ),
         BlocProvider<MyProfileInfoBloc>(
-          create: (context) => getIt<MyProfileInfoBloc>(),
+          create: (context) {
+            final getMe = getIt<MyProfileInfoBloc>();
+            getMe.add(const MyProfileInfoEvent.getMe());
+            return getMe;
+          },
         ),
         BlocProvider<CommentCreateBloc>(
           create: (context) => getIt<CommentCreateBloc>(),
@@ -102,6 +114,30 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommunityProfileInfoBloc>(
           create: (context) => getIt<CommunityProfileInfoBloc>(),
+        ),
+        BlocProvider<UserDetailBloc>(
+          create: (context) => getIt<UserDetailBloc>(),
+        ),
+        BlocProvider<PostUserListBloc>(
+          create: (context) => getIt<PostUserListBloc>(),
+        ),
+        BlocProvider<GetMessagesBloc>(
+          create: (context) => getIt<GetMessagesBloc>(),
+        ),
+        BlocProvider<CreateChatroomBloc>(
+          create: (context) => getIt<CreateChatroomBloc>(),
+        ),
+        BlocProvider<SendMessageBloc>(
+          create: (context) => getIt<SendMessageBloc>(),
+        ),
+        BlocProvider<GetAllChatsBloc>(
+          create: (context) => getIt<GetAllChatsBloc>(),
+        ),
+        BlocProvider<SeenMessageBloc>(
+          create: (context) => getIt<SeenMessageBloc>(),
+        ),
+        BlocProvider<UpdateStatusUserBloc>(
+          create: (context) => getIt<UpdateStatusUserBloc>(),
         ),
       ],
       child: child,

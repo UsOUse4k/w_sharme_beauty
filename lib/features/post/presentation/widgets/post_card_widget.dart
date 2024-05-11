@@ -22,11 +22,13 @@ class PostCard extends StatefulWidget {
     this.index,
     this.post,
     this.show = 'hide',
+    this.showButton = false,
   });
   final Post? post;
   final Function()? onPressed;
   final int? index;
   final String? show;
+  final bool? showButton;
   @override
   State<PostCard> createState() => _PostCardState();
 }
@@ -77,6 +79,7 @@ class _PostCardState extends State<PostCard> {
             children: [
               Flexible(
                 child: UserAvatarWithName(
+                  onPressed: widget.onPressed!,
                   avatar: widget.post!.avatarUrl,
                   width: 40.w,
                   height: 40.h,
@@ -87,8 +90,8 @@ class _PostCardState extends State<PostCard> {
               if (firebaseAuth.currentUser!.uid == widget.post!.authorId)
                 const Icon(Icons.more_horiz)
               else
-                const Flexible(
-                  child: GlSubscribeButton(),
+                Flexible(
+                  child: widget.showButton! ? const GlSubscribeButton() : const SizedBox(),
                 ),
             ],
           ),

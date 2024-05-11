@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_text_form_field.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/consent_text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';

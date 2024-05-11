@@ -110,6 +110,26 @@ mixin AppRouter on State<App> {
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
+                    path: "${RouterContants.profilePersonPage}/:authorId",
+                    builder: (BuildContext context, GoRouterState state) {
+                      final authorId = state.pathParameters['authorId'];
+                      return ProfilePersonPage(authorId: authorId);
+                    },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: '${RouterContants.chatMessages}/:userId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final userId = state.pathParameters['userId'];
+                          return ChatMessagesPage(
+                            userId: userId,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
                   ),
@@ -120,9 +140,11 @@ mixin AppRouter on State<App> {
                     routes: [
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
-                        name: RouterContants.chatMessages,
-                        path: RouterContants.chatMessages,
-                        builder: (context, state) => const ChatMessagesPage(),
+                        path: "${RouterContants.chatMessages}/:userId",
+                        builder: (BuildContext context, GoRouterState state){
+                          final userId = state.pathParameters['userId'];
+                          return ChatMessagesPage(userId: userId);
+                        },
                         routes: [
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,

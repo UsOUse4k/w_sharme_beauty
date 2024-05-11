@@ -11,7 +11,7 @@ class PostShimmer extends StatelessWidget {
       baseColor: AppColors.lightGrey,
       highlightColor: Colors.grey.shade100,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

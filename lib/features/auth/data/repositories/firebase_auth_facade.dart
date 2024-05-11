@@ -9,8 +9,9 @@ import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.d
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _store;
+  final FirebaseFirestore _firestore;
 
-  FirebaseAuthFacade(this._firebaseAuth, this._store);
+  FirebaseAuthFacade(this._firebaseAuth, this._store, this._firestore);
 
   @override
   Future<Option<UserProfile>> getSignedInUser() async {
@@ -120,5 +121,13 @@ class FirebaseAuthFacade implements IAuthFacade {
     } catch (_) {
       return left(const AuthFailure.serverError());
     }
+  }
+
+  @override
+  Future<void> updateStatusUser() async {
+    final uid = _firebaseAuth.currentUser!.uid;
+    await _firestore.collection('users').doc(uid).update({
+      'lastSeen': Timestamp.now(),
+    });
   }
 }

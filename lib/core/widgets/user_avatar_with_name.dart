@@ -12,45 +12,51 @@ class UserAvatarWithName extends StatelessWidget {
     this.avatar,
     required this.name,
     required this.subTitle,
+    this.onPressed,
+    this.raduis = 20,
   });
-
+  final double? raduis;
   final double width;
   final double height;
   final String? avatar;
   final String name;
   final String subTitle;
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (avatar != null)
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20),
+    return InkWell(
+      onTap: onPressed,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (avatar != null)
+            ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(raduis!),
+              ),
+              child: GlCachedNetworImage(
+                height: height.h,
+                width: width.w,
+                urlImage: avatar,
+              ),
             ),
-            child: GlCachedNetworImage(
-              height: height.h,
-              width: width.w,
-              urlImage: avatar,
-            ),
+          const SizedBox(width: 5),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: AppStyles.w500f18.copyWith(color: AppColors.black),
+              ),
+              Text(
+                subTitle,
+                style: AppStyles.w400f14.copyWith(color: AppColors.grey),
+              ),
+            ],
           ),
-        const SizedBox(width: 5),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: AppStyles.w500f18.copyWith(color: AppColors.black),
-            ),
-            Text(
-              subTitle,
-              style: AppStyles.w400f14.copyWith(color: AppColors.grey),
-            ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

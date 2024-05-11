@@ -10,5 +10,5 @@ abstract class IProfileInfoRepository {
     Uint8List? avatar,
     String email,}
   );
-  Future<Either<PostError, UserProfile>> getMeInfo(String? userId);
+  Future<Either<PostError, UserProfile>> getMeInfo(String? userId); 
 }

@@ -61,7 +61,7 @@ class _CommentListState extends State<CommentList> {
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 6,
                     ),
-                    itemCount: 8,
+                    itemCount: 5,
                   );
                 },
                 success: (comments) {

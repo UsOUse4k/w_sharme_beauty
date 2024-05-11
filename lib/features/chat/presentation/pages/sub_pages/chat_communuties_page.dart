@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 
 class ChatCommunitiesPage extends StatelessWidget {
   const ChatCommunitiesPage({super.key});
@@ -16,7 +15,7 @@ class ChatCommunitiesPage extends StatelessWidget {
           shrinkWrap: true,
           children: List.generate(
             5,
-            (index) => const CardChatWidget(),
+            (index) => Container(),
           ),
         ),
       ),
