@@ -23,4 +23,5 @@ abstract class IAuthFacade {
   Future<AuthFacadeResult> resetPassword(
     String email,
   );
+  Future<void> updateStatusUser();
 }

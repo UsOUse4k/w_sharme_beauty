@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 
 import 'package:w_sharme_beauty/features/profile/domain/entities/stories.dart';
 part 'user_profile.freezed.dart';
@@ -17,11 +19,12 @@ class UserProfile with _$UserProfile {
     @Default('') String? theme,
     @Default('') String? city,
     @Default('') String? date,
-    @Default([]) List<String>? publics,
+    @Default(0) int? publics,
     @Default([]) List<String>? followers,
     @Default([]) List<String>? subscriptions,
     @Default('10') String? rating,
     @Default([]) List<Stories>? stories,
+    @TimestampConverter() Timestamp? lastSeen,
     //
   }) = _UserProfile;
 
@@ -38,8 +41,8 @@ class UserProfile with _$UserProfile {
       city: firestoreData['city'] as String? ?? '',
       date: firestoreData['date'] as String? ?? '',
       rating: firestoreData['rating'] as String? ?? '10',
-      publics:
-          List<String>.from(firestoreData['publics'] as List<dynamic>? ?? []),
+      publics: firestoreData['publics'] as int? ?? 0,
+      lastSeen: firestoreData['lastSeen'] as Timestamp?,
       followers:
           List<String>.from(firestoreData['followers'] as List<dynamic>? ?? []),
       subscriptions: List<String>.from(

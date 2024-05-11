@@ -11,29 +11,31 @@ class UserAvatarWithName extends StatelessWidget {
     required this.height,
     this.avatar,
     required this.name,
-    required this.subTitle, this.uid,
+    required this.subTitle,
+    this.onPressed,
+    this.raduis = 20,
   });
-
+  final double? raduis;
   final double width;
   final double height;
   final String? avatar;
   final String name;
   final String subTitle;
-  final String? uid;
+
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //context.push('/home/profile/$uid');
-      },
+    return InkWell(
+      onTap: onPressed,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (avatar != null)
             ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(20),
+
+              borderRadius: BorderRadius.all(
+                Radius.circular(raduis!),
               ),
               child: GlCachedNetworImage(
                 height: height.h,

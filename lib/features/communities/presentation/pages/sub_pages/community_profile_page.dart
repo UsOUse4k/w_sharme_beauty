@@ -168,7 +168,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                 state.maybeWhen(
                   succes: (user) {
                     setState(() {
-                      publics = user.publics!.length.toString();
+                      publics = user.publics.toString();
                       followers = user.followers!.length.toString();
                       subscriptions = user.subscriptions!.length.toString();
                       username = user.username;

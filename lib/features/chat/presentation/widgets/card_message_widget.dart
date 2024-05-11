@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CardMessageWidget extends StatelessWidget {
   const CardMessageWidget({
@@ -14,6 +13,7 @@ class CardMessageWidget extends StatelessWidget {
     required this.date,
     this.avatar,
     required this.check,
+    this.seen,
   });
 
   final String? username;
@@ -21,6 +21,7 @@ class CardMessageWidget extends StatelessWidget {
   final String date;
   final String? avatar;
   final bool check;
+  final bool? seen;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +31,23 @@ class CardMessageWidget extends StatelessWidget {
       mainAxisAlignment:
           check ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        if (!check && avatar != null)
+        if (!check)
           GlCircleAvatar(
-            avatar: avatar!,
+            avatar: avatar.toString(),
             width: 30,
             height: 30,
           )
         else
-          Assets.svgs.checkDouble.svg(color: AppColors.purple),
+          seen != null && seen == true
+              ? const Icon(
+                  Icons.done_all,
+                  size: 16,
+                  color: AppColors.purple,
+                )
+              : const Icon(
+                  Icons.check,
+                  size: 16,
+                ),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment:

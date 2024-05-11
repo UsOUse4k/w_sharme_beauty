@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                     child: GlCachedNetworImage(
                       height: 28.h,
                       width: 28.w,
-                      urlImage: profile.profilePictureUrl,
+                      urlImage: profile.profilePictureUrl.toString(),
                     ),
                   ),
                   error: () => GlCircleAvatar(
@@ -75,11 +75,11 @@ class HomePage extends StatelessWidget {
         child: BlocBuilder<PostListBloc, PostListState>(
           builder: (context, state) {
             return state.maybeWhen(
-              loading: () => ListView.builder(
+              loading: () => ListView.separated(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 itemCount: 5,
-                itemBuilder: (context, index) => const PostShimmer(),
+                itemBuilder: (context, index) => const PostShimmer(), separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
               ),
               error: (message) => Text('Ошибка: $message'),
               success: (posts) {
@@ -88,7 +88,9 @@ class HomePage extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemCount: posts.length,
                   itemBuilder: (context, index) => PostCard(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push('/home/profilePersonPage/${posts[index].authorId}');
+                    },
                     post: posts[index],
                   ),
                 );
