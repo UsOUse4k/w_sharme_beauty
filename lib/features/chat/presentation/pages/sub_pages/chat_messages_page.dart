@@ -1,18 +1,21 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/get_user_status.dart';
+import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_bloc/get_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/chat_list.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
-import 'package:w_sharme_beauty/features/user_details/presentations/bloc/user_detail_bloc/user_detail_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 
 class ChatMessagesPage extends StatefulWidget {
   const ChatMessagesPage({super.key, this.userId});
@@ -25,18 +28,32 @@ class ChatMessagesPage extends StatefulWidget {
 
 class _ChatMessagesPageState extends State<ChatMessagesPage> {
   final TextEditingController sendMessageCtrl = TextEditingController();
+  Uint8List? file;
+
+  Future<void> selectedImage(String chatRoomId) async {
+    file = await pickImage(context);
+    setState(() {});
+    if (file != null) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return ImageInputModal(
+            imageFile: file!,
+            userId: widget.userId.toString(),
+            chatRoomId: chatRoomId,
+          );
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    context
-        .read<UserDetailBloc>()
-        .add(UserDetailEvent.getUserDetail(userId: widget.userId.toString()));
-    context
-        .read<UpdateStatusUserBloc>()
-        .add(const UpdateStatusUserEvent.updateStatusUser());
     context.read<CreateChatroomBloc>().add(
           CreateChatroomEvent.createdChatRoomId(
-            chatRoomId: widget.userId.toString(),
+            userId: widget.userId.toString(),
           ),
         );
   }
@@ -60,9 +77,29 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
           },
         ),
         title: _buildProfileName(),
-        action: _buildAvatarUser(router),
+        action: _buildAvatarUser(router, widget.userId.toString()),
       ),
-      body: BlocBuilder<CreateChatroomBloc, CreateChatroomState>(
+      body: BlocConsumer<CreateChatroomBloc, CreateChatroomState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            sucsess: (chatRoomId) {
+              context.read<UserDetailBloc>().add(
+                    UserDetailEvent.getUserDetail(
+                      userId: widget.userId.toString(),
+                    ),
+                  );
+              context
+                  .read<UpdateStatusUserBloc>()
+                  .add(const UpdateStatusUserEvent.updateStatusUser());
+              context.read<GetMessagesBloc>().add(
+                    GetMessagesEvent.getMessages(
+                      chatRoomId: chatRoomId.toString(),
+                    ),
+                  );
+            },
+            orElse: () {},
+          );
+        },
         builder: (context, state) {
           return state.maybeWhen(
             sucsess: (chatRoomId) {
@@ -77,14 +114,26 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                   child: Column(
                     children: [
                       Expanded(
-                        flex: 8,
-                        child: ChatMessageList(
-                          chatRoomId: chatRoomId.toString(),
+                        flex: 25,
+                        child: BlocBuilder<GetMessagesBloc, GetMessagesState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              success: (messages) {
+                                return ChatMessageList(
+                                  messages: messages,
+                                  typeMessages: 'chat',
+                                  chatRoomId: chatRoomId.toString(),
+                                );
+                              },
+                              orElse: () => Container(),
+                            );
+                          },
                         ),
                       ),
                       const Spacer(),
                       Expanded(
                         child: TextFieldSendMessageWidget(
+                          onGallery: () => selectedImage(chatRoomId.toString()),
                           controller: sendMessageCtrl,
                           onPressed: () {
                             if (sendMessageCtrl.text.isNotEmpty) {
@@ -140,6 +189,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
 
   BlocBuilder<UserDetailBloc, UserDetailState> _buildAvatarUser(
     GoRouter router,
+    String userId,
   ) {
     return BlocBuilder<UserDetailBloc, UserDetailState>(
       builder: (context, state) {
@@ -148,7 +198,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
             return GestureDetector(
               onTap: () {
                 router.pushReplacement(
-                  '/home/chat/${RouterContants.chatMessages}/${RouterContants.profilePersonPage}',
+                  '/home/chat/chatMessages/$userId/profilePersonPage/$userId',
                 );
               },
               child: ClipRRect(

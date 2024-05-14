@@ -12,6 +12,9 @@ class Message with _$Message {
     String? messageId,
     String? senderId,
     String? receiverId,
+    String? username,
+    String? avatarUrl,
+    String? image,
     @TimestampConverter() Timestamp? timestamp,
     bool? seen,
     String? messageType,
@@ -19,7 +22,7 @@ class Message with _$Message {
 
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
-   factory Message.fromStoreData(Map<String, dynamic> firestoreData) {
+  factory Message.fromStoreData(Map<String, dynamic> firestoreData) {
     return Message(
       message: firestoreData['message'] as String?,
       messageId: firestoreData['messageId'] as String?,
@@ -27,6 +30,9 @@ class Message with _$Message {
       timestamp: firestoreData['timestamp'] as Timestamp?,
       seen: firestoreData['seen'] as bool?,
       messageType: firestoreData['messageType'] as String?,
+      username: firestoreData['username'] as String?,
+      avatarUrl: firestoreData['avatarUrl'] as String?,
+      image: firestoreData['image'] as String?,
     );
   }
 }

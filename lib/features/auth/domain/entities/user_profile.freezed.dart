@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
+  return _UserProfile.fromJson(json);
+}
+
 /// @nodoc
 mixin _$UserProfile {
   String? get uid => throw _privateConstructorUsedError;
@@ -34,6 +38,7 @@ mixin _$UserProfile {
   @TimestampConverter()
   Timestamp? get lastSeen => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UserProfileCopyWith<UserProfile> get copyWith =>
       throw _privateConstructorUsedError;
@@ -288,7 +293,7 @@ class __$$UserProfileImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
   const _$UserProfileImpl(
       {this.uid,
@@ -310,6 +315,9 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       : _followers = followers,
         _subscriptions = subscriptions,
         _stories = stories;
+
+  factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileImplFromJson(json);
 
   @override
   final String? uid;
@@ -440,6 +448,7 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
                 other.lastSeen == lastSeen));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -465,6 +474,13 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
   @pragma('vm:prefer-inline')
   _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
       __$$UserProfileImplCopyWithImpl<_$UserProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserProfileImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _UserProfile implements UserProfile {
@@ -485,6 +501,9 @@ abstract class _UserProfile implements UserProfile {
       final String? rating,
       final List<Stories>? stories,
       @TimestampConverter() final Timestamp? lastSeen}) = _$UserProfileImpl;
+
+  factory _UserProfile.fromJson(Map<String, dynamic> json) =
+      _$UserProfileImpl.fromJson;
 
   @override
   String? get uid;

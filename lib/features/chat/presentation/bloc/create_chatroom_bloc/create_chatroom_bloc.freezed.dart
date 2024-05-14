@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CreateChatroomEvent {
-  String get chatRoomId => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String chatRoomId) createdChatRoomId,
+    required TResult Function(String userId) createdChatRoomId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String chatRoomId)? createdChatRoomId,
+    TResult? Function(String userId)? createdChatRoomId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String chatRoomId)? createdChatRoomId,
+    TResult Function(String userId)? createdChatRoomId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ abstract class $CreateChatroomEventCopyWith<$Res> {
           CreateChatroomEvent value, $Res Function(CreateChatroomEvent) then) =
       _$CreateChatroomEventCopyWithImpl<$Res, CreateChatroomEvent>;
   @useResult
-  $Res call({String chatRoomId});
+  $Res call({String userId});
 }
 
 /// @nodoc
@@ -77,12 +77,12 @@ class _$CreateChatroomEventCopyWithImpl<$Res, $Val extends CreateChatroomEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chatRoomId = null,
+    Object? userId = null,
   }) {
     return _then(_value.copyWith(
-      chatRoomId: null == chatRoomId
-          ? _value.chatRoomId
-          : chatRoomId // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -96,7 +96,7 @@ abstract class _$$StartedImplCopyWith<$Res>
       __$$StartedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String chatRoomId});
+  $Res call({String userId});
 }
 
 /// @nodoc
@@ -110,12 +110,12 @@ class __$$StartedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chatRoomId = null,
+    Object? userId = null,
   }) {
     return _then(_$StartedImpl(
-      chatRoomId: null == chatRoomId
-          ? _value.chatRoomId
-          : chatRoomId // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -124,14 +124,14 @@ class __$$StartedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$StartedImpl implements _Started {
-  const _$StartedImpl({required this.chatRoomId});
+  const _$StartedImpl({required this.userId});
 
   @override
-  final String chatRoomId;
+  final String userId;
 
   @override
   String toString() {
-    return 'CreateChatroomEvent.createdChatRoomId(chatRoomId: $chatRoomId)';
+    return 'CreateChatroomEvent.createdChatRoomId(userId: $userId)';
   }
 
   @override
@@ -139,12 +139,11 @@ class _$StartedImpl implements _Started {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StartedImpl &&
-            (identical(other.chatRoomId, chatRoomId) ||
-                other.chatRoomId == chatRoomId));
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, chatRoomId);
+  int get hashCode => Object.hash(runtimeType, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,27 +154,27 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String chatRoomId) createdChatRoomId,
+    required TResult Function(String userId) createdChatRoomId,
   }) {
-    return createdChatRoomId(chatRoomId);
+    return createdChatRoomId(userId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String chatRoomId)? createdChatRoomId,
+    TResult? Function(String userId)? createdChatRoomId,
   }) {
-    return createdChatRoomId?.call(chatRoomId);
+    return createdChatRoomId?.call(userId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String chatRoomId)? createdChatRoomId,
+    TResult Function(String userId)? createdChatRoomId,
     required TResult orElse(),
   }) {
     if (createdChatRoomId != null) {
-      return createdChatRoomId(chatRoomId);
+      return createdChatRoomId(userId);
     }
     return orElse();
   }
@@ -210,10 +209,10 @@ class _$StartedImpl implements _Started {
 }
 
 abstract class _Started implements CreateChatroomEvent {
-  const factory _Started({required final String chatRoomId}) = _$StartedImpl;
+  const factory _Started({required final String userId}) = _$StartedImpl;
 
   @override
-  String get chatRoomId;
+  String get userId;
   @override
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>

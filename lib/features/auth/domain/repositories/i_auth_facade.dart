@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 
 typedef AuthFacadeResult = Either<AuthFailure, Unit>;
@@ -24,4 +25,6 @@ abstract class IAuthFacade {
     String email,
   );
   Future<void> updateStatusUser();
+  Future<Either<PostError, List<UserProfile>>> getAllUsers();
+  Future<Either<PostError, UserProfile>> getMeInfo(String? userId);
 }

@@ -3,7 +3,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/data/models/stories_model.dart';
+import 'package:w_sharme_beauty/features/profile/domain/entities/stories_model.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/add_question.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/my_questions.dart';
 import 'package:w_sharme_beauty/features/question/widgets/questions_widget.dart';

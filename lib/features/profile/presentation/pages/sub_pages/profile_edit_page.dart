@@ -2,9 +2,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
@@ -29,6 +29,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final TextEditingController location = TextEditingController();
   final TextEditingController aboutYourself = TextEditingController();
   final TextEditingController username = TextEditingController();
+
+  Future<void> selectedImage() async {
+    avatar = await pickImage(context);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +88,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           content: Text('Успешно сохранились'),
                         ),
                       );
-                      context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
+                      context
+                          .read<MyProfileInfoBloc>()
+                          .add(const MyProfileInfoEvent.getMe());
                       setState(() {
                         isLoading = false;
                       });
@@ -142,7 +149,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           height: 10,
                         ),
                         AddingButton(
-                          onPressed: () => pickImage(context),
+                          onPressed: selectedImage,
                           text: "+ Изменить фото или аватар",
                         ),
                       ],
@@ -255,18 +262,5 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     aboutYourself.dispose();
     username.dispose();
     super.dispose();
-  }
-
-  Future pickImage(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (image != null) {
-      final Uint8List imageData = await image.readAsBytes();
-      setState(() {
-        avatar = imageData;
-      });
-    }
   }
 }

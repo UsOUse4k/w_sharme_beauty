@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
 
 class CardMessageWidget extends StatelessWidget {
   const CardMessageWidget({
@@ -14,6 +16,7 @@ class CardMessageWidget extends StatelessWidget {
     this.avatar,
     required this.check,
     this.seen,
+    this.data,
   });
 
   final String? username;
@@ -22,6 +25,7 @@ class CardMessageWidget extends StatelessWidget {
   final String? avatar;
   final bool check;
   final bool? seen;
+  final Message? data;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +36,13 @@ class CardMessageWidget extends StatelessWidget {
           check ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if (!check)
-          GlCircleAvatar(
-            avatar: avatar.toString(),
-            width: 30,
-            height: 30,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: GlCachedNetworImage(
+              height: 30.h,
+              width: 30.w,
+              urlImage: avatar,
+            ),
           )
         else
           seen != null && seen == true
@@ -82,12 +89,38 @@ class CardMessageWidget extends StatelessWidget {
                       style:
                           AppStyles.w500f16.copyWith(color: AppColors.purple),
                     ),
-                  Text(
-                    message,
-                    style: AppStyles.w500f16.copyWith(
-                      color: check ? AppColors.white : AppColors.black,
+                  if (data != null && data!.image != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 260.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                data!.image.toString(),
+                              ),
+                              
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          message,
+                          style: AppStyles.w500f16.copyWith(
+                            color: check ? AppColors.white : AppColors.black,
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    Text(
+                      message,
+                      style: AppStyles.w500f16.copyWith(
+                        color: check ? AppColors.white : AppColors.black,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

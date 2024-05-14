@@ -6,6 +6,6 @@ class SendMessageEvent with _$SendMessageEvent {
     required String chatRoomId,
     required String message,
     required String receiverId,
-    File? file,
+    Uint8List? file,
   }) = _Started;
 }

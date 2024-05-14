@@ -5,6 +5,8 @@ import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 
 import 'package:w_sharme_beauty/features/profile/domain/entities/stories.dart';
 part 'user_profile.freezed.dart';
+part 'user_profile.g.dart';
+
 
 @freezed
 class UserProfile with _$UserProfile {
@@ -27,6 +29,8 @@ class UserProfile with _$UserProfile {
     @TimestampConverter() Timestamp? lastSeen,
     //
   }) = _UserProfile;
+
+  factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
 
   factory UserProfile.fromFirestore(Map<String, dynamic> firestoreData) {
     return UserProfile(

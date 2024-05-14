@@ -22,7 +22,7 @@ class CommunityProfileInfoBloc
           await userOption.fold(() {
             emit(const CommunityProfileInfoState.notSignedIn());
           }, (users) async {
-            final result = await profileInfoRepository.getMeInfo(users.uid);
+            final result = await _authFacade.getMeInfo(users.uid);
             result.fold((_) {
               emit(const CommunityProfileInfoState.error());
             }, (user) {

@@ -13,12 +13,12 @@ class SeenMessageBloc extends Bloc<SeenMessageEvent, SeenMessageState> {
     on<SeenMessageEvent>((event, emit) async {
       await event.maybeWhen(
         seenMessage: (chatRoomId, messageId, senderId) async {
-          emit(const SeenMessageState.Loading());
+          emit(const SeenMessageState.loading());
           final result = await _chatRepository.seenMessage(chatRoomId: chatRoomId, senderId: senderId);
           result.fold((error) {
-            emit(SeenMessageState.Error(message: error.messasge));
+            emit(SeenMessageState.error(message: error.messasge));
           }, (success)  {
-            emit(const SeenMessageState.Success());
+            emit(const SeenMessageState.success());
           });
         },
         orElse: () {},

@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_post_repository.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
-import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'community_create_post_event.dart';
 part 'community_create_post_state.dart';
@@ -17,7 +16,6 @@ class CommunityCreatePostBloc
     extends Bloc<CommunityCreatePostEvent, CommunityCreatePostState> {
   CommunityCreatePostBloc(
     this._repository,
-    this._iProfileInfoRepository,
     this._authFacade,
   ) : super(const CommunityCreatePostState.initial()) {
     on<CommunityCreatePostEvent>((event, emit) async {
@@ -34,7 +32,7 @@ class CommunityCreatePostBloc
               ),
             );
           }, (user) async {
-            final username = await _iProfileInfoRepository.getMeInfo(user.uid);
+            final username = await _authFacade.getMeInfo(user.uid);
             await username.fold((l) {
               emit(
                 const CommunityCreatePostState.error(
@@ -63,6 +61,5 @@ class CommunityCreatePostBloc
     });
   }
   final ICommunityPostRepository _repository;
-  final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
 }

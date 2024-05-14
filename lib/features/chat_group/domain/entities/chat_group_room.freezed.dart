@@ -26,13 +26,17 @@ mixin _$ChatGroupRoom {
   List<String>? get inviteOnlyByUserIds => throw _privateConstructorUsedError;
   int? get limitUsers => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  String? get lastSenderId => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
   Map<String, String>? get userRoles => throw _privateConstructorUsedError;
   String? get groupId => throw _privateConstructorUsedError;
   String? get lastMessage => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  Timestamp? get lastMessageTs => throw _privateConstructorUsedError;
   int? get countMessage => throw _privateConstructorUsedError;
   bool? get isActive => throw _privateConstructorUsedError;
+  bool? get seen => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,12 +57,15 @@ abstract class $ChatGroupRoomCopyWith<$Res> {
       List<String>? inviteOnlyByUserIds,
       int? limitUsers,
       String? userId,
+      String? lastSenderId,
       @TimestampConverter() Timestamp? createdAt,
       Map<String, String>? userRoles,
       String? groupId,
       String? lastMessage,
+      @TimestampConverter() Timestamp? lastMessageTs,
       int? countMessage,
-      bool? isActive});
+      bool? isActive,
+      bool? seen});
 }
 
 /// @nodoc
@@ -80,12 +87,15 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
     Object? inviteOnlyByUserIds = freezed,
     Object? limitUsers = freezed,
     Object? userId = freezed,
+    Object? lastSenderId = freezed,
     Object? createdAt = freezed,
     Object? userRoles = freezed,
     Object? groupId = freezed,
     Object? lastMessage = freezed,
+    Object? lastMessageTs = freezed,
     Object? countMessage = freezed,
     Object? isActive = freezed,
+    Object? seen = freezed,
   }) {
     return _then(_value.copyWith(
       groupName: freezed == groupName
@@ -112,6 +122,10 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastSenderId: freezed == lastSenderId
+          ? _value.lastSenderId
+          : lastSenderId // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -128,6 +142,10 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
           ? _value.lastMessage
           : lastMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastMessageTs: freezed == lastMessageTs
+          ? _value.lastMessageTs
+          : lastMessageTs // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
       countMessage: freezed == countMessage
           ? _value.countMessage
           : countMessage // ignore: cast_nullable_to_non_nullable
@@ -135,6 +153,10 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
       isActive: freezed == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      seen: freezed == seen
+          ? _value.seen
+          : seen // ignore: cast_nullable_to_non_nullable
               as bool?,
     ) as $Val);
   }
@@ -155,12 +177,15 @@ abstract class _$$ChatGroupRoomImplCopyWith<$Res>
       List<String>? inviteOnlyByUserIds,
       int? limitUsers,
       String? userId,
+      String? lastSenderId,
       @TimestampConverter() Timestamp? createdAt,
       Map<String, String>? userRoles,
       String? groupId,
       String? lastMessage,
+      @TimestampConverter() Timestamp? lastMessageTs,
       int? countMessage,
-      bool? isActive});
+      bool? isActive,
+      bool? seen});
 }
 
 /// @nodoc
@@ -180,12 +205,15 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
     Object? inviteOnlyByUserIds = freezed,
     Object? limitUsers = freezed,
     Object? userId = freezed,
+    Object? lastSenderId = freezed,
     Object? createdAt = freezed,
     Object? userRoles = freezed,
     Object? groupId = freezed,
     Object? lastMessage = freezed,
+    Object? lastMessageTs = freezed,
     Object? countMessage = freezed,
     Object? isActive = freezed,
+    Object? seen = freezed,
   }) {
     return _then(_$ChatGroupRoomImpl(
       groupName: freezed == groupName
@@ -212,6 +240,10 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastSenderId: freezed == lastSenderId
+          ? _value.lastSenderId
+          : lastSenderId // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -228,6 +260,10 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
           ? _value.lastMessage
           : lastMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastMessageTs: freezed == lastMessageTs
+          ? _value.lastMessageTs
+          : lastMessageTs // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
       countMessage: freezed == countMessage
           ? _value.countMessage
           : countMessage // ignore: cast_nullable_to_non_nullable
@@ -235,6 +271,10 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
       isActive: freezed == isActive
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      seen: freezed == seen
+          ? _value.seen
+          : seen // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -250,12 +290,15 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
       final List<String>? inviteOnlyByUserIds,
       this.limitUsers,
       this.userId,
+      this.lastSenderId,
       @TimestampConverter() this.createdAt,
       final Map<String, String>? userRoles,
       this.groupId,
       this.lastMessage,
+      @TimestampConverter() this.lastMessageTs,
       this.countMessage,
-      this.isActive})
+      this.isActive,
+      this.seen})
       : _joinedUserIds = joinedUserIds,
         _inviteOnlyByUserIds = inviteOnlyByUserIds,
         _userRoles = userRoles;
@@ -293,6 +336,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
   @override
   final String? userId;
   @override
+  final String? lastSenderId;
+  @override
   @TimestampConverter()
   final Timestamp? createdAt;
   final Map<String, String>? _userRoles;
@@ -310,13 +355,18 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
   @override
   final String? lastMessage;
   @override
+  @TimestampConverter()
+  final Timestamp? lastMessageTs;
+  @override
   final int? countMessage;
   @override
   final bool? isActive;
+  @override
+  final bool? seen;
 
   @override
   String toString() {
-    return 'ChatGroupRoom(groupName: $groupName, groupProfileImage: $groupProfileImage, joinedUserIds: $joinedUserIds, inviteOnlyByUserIds: $inviteOnlyByUserIds, limitUsers: $limitUsers, userId: $userId, createdAt: $createdAt, userRoles: $userRoles, groupId: $groupId, lastMessage: $lastMessage, countMessage: $countMessage, isActive: $isActive)';
+    return 'ChatGroupRoom(groupName: $groupName, groupProfileImage: $groupProfileImage, joinedUserIds: $joinedUserIds, inviteOnlyByUserIds: $inviteOnlyByUserIds, limitUsers: $limitUsers, userId: $userId, lastSenderId: $lastSenderId, createdAt: $createdAt, userRoles: $userRoles, groupId: $groupId, lastMessage: $lastMessage, lastMessageTs: $lastMessageTs, countMessage: $countMessage, isActive: $isActive, seen: $seen)';
   }
 
   @override
@@ -335,6 +385,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
             (identical(other.limitUsers, limitUsers) ||
                 other.limitUsers == limitUsers) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.lastSenderId, lastSenderId) ||
+                other.lastSenderId == lastSenderId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
@@ -342,10 +394,13 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.lastMessage, lastMessage) ||
                 other.lastMessage == lastMessage) &&
+            (identical(other.lastMessageTs, lastMessageTs) ||
+                other.lastMessageTs == lastMessageTs) &&
             (identical(other.countMessage, countMessage) ||
                 other.countMessage == countMessage) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.seen, seen) || other.seen == seen));
   }
 
   @JsonKey(ignore: true)
@@ -358,12 +413,15 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
       const DeepCollectionEquality().hash(_inviteOnlyByUserIds),
       limitUsers,
       userId,
+      lastSenderId,
       createdAt,
       const DeepCollectionEquality().hash(_userRoles),
       groupId,
       lastMessage,
+      lastMessageTs,
       countMessage,
-      isActive);
+      isActive,
+      seen);
 
   @JsonKey(ignore: true)
   @override
@@ -387,12 +445,15 @@ abstract class _ChatGroupRoom implements ChatGroupRoom {
       final List<String>? inviteOnlyByUserIds,
       final int? limitUsers,
       final String? userId,
+      final String? lastSenderId,
       @TimestampConverter() final Timestamp? createdAt,
       final Map<String, String>? userRoles,
       final String? groupId,
       final String? lastMessage,
+      @TimestampConverter() final Timestamp? lastMessageTs,
       final int? countMessage,
-      final bool? isActive}) = _$ChatGroupRoomImpl;
+      final bool? isActive,
+      final bool? seen}) = _$ChatGroupRoomImpl;
 
   factory _ChatGroupRoom.fromJson(Map<String, dynamic> json) =
       _$ChatGroupRoomImpl.fromJson;
@@ -410,6 +471,8 @@ abstract class _ChatGroupRoom implements ChatGroupRoom {
   @override
   String? get userId;
   @override
+  String? get lastSenderId;
+  @override
   @TimestampConverter()
   Timestamp? get createdAt;
   @override
@@ -419,9 +482,14 @@ abstract class _ChatGroupRoom implements ChatGroupRoom {
   @override
   String? get lastMessage;
   @override
+  @TimestampConverter()
+  Timestamp? get lastMessageTs;
+  @override
   int? get countMessage;
   @override
   bool? get isActive;
+  @override
+  bool? get seen;
   @override
   @JsonKey(ignore: true)
   _$$ChatGroupRoomImplCopyWith<_$ChatGroupRoomImpl> get copyWith =>

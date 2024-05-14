@@ -8,7 +8,7 @@ import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
+import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';

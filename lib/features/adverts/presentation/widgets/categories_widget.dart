@@ -5,7 +5,7 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/adverts/data/data/data.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
+import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 
 class CategoriesWidget extends StatefulWidget {

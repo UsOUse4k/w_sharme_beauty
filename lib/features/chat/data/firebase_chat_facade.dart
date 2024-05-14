@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,10 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
+import 'package:w_sharme_beauty/core/utils/firebase_storage_url/storage_methods.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/chat_room.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
 import 'package:w_sharme_beauty/features/chat/domain/repository/i_chat_repository.dart';
-import 'package:w_sharme_beauty/features/profile/data/data/storage_methods.dart';
 
 @LazySingleton(as: IChatRepository)
 class FirebaseChatFacade implements IChatRepository {
@@ -43,7 +45,7 @@ class FirebaseChatFacade implements IChatRepository {
           lastMessageTs: now,
           members: sortedMembers,
           createdAt: now,
-          lastSenderId: ''
+          lastSenderId: '',
         );
         await firestore
             .collection('chatrooms')
@@ -139,6 +141,9 @@ class FirebaseChatFacade implements IChatRepository {
     required String message,
     required String chatRoomId,
     required String receiverId,
+    required String username,
+    required String avatarUrl,
+    Uint8List? file,
   }) async {
     try {
       final messageId = const Uuid().v1();
@@ -153,14 +158,27 @@ class FirebaseChatFacade implements IChatRepository {
         timestamp: now,
         seen: false,
         messageType: 'text',
+        avatarUrl: avatarUrl,
+        username: username,
       );
-
       final DocumentReference myChatRoomRef =
           firestore.collection('chatrooms').doc(chatRoomId);
-      await myChatRoomRef
-          .collection('messages')
-          .doc(messageId)
-          .set(newMessage.toJson());
+      if (file != null) {
+        final imageurl = await StorageMethods(auth, storage)
+            .uploadImageToStorage('chatrooms', file, true);
+        final updateMessage = newMessage.copyWith(
+          image: imageurl,
+        );
+        await myChatRoomRef
+            .collection('messages')
+            .doc(messageId)
+            .set(updateMessage.toJson());
+      } else {
+        await myChatRoomRef
+            .collection('messages')
+            .doc(messageId)
+            .set(newMessage.toJson());
+      }
 
       if (myUid != receiverId) {
         await myChatRoomRef.update({

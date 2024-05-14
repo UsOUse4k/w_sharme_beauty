@@ -11,6 +11,9 @@ abstract class IChatRepository {
     required String message,
     required String chatRoomId,
     required String receiverId,
+    required String username,
+    required String avatarUrl,
+    Uint8List? file,
   });
   Future<Either<PostError, String?>> seenMessage({
     required String chatRoomId,

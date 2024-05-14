@@ -7,7 +7,7 @@ import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/for_the_user_buttons_widget.dart';
-import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
+import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 
 class CommunityProfileSubscribePage extends StatefulWidget {

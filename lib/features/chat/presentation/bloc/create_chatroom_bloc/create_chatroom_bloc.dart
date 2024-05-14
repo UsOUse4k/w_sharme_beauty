@@ -15,11 +15,11 @@ class CreateChatroomBloc
       : super(const _Initial()) {
     on<CreateChatroomEvent>((event, emit) async {
       await event.maybeWhen(
-        createdChatRoomId: (chatRoomId) async {
+        createdChatRoomId: (userId) async {
           emit(const CreateChatroomState.loading());
           try {
             final result =
-                await _chatRepository.createChatRoom(uid: chatRoomId);
+                await _chatRepository.createChatRoom(uid: userId);
             await result.fold((erro) async {
               emit(CreateChatroomState.error(errorMessage: erro.messasge));
             }, (chatRoomId) async {

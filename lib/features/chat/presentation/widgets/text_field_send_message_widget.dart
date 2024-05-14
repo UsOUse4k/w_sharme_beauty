@@ -6,14 +6,18 @@ import 'package:w_sharme_beauty/gen/assets.gen.dart';
 class TextFieldSendMessageWidget extends StatelessWidget {
   const TextFieldSendMessageWidget({
     super.key,
-    this.show = 'hide', this.controller, this.hintext = 'Сообщение', this.onPressed,
+    this.show = 'hide',
+    this.controller,
+    this.hintext = 'Сообщение',
+    this.onPressed, 
+    this.onGallery,
   });
 
   final String? show;
   final TextEditingController? controller;
   final String? hintext;
   final Function()? onPressed;
-
+  final Function()? onGallery;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class TextFieldSendMessageWidget extends StatelessWidget {
           if (show == 'hide')
             Flexible(
               child: GestureDetector(
-                onTap: () {},
+                onTap: onGallery,
                 child: Container(
                   height: 40.h,
                   width: 40.w,
@@ -55,7 +59,7 @@ class TextFieldSendMessageWidget extends StatelessWidget {
               ),
               child: TextField(
                 controller: controller,
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   hintText: hintext,
                   contentPadding: const EdgeInsets.symmetric(vertical: 9),
                   border: const OutlineInputBorder(

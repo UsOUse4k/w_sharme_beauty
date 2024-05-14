@@ -14,18 +14,21 @@ class ChatGroupRoom with _$ChatGroupRoom {
     List<String>? inviteOnlyByUserIds,
     int? limitUsers,
     String? userId,
+    String? lastSenderId,
     @TimestampConverter() Timestamp? createdAt,
     Map<String, String>? userRoles,
     String? groupId,
     String? lastMessage,
+    @TimestampConverter() Timestamp? lastMessageTs,
     int? countMessage,
     bool? isActive,
+    bool? seen,
   }) = _ChatGroupRoom;
 
   factory ChatGroupRoom.fromJson(Map<String, dynamic> json) =>
       _$ChatGroupRoomFromJson(json);
 
-  factory ChatGroupRoom.fromStoreData(Map<String, dynamic> firestoreData) {
+  factory ChatGroupRoom.fromFirestore(Map<String, dynamic> firestoreData) {
     return ChatGroupRoom(
       groupName: firestoreData['groupName'] as String?,
       groupProfileImage: firestoreData['groupProfileImage'] as String?,
@@ -33,10 +36,12 @@ class ChatGroupRoom with _$ChatGroupRoom {
       limitUsers: firestoreData['limitUsers'] as int?,
       userId: firestoreData['userId'] as String?,
       createdAt: firestoreData['createdAt'] as Timestamp?,
+      lastMessageTs: firestoreData['lastMessageTs'] as Timestamp?,
       groupId: firestoreData['groupId'] as String?,
       lastMessage: firestoreData['lastMessage'] as String?,
       countMessage: firestoreData['countMessage'] as int?,
       isActive: firestoreData['isActive'] as bool?,
+      seen: firestoreData['seen'] as bool?,
       joinedUserIds: (firestoreData['joinedUserIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -46,6 +51,7 @@ class ChatGroupRoom with _$ChatGroupRoom {
                   ?.map((e) => e as String)
                   .toList() ??
               [],
+      lastSenderId: firestoreData['lastSenderId'] as String?,
     );
   }
 }

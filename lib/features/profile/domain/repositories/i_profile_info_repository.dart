@@ -6,9 +6,7 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 
 abstract class IProfileInfoRepository {
   Future<Either<PostError, Unit>> updateInfiProfile({
-    UserProfile user,
+    required UserProfile user,
     Uint8List? avatar,
-    String email,}
-  );
-  Future<Either<PostError, UserProfile>> getMeInfo(String? userId); 
+  });
 }

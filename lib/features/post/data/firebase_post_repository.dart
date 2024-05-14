@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,17 +7,22 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
+import 'package:w_sharme_beauty/core/utils/firebase_storage_url/firebase_storage_image_methods.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/date_formatter.dart';
-import 'package:w_sharme_beauty/features/post/data/firebase_storage_image_methods.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/domain/repositories/i_post_repository.dart';
+
 
 @LazySingleton(as: IPostRepository)
 class FirestorePostRepository implements IPostRepository {
   final FirebaseFirestore firestore;
   final FirebaseAuth auth;
   final FirebaseStorage storage;
-  FirestorePostRepository(this.firestore, this.auth, this.storage);
+  FirestorePostRepository(
+    this.firestore,
+    this.auth,
+    this.storage,
+  );
   @override
   Future<Either<PostError, Unit>> createPost(
     Post post,
@@ -41,7 +47,6 @@ class FirestorePostRepository implements IPostRepository {
         avatarUrl: avatarUrl,
       );
       await firestore.collection('posts').doc(postId).set(updatedPost.toJson());
-
       // количество поста у автора
       await firestore.collection('users').doc(auth.currentUser!.uid).update(
         {'publics': FieldValue.increment(1)},
@@ -51,6 +56,7 @@ class FirestorePostRepository implements IPostRepository {
       return left(PostError(e.toString()));
     }
   }
+
   @override
   Future<Either<PostError, List<Post>>> getPosts({String? userId}) async {
     try {

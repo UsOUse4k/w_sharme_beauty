@@ -224,6 +224,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/camera.png
   AssetGenImage get camera => const AssetGenImage('assets/images/camera.png');
 
+  /// File path: assets/images/close.png
+  AssetGenImage get close => const AssetGenImage('assets/images/close.png');
+
   /// File path: assets/images/main_picture.png
   AssetGenImage get mainPicture =>
       const AssetGenImage('assets/images/main_picture.png');
@@ -269,6 +272,7 @@ class $AssetsImagesGen {
         beautyCenter,
         bloc,
         camera,
+        close,
         mainPicture,
         map,
         serviceImg1,

@@ -14,13 +14,14 @@ class GetAllChatsBloc extends Bloc<GetAllChatsEvent, GetAllChatsState> {
     on<GetAllChatsEvent>(
       (event, emit) async {
         await event.maybeWhen(
-          orElse: () async {
+          getAllChatRoom: () async {
             emit(const GetAllChatsState.loading());
             final streamResponse = _chatRepository.getAllChats();
             await for (final chats in streamResponse) {
               emit(GetAllChatsState.success(chats));
             }
           },
+          orElse: () {},
         );
       },
     );

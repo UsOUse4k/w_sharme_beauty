@@ -8,18 +8,9 @@ import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/pages/chat_group_messages_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_add_public_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_chat_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_managers.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_leo_monic_chat_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_managers_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_members_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_subscribe_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_subscribers_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/create_a_community_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
@@ -141,7 +132,7 @@ mixin AppRouter on State<App> {
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
                         path: "${RouterContants.chatMessages}/:userId",
-                        builder: (BuildContext context, GoRouterState state){
+                        builder: (BuildContext context, GoRouterState state) {
                           final userId = state.pathParameters['userId'];
                           return ChatMessagesPage(userId: userId);
                         },
@@ -149,11 +140,24 @@ mixin AppRouter on State<App> {
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
                             name: RouterContants.profilePersonPage,
-                            path: RouterContants.profilePersonPage,
-                            builder: (context, state) =>
-                                const ProfilePersonPage(),
+                            path: "${RouterContants.profilePersonPage}/:userId",
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final userId = state.pathParameters['userId'];
+                              return ProfilePersonPage(authorId: userId);
+                            },
                           ),
                         ],
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: '${RouterContants.chatGroupMessages}/:groupId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          return ChatGroupMessagesPage(
+                            groupId: groupId.toString(),
+                          );
+                        },
                       ),
                     ],
                   ),

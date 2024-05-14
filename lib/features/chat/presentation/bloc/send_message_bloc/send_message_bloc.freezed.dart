@@ -19,25 +19,25 @@ mixin _$SendMessageEvent {
   String get chatRoomId => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get receiverId => throw _privateConstructorUsedError;
-  File? get file => throw _privateConstructorUsedError;
+  Uint8List? get file => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String chatRoomId, String message, String receiverId, File? file)
+    required TResult Function(String chatRoomId, String message,
+            String receiverId, Uint8List? file)
         sendMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String chatRoomId, String message, String receiverId, File? file)?
+    TResult? Function(String chatRoomId, String message, String receiverId,
+            Uint8List? file)?
         sendMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String chatRoomId, String message, String receiverId, File? file)?
+    TResult Function(String chatRoomId, String message, String receiverId,
+            Uint8List? file)?
         sendMessage,
     required TResult orElse(),
   }) =>
@@ -70,7 +70,8 @@ abstract class $SendMessageEventCopyWith<$Res> {
           SendMessageEvent value, $Res Function(SendMessageEvent) then) =
       _$SendMessageEventCopyWithImpl<$Res, SendMessageEvent>;
   @useResult
-  $Res call({String chatRoomId, String message, String receiverId, File? file});
+  $Res call(
+      {String chatRoomId, String message, String receiverId, Uint8List? file});
 }
 
 /// @nodoc
@@ -107,7 +108,7 @@ class _$SendMessageEventCopyWithImpl<$Res, $Val extends SendMessageEvent>
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
-              as File?,
+              as Uint8List?,
     ) as $Val);
   }
 }
@@ -120,7 +121,8 @@ abstract class _$$StartedImplCopyWith<$Res>
       __$$StartedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String chatRoomId, String message, String receiverId, File? file});
+  $Res call(
+      {String chatRoomId, String message, String receiverId, Uint8List? file});
 }
 
 /// @nodoc
@@ -155,14 +157,14 @@ class __$$StartedImplCopyWithImpl<$Res>
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
-              as File?,
+              as Uint8List?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
+class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   const _$StartedImpl(
       {required this.chatRoomId,
       required this.message,
@@ -176,11 +178,22 @@ class _$StartedImpl implements _Started {
   @override
   final String receiverId;
   @override
-  final File? file;
+  final Uint8List? file;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SendMessageEvent.sendMessage(chatRoomId: $chatRoomId, message: $message, receiverId: $receiverId, file: $file)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SendMessageEvent.sendMessage'))
+      ..add(DiagnosticsProperty('chatRoomId', chatRoomId))
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('receiverId', receiverId))
+      ..add(DiagnosticsProperty('file', file));
   }
 
   @override
@@ -193,12 +206,12 @@ class _$StartedImpl implements _Started {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.receiverId, receiverId) ||
                 other.receiverId == receiverId) &&
-            (identical(other.file, file) || other.file == file));
+            const DeepCollectionEquality().equals(other.file, file));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, chatRoomId, message, receiverId, file);
+  int get hashCode => Object.hash(runtimeType, chatRoomId, message, receiverId,
+      const DeepCollectionEquality().hash(file));
 
   @JsonKey(ignore: true)
   @override
@@ -209,8 +222,8 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String chatRoomId, String message, String receiverId, File? file)
+    required TResult Function(String chatRoomId, String message,
+            String receiverId, Uint8List? file)
         sendMessage,
   }) {
     return sendMessage(chatRoomId, message, receiverId, file);
@@ -219,8 +232,8 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String chatRoomId, String message, String receiverId, File? file)?
+    TResult? Function(String chatRoomId, String message, String receiverId,
+            Uint8List? file)?
         sendMessage,
   }) {
     return sendMessage?.call(chatRoomId, message, receiverId, file);
@@ -229,8 +242,8 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String chatRoomId, String message, String receiverId, File? file)?
+    TResult Function(String chatRoomId, String message, String receiverId,
+            Uint8List? file)?
         sendMessage,
     required TResult orElse(),
   }) {
@@ -274,7 +287,7 @@ abstract class _Started implements SendMessageEvent {
       {required final String chatRoomId,
       required final String message,
       required final String receiverId,
-      final File? file}) = _$StartedImpl;
+      final Uint8List? file}) = _$StartedImpl;
 
   @override
   String get chatRoomId;
@@ -283,7 +296,7 @@ abstract class _Started implements SendMessageEvent {
   @override
   String get receiverId;
   @override
-  File? get file;
+  Uint8List? get file;
   @override
   @JsonKey(ignore: true)
   _$$StartedImplCopyWith<_$StartedImpl> get copyWith =>
@@ -380,12 +393,18 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SendMessageState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'SendMessageState.initial'));
   }
 
   @override
@@ -494,12 +513,18 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
+class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
   const _$SuccessImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SendMessageState.success()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'SendMessageState.success'));
   }
 
   @override
@@ -608,12 +633,18 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SendMessageState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'SendMessageState.loading'));
   }
 
   @override
@@ -737,15 +768,23 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl({required this.message});
 
   @override
   final String message;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SendMessageState.error(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SendMessageState.error'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override

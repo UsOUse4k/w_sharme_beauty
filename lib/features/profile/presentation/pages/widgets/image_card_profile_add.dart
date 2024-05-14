@@ -7,16 +7,21 @@ class CardImageProfileAdd extends StatelessWidget {
     required this.image,
     required this.onPressed,
     this.radius,
+    this.width,
+    this.height,
   });
 
   final ImageProvider image;
   final Function() onPressed;
   final double? radius;
+  final double? width;
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 100,
+      width: width ?? 100,
+      height: height ?? 100,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: image,

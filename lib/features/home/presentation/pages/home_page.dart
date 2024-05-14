@@ -12,8 +12,19 @@ import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_wid
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +90,9 @@ class HomePage extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 itemCount: 5,
-                itemBuilder: (context, index) => const PostShimmer(), separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
+                itemBuilder: (context, index) => const PostShimmer(),
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 10),
               ),
               error: (message) => Text('Ошибка: $message'),
               success: (posts) {
@@ -89,7 +102,8 @@ class HomePage extends StatelessWidget {
                   itemCount: posts.length,
                   itemBuilder: (context, index) => PostCard(
                     onPressed: () {
-                      context.push('/home/profilePersonPage/${posts[index].authorId}');
+                      context.push(
+                          '/home/profilePersonPage/${posts[index].authorId}',);
                     },
                     post: posts[index],
                   ),

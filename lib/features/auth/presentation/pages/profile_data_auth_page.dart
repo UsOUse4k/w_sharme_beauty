@@ -5,6 +5,7 @@ import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -39,6 +40,9 @@ class _ProfileDataAuthPageState extends State<ProfileDataAuthPage> {
             listener: (context, state) {
               if (state is RegisterSaveDataSuccess) {
                 context.go(RouterContants.login);
+                context
+                    .read<MyProfileInfoBloc>()
+                    .add(const MyProfileInfoEvent.getMe());
               }
               if (state is AuthError) {
                 ScaffoldMessenger.of(context).showSnackBar(

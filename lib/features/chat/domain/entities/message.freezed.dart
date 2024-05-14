@@ -24,6 +24,9 @@ mixin _$Message {
   String? get messageId => throw _privateConstructorUsedError;
   String? get senderId => throw _privateConstructorUsedError;
   String? get receiverId => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get timestamp => throw _privateConstructorUsedError;
   bool? get seen => throw _privateConstructorUsedError;
@@ -44,6 +47,9 @@ abstract class $MessageCopyWith<$Res> {
       String? messageId,
       String? senderId,
       String? receiverId,
+      String? username,
+      String? avatarUrl,
+      String? image,
       @TimestampConverter() Timestamp? timestamp,
       bool? seen,
       String? messageType});
@@ -66,6 +72,9 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? messageId = freezed,
     Object? senderId = freezed,
     Object? receiverId = freezed,
+    Object? username = freezed,
+    Object? avatarUrl = freezed,
+    Object? image = freezed,
     Object? timestamp = freezed,
     Object? seen = freezed,
     Object? messageType = freezed,
@@ -86,6 +95,18 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
       receiverId: freezed == receiverId
           ? _value.receiverId
           : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String?,
       timestamp: freezed == timestamp
           ? _value.timestamp
@@ -115,6 +136,9 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String? messageId,
       String? senderId,
       String? receiverId,
+      String? username,
+      String? avatarUrl,
+      String? image,
       @TimestampConverter() Timestamp? timestamp,
       bool? seen,
       String? messageType});
@@ -135,6 +159,9 @@ class __$$MessageImplCopyWithImpl<$Res>
     Object? messageId = freezed,
     Object? senderId = freezed,
     Object? receiverId = freezed,
+    Object? username = freezed,
+    Object? avatarUrl = freezed,
+    Object? image = freezed,
     Object? timestamp = freezed,
     Object? seen = freezed,
     Object? messageType = freezed,
@@ -155,6 +182,18 @@ class __$$MessageImplCopyWithImpl<$Res>
       receiverId: freezed == receiverId
           ? _value.receiverId
           : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      username: freezed == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
               as String?,
       timestamp: freezed == timestamp
           ? _value.timestamp
@@ -180,6 +219,9 @@ class _$MessageImpl implements _Message {
       this.messageId,
       this.senderId,
       this.receiverId,
+      this.username,
+      this.avatarUrl,
+      this.image,
       @TimestampConverter() this.timestamp,
       this.seen,
       this.messageType});
@@ -196,6 +238,12 @@ class _$MessageImpl implements _Message {
   @override
   final String? receiverId;
   @override
+  final String? username;
+  @override
+  final String? avatarUrl;
+  @override
+  final String? image;
+  @override
   @TimestampConverter()
   final Timestamp? timestamp;
   @override
@@ -205,7 +253,7 @@ class _$MessageImpl implements _Message {
 
   @override
   String toString() {
-    return 'Message(message: $message, messageId: $messageId, senderId: $senderId, receiverId: $receiverId, timestamp: $timestamp, seen: $seen, messageType: $messageType)';
+    return 'Message(message: $message, messageId: $messageId, senderId: $senderId, receiverId: $receiverId, username: $username, avatarUrl: $avatarUrl, image: $image, timestamp: $timestamp, seen: $seen, messageType: $messageType)';
   }
 
   @override
@@ -220,6 +268,11 @@ class _$MessageImpl implements _Message {
                 other.senderId == senderId) &&
             (identical(other.receiverId, receiverId) ||
                 other.receiverId == receiverId) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
+            (identical(other.image, image) || other.image == image) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
             (identical(other.seen, seen) || other.seen == seen) &&
@@ -230,7 +283,7 @@ class _$MessageImpl implements _Message {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message, messageId, senderId,
-      receiverId, timestamp, seen, messageType);
+      receiverId, username, avatarUrl, image, timestamp, seen, messageType);
 
   @JsonKey(ignore: true)
   @override
@@ -252,6 +305,9 @@ abstract class _Message implements Message {
       final String? messageId,
       final String? senderId,
       final String? receiverId,
+      final String? username,
+      final String? avatarUrl,
+      final String? image,
       @TimestampConverter() final Timestamp? timestamp,
       final bool? seen,
       final String? messageType}) = _$MessageImpl;
@@ -266,6 +322,12 @@ abstract class _Message implements Message {
   String? get senderId;
   @override
   String? get receiverId;
+  @override
+  String? get username;
+  @override
+  String? get avatarUrl;
+  @override
+  String? get image;
   @override
   @TimestampConverter()
   Timestamp? get timestamp;

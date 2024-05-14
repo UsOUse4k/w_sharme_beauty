@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfileNavbarWidget extends StatelessWidget {
   const ProfileNavbarWidget({
     super.key,
-    required this.avatar,
+    this.avatar,
     this.publications,
     this.followers,
     this.subscriptions,
@@ -14,7 +15,7 @@ class ProfileNavbarWidget extends StatelessWidget {
     this.onPressedFollowers,
   });
 
-  final String avatar;
+  final String? avatar;
   final String? publications;
   final String? followers;
   final String? subscriptions;
@@ -25,16 +26,23 @@ class ProfileNavbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(50),
-          ),
-          child: GlCachedNetworImage(
-            height: 100.h,
+        if (avatar != null)
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(50),
+            ),
+            child: GlCachedNetworImage(
+              height: 100.h,
+              width: 100.w,
+              urlImage: avatar,
+            ),
+          )
+        else
+          GlCircleAvatar(
+            avatar: Assets.images.ava.path,
             width: 100.w,
-            urlImage: avatar,
+            height: 100.w,
           ),
-        ),
         const SizedBox(
           width: 15,
         ),

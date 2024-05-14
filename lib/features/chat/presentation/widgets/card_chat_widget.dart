@@ -7,7 +7,7 @@ import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/chat_room.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/user_details/presentations/bloc/user_detail_bloc/user_detail_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 
 class CardChatWidget extends StatefulWidget {
   const CardChatWidget({
