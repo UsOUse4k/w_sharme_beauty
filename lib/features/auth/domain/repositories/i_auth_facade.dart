@@ -27,4 +27,7 @@ abstract class IAuthFacade {
   Future<void> updateStatusUser();
   Future<Either<PostError, List<UserProfile>>> getAllUsers();
   Future<Either<PostError, UserProfile>> getMeInfo(String? userId);
+  Future<List<UserProfile>> getUserProfiles({
+    required List<String> userIds,
+  });
 }

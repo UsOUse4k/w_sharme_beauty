@@ -1,4 +1,6 @@
-// ignore_for_file: avoid_dynamic_calls
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,12 +11,12 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/added_chat_users_group_bloc/added_chat_users_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_people_chat_bloc/invite_people_chat_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class AddedUsersChatGroupWidget extends StatelessWidget {
-  const AddedUsersChatGroupWidget({
+class InvitePeopleToChat extends StatelessWidget {
+  const InvitePeopleToChat({
     super.key,
     required this.users,
   });
@@ -25,7 +27,7 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: BlocBuilder<AddedChatUsersGroupBloc, AddedChatUsersGroupState>(
+      child: BlocBuilder<InvitePeopleChatBloc, InvitePeopleChatState>(
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,10 +96,7 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
   }
 
   Row _buildCheckboxUserCard(
-    int index,
-    List<UserProfile> selectedUsers,
-    BuildContext context,
-  ) {
+      int index, List<UserProfile> selectedUsers, BuildContext context,) {
     final user = users[index];
     final bool isSelected = selectedUsers.contains(user);
     return Row(
@@ -108,8 +107,8 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
           onChanged: (bool? value) {
             if (value != null) {
               context
-                  .read<AddedChatUsersGroupBloc>()
-                  .add(AddedChatUsersGroupEvent.toggleSelectedUsers(user));
+                  .read<InvitePeopleChatBloc>()
+                  .add(InvitePeopleChatEvent.toggleUserSelection(user));
             }
           },
         ),
@@ -177,8 +176,8 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
                 top: 0,
                 child: InkWell(
                   onTap: () => context
-                      .read<AddedChatUsersGroupBloc>()
-                      .add(AddedChatUsersGroupEvent.toggleSelectedUsers(user)),
+                      .read<InvitePeopleChatBloc>()
+                      .add(InvitePeopleChatEvent.toggleUserSelection(user)),
                   child: Assets.images.close.image(
                     width: 14.w,
                     height: 14.h,

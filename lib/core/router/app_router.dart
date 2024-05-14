@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/pages/chat_group_messages_page.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/chat_participants_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
@@ -158,6 +159,19 @@ mixin AppRouter on State<App> {
                             groupId: groupId.toString(),
                           );
                         },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: 'chatParticipants/:groupId',
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final groupId = state.pathParameters['groupId'];
+                              return ChatParticipantsPage(
+                                groupId: groupId.toString(),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

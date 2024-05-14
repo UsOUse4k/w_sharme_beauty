@@ -225,7 +225,9 @@ mixin _$GetGroupState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChatGroupRoom group) success,
+    required TResult Function(
+            ChatGroupRoom group, List<UserProfile> userProfiles)
+        success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -233,7 +235,8 @@ mixin _$GetGroupState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChatGroupRoom group)? success,
+    TResult? Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -241,7 +244,8 @@ mixin _$GetGroupState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChatGroupRoom group)? success,
+    TResult Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -331,7 +335,9 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChatGroupRoom group) success,
+    required TResult Function(
+            ChatGroupRoom group, List<UserProfile> userProfiles)
+        success,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -342,7 +348,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChatGroupRoom group)? success,
+    TResult? Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -353,7 +360,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChatGroupRoom group)? success,
+    TResult Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -445,7 +453,9 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChatGroupRoom group) success,
+    required TResult Function(
+            ChatGroupRoom group, List<UserProfile> userProfiles)
+        success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -456,7 +466,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChatGroupRoom group)? success,
+    TResult? Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -467,7 +478,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChatGroupRoom group)? success,
+    TResult Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -525,7 +537,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ChatGroupRoom group});
+  $Res call({ChatGroupRoom group, List<UserProfile> userProfiles});
 
   $ChatGroupRoomCopyWith<$Res> get group;
 }
@@ -542,12 +554,17 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? group = null,
+    Object? userProfiles = null,
   }) {
     return _then(_$SuccessImpl(
       group: null == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
               as ChatGroupRoom,
+      userProfiles: null == userProfiles
+          ? _value._userProfiles
+          : userProfiles // ignore: cast_nullable_to_non_nullable
+              as List<UserProfile>,
     ));
   }
 
@@ -563,14 +580,23 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl({required this.group});
+  const _$SuccessImpl(
+      {required this.group, required final List<UserProfile> userProfiles})
+      : _userProfiles = userProfiles;
 
   @override
   final ChatGroupRoom group;
+  final List<UserProfile> _userProfiles;
+  @override
+  List<UserProfile> get userProfiles {
+    if (_userProfiles is EqualUnmodifiableListView) return _userProfiles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_userProfiles);
+  }
 
   @override
   String toString() {
-    return 'GetGroupState.success(group: $group)';
+    return 'GetGroupState.success(group: $group, userProfiles: $userProfiles)';
   }
 
   @override
@@ -578,11 +604,14 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            (identical(other.group, group) || other.group == group));
+            (identical(other.group, group) || other.group == group) &&
+            const DeepCollectionEquality()
+                .equals(other._userProfiles, _userProfiles));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, group);
+  int get hashCode => Object.hash(
+      runtimeType, group, const DeepCollectionEquality().hash(_userProfiles));
 
   @JsonKey(ignore: true)
   @override
@@ -595,10 +624,12 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChatGroupRoom group) success,
+    required TResult Function(
+            ChatGroupRoom group, List<UserProfile> userProfiles)
+        success,
     required TResult Function(String message) error,
   }) {
-    return success(group);
+    return success(group, userProfiles);
   }
 
   @override
@@ -606,10 +637,11 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChatGroupRoom group)? success,
+    TResult? Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(group);
+    return success?.call(group, userProfiles);
   }
 
   @override
@@ -617,12 +649,13 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChatGroupRoom group)? success,
+    TResult Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(group);
+      return success(group, userProfiles);
     }
     return orElse();
   }
@@ -666,9 +699,12 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements GetGroupState {
-  const factory _Success({required final ChatGroupRoom group}) = _$SuccessImpl;
+  const factory _Success(
+      {required final ChatGroupRoom group,
+      required final List<UserProfile> userProfiles}) = _$SuccessImpl;
 
   ChatGroupRoom get group;
+  List<UserProfile> get userProfiles;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -740,7 +776,9 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChatGroupRoom group) success,
+    required TResult Function(
+            ChatGroupRoom group, List<UserProfile> userProfiles)
+        success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -751,7 +789,8 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChatGroupRoom group)? success,
+    TResult? Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -762,7 +801,8 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChatGroupRoom group)? success,
+    TResult Function(ChatGroupRoom group, List<UserProfile> userProfiles)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

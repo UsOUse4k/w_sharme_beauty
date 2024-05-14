@@ -177,4 +177,20 @@ class FirebaseAuthFacade implements IAuthFacade {
       return left(PostError(e.toString()));
     }
   }
+
+  @override
+  Future<List<UserProfile>> getUserProfiles({
+    required List<String> userIds,
+  }) async {
+    try {
+      final List<UserProfile> profiles = [];
+      for (final String userId in userIds) {
+        final snapshot = await _firestore.collection('users').doc(userId).get();
+        profiles.add(UserProfile.fromFirestore(snapshot.data()!));
+      }
+      return profiles;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

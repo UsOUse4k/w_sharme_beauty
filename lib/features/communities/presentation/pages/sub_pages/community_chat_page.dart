@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
-import 'package:w_sharme_beauty/core/widgets/custom_bottom_sheet_leading.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
@@ -22,15 +22,16 @@ class CommunityChatPage extends StatefulWidget {
 }
 
 class _CommunityChatPageState extends State<CommunityChatPage> {
-
   @override
   void initState() {
-   context.read<GetAllChatGroupBloc>().add(const GetAllChatGroupEvent.getAllChatGroups());
+    context
+        .read<GetAllChatGroupBloc>()
+        .add(const GetAllChatGroupEvent.getAllChatGroups());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(
@@ -88,10 +89,29 @@ class _CommunityChatPageState extends State<CommunityChatPage> {
             },
           ),
           const SizedBox(height: 10),
-          SubscribersListTileWidget(
-            title: "Комьюнити",
-            subtitle: "152 участников",
-            avatar: Assets.images.ava.path,
+          BlocBuilder<GetAllChatGroupBloc, GetAllChatGroupState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                success: (groups) {
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return SubscribersListTileWidget(
+                        title: "${groups[index].groupName}",
+                        subtitle: "${groups[index].joinedUserIds!.length} участников",
+                        avatar: groups[index].groupProfileImage.toString(),
+                      );
+                    },
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 10.h,
+                    ),
+                    itemCount: groups.length,
+                  );
+                },
+                orElse: () => Container(),
+              );
+            },
           ),
           const SizedBox(height: 10),
           const Spacer(),

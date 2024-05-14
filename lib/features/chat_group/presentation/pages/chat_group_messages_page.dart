@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/chat_list.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/send_message_group_bloc/send_message_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
 
 class ChatGroupMessagesPage extends StatefulWidget {
   const ChatGroupMessagesPage({super.key, required this.groupId});
@@ -54,7 +56,7 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
           },
         ),
         title: _buildProfileName(),
-        action: _buildAvatarUser(router),
+        action: _buildAvatarUser(),
       ),
       body: SafeArea(
         child: Padding(
@@ -112,19 +114,33 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
     return BlocBuilder<GetGroupBloc, GetGroupState>(
       builder: (context, state) {
         return state.maybeWhen(
-          success: (group) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CenterTitleAppBar(
-                  title: group.groupName.toString(),
-                  textStyle: AppStyles.w500f16,
-                ),
-                Text(
-                  '${group.joinedUserIds!.length} участников',
-                  style: AppStyles.w400f14.copyWith(color: AppColors.grey),
-                ),
-              ],
+          success: (group, userPrifes) {
+            return InkWell(
+              onTap: () {
+                BottomSheetUtil.showAppBottomSheet(
+                  context,
+                  CustomBottomSheetLeading(
+                    maxHeight: 0.5,
+                    navbarTitle: 'Управление чатом сообщества',
+                    widget: ChatManagmentWidget(
+                      groupRoom: group,
+                    ),
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CenterTitleAppBar(
+                    title: group.groupName.toString(),
+                    textStyle: AppStyles.w500f16,
+                  ),
+                  Text(
+                    '${group.joinedUserIds!.length} участников',
+                    style: AppStyles.w400f14.copyWith(color: AppColors.grey),
+                  ),
+                ],
+              ),
             );
           },
           orElse: () => Container(),
@@ -133,13 +149,11 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
     );
   }
 
-  BlocBuilder<GetGroupBloc, GetGroupState> _buildAvatarUser(
-    GoRouter router,
-  ) {
+  BlocBuilder<GetGroupBloc, GetGroupState> _buildAvatarUser() {
     return BlocBuilder<GetGroupBloc, GetGroupState>(
       builder: (context, state) {
         return state.maybeWhen(
-          success: (group) {
+          success: (group, userProfiles) {
             return ClipRRect(
               borderRadius: const BorderRadius.all(
                 Radius.circular(50),
