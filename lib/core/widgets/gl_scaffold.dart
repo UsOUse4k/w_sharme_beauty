@@ -6,18 +6,19 @@ class GlScaffold extends StatelessWidget {
     this.appBar,
     this.bottomBar,
     this.horizontalPadding,
-    this.body,
+    this.body, this.color,
   });
 
   final PreferredSizeWidget? appBar;
   final Widget? bottomBar;
   final double? horizontalPadding;
   final Widget? body;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(color: Colors.transparent),
+      decoration: BoxDecoration(color: color ?? Colors.transparent),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: appBar,

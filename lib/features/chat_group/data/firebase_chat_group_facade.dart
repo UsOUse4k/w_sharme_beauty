@@ -162,4 +162,37 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       return left(PostError(e.toString()));
     }
   }
+
+  @override
+  Future<Either<PostError, Unit>> updateGroup({
+    required String groupId,
+    Uint8List? file,
+    String? groupName,
+    ChatGroupRoom? groupRoom,
+  }) async {
+    try {
+      final updateChatGroup = _firestore.collection('chat_groups').doc(groupId);
+      final Map<String, dynamic> updates = {};
+      if (groupName != null) {
+        updates['groupName'] = groupName;
+      }
+      if (file != null) {
+        final groupProfileImage = await StorageMethods(_auth, _storage)
+            .uploadImageToStorage('chat_image', file, true);
+        updates['groupProfileImage'] = groupProfileImage;
+      }
+      if (groupRoom != null && groupRoom.administrator != null) {
+        updates['administrator'] = groupRoom.administrator;
+      }
+      if (groupRoom != null && groupRoom.editors != null) {
+        updates['editors'] = groupRoom.editors;
+      }
+      if (updates.isNotEmpty) {
+        await updateChatGroup.update(updates);
+      }
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

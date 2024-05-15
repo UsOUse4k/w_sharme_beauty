@@ -27,11 +27,6 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
   @override
   void initState() {
     super.initState();
-    context.read<GetAllGroupMessagesBloc>().add(
-          GetAllGroupMessagesEvent.getAllGroupMessages(
-            groupId: widget.groupId,
-          ),
-        );
     context.read<GetGroupBloc>().add(
           GetGroupEvent.getGroup(groupId: widget.groupId),
         );
@@ -55,8 +50,62 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
             router.pop();
           },
         ),
-        title: _buildProfileName(),
-        action: _buildAvatarUser(),
+        title: BlocBuilder<GetGroupBloc, GetGroupState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              success: (group, userProfiles) {
+                return InkWell(
+                  onTap: () {
+                    BottomSheetUtil.showAppBottomSheet(
+                      context,
+                      CustomBottomSheetLeading(
+                        maxHeight: 0.5,
+                        navbarTitle: 'Управление чатом сообщества',
+                        widget: ChatManagmentWidget(
+                          groupRoom: group,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CenterTitleAppBar(
+                        title: group.groupName.toString(),
+                        textStyle: AppStyles.w500f16,
+                      ),
+                      Text(
+                        '${group.joinedUserIds!.length} участников',
+                        style:
+                            AppStyles.w400f14.copyWith(color: AppColors.grey),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
+        ),
+        action: BlocBuilder<GetGroupBloc, GetGroupState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              success: (group, userProfiles) {
+                return ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                  child: GlCachedNetworImage(
+                    height: 40.h,
+                    width: 40.w,
+                    urlImage: group.groupProfileImage,
+                  ),
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -66,108 +115,61 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
             right: 18,
             bottom: 4,
           ),
-          child: Column(
-            children: [
-              Expanded(
-                flex: 8,
-                child: BlocBuilder<GetAllGroupMessagesBloc,
-                    GetAllGroupMessagesState>(
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      success: (messages) {
-                        return ChatMessageList(
-                          messages: messages,
-                          chatRoomId: '',
-                          typeMessages: 'group',
-                        );
-                      },
-                      orElse: () => Container(),
-                    );
-                  },
-                ),
-              ),
-              const Spacer(),
-              Expanded(
-                child: TextFieldSendMessageWidget(
-                  controller: sendMessageCtrl,
-                  onPressed: () {
-                    if (sendMessageCtrl.text.isNotEmpty) {
-                      context.read<SendMessageGroupBloc>().add(
-                            SendMessageGroupEvent.sendMessage(
-                              groupId: widget.groupId,
-                              message: sendMessageCtrl.text,
-                            ),
+          child: BlocListener<GetGroupBloc, GetGroupState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                success: (group, userProfiles) {
+                  context.read<GetAllGroupMessagesBloc>().add(
+                        GetAllGroupMessagesEvent.getAllGroupMessages(
+                          groupId: group.groupId.toString(),
+                        ),
+                      );
+                },
+                orElse: () => {},
+              );
+            },
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 8,
+                  child: BlocBuilder<GetAllGroupMessagesBloc,
+                      GetAllGroupMessagesState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        success: (messages) {
+                          return ChatMessageList(
+                            messages: messages,
+                            chatRoomId: '',
+                            typeMessages: 'group',
                           );
-                      sendMessageCtrl.clear();
-                    }
-                  },
+                        },
+                        orElse: () => Container(),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+                const Spacer(),
+                Expanded(
+                  child: TextFieldSendMessageWidget(
+                    controller: sendMessageCtrl,
+                    onPressed: () {
+                      if (sendMessageCtrl.text.isNotEmpty) {
+                        context.read<SendMessageGroupBloc>().add(
+                              SendMessageGroupEvent.sendMessage(
+                                groupId: widget.groupId,
+                                message: sendMessageCtrl.text,
+                              ),
+                            );
+                        sendMessageCtrl.clear();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  BlocBuilder<GetGroupBloc, GetGroupState> _buildProfileName() {
-    return BlocBuilder<GetGroupBloc, GetGroupState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          success: (group, userPrifes) {
-            return InkWell(
-              onTap: () {
-                BottomSheetUtil.showAppBottomSheet(
-                  context,
-                  CustomBottomSheetLeading(
-                    maxHeight: 0.5,
-                    navbarTitle: 'Управление чатом сообщества',
-                    widget: ChatManagmentWidget(
-                      groupRoom: group,
-                    ),
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CenterTitleAppBar(
-                    title: group.groupName.toString(),
-                    textStyle: AppStyles.w500f16,
-                  ),
-                  Text(
-                    '${group.joinedUserIds!.length} участников',
-                    style: AppStyles.w400f14.copyWith(color: AppColors.grey),
-                  ),
-                ],
-              ),
-            );
-          },
-          orElse: () => Container(),
-        );
-      },
-    );
-  }
-
-  BlocBuilder<GetGroupBloc, GetGroupState> _buildAvatarUser() {
-    return BlocBuilder<GetGroupBloc, GetGroupState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          success: (group, userProfiles) {
-            return ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(50),
-              ),
-              child: GlCachedNetworImage(
-                height: 40.h,
-                width: 40.w,
-                urlImage: group.groupProfileImage,
-              ),
-            );
-          },
-          orElse: () => Container(),
-        );
-      },
     );
   }
 }

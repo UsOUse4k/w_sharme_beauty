@@ -13,9 +13,11 @@ _$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map<String, dynamic> json) =>
       joinedUserIds: (json['joinedUserIds'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      inviteOnlyByUserIds: (json['inviteOnlyByUserIds'] as List<dynamic>?)
+      administrator: (json['administrator'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      editors:
+          (json['editors'] as List<dynamic>?)?.map((e) => e as String).toList(),
       limitUsers: json['limitUsers'] as int?,
       userId: json['userId'] as String?,
       lastSenderId: json['lastSenderId'] as String?,
@@ -36,7 +38,8 @@ Map<String, dynamic> _$$ChatGroupRoomImplToJson(_$ChatGroupRoomImpl instance) =>
       'groupName': instance.groupName,
       'groupProfileImage': instance.groupProfileImage,
       'joinedUserIds': instance.joinedUserIds,
-      'inviteOnlyByUserIds': instance.inviteOnlyByUserIds,
+      'administrator': instance.administrator,
+      'editors': instance.editors,
       'limitUsers': instance.limitUsers,
       'userId': instance.userId,
       'lastSenderId': instance.lastSenderId,

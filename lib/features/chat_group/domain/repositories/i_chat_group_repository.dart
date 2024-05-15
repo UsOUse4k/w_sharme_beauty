@@ -16,7 +16,6 @@ abstract class IChatGroupRepository {
     required String receiverId,
     required String username,
     required String avatarUrl,
-
   });
 
   Stream<List<Message>> getMessages({
@@ -25,5 +24,11 @@ abstract class IChatGroupRepository {
   Stream<List<ChatGroupRoom>> getAllChatGroups();
   Future<Either<PostError, ChatGroupRoom>> getGroup({
     required String groupId,
+  });
+  Future<Either<PostError, Unit>> updateGroup({
+    required String groupId,
+    Uint8List? file,
+    String? groupName,
+    ChatGroupRoom? groupRoom,
   });
 }

@@ -12,7 +12,7 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/Invite_
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class ChatManagmentWidget extends StatelessWidget {
+class ChatManagmentWidget extends StatefulWidget {
   const ChatManagmentWidget({
     super.key,
     required this.groupRoom,
@@ -21,8 +21,18 @@ class ChatManagmentWidget extends StatelessWidget {
   final ChatGroupRoom groupRoom;
 
   @override
+  State<ChatManagmentWidget> createState() => _ChatManagmentWidgetState();
+}
+
+class _ChatManagmentWidgetState extends State<ChatManagmentWidget> {
+  @override
+  void initState() {
+    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    context.watch<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: BlocBuilder<GetAllUsersBloc, GetAllUsersState>(
@@ -33,7 +43,11 @@ class ChatManagmentWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTilleWidgetTextWith(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push(
+                        '/home/chat/chatGroupMessages/${widget.groupRoom.groupId}/chatGroupEdit/${widget.groupRoom.groupId}',
+                      );
+                    },
                     subTitle: 'Редактировать чат',
                     title: 'Основное',
                     image: Assets.icons.edit.path,
@@ -47,7 +61,7 @@ class ChatManagmentWidget extends StatelessWidget {
                   ListTilleWidgetTextWith(
                     onPressed: () {
                       context.push(
-                        '/home/chat/chatGroupMessages/${groupRoom.groupId}/chatParticipants/${groupRoom.groupId}',
+                        '/home/chat/chatGroupMessages/${widget.groupRoom.groupId}/chatParticipants/${widget.groupRoom.groupId}',
                       );
                     },
                     subTitle: 'Участники',

@@ -23,7 +23,8 @@ mixin _$ChatGroupRoom {
   String? get groupName => throw _privateConstructorUsedError;
   String? get groupProfileImage => throw _privateConstructorUsedError;
   List<String>? get joinedUserIds => throw _privateConstructorUsedError;
-  List<String>? get inviteOnlyByUserIds => throw _privateConstructorUsedError;
+  List<String>? get administrator => throw _privateConstructorUsedError;
+  List<String>? get editors => throw _privateConstructorUsedError;
   int? get limitUsers => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   String? get lastSenderId => throw _privateConstructorUsedError;
@@ -54,7 +55,8 @@ abstract class $ChatGroupRoomCopyWith<$Res> {
       {String? groupName,
       String? groupProfileImage,
       List<String>? joinedUserIds,
-      List<String>? inviteOnlyByUserIds,
+      List<String>? administrator,
+      List<String>? editors,
       int? limitUsers,
       String? userId,
       String? lastSenderId,
@@ -84,7 +86,8 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
     Object? groupName = freezed,
     Object? groupProfileImage = freezed,
     Object? joinedUserIds = freezed,
-    Object? inviteOnlyByUserIds = freezed,
+    Object? administrator = freezed,
+    Object? editors = freezed,
     Object? limitUsers = freezed,
     Object? userId = freezed,
     Object? lastSenderId = freezed,
@@ -110,9 +113,13 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
           ? _value.joinedUserIds
           : joinedUserIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      inviteOnlyByUserIds: freezed == inviteOnlyByUserIds
-          ? _value.inviteOnlyByUserIds
-          : inviteOnlyByUserIds // ignore: cast_nullable_to_non_nullable
+      administrator: freezed == administrator
+          ? _value.administrator
+          : administrator // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      editors: freezed == editors
+          ? _value.editors
+          : editors // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       limitUsers: freezed == limitUsers
           ? _value.limitUsers
@@ -174,7 +181,8 @@ abstract class _$$ChatGroupRoomImplCopyWith<$Res>
       {String? groupName,
       String? groupProfileImage,
       List<String>? joinedUserIds,
-      List<String>? inviteOnlyByUserIds,
+      List<String>? administrator,
+      List<String>? editors,
       int? limitUsers,
       String? userId,
       String? lastSenderId,
@@ -202,7 +210,8 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
     Object? groupName = freezed,
     Object? groupProfileImage = freezed,
     Object? joinedUserIds = freezed,
-    Object? inviteOnlyByUserIds = freezed,
+    Object? administrator = freezed,
+    Object? editors = freezed,
     Object? limitUsers = freezed,
     Object? userId = freezed,
     Object? lastSenderId = freezed,
@@ -228,9 +237,13 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
           ? _value._joinedUserIds
           : joinedUserIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      inviteOnlyByUserIds: freezed == inviteOnlyByUserIds
-          ? _value._inviteOnlyByUserIds
-          : inviteOnlyByUserIds // ignore: cast_nullable_to_non_nullable
+      administrator: freezed == administrator
+          ? _value._administrator
+          : administrator // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      editors: freezed == editors
+          ? _value._editors
+          : editors // ignore: cast_nullable_to_non_nullable
               as List<String>?,
       limitUsers: freezed == limitUsers
           ? _value.limitUsers
@@ -287,7 +300,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
       {this.groupName,
       this.groupProfileImage,
       final List<String>? joinedUserIds,
-      final List<String>? inviteOnlyByUserIds,
+      final List<String>? administrator,
+      final List<String>? editors,
       this.limitUsers,
       this.userId,
       this.lastSenderId,
@@ -300,7 +314,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
       this.isActive,
       this.seen})
       : _joinedUserIds = joinedUserIds,
-        _inviteOnlyByUserIds = inviteOnlyByUserIds,
+        _administrator = administrator,
+        _editors = editors,
         _userRoles = userRoles;
 
   factory _$ChatGroupRoomImpl.fromJson(Map<String, dynamic> json) =>
@@ -320,13 +335,22 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String>? _inviteOnlyByUserIds;
+  final List<String>? _administrator;
   @override
-  List<String>? get inviteOnlyByUserIds {
-    final value = _inviteOnlyByUserIds;
+  List<String>? get administrator {
+    final value = _administrator;
     if (value == null) return null;
-    if (_inviteOnlyByUserIds is EqualUnmodifiableListView)
-      return _inviteOnlyByUserIds;
+    if (_administrator is EqualUnmodifiableListView) return _administrator;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _editors;
+  @override
+  List<String>? get editors {
+    final value = _editors;
+    if (value == null) return null;
+    if (_editors is EqualUnmodifiableListView) return _editors;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -366,7 +390,7 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
 
   @override
   String toString() {
-    return 'ChatGroupRoom(groupName: $groupName, groupProfileImage: $groupProfileImage, joinedUserIds: $joinedUserIds, inviteOnlyByUserIds: $inviteOnlyByUserIds, limitUsers: $limitUsers, userId: $userId, lastSenderId: $lastSenderId, createdAt: $createdAt, userRoles: $userRoles, groupId: $groupId, lastMessage: $lastMessage, lastMessageTs: $lastMessageTs, countMessage: $countMessage, isActive: $isActive, seen: $seen)';
+    return 'ChatGroupRoom(groupName: $groupName, groupProfileImage: $groupProfileImage, joinedUserIds: $joinedUserIds, administrator: $administrator, editors: $editors, limitUsers: $limitUsers, userId: $userId, lastSenderId: $lastSenderId, createdAt: $createdAt, userRoles: $userRoles, groupId: $groupId, lastMessage: $lastMessage, lastMessageTs: $lastMessageTs, countMessage: $countMessage, isActive: $isActive, seen: $seen)';
   }
 
   @override
@@ -381,7 +405,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
             const DeepCollectionEquality()
                 .equals(other._joinedUserIds, _joinedUserIds) &&
             const DeepCollectionEquality()
-                .equals(other._inviteOnlyByUserIds, _inviteOnlyByUserIds) &&
+                .equals(other._administrator, _administrator) &&
+            const DeepCollectionEquality().equals(other._editors, _editors) &&
             (identical(other.limitUsers, limitUsers) ||
                 other.limitUsers == limitUsers) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -410,7 +435,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
       groupName,
       groupProfileImage,
       const DeepCollectionEquality().hash(_joinedUserIds),
-      const DeepCollectionEquality().hash(_inviteOnlyByUserIds),
+      const DeepCollectionEquality().hash(_administrator),
+      const DeepCollectionEquality().hash(_editors),
       limitUsers,
       userId,
       lastSenderId,
@@ -442,7 +468,8 @@ abstract class _ChatGroupRoom implements ChatGroupRoom {
       {final String? groupName,
       final String? groupProfileImage,
       final List<String>? joinedUserIds,
-      final List<String>? inviteOnlyByUserIds,
+      final List<String>? administrator,
+      final List<String>? editors,
       final int? limitUsers,
       final String? userId,
       final String? lastSenderId,
@@ -465,7 +492,9 @@ abstract class _ChatGroupRoom implements ChatGroupRoom {
   @override
   List<String>? get joinedUserIds;
   @override
-  List<String>? get inviteOnlyByUserIds;
+  List<String>? get administrator;
+  @override
+  List<String>? get editors;
   @override
   int? get limitUsers;
   @override

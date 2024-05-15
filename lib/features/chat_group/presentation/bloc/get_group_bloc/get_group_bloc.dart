@@ -5,6 +5,7 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/entities/chat_group_room.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/repositories/i_chat_group_repository.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 
 part 'get_group_event.dart';
 part 'get_group_state.dart';
@@ -15,6 +16,7 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
   GetGroupBloc(
     this._chatGroupRepository,
     this._authFacade,
+    this._chatGroupCheckManagerBloc,
   ) : super(const _Initial()) {
     on<GetGroupEvent>((event, emit) async {
       await event.maybeWhen(
@@ -28,6 +30,13 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
               try {
                 final userProfiles = await _authFacade.getUserProfiles(
                   userIds: group.joinedUserIds!,
+                );
+                _chatGroupCheckManagerBloc.add(
+                  ChatGroupCheckManagerEvent.getAllAdministrator(
+                    administrator: group.administrator!,
+                    editors: group.editors!,
+                    groupId: group.groupId.toString(),
+                  ),
                 );
                 emit(
                   GetGroupState.success(
@@ -53,4 +62,5 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
   }
   final IAuthFacade _authFacade;
   final IChatGroupRepository _chatGroupRepository;
+  final ChatGroupCheckManagerBloc _chatGroupCheckManagerBloc;
 }

@@ -11,7 +11,8 @@ class ChatGroupRoom with _$ChatGroupRoom {
     String? groupName,
     String? groupProfileImage,
     List<String>? joinedUserIds,
-    List<String>? inviteOnlyByUserIds,
+    List<String>? administrator,
+    List<String>? editors,
     int? limitUsers,
     String? userId,
     String? lastSenderId,
@@ -46,11 +47,14 @@ class ChatGroupRoom with _$ChatGroupRoom {
               ?.map((e) => e as String)
               .toList() ??
           [],
-      inviteOnlyByUserIds:
-          (firestoreData['inviteOnlyByUserIds'] as List<dynamic>?)
-                  ?.map((e) => e as String)
-                  .toList() ??
-              [],
+      administrator: (firestoreData['administrator'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      editors: (firestoreData['editors'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       lastSenderId: firestoreData['lastSenderId'] as String?,
     );
   }
