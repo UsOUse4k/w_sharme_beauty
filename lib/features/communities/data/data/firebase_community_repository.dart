@@ -7,8 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
-import 'package:w_sharme_beauty/core/utils/date_formatter.dart';
-import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
+import 'package:w_sharme_beauty/core/utils/format_date/date_formatter.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community/community.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_repository.dart';
 import 'package:w_sharme_beauty/features/profile/data/data/storage_methods.dart';
 
@@ -100,8 +100,10 @@ class FirestoreCommunityRepository implements ICommunityRepository {
   }
 
   @override
-  Future<Either<PostError, Community>> getDetail(
-      {String? userId, String? communityId,}) async {
+  Future<Either<PostError, Community>> getDetail({
+    String? userId,
+    String? communityId,
+  }) async {
     try {
       if (communityId == null) {
         return left(PostError('no Post id'));

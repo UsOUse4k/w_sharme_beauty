@@ -187,18 +187,6 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                   const SizedBox(
                     height: 20,
                   ),
-
-                  // ProfileNavbarWidget(
-                  //   avatar: Assets.images.ava.path,
-                  //   publications: '23',
-                  //   followers: '2422',
-                  //   subscribeText: "Участники",
-                  //   onPressedFollowers: () {
-                  //     route.push(
-                  //       '/communities/${RouterContants.communityMembers}',
-                  //     );
-                  //   },
-                  // ),
                   const SizedBox(
                     height: 15,
                   ),

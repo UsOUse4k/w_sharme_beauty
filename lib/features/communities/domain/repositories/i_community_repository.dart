@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
-import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community/community.dart';
 
 abstract class ICommunityRepository {
   Future<Either<PostError, List<Community>>> communitiesList({

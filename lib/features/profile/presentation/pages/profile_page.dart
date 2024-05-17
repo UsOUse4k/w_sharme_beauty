@@ -168,7 +168,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             onPressed: () {
                               route.push(
-                                  '/profile/${RouterContants.profileEdit}');
+                                '/profile/${RouterContants.profileEdit}',
+                              );
                             },
                             child: const Text(
                               "Редактировать профиль",
