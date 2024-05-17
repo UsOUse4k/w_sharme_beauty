@@ -27,6 +27,7 @@ mixin _$Community {
   String? get category => throw _privateConstructorUsedError;
   String? get avatarUrls => throw _privateConstructorUsedError;
   List<String>? get participants => throw _privateConstructorUsedError;
+  int? get public => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
 
@@ -49,6 +50,7 @@ abstract class $CommunityCopyWith<$Res> {
       String? category,
       String? avatarUrls,
       List<String>? participants,
+      int? public,
       bool isFavorite,
       String? createdAt});
 }
@@ -73,6 +75,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? category = freezed,
     Object? avatarUrls = freezed,
     Object? participants = freezed,
+    Object? public = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
@@ -105,6 +108,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
           ? _value.participants
           : participants // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      public: freezed == public
+          ? _value.public
+          : public // ignore: cast_nullable_to_non_nullable
+              as int?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -133,6 +140,7 @@ abstract class _$$CommunityImplCopyWith<$Res>
       String? category,
       String? avatarUrls,
       List<String>? participants,
+      int? public,
       bool isFavorite,
       String? createdAt});
 }
@@ -155,6 +163,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? category = freezed,
     Object? avatarUrls = freezed,
     Object? participants = freezed,
+    Object? public = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
@@ -187,6 +196,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
           ? _value._participants
           : participants // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      public: freezed == public
+          ? _value.public
+          : public // ignore: cast_nullable_to_non_nullable
+              as int?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -210,6 +223,7 @@ class _$CommunityImpl implements _Community {
       this.category,
       this.avatarUrls = "",
       final List<String>? participants = const [],
+      this.public = 0,
       this.isFavorite = false,
       this.createdAt = ""})
       : _participants = participants;
@@ -243,6 +257,9 @@ class _$CommunityImpl implements _Community {
 
   @override
   @JsonKey()
+  final int? public;
+  @override
+  @JsonKey()
   final bool isFavorite;
   @override
   @JsonKey()
@@ -250,7 +267,7 @@ class _$CommunityImpl implements _Community {
 
   @override
   String toString() {
-    return 'Community(communityId: $communityId, uid: $uid, communityName: $communityName, description: $description, category: $category, avatarUrls: $avatarUrls, participants: $participants, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Community(communityId: $communityId, uid: $uid, communityName: $communityName, description: $description, category: $category, avatarUrls: $avatarUrls, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -271,6 +288,7 @@ class _$CommunityImpl implements _Community {
                 other.avatarUrls == avatarUrls) &&
             const DeepCollectionEquality()
                 .equals(other._participants, _participants) &&
+            (identical(other.public, public) || other.public == public) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
             (identical(other.createdAt, createdAt) ||
@@ -288,6 +306,7 @@ class _$CommunityImpl implements _Community {
       category,
       avatarUrls,
       const DeepCollectionEquality().hash(_participants),
+      public,
       isFavorite,
       createdAt);
 
@@ -314,6 +333,7 @@ abstract class _Community implements Community {
       final String? category,
       final String? avatarUrls,
       final List<String>? participants,
+      final int? public,
       final bool isFavorite,
       final String? createdAt}) = _$CommunityImpl;
 
@@ -334,6 +354,8 @@ abstract class _Community implements Community {
   String? get avatarUrls;
   @override
   List<String>? get participants;
+  @override
+  int? get public;
   @override
   bool get isFavorite;
   @override

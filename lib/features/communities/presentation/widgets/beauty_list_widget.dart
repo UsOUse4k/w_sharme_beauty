@@ -5,23 +5,10 @@ import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
-class BeutyList extends StatefulWidget {
+class BeutyList extends StatelessWidget {
   const BeutyList.beautyList({super.key});
-
-  @override
-  State<BeutyList> createState() => _BeutyListState();
-}
-
-class _BeutyListState extends State<BeutyList> {
-  @override
-  void initState() {
-    context
-        .read<CommunityListBloc>()
-        .add(const CommunityListEvent.getCommunities());
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +30,18 @@ class _BeutyListState extends State<BeutyList> {
               itemExtent: 55,
               itemBuilder: (BuildContext context, int index) {
                 final item = data[index];
+                final uid = firebaseAuth.currentUser!.uid;
                 return GestureDetector(
                   onTap: () {
-                    context.push(
-                      //'/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
-                      "/communities/${RouterContants.communityProfile}",
-                    );
+                    if (item.uid != uid) {
+                      context.push(
+                        '/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
+                      );
+                    } else {
+                      context.push(
+                        '/communities/${RouterContants.communityProfile}/${item.communityId}',
+                      );
+                    }
                   },
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,

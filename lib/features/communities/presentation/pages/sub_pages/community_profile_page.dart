@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
-
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
@@ -17,8 +16,8 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stor
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityProfilePage extends StatefulWidget {
-  const CommunityProfilePage({super.key});
-
+  const CommunityProfilePage({super.key, required this.communityId});
+  final String communityId;
   @override
   State<CommunityProfilePage> createState() => _CommunityProfilePageState();
 }
@@ -26,14 +25,10 @@ class CommunityProfilePage extends StatefulWidget {
 class _CommunityProfilePageState extends State<CommunityProfilePage> {
   @override
   void initState() {
-    context
-        .read<CommunityPostListBloc>()
-        .add(const CommunityPostListEvent.getPosts());
-    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
     super.initState();
-    context
-        .read<CommunityProfileInfoBloc>()
-        .add(const CommunityProfileInfoEvent.getMe());
+    context.read<CommunityDetailBloc>().add(
+          CommunityDetailEvent.loaded(widget.communityId),
+        );
   }
 
   @override
@@ -42,6 +37,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
     return GlScaffold(
       appBar: GlAppBar(
         leading: IconButton(
+          iconSize: 16,
           onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -64,13 +60,13 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child:
-              BlocBuilder<CommunityProfileInfoBloc, CommunityProfileInfoState>(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: BlocBuilder<CommunityDetailBloc, CommunityDetailState>(
             builder: (context, state) {
               return state.maybeWhen(
-                succes: (user) {
+                error: (error) => Container(),
+                success: (community) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -80,9 +76,9 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: ProfileNavbarWidget(
-                          avatar: user.profilePictureUrl,
-                          publications: user.publics.toString(),
-                          followers: user.followers!.length.toString(),
+                          avatar: community.avatarUrls,
+                          publications: community.public.toString(),
+                          followers: community.participants!.length.toString(),
                           subscribeText: "Участники",
                           onPressedFollowers: () {
                             route.push(
@@ -96,18 +92,31 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Text("Комьюнити", style: AppStyles.w500f18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              community.communityName.toString(),
+                              style: AppStyles.w500f18,
+                            ),
+                            SizedBox(height: 10.h),
+                            Text(
+                              "${community.description}",
+                              style: AppStyles.w400f13,
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Text(
-                          user.aboutYourself.toString(),
-                          style: AppStyles.w400f13,
-                        ),
-                      ),
+                      //Padding(
+                      //  padding: const EdgeInsets.symmetric(horizontal: 18),
+                      //  child: Text(
+                      //    user.aboutYourself.toString(),
+                      //    style: AppStyles.w400f13,
+                      //  ),
+                      //),
                       const SizedBox(
                         height: 10,
                       ),

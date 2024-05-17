@@ -13,13 +13,13 @@ class Community with _$Community {
     String? category,
     @Default("") String? avatarUrls,
     @Default([]) List<String>? participants,
+    @Default(0) int? public,
     @Default(false) bool isFavorite,
     @Default("") String? createdAt,
   }) = _Community;
 
   factory Community.fromJson(Map<String, dynamic> json) =>
       _$CommunityFromJson(json);
-
   factory Community.fromStoreData(Map<String, dynamic> firestoreData) {
     return Community(
       communityId: firestoreData['communityId'] as String?,
@@ -33,6 +33,7 @@ class Community with _$Community {
       ),
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
       createdAt: firestoreData['createdAt'] as String?,
+      public: firestoreData['public'] as int?,
     );
   }
 }

@@ -5,7 +5,6 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/entities/chat_group_room.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/repositories/i_chat_group_repository.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 
 part 'get_group_event.dart';
 part 'get_group_state.dart';

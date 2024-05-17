@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/beauty_list_widget.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/my_beauty_list_widget.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/selection_form_field_widget.dart';
@@ -25,6 +28,12 @@ class _CommunitiesPageState extends State<CommunitiesPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    context
+        .read<CommunityListBloc>()
+        .add(const CommunityListEvent.getCommunities());
+    context
+        .read<MyCommunityListBloc>()
+        .add(const MyCommunityListEvent.getMyCommunity());
   }
 
   @override

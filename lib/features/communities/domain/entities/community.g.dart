@@ -18,6 +18,7 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      public: json['public'] as int? ?? 0,
       isFavorite: json['isFavorite'] as bool? ?? false,
       createdAt: json['createdAt'] as String? ?? "",
     );
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
       'category': instance.category,
       'avatarUrls': instance.avatarUrls,
       'participants': instance.participants,
+      'public': instance.public,
       'isFavorite': instance.isFavorite,
       'createdAt': instance.createdAt,
     };
