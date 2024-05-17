@@ -8,6 +8,7 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/chat_list.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/send_message_group_bloc/send_message_group_bloc.dart';
@@ -24,6 +25,7 @@ class ChatGroupMessagesPage extends StatefulWidget {
 
 class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
   final TextEditingController sendMessageCtrl = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -50,7 +52,21 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
             router.pop();
           },
         ),
-        title: BlocBuilder<GetGroupBloc, GetGroupState>(
+        title: BlocConsumer<GetGroupBloc, GetGroupState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              success: (group, userProfiles) {
+                context.read<ChatGroupCheckManagerBloc>().add(
+                      ChatGroupCheckManagerEvent.getAllAdministrator(
+                        administrator: group.administrator!,
+                        editors: group.editors!,
+                        groupId: group.groupId!,
+                      ),
+                    );
+              },
+              orElse: () {},
+            );
+          },
           builder: (context, state) {
             return state.maybeWhen(
               success: (group, userProfiles) {

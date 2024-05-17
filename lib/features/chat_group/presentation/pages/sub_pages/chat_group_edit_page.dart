@@ -13,16 +13,16 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/update_chat_group_bloc/update_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 
-class ChatGroupEdit extends StatefulWidget {
-  const ChatGroupEdit({super.key, required this.groupId});
+class ChatGroupEditPage extends StatefulWidget {
+  const ChatGroupEditPage({super.key, required this.groupId});
 
   final String groupId;
 
   @override
-  State<ChatGroupEdit> createState() => _ChatGroupEditState();
+  State<ChatGroupEditPage> createState() => _ChatGroupEditPageState();
 }
 
-class _ChatGroupEditState extends State<ChatGroupEdit> {
+class _ChatGroupEditPageState extends State<ChatGroupEditPage> {
   final TextEditingController _groupNameCtrl = TextEditingController();
   Uint8List? avatar;
   bool isLoading = false;
@@ -40,9 +40,6 @@ class _ChatGroupEditState extends State<ChatGroupEdit> {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .watch<GetGroupBloc>()
-        .add(GetGroupEvent.getGroup(groupId: widget.groupId));
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: GlAppBar(
@@ -70,7 +67,7 @@ class _ChatGroupEditState extends State<ChatGroupEdit> {
                 error: (message) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Ошибка при редактирования'),
+                      content: Text('Ошибка при редактировании'),
                     ),
                   );
                   setState(() => isLoading = false);
@@ -78,9 +75,12 @@ class _ChatGroupEditState extends State<ChatGroupEdit> {
                 success: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Успешно редактировали'),
+                      content: Text('Успешно редактировано'),
                     ),
                   );
+                  context.read<GetGroupBloc>().add(
+                        GetGroupEvent.getGroup(groupId: widget.groupId),
+                      );
                   setState(() => isLoading = false);
                 },
                 orElse: () {},
@@ -90,7 +90,7 @@ class _ChatGroupEditState extends State<ChatGroupEdit> {
               builder: (context, state) {
                 return state.maybeWhen(
                   success: (group, userProfiles) {
-                    _groupNameCtrl.text = group.groupName ?? '';
+                    _groupNameCtrl.text = group.groupName.toString();
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

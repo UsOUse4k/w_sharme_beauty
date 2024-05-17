@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/entities/chat_group_room.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/repositories/i_chat_group_repository.dart';
 
+
 part 'update_manager_chat_group_event.dart';
 part 'update_manager_chat_group_state.dart';
 part 'update_manager_chat_group_bloc.freezed.dart';
@@ -33,7 +34,9 @@ class UpdateManagerChatGroupBloc
               (l) => emit(
                 UpdateManagerChatGroupState.error(message: l.messasge),
               ),
-              (r) => emit(const UpdateManagerChatGroupState.success()),
+              (r) {
+                emit(const UpdateManagerChatGroupState.success());
+              }
             );
           } catch (e) {
             emit(UpdateManagerChatGroupState.error(message: e.toString()));

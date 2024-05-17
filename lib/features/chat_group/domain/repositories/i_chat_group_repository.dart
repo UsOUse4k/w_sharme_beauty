@@ -31,4 +31,13 @@ abstract class IChatGroupRepository {
     String? groupName,
     ChatGroupRoom? groupRoom,
   });
+  Future<Either<PostError, Unit>> removeAdminAndUserChatGroup({
+    required String groupId,
+    required String userId,
+    required String type,
+  });
+  Future<Either<PostError, Unit>> addedUserChatGroup({
+    required String groupId,
+    required List<String> userIds,
+  });
 }

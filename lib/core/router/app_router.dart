@@ -9,9 +9,7 @@ import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/pages/chat_group_messages_page.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/chat_group_appoint_managment.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/chat_group_edit.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/chat_participants_page.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
@@ -168,10 +166,40 @@ mixin AppRouter on State<App> {
                             builder:
                                 (BuildContext context, GoRouterState state) {
                               final groupId = state.pathParameters['groupId'];
-                              return ChatGroupEdit(
+                              return ChatGroupEditPage(
                                 groupId: groupId.toString(),
                               );
                             },
+                          ),
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: 'chatAdmins/:groupId',
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final groupId = state.pathParameters['groupId'];
+                              return ChatGroupAdminsPage(
+                                groupId: groupId.toString(),
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: RouterKeys.rootKey,
+                                path: 'appointManagment/:userId/:groupId',
+                                builder: (
+                                  BuildContext context,
+                                  GoRouterState state,
+                                ) {
+                                  final userId = state.pathParameters['userId'];
+                                  final groupId =
+                                      state.pathParameters['groupId'];
+
+                                  return ChatGroupAppointManagmentPage(
+                                    userId: userId.toString(),
+                                    groupId: groupId.toString(),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
@@ -192,9 +220,9 @@ mixin AppRouter on State<App> {
                                   GoRouterState state,
                                 ) {
                                   final userId = state.pathParameters['userId'];
-                                  final groupId = state.pathParameters['groupId'];
-
-                                  return ChatGroupAppointManagment(
+                                  final groupId =
+                                      state.pathParameters['groupId'];
+                                  return ChatGroupAppointManagmentPage(
                                     userId: userId.toString(),
                                     groupId: groupId.toString(),
                                   );

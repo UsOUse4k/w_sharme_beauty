@@ -12,10 +12,13 @@ import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_blo
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/added_chat_users_group_bloc/added_chat_users_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/create_chat_group_bloc/create_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_admins_chat_group_bloc/get_all_admins_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_people_chat_bloc/invite_people_chat_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_users_chat_group_bloc/invite_users_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/remove_admin_chat_group_bloc/remove_admin_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/send_message_group_bloc/send_message_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/update_chat_group_bloc/update_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/update_manager_chat_group_bloc/update_manager_chat_group_bloc.dart';
@@ -182,6 +185,15 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<UpdateManagerChatGroupBloc>(
           create: (context) => getIt<UpdateManagerChatGroupBloc>(),
+        ),
+        BlocProvider<GetAllAdminsChatGroupBloc>(
+          create: (context) => getIt<GetAllAdminsChatGroupBloc>(),
+        ),
+        BlocProvider<RemoveAdminChatGroupBloc>(
+          create: (context) => getIt<RemoveAdminChatGroupBloc>(),
+        ),
+        BlocProvider<InviteUsersChatGroupBloc>(
+          create: (context) => getIt<InviteUsersChatGroupBloc>(),
         ),
       ],
       child: child,

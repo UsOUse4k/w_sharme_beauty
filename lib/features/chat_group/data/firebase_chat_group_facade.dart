@@ -48,7 +48,7 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       if (existingChatrooms.docs.isNotEmpty) {
         return right(existingChatrooms.docs.first.id);
       } else {
-        final ChatGroupRoom groupRoom = ChatGroupRoom(
+        final groupRoom = chatGroupRoom.copyWith(
           groupId: groupId,
           lastMessage: '',
           groupProfileImage: groupProfileImage,
@@ -58,6 +58,8 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
           lastSenderId: '',
           isActive: chatGroupRoom.isActive ?? true,
           limitUsers: 200,
+          userId: myUid,
+          //groupName:
         );
         await _firestore
             .collection('chat_groups')
@@ -81,7 +83,6 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
     try {
       final String messageId = const Uuid().v1();
       final String myUid = _auth.currentUser!.uid;
-      //final downloadUrl = StorageMethods(_auth, _storage).uploadImageToStorage('chat_groups', , true);
       final now = Timestamp.now();
       final Message newMessage = Message(
         message: message,
@@ -190,6 +191,43 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       if (updates.isNotEmpty) {
         await updateChatGroup.update(updates);
       }
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Unit>> removeAdminAndUserChatGroup({
+    required String groupId,
+    required String userId,
+    required String type,
+  }) async {
+    try {
+      final DocumentReference reference =
+          _firestore.collection('chat_groups').doc(groupId);
+      if (type == 'user') {
+        await reference.update({
+          'joinedUserIds': FieldValue.arrayRemove([userId]),
+        });
+      } else {
+        await reference.update({
+          'administrator': FieldValue.arrayRemove([userId]),
+          'editors': FieldValue.arrayRemove([userId]),
+        });
+      }
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<PostError, Unit>> addedUserChatGroup({required String groupId, required List<String> userIds}) async {
+    try {
+      await _firestore.collection('chat_groups').doc(groupId).update({
+        'joinedUserIds': FieldValue.arrayUnion(userIds),
+      });
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));

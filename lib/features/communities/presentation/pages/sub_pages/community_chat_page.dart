@@ -10,6 +10,7 @@ import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bl
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/subscribers_list_tile_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityChatPage extends StatefulWidget {
@@ -27,6 +28,7 @@ class _CommunityChatPageState extends State<CommunityChatPage> {
     context
         .read<GetAllChatGroupBloc>()
         .add(const GetAllChatGroupEvent.getAllChatGroups());
+    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
     super.initState();
   }
 
@@ -72,7 +74,9 @@ class _CommunityChatPageState extends State<CommunityChatPage> {
                             CustomBottomSheetLeading(
                               maxHeight: 0.7,
                               navbarTitle: "Создать группу",
-                              widget: AddedUsersChatGroupWidget(users: users),
+                              widget: AddedUsersChatGroupWidget(
+                                users: users,
+                              ),
                             ),
                           );
                         },
@@ -99,7 +103,8 @@ class _CommunityChatPageState extends State<CommunityChatPage> {
                     itemBuilder: (context, index) {
                       return SubscribersListTileWidget(
                         title: "${groups[index].groupName}",
-                        subtitle: "${groups[index].joinedUserIds!.length} участников",
+                        subtitle:
+                            "${groups[index].joinedUserIds!.length} участников",
                         avatar: groups[index].groupProfileImage.toString(),
                       );
                     },

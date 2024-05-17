@@ -25,6 +25,7 @@ class ChatManagmentWidget extends StatefulWidget {
 }
 
 class _ChatManagmentWidgetState extends State<ChatManagmentWidget> {
+  
   @override
   void initState() {
     context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
@@ -47,13 +48,18 @@ class _ChatManagmentWidgetState extends State<ChatManagmentWidget> {
                       context.push(
                         '/home/chat/chatGroupMessages/${widget.groupRoom.groupId}/chatGroupEdit/${widget.groupRoom.groupId}',
                       );
+                      
                     },
                     subTitle: 'Редактировать чат',
                     title: 'Основное',
                     image: Assets.icons.edit.path,
                   ),
                   ListTilleWidgetTextWith(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push(
+                        '/home/chat/chatGroupMessages/${widget.groupRoom.groupId}/chatAdmins/${widget.groupRoom.groupId}',
+                      );
+                    },
                     subTitle: 'Руководители',
                     title: 'Участники',
                     image: Assets.icons.managers.path,
@@ -76,6 +82,7 @@ class _ChatManagmentWidgetState extends State<ChatManagmentWidget> {
                           navbarTitle: 'Пригласить людей в чат',
                           widget: InvitePeopleToChat(
                             users: users,
+                            groupId: widget.groupRoom.groupId.toString(),
                           ),
                         ),
                         closeCurrent: true,

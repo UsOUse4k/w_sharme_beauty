@@ -5,90 +5,105 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_people_chat_bloc/invite_people_chat_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_users_chat_group_bloc/invite_users_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class InvitePeopleToChat extends StatelessWidget {
   const InvitePeopleToChat({
     super.key,
     required this.users,
+    required this.groupId,
   });
 
   final List<UserProfile> users;
+  final String groupId;
 
   @override
   Widget build(BuildContext context) {
+    final filterUsers =
+        users.where((e) => e.uid != firebaseAuth.currentUser!.uid).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: BlocBuilder<InvitePeopleChatBloc, InvitePeopleChatState>(
         builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SearchWidget(),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 90,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => _buildUserCardRow(
-                    index,
-                    state.selectedUsers,
-                    context,
-                  ),
-                  separatorBuilder: (bContext, x) {
-                    return const SizedBox(width: 20);
-                  },
-                  itemCount: state.selectedUsers.length,
-                  // shrinkWrap: true,
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 240,
-                child: ListView.separated(
-                  itemBuilder: (context, index) => _buildCheckboxUserCard(
-                    index,
-                    state.selectedUsers,
-                    context,
-                  ),
-                  separatorBuilder: (buildContext, y) {
-                    return const SizedBox(height: 10);
-                  },
-                  itemCount: users.length,
-                ),
-              ),
-              const SizedBox(height: 20),
-              GlButton(
-                text: 'Продолжить',
-                onPressed: () {
-                  if (state.selectedUsers.isNotEmpty) {
-                    BottomSheetUtil.showAppBottomSheet(
-                      context,
-                      CustomBottomSheetLeading(
-                        maxHeight: 0.6,
-                        navbarTitle: "Создать группу",
-                        widget: CreateChatGroupWidget(
-                          users: state.selectedUsers,
-                        ),
-                      ),
-                      closeCurrent: true,
-                    );
-                  } else {
-                    _showMyDialog(context);
-                  }
+          return BlocListener<InviteUsersChatGroupBloc,
+              InviteUsersChatGroupState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                success: () {
+                  context.pop();
                 },
-              ),
-            ],
+                orElse: () {},
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SearchWidget(),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 90,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => _buildUserCardRow(
+                      index,
+                      state.selectedUsers,
+                      context,
+                    ),
+                    separatorBuilder: (bContext, x) {
+                      return const SizedBox(width: 20);
+                    },
+                    itemCount: state.selectedUsers.length,
+                    // shrinkWrap: true,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 240,
+                  child: ListView.separated(
+                    itemBuilder: (context, index) => _buildCheckboxUserCard(
+                      index,
+                      state.selectedUsers,
+                      context,
+                      filterUsers,
+                    ),
+                    separatorBuilder: (buildContext, y) {
+                      return const SizedBox(height: 10);
+                    },
+                    itemCount: filterUsers.length,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GlButton(
+                  text: 'Готово',
+                  onPressed: () {
+                    if (state.selectedUsers.isNotEmpty) {
+                      final List<String> userIds =
+                          state.selectedUsers.map((e) => e.uid!).toList();
+                      context.read<InviteUsersChatGroupBloc>().add(
+                            InviteUsersChatGroupEvent.inviteUsersChatGroup(
+                              userIds: userIds,
+                              groupId: groupId,
+                            ),
+                          );
+                    } else {
+                      _showMyDialog(context);
+                    }
+                  },
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -96,8 +111,12 @@ class InvitePeopleToChat extends StatelessWidget {
   }
 
   Row _buildCheckboxUserCard(
-      int index, List<UserProfile> selectedUsers, BuildContext context,) {
-    final user = users[index];
+    int index,
+    List<UserProfile> selectedUsers,
+    BuildContext context,
+    List<UserProfile> filterUsers,
+  ) {
+    final user = filterUsers[index];
     final bool isSelected = selectedUsers.contains(user);
     return Row(
       key: ValueKey(user.uid),
@@ -113,13 +132,13 @@ class InvitePeopleToChat extends StatelessWidget {
           },
         ),
         const SizedBox(width: 10),
-        if (users[index].profilePictureUrl != '')
+        if (user.profilePictureUrl != '')
           ClipRRect(
             borderRadius: BorderRadius.circular(25),
             child: GlCachedNetworImage(
               height: 50.h,
               width: 50.w,
-              urlImage: users[index].profilePictureUrl,
+              urlImage: user.profilePictureUrl,
             ),
           )
         else
@@ -135,7 +154,7 @@ class InvitePeopleToChat extends StatelessWidget {
           ),
         const SizedBox(width: 10),
         Text(
-          users[index].username.toString(),
+          user.username.toString(),
           style: AppStyles.w500f18,
         ),
       ],

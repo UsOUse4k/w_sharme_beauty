@@ -7,7 +7,6 @@ import 'package:w_sharme_beauty/features/profile/domain/entities/stories.dart';
 part 'user_profile.freezed.dart';
 part 'user_profile.g.dart';
 
-
 @freezed
 class UserProfile with _$UserProfile {
   const factory UserProfile({
@@ -30,11 +29,37 @@ class UserProfile with _$UserProfile {
     //
   }) = _UserProfile;
 
-  factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
+  factory UserProfile.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileFromJson(json);
 
   factory UserProfile.fromFirestore(Map<String, dynamic> firestoreData) {
+    final uid = firestoreData['uid'] as String?;
+    if (uid == null || uid.isEmpty) {
+      return UserProfile(
+        uid: '',
+        email: firestoreData['email'] as String?,
+        name: firestoreData['name'] as String? ?? '',
+        username: firestoreData['username'] as String? ?? '',
+        profilePictureUrl: firestoreData['profilePictureUrl'] as String? ?? '',
+        aboutYourself: firestoreData['aboutYourself'] as String? ?? '',
+        category: firestoreData['category'] as String? ?? '',
+        theme: firestoreData['theme'] as String? ?? '',
+        city: firestoreData['city'] as String? ?? '',
+        date: firestoreData['date'] as String? ?? '',
+        rating: firestoreData['rating'] as String? ?? '10',
+        publics: firestoreData['publics'] as int? ?? 0,
+        lastSeen: firestoreData['lastSeen'] as Timestamp?,
+        followers: List<String>.from(
+          firestoreData['followers'] as List<dynamic>? ?? [],
+        ),
+        subscriptions: List<String>.from(
+          firestoreData['subscriptions'] as List<dynamic>? ?? [],
+        ),
+      );
+    }
+
     return UserProfile(
-      uid: firestoreData['uid'] as String?,
+      uid: uid,
       email: firestoreData['email'] as String?,
       name: firestoreData['name'] as String? ?? '',
       username: firestoreData['username'] as String? ?? '',

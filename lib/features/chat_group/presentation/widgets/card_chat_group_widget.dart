@@ -26,7 +26,7 @@ class CardChatGroupWidget extends StatelessWidget {
     final formatTime = formatChatTime(groupRoom.lastMessageTs!);
     final bool isCurrenUser =
         firebaseAuth.currentUser!.uid == groupRoom.lastSenderId;
-    
+
     return GestureDetector(
       onTap: () {
         router.push(

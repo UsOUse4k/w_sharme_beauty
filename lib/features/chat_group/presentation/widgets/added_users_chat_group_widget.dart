@@ -11,6 +11,7 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/added_chat_users_group_bloc/added_chat_users_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class AddedUsersChatGroupWidget extends StatelessWidget {
@@ -23,6 +24,8 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final filterUsers =
+        users.where((e) => e.uid != firebaseAuth.currentUser!.uid).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: BlocBuilder<AddedChatUsersGroupBloc, AddedChatUsersGroupState>(
@@ -54,15 +57,18 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
               SizedBox(
                 height: 240,
                 child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) => _buildCheckboxUserCard(
                     index,
                     state.selectedUsers,
                     context,
+                    filterUsers,
                   ),
                   separatorBuilder: (buildContext, y) {
                     return const SizedBox(height: 10);
                   },
-                  itemCount: users.length,
+                  itemCount: filterUsers.length,
                 ),
               ),
               const SizedBox(height: 20),
@@ -97,11 +103,12 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
     int index,
     List<UserProfile> selectedUsers,
     BuildContext context,
+    List<UserProfile> filterUsers,
   ) {
-    final user = users[index];
+    final user = filterUsers[index];
     final bool isSelected = selectedUsers.contains(user);
     return Row(
-      key: ValueKey(user.uid),
+      //key: ValueKey(user.uid),
       children: [
         RoundCheckbox(
           isChecked: isSelected,
@@ -114,13 +121,13 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
           },
         ),
         const SizedBox(width: 10),
-        if (users[index].profilePictureUrl != '')
+        if (user.profilePictureUrl != '')
           ClipRRect(
             borderRadius: BorderRadius.circular(25),
             child: GlCachedNetworImage(
               height: 50.h,
               width: 50.w,
-              urlImage: users[index].profilePictureUrl,
+              urlImage: user.profilePictureUrl,
             ),
           )
         else
@@ -136,7 +143,7 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
           ),
         const SizedBox(width: 10),
         Text(
-          users[index].username.toString(),
+          user.username.toString(),
           style: AppStyles.w500f18,
         ),
       ],
