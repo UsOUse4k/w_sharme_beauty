@@ -20,8 +20,9 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
       await event.maybeWhen(
         getGroup: (groupId) async {
           try {
-            final result =
-                await _chatGroupRepository.getGroup(groupId: groupId);
+            final result = await _chatGroupRepository.getGroup(
+              groupId: groupId,
+            );
             await result.fold((error) {
               emit(GetGroupState.error(message: error.messasge));
             }, (group) async {
@@ -34,7 +35,6 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
                   userProfiles: userProfiles,
                 ),
               );
-              
             });
           } catch (e) {
             emit(

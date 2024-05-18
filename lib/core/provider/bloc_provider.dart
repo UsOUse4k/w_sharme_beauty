@@ -35,6 +35,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/update_community_bloc/update_community_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
@@ -195,7 +196,9 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<InviteUsersChatGroupBloc>(
           create: (context) => getIt<InviteUsersChatGroupBloc>(),
         ),
-       
+        BlocProvider<UpdateCommunityBloc>(
+          create: (context) => getIt<UpdateCommunityBloc>(),
+        ),
       ],
       child: child,
     );

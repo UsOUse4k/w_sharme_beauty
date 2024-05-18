@@ -9,10 +9,7 @@ import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/like_community_post_bloc/like_community_post_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
-import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -28,20 +25,16 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
   @override
   void initState() {
     super.initState();
-    context.read<CommunityDetailBloc>().add(
-          CommunityDetailEvent.loaded(widget.communityId),
-        );
-    context.read<CommunityPostListBloc>().add(
-          CommunityPostListEvent.getPosts(
-            communityId: widget.communityId,
-          ),
-        );
+    if (mounted) {
+      context.read<CommunityDetailBloc>().add(
+            CommunityDetailEvent.loaded(widget.communityId),
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
-    final bloc = context.read<CommunityPostListBloc>();
     return GlScaffold(
       appBar: GlAppBar(
         leading: IconButton(
@@ -57,7 +50,10 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
               CustomBottomSheetLeading(
                 maxHeight: 0.5,
                 navbarTitle: 'Управление сообществом',
-                widget: CommunitySettingsWidget(route: route),
+                widget: CommunitySettingsWidget(
+                  route: route,
+                  communityId: widget.communityId,
+                ),
               ),
             );
           },
@@ -70,7 +66,14 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: BlocBuilder<CommunityDetailBloc, CommunityDetailState>(
+          child: BlocConsumer<CommunityDetailBloc, CommunityDetailState>(
+            listener: (context, state) {
+              context.read<CommunityPostListBloc>().add(
+                    CommunityPostListEvent.getPosts(
+                      communityId: widget.communityId,
+                    ),
+                  );
+            },
             builder: (context, state) {
               return state.maybeWhen(
                 error: (error) => Container(),
@@ -133,7 +136,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                           text: 'Создать чат',
                           onPressed: () {
                             context.push(
-                              '/communities/${RouterContants.communityChat}',
+                              '/communities/community-profile/${widget.communityId}/${RouterContants.communityChat}/${widget.communityId}',
                             );
                           },
                         ),
@@ -150,16 +153,6 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       const SizedBox(
                         height: 50,
                       ),
-                      //StreamBuilder<CommunityPostListState>(
-                      //  stream: bloc.stream,
-                      //  builder: (context, snapshot) {
-                      //    return ListView.builder(
-                      //      itemBuilder: (context, index) {
-                      //        return Container();
-                      //      },
-                      //    );
-                      //  },
-                      //),
                       BlocBuilder<CommunityPostListBloc,
                           CommunityPostListState>(
                         builder: (context, state) {
@@ -180,9 +173,13 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                                 shrinkWrap: true,
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: posts.length,
-                                itemBuilder: (context, index) => PostCard(
+                                itemBuilder: (context, index) =>
+                                    CommunityPostCard(
                                   onPressed: () {},
+                                  communityName:
+                                      community.communityName.toString(),
                                   post: posts[index],
+                                  avatarUrl: community.avatarUrls.toString(),
                                 ),
                               );
                             },
@@ -198,30 +195,6 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
             },
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CommunityPostCard extends StatelessWidget {
-  const CommunityPostCard({
-    super.key,
-    required this.post,
-  });
-  final Post post;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: Column(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite),
-          ),
-          Text('${post.likes.length}'),
-        ],
       ),
     );
   }

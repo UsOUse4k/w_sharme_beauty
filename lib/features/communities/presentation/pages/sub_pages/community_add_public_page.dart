@@ -85,7 +85,7 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
               );
               context
                   .read<CommunityPostListBloc>()
-                  .add(const CommunityPostListEvent.getPosts(communityId: ''));
+                  .add( CommunityPostListEvent.getPosts(communityId: widget.communityId));
               setState(() {
                 selectedImageBytes = [];
                 desc.clear();

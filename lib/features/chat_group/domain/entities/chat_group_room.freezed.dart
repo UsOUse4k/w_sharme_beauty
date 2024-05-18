@@ -20,6 +20,7 @@ ChatGroupRoom _$ChatGroupRoomFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ChatGroupRoom {
+  String? get communityId => throw _privateConstructorUsedError;
   String? get groupName => throw _privateConstructorUsedError;
   String? get groupProfileImage => throw _privateConstructorUsedError;
   List<String>? get joinedUserIds => throw _privateConstructorUsedError;
@@ -52,7 +53,8 @@ abstract class $ChatGroupRoomCopyWith<$Res> {
       _$ChatGroupRoomCopyWithImpl<$Res, ChatGroupRoom>;
   @useResult
   $Res call(
-      {String? groupName,
+      {String? communityId,
+      String? groupName,
       String? groupProfileImage,
       List<String>? joinedUserIds,
       List<String>? administrator,
@@ -83,6 +85,7 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? communityId = freezed,
     Object? groupName = freezed,
     Object? groupProfileImage = freezed,
     Object? joinedUserIds = freezed,
@@ -101,6 +104,10 @@ class _$ChatGroupRoomCopyWithImpl<$Res, $Val extends ChatGroupRoom>
     Object? seen = freezed,
   }) {
     return _then(_value.copyWith(
+      communityId: freezed == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String?,
       groupName: freezed == groupName
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
@@ -178,7 +185,8 @@ abstract class _$$ChatGroupRoomImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? groupName,
+      {String? communityId,
+      String? groupName,
       String? groupProfileImage,
       List<String>? joinedUserIds,
       List<String>? administrator,
@@ -207,6 +215,7 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? communityId = freezed,
     Object? groupName = freezed,
     Object? groupProfileImage = freezed,
     Object? joinedUserIds = freezed,
@@ -225,6 +234,10 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
     Object? seen = freezed,
   }) {
     return _then(_$ChatGroupRoomImpl(
+      communityId: freezed == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String?,
       groupName: freezed == groupName
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
@@ -297,7 +310,8 @@ class __$$ChatGroupRoomImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChatGroupRoomImpl implements _ChatGroupRoom {
   const _$ChatGroupRoomImpl(
-      {this.groupName,
+      {this.communityId,
+      this.groupName,
       this.groupProfileImage,
       final List<String>? joinedUserIds,
       final List<String>? administrator,
@@ -321,6 +335,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
   factory _$ChatGroupRoomImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatGroupRoomImplFromJson(json);
 
+  @override
+  final String? communityId;
   @override
   final String? groupName;
   @override
@@ -390,7 +406,7 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
 
   @override
   String toString() {
-    return 'ChatGroupRoom(groupName: $groupName, groupProfileImage: $groupProfileImage, joinedUserIds: $joinedUserIds, administrator: $administrator, editors: $editors, limitUsers: $limitUsers, userId: $userId, lastSenderId: $lastSenderId, createdAt: $createdAt, userRoles: $userRoles, groupId: $groupId, lastMessage: $lastMessage, lastMessageTs: $lastMessageTs, countMessage: $countMessage, isActive: $isActive, seen: $seen)';
+    return 'ChatGroupRoom(communityId: $communityId, groupName: $groupName, groupProfileImage: $groupProfileImage, joinedUserIds: $joinedUserIds, administrator: $administrator, editors: $editors, limitUsers: $limitUsers, userId: $userId, lastSenderId: $lastSenderId, createdAt: $createdAt, userRoles: $userRoles, groupId: $groupId, lastMessage: $lastMessage, lastMessageTs: $lastMessageTs, countMessage: $countMessage, isActive: $isActive, seen: $seen)';
   }
 
   @override
@@ -398,6 +414,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChatGroupRoomImpl &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId) &&
             (identical(other.groupName, groupName) ||
                 other.groupName == groupName) &&
             (identical(other.groupProfileImage, groupProfileImage) ||
@@ -432,6 +450,7 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      communityId,
       groupName,
       groupProfileImage,
       const DeepCollectionEquality().hash(_joinedUserIds),
@@ -465,7 +484,8 @@ class _$ChatGroupRoomImpl implements _ChatGroupRoom {
 
 abstract class _ChatGroupRoom implements ChatGroupRoom {
   const factory _ChatGroupRoom(
-      {final String? groupName,
+      {final String? communityId,
+      final String? groupName,
       final String? groupProfileImage,
       final List<String>? joinedUserIds,
       final List<String>? administrator,
@@ -485,6 +505,8 @@ abstract class _ChatGroupRoom implements ChatGroupRoom {
   factory _ChatGroupRoom.fromJson(Map<String, dynamic> json) =
       _$ChatGroupRoomImpl.fromJson;
 
+  @override
+  String? get communityId;
   @override
   String? get groupName;
   @override

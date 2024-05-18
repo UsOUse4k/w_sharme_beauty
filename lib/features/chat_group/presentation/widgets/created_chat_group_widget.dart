@@ -18,8 +18,10 @@ class CreateChatGroupWidget extends StatefulWidget {
   const CreateChatGroupWidget({
     super.key,
     required this.users,
+    required this.communityId,
   });
   final List<UserProfile> users;
+  final String communityId;
 
   @override
   State<CreateChatGroupWidget> createState() => _CreateChatGroupWidgetState();
@@ -48,135 +50,150 @@ class _CreateChatGroupWidgetState extends State<CreateChatGroupWidget> {
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              if (file != null)
-                CardImageProfileAdd(
-                  width: 47.w,
-                  height: 47.h,
-                  image: MemoryImage(file!),
-                  onPressed: () {
-                    setState(() {
-                      file = null;
-                    });
-                  },
-                )
-              else
-                InkWell(
-                  onTap: selectedImage,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: AppColors.lightGrey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: SizedBox(
-                      height: 47.h,
-                      width: 47.w,
-                      child: Image.asset(
-                        Assets.images.camera.path,
-                      ),
-                    ),
-                  ),
+      child: BlocListener<CreateChatGroupBloc, CreateChatGroupState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            success: (groupId) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Успешно'),
                 ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: TextFormField(
-                  controller: chatNameCtrl,
-                  decoration: InputDecoration(
-                    hintText: 'Название чата',
-                    filled: true,
-                    fillColor: AppColors.lightGrey,
-                    labelStyle: const TextStyle(
-                      color: AppColors.darkGrey,
-                      fontSize: 14,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 15,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            "Участники",
-            style: AppStyles.w500f18.copyWith(
-              color: AppColors.darkGrey,
-            ),
-          ),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 240,
-            child: ListView.separated(
-              itemBuilder: (context, index) => Row(
-                children: [
-                  if (widget.users[index].profilePictureUrl != '')
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: GlCachedNetworImage(
-                        height: 50.h,
-                        width: 50.w,
-                        urlImage: widget.users[index].profilePictureUrl,
-                      ),
-                    )
-                  else
-                    SizedBox(
-                      width: 50.w,
-                      height: 50.h,
-                      child: const CircleAvatar(
-                        backgroundColor: AppColors.grey,
-                        child: Icon(
-                          Icons.image_not_supported_outlined,
-                        ),
-                      ),
-                    ),
-                  const SizedBox(width: 10),
-                  Text(
-                    widget.users[index].username.toString(),
-                    style: AppStyles.w500f18,
-                  ),
-                ],
-              ),
-              separatorBuilder: (buildContext, a) {
-                return const SizedBox(
-                  height: 10,
-                );
-              },
-              itemCount: widget.users.length,
-              // shrinkWrap: true,
-            ),
-          ),
-          const SizedBox(height: 20),
-          GlButton(
-            text: "Создать чат",
-            onPressed: () {
-              if (chatNameCtrl.text.isNotEmpty && file != null) {
-                context.read<CreateChatGroupBloc>().add(
-                      CreateChatGroupEvent.createChatGroup(
-                        chatGroup: ChatGroupRoom(
-                          groupName: chatNameCtrl.text,
-                          joinedUserIds: userIds,
-                        ),
-                        file: file!,
-                      ),
-                    );
-              } else {
-                _showMyDialog();
-              }
+              );
             },
-          ),
-        ],
+            orElse: () {},
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                if (file != null)
+                  CardImageProfileAdd(
+                    width: 47.w,
+                    height: 47.h,
+                    image: MemoryImage(file!),
+                    onPressed: () {
+                      setState(() {
+                        file = null;
+                      });
+                    },
+                  )
+                else
+                  InkWell(
+                    onTap: selectedImage,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGrey,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: SizedBox(
+                        height: 47.h,
+                        width: 47.w,
+                        child: Image.asset(
+                          Assets.images.camera.path,
+                        ),
+                      ),
+                    ),
+                  ),
+                const SizedBox(width: 15),
+                Expanded(
+                  child: TextFormField(
+                    controller: chatNameCtrl,
+                    decoration: InputDecoration(
+                      hintText: 'Название чата',
+                      filled: true,
+                      fillColor: AppColors.lightGrey,
+                      labelStyle: const TextStyle(
+                        color: AppColors.darkGrey,
+                        fontSize: 14,
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 5,
+                        horizontal: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "Участники",
+              style: AppStyles.w500f18.copyWith(
+                color: AppColors.darkGrey,
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 240,
+              child: ListView.separated(
+                itemBuilder: (context, index) => Row(
+                  children: [
+                    if (widget.users[index].profilePictureUrl != '')
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: GlCachedNetworImage(
+                          height: 50.h,
+                          width: 50.w,
+                          urlImage: widget.users[index].profilePictureUrl,
+                        ),
+                      )
+                    else
+                      SizedBox(
+                        width: 50.w,
+                        height: 50.h,
+                        child: const CircleAvatar(
+                          backgroundColor: AppColors.grey,
+                          child: Icon(
+                            Icons.image_not_supported_outlined,
+                          ),
+                        ),
+                      ),
+                    const SizedBox(width: 10),
+                    Text(
+                      widget.users[index].username.toString(),
+                      style: AppStyles.w500f18,
+                    ),
+                  ],
+                ),
+                separatorBuilder: (buildContext, a) {
+                  return const SizedBox(
+                    height: 10,
+                  );
+                },
+                itemCount: widget.users.length,
+                // shrinkWrap: true,
+              ),
+            ),
+            const SizedBox(height: 20),
+            GlButton(
+              text: "Создать чат",
+              onPressed: () {
+                if (chatNameCtrl.text.isNotEmpty && file != null) {
+                  context.read<CreateChatGroupBloc>().add(
+                        CreateChatGroupEvent.createChatGroup(
+                          chatGroup: ChatGroupRoom(
+                            groupName: chatNameCtrl.text,
+                            joinedUserIds: userIds,
+                          ),
+                          file: file!,
+                          communityId: widget.communityId,
+                        ),
+                      );
+                } else {
+                  _showMyDialog();
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

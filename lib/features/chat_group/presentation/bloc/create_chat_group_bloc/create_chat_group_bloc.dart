@@ -16,12 +16,13 @@ class CreateChatGroupBloc
   CreateChatGroupBloc(this._chatGroupRepository) : super(const _Initial()) {
     on<CreateChatGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        createChatGroup: (chatGroup, file) async {
+        createChatGroup: (chatGroup, file, communityId) async {
           emit(const CreateChatGroupState.loading());
           try {
             final result = await _chatGroupRepository.createChatGroup(
               chatGroupRoom: chatGroup,
               file: file,
+              communityId: communityId,
             );
             result.fold((error) {
               emit(CreateChatGroupState.error(message: error.messasge));

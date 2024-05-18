@@ -9,6 +9,7 @@ abstract class IChatGroupRepository {
   Future<Either<PostError, String>> createChatGroup({
     required ChatGroupRoom chatGroupRoom,
     required Uint8List file,
+    required String communityId,
   });
   Future<Either<PostError, String?>> sendMessage({
     required String message,

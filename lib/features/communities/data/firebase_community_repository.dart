@@ -62,12 +62,32 @@ class FirestoreCommunityRepository implements ICommunityRepository {
   }
 
   @override
-  Future<Either<PostError, Unit>> updateCommunity(Community community) async {
+  Future<Either<PostError, Unit>> updateCommunity({
+    required String communityName,
+    required String desc,
+    required String category,
+    Uint8List? file,
+    required String communityId,
+  }) async {
     try {
-      await firestore
-          .collection('communities')
-          .doc(community.communityId)
-          .update(community.toJson());
+      final DocumentReference reference =
+          firestore.collection('communities').doc(communityId);
+      if (file != null) {
+        final downloadUrl = await StorageMethods(auth, storage)
+            .uploadImageToStorage('communities', file, true);
+        await reference.update({
+          'communityName': communityName,
+          'description': desc,
+          'category': category,
+          'avatarUrls': downloadUrl,
+        });
+      } else {
+        await reference.update({
+          'communityName': communityName,
+          'description': desc,
+          'category': category,
+        });
+      }
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -100,8 +120,9 @@ class FirestoreCommunityRepository implements ICommunityRepository {
   }
 
   @override
-  Future<Either<PostError, Community>> getDetail(
-      {String? userId, String? communityId,}) async {
+  Future<Either<PostError, Community>> getDetail({
+    String? communityId,
+  }) async {
     try {
       if (communityId == null) {
         return left(PostError('no Post id'));
@@ -111,9 +132,9 @@ class FirestoreCommunityRepository implements ICommunityRepository {
       if (!community.exists) {
         return left(PostError('Post not found.'));
       }
-      final Community userProfile =
+      final Community communityData =
           Community.fromStoreData(community.data()! as Map<String, dynamic>);
-      return right(userProfile);
+      return right(communityData);
     } catch (e) {
       return left(PostError(e.toString()));
     }

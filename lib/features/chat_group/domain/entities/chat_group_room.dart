@@ -8,6 +8,7 @@ part 'chat_group_room.g.dart';
 @freezed
 class ChatGroupRoom with _$ChatGroupRoom {
   const factory ChatGroupRoom({
+    String? communityId,
     String? groupName,
     String? groupProfileImage,
     List<String>? joinedUserIds,

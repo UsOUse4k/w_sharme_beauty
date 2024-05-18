@@ -9,6 +9,8 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
@@ -67,7 +69,12 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                 isLoading = false;
                 avatar = null;
                 setState(() {});
-
+                context
+                    .read<CommunityListBloc>()
+                    .add(const CommunityListEvent.getCommunities());
+                context
+                    .read<MyCommunityListBloc>()
+                    .add(const MyCommunityListEvent.getMyCommunity());
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_chat_time.dart';
@@ -44,8 +45,8 @@ class MessageCheckTimeTextWidget extends StatelessWidget {
             chatRoom.messageCount != null &&
             chatRoom.messageCount! > 0)
           Container(
-            width: 20,
-            height: 20,
+            width: 20.w,
+            height: 20.h,
             decoration: BoxDecoration(
               color: AppColors.purple,
               borderRadius: BorderRadius.circular(10),

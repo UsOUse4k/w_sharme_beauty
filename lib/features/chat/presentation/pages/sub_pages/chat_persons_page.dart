@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bloc/get_all_chats_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
@@ -47,7 +48,7 @@ class _ChatPersonsPageState extends State<ChatPersonsPage> {
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8.h),
                   itemCount: chatRooms.length,
                 );
               },

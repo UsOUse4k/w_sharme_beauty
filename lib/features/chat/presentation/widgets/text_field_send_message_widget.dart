@@ -47,7 +47,7 @@ class TextFieldSendMessageWidget extends StatelessWidget {
                 ),
               ),
             ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
           Flexible(
             flex: 8,
             child: Container(

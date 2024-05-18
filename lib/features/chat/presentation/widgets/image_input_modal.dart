@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
 
@@ -30,14 +31,14 @@ class _ImageInputModalState extends State<ImageInputModal> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Image.memory(widget.imageFile, fit: BoxFit.cover,),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           TextField(
             controller: _captionController,
             decoration: const InputDecoration(
               hintText: 'Добавить подпись..',
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           ElevatedButton(
             child: const Icon(
               Icons.send,

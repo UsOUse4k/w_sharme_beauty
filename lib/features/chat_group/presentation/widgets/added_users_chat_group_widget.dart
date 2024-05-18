@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
@@ -18,9 +19,11 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
   const AddedUsersChatGroupWidget({
     super.key,
     required this.users,
+    required this.communityId,
   });
 
   final List<UserProfile> users;
+  final String communityId;
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +86,16 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
                         navbarTitle: "Создать группу",
                         widget: CreateChatGroupWidget(
                           users: state.selectedUsers,
+                          communityId: communityId,
                         ),
                       ),
                       closeCurrent: true,
                     );
                   } else {
-                    _showMyDialog(context);
+                    showMyDialog(
+                      context,
+                      'Вы должны добавить хотя бы одного пользователя, чтобы продолжить.',
+                    );
                   }
                 },
               ),
@@ -201,35 +208,6 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
           style: AppStyles.w500f18,
         ),
       ],
-    );
-  }
-
-  Future<void> _showMyDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Предупреждение'),
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(
-                  'Вы должны добавить хотя бы одного пользователя, чтобы продолжить.',
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

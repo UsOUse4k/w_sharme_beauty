@@ -15,7 +15,10 @@ import 'package:w_sharme_beauty/gen/assets.gen.dart';
 class CommunityChatPage extends StatefulWidget {
   const CommunityChatPage({
     super.key,
+    required this.communityId,
   });
+
+  final String communityId;
 
   @override
   State<CommunityChatPage> createState() => _CommunityChatPageState();
@@ -24,7 +27,9 @@ class CommunityChatPage extends StatefulWidget {
 class _CommunityChatPageState extends State<CommunityChatPage> {
   @override
   void initState() {
-    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
+    context.read<GetAllChatGroupBloc>().add(
+          const GetAllChatGroupEvent.getAllChatGroups(),
+        );
     super.initState();
   }
 
@@ -43,92 +48,103 @@ class _CommunityChatPageState extends State<CommunityChatPage> {
           textStyle: AppStyles.w500f18,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Чаты сообщества",
-            style: AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
-          ),
-          const SizedBox(height: 10),
-          BlocConsumer<GetAllUsersBloc, GetAllUsersState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                success: (users) {
-                  context
-                      .read<GetAllChatGroupBloc>()
-                      .add(const GetAllChatGroupEvent.getAllChatGroups());
-                },
-                orElse: () {},
-              );
-            },
-            builder: (context, state) {
-              return state.maybeWhen(
-                success: (users) {
-                  return Row(
-                    children: [
-                      GlCircleAvatar(
-                        avatar: Assets.icons.addChat.path,
-                        width: 50,
-                        height: 50,
-                      ),
-                      const SizedBox(width: 10),
-                      GestureDetector(
-                        onTap: () {
-                          BottomSheetUtil.showAppBottomSheet(
-                            context,
-                            CustomBottomSheetLeading(
-                              maxHeight: 0.7,
-                              navbarTitle: "Создать группу",
-                              widget: AddedUsersChatGroupWidget(
-                                users: users,
+      body: BlocConsumer<GetAllChatGroupBloc, GetAllChatGroupState>(
+        listener: (context, state) {
+          context
+              .read<GetAllUsersBloc>()
+              .add(const GetAllUsersEvent.getAllUsers());
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            success: (groups) {
+              final filterGroups = groups.where(
+                (element) => element.communityId == widget.communityId,
+              ).toList();
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Чаты сообщества",
+                    style:
+                        AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<GetAllUsersBloc, GetAllUsersState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        success: (users) {
+                          return Row(
+                            children: [
+                              GlCircleAvatar(
+                                avatar: Assets.icons.addChat.path,
+                                width: 50,
+                                height: 50,
                               ),
-                            ),
+                              const SizedBox(width: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  if (filterGroups.isNotEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Группа создан!"),
+                                      ),
+                                    );
+                                  } else {
+                                    BottomSheetUtil.showAppBottomSheet(
+                                      context,
+                                      CustomBottomSheetLeading(
+                                        maxHeight: 0.7,
+                                        navbarTitle: "Создать группу",
+                                        widget: AddedUsersChatGroupWidget(
+                                          users: users,
+                                          communityId: widget.communityId,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  "Создать чат",
+                                  style: AppStyles.w400f16,
+                                ),
+                              ),
+                            ],
                           );
                         },
-                        child: Text(
-                          "Создать чат",
-                          style: AppStyles.w400f16,
-                        ),
-                      ),
-                    ],
-                  );
-                },
-                orElse: () => Container(),
-              );
-            },
-          ),
-          const SizedBox(height: 10),
-          BlocBuilder<GetAllChatGroupBloc, GetAllChatGroupState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                success: (groups) {
-                  return ListView.separated(
+                        orElse: () => Container(),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  ListView.separated(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return SubscribersListTileWidget(
-                        title: "${groups[index].groupName}",
-                        subtitle:
-                            "${groups[index].joinedUserIds!.length} участников",
-                        avatar: groups[index].groupProfileImage.toString(),
-                      );
+                      return groups[index].communityId == widget.communityId
+                          ? SubscribersListTileWidget(
+                              title: "${groups[index].groupName}",
+                              subtitle:
+                                  "${groups[index].joinedUserIds!.length} участников",
+                              avatar:
+                                  groups[index].groupProfileImage.toString(),
+                            )
+                          : const SizedBox();
                     },
                     separatorBuilder: (context, index) => SizedBox(
                       height: 10.h,
                     ),
                     itemCount: groups.length,
-                  );
-                },
-                orElse: () => Container(),
+                  ),
+                  const SizedBox(height: 10),
+                  const Spacer(),
+                  GlButton(text: "Сохранить", onPressed: () {}),
+                  const SizedBox(height: 20),
+                ],
               );
             },
-          ),
-          const SizedBox(height: 10),
-          const Spacer(),
-          GlButton(text: "Сохранить", onPressed: () {}),
-          const SizedBox(height: 20),
-        ],
+            orElse: () => Container(),
+          );
+        },
       ),
     );
   }

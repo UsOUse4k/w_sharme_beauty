@@ -5,5 +5,6 @@ class CreateChatGroupEvent with _$CreateChatGroupEvent {
   const factory CreateChatGroupEvent.createChatGroup({
     required ChatGroupRoom chatGroup,
     required Uint8List file,
+    required String communityId,
   }) = _CreateChatGroup;
 }

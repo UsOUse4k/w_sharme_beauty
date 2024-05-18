@@ -8,6 +8,7 @@ part of 'chat_group_room.dart';
 
 _$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map<String, dynamic> json) =>
     _$ChatGroupRoomImpl(
+      communityId: json['communityId'] as String?,
       groupName: json['groupName'] as String?,
       groupProfileImage: json['groupProfileImage'] as String?,
       joinedUserIds: (json['joinedUserIds'] as List<dynamic>?)
@@ -35,6 +36,7 @@ _$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ChatGroupRoomImplToJson(_$ChatGroupRoomImpl instance) =>
     <String, dynamic>{
+      'communityId': instance.communityId,
       'groupName': instance.groupName,
       'groupProfileImage': instance.groupProfileImage,
       'joinedUserIds': instance.joinedUserIds,

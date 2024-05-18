@@ -315,6 +315,60 @@ mixin AppRouter on State<App> {
                           );
                         },
                       ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'chatAdmins/:groupId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          return ChatGroupAdminsPage(
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: '${RouterContants.chatGroupMessages}/:groupId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          return ChatGroupMessagesPage(
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path:
+                            "${RouterContants.communityEdit}/:communityId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return CommunityEditPage(
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'chatParticipants/:groupId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          return ChatParticipantsPage(
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        name: RouterContants.communityChat,
+                        path: "${RouterContants.communityChat}/:communityId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return CommunityChatPage(
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   GoRoute(
@@ -335,18 +389,6 @@ mixin AppRouter on State<App> {
                     name: RouterContants.communityManagers,
                     path: RouterContants.communityManagers,
                     builder: (context, state) => const CommunityManagersPage(),
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityEdit,
-                    path: RouterContants.communityEdit,
-                    builder: (context, state) => const CommunityEditPage(),
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityChat,
-                    path: RouterContants.communityChat,
-                    builder: (context, state) => const CommunityChatPage(),
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

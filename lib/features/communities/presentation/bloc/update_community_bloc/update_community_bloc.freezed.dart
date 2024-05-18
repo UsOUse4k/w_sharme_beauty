@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'create_chat_group_bloc.dart';
+part of 'update_community_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,70 +15,75 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CreateChatGroupEvent {
-  ChatGroupRoom get chatGroup => throw _privateConstructorUsedError;
-  Uint8List get file => throw _privateConstructorUsedError;
+mixin _$UpdateCommunityEvent {
+  String get communityName => throw _privateConstructorUsedError;
+  String get desc => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  Uint8List? get file => throw _privateConstructorUsedError;
   String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            ChatGroupRoom chatGroup, Uint8List file, String communityId)
-        createChatGroup,
+    required TResult Function(String communityName, String desc,
+            String category, Uint8List? file, String communityId)
+        updateCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            ChatGroupRoom chatGroup, Uint8List file, String communityId)?
-        createChatGroup,
+    TResult? Function(String communityName, String desc, String category,
+            Uint8List? file, String communityId)?
+        updateCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ChatGroupRoom chatGroup, Uint8List file, String communityId)?
-        createChatGroup,
+    TResult Function(String communityName, String desc, String category,
+            Uint8List? file, String communityId)?
+        updateCommunity,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_CreateChatGroup value) createChatGroup,
+    required TResult Function(_UpdateCommunity value) updateCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_CreateChatGroup value)? createChatGroup,
+    TResult? Function(_UpdateCommunity value)? updateCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CreateChatGroup value)? createChatGroup,
+    TResult Function(_UpdateCommunity value)? updateCommunity,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CreateChatGroupEventCopyWith<CreateChatGroupEvent> get copyWith =>
+  $UpdateCommunityEventCopyWith<UpdateCommunityEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CreateChatGroupEventCopyWith<$Res> {
-  factory $CreateChatGroupEventCopyWith(CreateChatGroupEvent value,
-          $Res Function(CreateChatGroupEvent) then) =
-      _$CreateChatGroupEventCopyWithImpl<$Res, CreateChatGroupEvent>;
+abstract class $UpdateCommunityEventCopyWith<$Res> {
+  factory $UpdateCommunityEventCopyWith(UpdateCommunityEvent value,
+          $Res Function(UpdateCommunityEvent) then) =
+      _$UpdateCommunityEventCopyWithImpl<$Res, UpdateCommunityEvent>;
   @useResult
-  $Res call({ChatGroupRoom chatGroup, Uint8List file, String communityId});
-
-  $ChatGroupRoomCopyWith<$Res> get chatGroup;
+  $Res call(
+      {String communityName,
+      String desc,
+      String category,
+      Uint8List? file,
+      String communityId});
 }
 
 /// @nodoc
-class _$CreateChatGroupEventCopyWithImpl<$Res,
-        $Val extends CreateChatGroupEvent>
-    implements $CreateChatGroupEventCopyWith<$Res> {
-  _$CreateChatGroupEventCopyWithImpl(this._value, this._then);
+class _$UpdateCommunityEventCopyWithImpl<$Res,
+        $Val extends UpdateCommunityEvent>
+    implements $UpdateCommunityEventCopyWith<$Res> {
+  _$UpdateCommunityEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -88,73 +93,87 @@ class _$CreateChatGroupEventCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chatGroup = null,
-    Object? file = null,
+    Object? communityName = null,
+    Object? desc = null,
+    Object? category = null,
+    Object? file = freezed,
     Object? communityId = null,
   }) {
     return _then(_value.copyWith(
-      chatGroup: null == chatGroup
-          ? _value.chatGroup
-          : chatGroup // ignore: cast_nullable_to_non_nullable
-              as ChatGroupRoom,
-      file: null == file
+      communityName: null == communityName
+          ? _value.communityName
+          : communityName // ignore: cast_nullable_to_non_nullable
+              as String,
+      desc: null == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
+              as Uint8List?,
       communityId: null == communityId
           ? _value.communityId
           : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ChatGroupRoomCopyWith<$Res> get chatGroup {
-    return $ChatGroupRoomCopyWith<$Res>(_value.chatGroup, (value) {
-      return _then(_value.copyWith(chatGroup: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$CreateChatGroupImplCopyWith<$Res>
-    implements $CreateChatGroupEventCopyWith<$Res> {
-  factory _$$CreateChatGroupImplCopyWith(_$CreateChatGroupImpl value,
-          $Res Function(_$CreateChatGroupImpl) then) =
-      __$$CreateChatGroupImplCopyWithImpl<$Res>;
+abstract class _$$UpdateCommunityImplCopyWith<$Res>
+    implements $UpdateCommunityEventCopyWith<$Res> {
+  factory _$$UpdateCommunityImplCopyWith(_$UpdateCommunityImpl value,
+          $Res Function(_$UpdateCommunityImpl) then) =
+      __$$UpdateCommunityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ChatGroupRoom chatGroup, Uint8List file, String communityId});
-
-  @override
-  $ChatGroupRoomCopyWith<$Res> get chatGroup;
+  $Res call(
+      {String communityName,
+      String desc,
+      String category,
+      Uint8List? file,
+      String communityId});
 }
 
 /// @nodoc
-class __$$CreateChatGroupImplCopyWithImpl<$Res>
-    extends _$CreateChatGroupEventCopyWithImpl<$Res, _$CreateChatGroupImpl>
-    implements _$$CreateChatGroupImplCopyWith<$Res> {
-  __$$CreateChatGroupImplCopyWithImpl(
-      _$CreateChatGroupImpl _value, $Res Function(_$CreateChatGroupImpl) _then)
+class __$$UpdateCommunityImplCopyWithImpl<$Res>
+    extends _$UpdateCommunityEventCopyWithImpl<$Res, _$UpdateCommunityImpl>
+    implements _$$UpdateCommunityImplCopyWith<$Res> {
+  __$$UpdateCommunityImplCopyWithImpl(
+      _$UpdateCommunityImpl _value, $Res Function(_$UpdateCommunityImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chatGroup = null,
-    Object? file = null,
+    Object? communityName = null,
+    Object? desc = null,
+    Object? category = null,
+    Object? file = freezed,
     Object? communityId = null,
   }) {
-    return _then(_$CreateChatGroupImpl(
-      chatGroup: null == chatGroup
-          ? _value.chatGroup
-          : chatGroup // ignore: cast_nullable_to_non_nullable
-              as ChatGroupRoom,
-      file: null == file
+    return _then(_$UpdateCommunityImpl(
+      communityName: null == communityName
+          ? _value.communityName
+          : communityName // ignore: cast_nullable_to_non_nullable
+              as String,
+      desc: null == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
+              as Uint8List?,
       communityId: null == communityId
           ? _value.communityId
           : communityId // ignore: cast_nullable_to_non_nullable
@@ -165,75 +184,101 @@ class __$$CreateChatGroupImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CreateChatGroupImpl implements _CreateChatGroup {
-  const _$CreateChatGroupImpl(
-      {required this.chatGroup, required this.file, required this.communityId});
+class _$UpdateCommunityImpl
+    with DiagnosticableTreeMixin
+    implements _UpdateCommunity {
+  const _$UpdateCommunityImpl(
+      {required this.communityName,
+      required this.desc,
+      required this.category,
+      this.file,
+      required this.communityId});
 
   @override
-  final ChatGroupRoom chatGroup;
+  final String communityName;
   @override
-  final Uint8List file;
+  final String desc;
+  @override
+  final String category;
+  @override
+  final Uint8List? file;
   @override
   final String communityId;
 
   @override
-  String toString() {
-    return 'CreateChatGroupEvent.createChatGroup(chatGroup: $chatGroup, file: $file, communityId: $communityId)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdateCommunityEvent.updateCommunity(communityName: $communityName, desc: $desc, category: $category, file: $file, communityId: $communityId)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'UpdateCommunityEvent.updateCommunity'))
+      ..add(DiagnosticsProperty('communityName', communityName))
+      ..add(DiagnosticsProperty('desc', desc))
+      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('file', file))
+      ..add(DiagnosticsProperty('communityId', communityId));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateChatGroupImpl &&
-            (identical(other.chatGroup, chatGroup) ||
-                other.chatGroup == chatGroup) &&
+            other is _$UpdateCommunityImpl &&
+            (identical(other.communityName, communityName) ||
+                other.communityName == communityName) &&
+            (identical(other.desc, desc) || other.desc == desc) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             const DeepCollectionEquality().equals(other.file, file) &&
             (identical(other.communityId, communityId) ||
                 other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, chatGroup,
+  int get hashCode => Object.hash(runtimeType, communityName, desc, category,
       const DeepCollectionEquality().hash(file), communityId);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateChatGroupImplCopyWith<_$CreateChatGroupImpl> get copyWith =>
-      __$$CreateChatGroupImplCopyWithImpl<_$CreateChatGroupImpl>(
+  _$$UpdateCommunityImplCopyWith<_$UpdateCommunityImpl> get copyWith =>
+      __$$UpdateCommunityImplCopyWithImpl<_$UpdateCommunityImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            ChatGroupRoom chatGroup, Uint8List file, String communityId)
-        createChatGroup,
+    required TResult Function(String communityName, String desc,
+            String category, Uint8List? file, String communityId)
+        updateCommunity,
   }) {
-    return createChatGroup(chatGroup, file, communityId);
+    return updateCommunity(communityName, desc, category, file, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            ChatGroupRoom chatGroup, Uint8List file, String communityId)?
-        createChatGroup,
+    TResult? Function(String communityName, String desc, String category,
+            Uint8List? file, String communityId)?
+        updateCommunity,
   }) {
-    return createChatGroup?.call(chatGroup, file, communityId);
+    return updateCommunity?.call(
+        communityName, desc, category, file, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ChatGroupRoom chatGroup, Uint8List file, String communityId)?
-        createChatGroup,
+    TResult Function(String communityName, String desc, String category,
+            Uint8List? file, String communityId)?
+        updateCommunity,
     required TResult orElse(),
   }) {
-    if (createChatGroup != null) {
-      return createChatGroup(chatGroup, file, communityId);
+    if (updateCommunity != null) {
+      return updateCommunity(communityName, desc, category, file, communityId);
     }
     return orElse();
   }
@@ -241,74 +286,80 @@ class _$CreateChatGroupImpl implements _CreateChatGroup {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_CreateChatGroup value) createChatGroup,
+    required TResult Function(_UpdateCommunity value) updateCommunity,
   }) {
-    return createChatGroup(this);
+    return updateCommunity(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_CreateChatGroup value)? createChatGroup,
+    TResult? Function(_UpdateCommunity value)? updateCommunity,
   }) {
-    return createChatGroup?.call(this);
+    return updateCommunity?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_CreateChatGroup value)? createChatGroup,
+    TResult Function(_UpdateCommunity value)? updateCommunity,
     required TResult orElse(),
   }) {
-    if (createChatGroup != null) {
-      return createChatGroup(this);
+    if (updateCommunity != null) {
+      return updateCommunity(this);
     }
     return orElse();
   }
 }
 
-abstract class _CreateChatGroup implements CreateChatGroupEvent {
-  const factory _CreateChatGroup(
-      {required final ChatGroupRoom chatGroup,
-      required final Uint8List file,
-      required final String communityId}) = _$CreateChatGroupImpl;
+abstract class _UpdateCommunity implements UpdateCommunityEvent {
+  const factory _UpdateCommunity(
+      {required final String communityName,
+      required final String desc,
+      required final String category,
+      final Uint8List? file,
+      required final String communityId}) = _$UpdateCommunityImpl;
 
   @override
-  ChatGroupRoom get chatGroup;
+  String get communityName;
   @override
-  Uint8List get file;
+  String get desc;
+  @override
+  String get category;
+  @override
+  Uint8List? get file;
   @override
   String get communityId;
   @override
   @JsonKey(ignore: true)
-  _$$CreateChatGroupImplCopyWith<_$CreateChatGroupImpl> get copyWith =>
+  _$$UpdateCommunityImplCopyWith<_$UpdateCommunityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$CreateChatGroupState {
+mixin _$UpdateCommunityState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String groupId) success,
     required TResult Function(String message) error,
+    required TResult Function() succes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String groupId)? success,
     TResult? Function(String message)? error,
+    TResult? Function()? succes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String groupId)? success,
     TResult Function(String message)? error,
+    TResult Function()? succes,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -316,41 +367,41 @@ mixin _$CreateChatGroupState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Success value) succes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Success value)? succes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Success value)? succes,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CreateChatGroupStateCopyWith<$Res> {
-  factory $CreateChatGroupStateCopyWith(CreateChatGroupState value,
-          $Res Function(CreateChatGroupState) then) =
-      _$CreateChatGroupStateCopyWithImpl<$Res, CreateChatGroupState>;
+abstract class $UpdateCommunityStateCopyWith<$Res> {
+  factory $UpdateCommunityStateCopyWith(UpdateCommunityState value,
+          $Res Function(UpdateCommunityState) then) =
+      _$UpdateCommunityStateCopyWithImpl<$Res, UpdateCommunityState>;
 }
 
 /// @nodoc
-class _$CreateChatGroupStateCopyWithImpl<$Res,
-        $Val extends CreateChatGroupState>
-    implements $CreateChatGroupStateCopyWith<$Res> {
-  _$CreateChatGroupStateCopyWithImpl(this._value, this._then);
+class _$UpdateCommunityStateCopyWithImpl<$Res,
+        $Val extends UpdateCommunityState>
+    implements $UpdateCommunityStateCopyWith<$Res> {
+  _$UpdateCommunityStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -367,7 +418,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$CreateChatGroupStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$UpdateCommunityStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -376,12 +427,18 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
-    return 'CreateChatGroupState.initial()';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdateCommunityState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'UpdateCommunityState.initial'));
   }
 
   @override
@@ -398,8 +455,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String groupId) success,
     required TResult Function(String message) error,
+    required TResult Function() succes,
   }) {
     return initial();
   }
@@ -409,8 +466,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String groupId)? success,
     TResult? Function(String message)? error,
+    TResult? Function()? succes,
   }) {
     return initial?.call();
   }
@@ -420,8 +477,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String groupId)? success,
     TResult Function(String message)? error,
+    TResult Function()? succes,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -435,8 +492,8 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Success value) succes,
   }) {
     return initial(this);
   }
@@ -446,8 +503,8 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Success value)? succes,
   }) {
     return initial?.call(this);
   }
@@ -457,8 +514,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Success value)? succes,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -468,7 +525,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements CreateChatGroupState {
+abstract class _Initial implements UpdateCommunityState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -481,7 +538,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$CreateChatGroupStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$UpdateCommunityStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -490,12 +547,18 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString() {
-    return 'CreateChatGroupState.loading()';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdateCommunityState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'UpdateCommunityState.loading'));
   }
 
   @override
@@ -512,8 +575,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String groupId) success,
     required TResult Function(String message) error,
+    required TResult Function() succes,
   }) {
     return loading();
   }
@@ -523,8 +586,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String groupId)? success,
     TResult? Function(String message)? error,
+    TResult? Function()? succes,
   }) {
     return loading?.call();
   }
@@ -534,8 +597,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String groupId)? success,
     TResult Function(String message)? error,
+    TResult Function()? succes,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -549,8 +612,8 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Success value) succes,
   }) {
     return loading(this);
   }
@@ -560,8 +623,8 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Success value)? succes,
   }) {
     return loading?.call(this);
   }
@@ -571,8 +634,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Success value)? succes,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -582,153 +645,8 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements CreateChatGroupState {
+abstract class _Loading implements UpdateCommunityState {
   const factory _Loading() = _$LoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String groupId});
-}
-
-/// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$CreateChatGroupStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? groupId = null,
-  }) {
-    return _then(_$SuccessImpl(
-      groupId: null == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl({required this.groupId});
-
-  @override
-  final String groupId;
-
-  @override
-  String toString() {
-    return 'CreateChatGroupState.success(groupId: $groupId)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
-            (identical(other.groupId, groupId) || other.groupId == groupId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, groupId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(String groupId) success,
-    required TResult Function(String message) error,
-  }) {
-    return success(groupId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(String groupId)? success,
-    TResult? Function(String message)? error,
-  }) {
-    return success?.call(groupId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(String groupId)? success,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success(groupId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-  }) {
-    return success(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-  }) {
-    return success?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Success implements CreateChatGroupState {
-  const factory _Success({required final String groupId}) = _$SuccessImpl;
-
-  String get groupId;
-  @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -742,7 +660,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$CreateChatGroupStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$UpdateCommunityStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -764,15 +682,23 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl({required this.message});
 
   @override
   final String message;
 
   @override
-  String toString() {
-    return 'CreateChatGroupState.error(message: $message)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdateCommunityState.error(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'UpdateCommunityState.error'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -797,8 +723,8 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String groupId) success,
     required TResult Function(String message) error,
+    required TResult Function() succes,
   }) {
     return error(message);
   }
@@ -808,8 +734,8 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String groupId)? success,
     TResult? Function(String message)? error,
+    TResult? Function()? succes,
   }) {
     return error?.call(message);
   }
@@ -819,8 +745,8 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String groupId)? success,
     TResult Function(String message)? error,
+    TResult Function()? succes,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -834,8 +760,8 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Success value) succes,
   }) {
     return error(this);
   }
@@ -845,8 +771,8 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Success value)? succes,
   }) {
     return error?.call(this);
   }
@@ -856,8 +782,8 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Success value)? succes,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -867,11 +793,131 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements CreateChatGroupState {
+abstract class _Error implements UpdateCommunityState {
   const factory _Error({required final String message}) = _$ErrorImpl;
 
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessImplCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$UpdateCommunityStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SuccessImpl with DiagnosticableTreeMixin implements _Success {
+  const _$SuccessImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'UpdateCommunityState.succes()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'UpdateCommunityState.succes'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String message) error,
+    required TResult Function() succes,
+  }) {
+    return succes();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? error,
+    TResult? Function()? succes,
+  }) {
+    return succes?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String message)? error,
+    TResult Function()? succes,
+    required TResult orElse(),
+  }) {
+    if (succes != null) {
+      return succes();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Success value) succes,
+  }) {
+    return succes(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Success value)? succes,
+  }) {
+    return succes?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_Success value)? succes,
+    required TResult orElse(),
+  }) {
+    if (succes != null) {
+      return succes(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Success implements UpdateCommunityState {
+  const factory _Success() = _$SuccessImpl;
 }

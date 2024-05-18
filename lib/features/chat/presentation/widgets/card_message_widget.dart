@@ -61,13 +61,13 @@ class CardMessageWidget extends StatelessWidget {
               check ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Container(
-              width: size.width * 0.75,
+              width: size.width * 0.75.w,
               padding: const EdgeInsets.symmetric(
                 vertical: 14,
-                horizontal: 20,
+                horizontal: 14,
               ),
               decoration: BoxDecoration(
-                color: check ? AppColors.purple : AppColors.lightGrey,
+                color: check ? AppColors.purple : AppColors.lightGreyf4,
                 borderRadius: check
                     ? const BorderRadius.only(
                         topLeft: Radius.circular(20),
@@ -93,17 +93,12 @@ class CardMessageWidget extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 260.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                data!.image.toString(),
-                              ),
-                              
-                              fit: BoxFit.cover,
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: GlCachedNetworImage(
+                            height: 260.h,
+                            width: 260.w,
+                            urlImage: data!.image.toString(),
                           ),
                         ),
                         Text(
@@ -128,7 +123,7 @@ class CardMessageWidget extends StatelessWidget {
               date,
               textAlign: TextAlign.end,
               style: AppStyles.w400f13
-                  .copyWith(color: AppColors.grey, fontSize: 12),
+                  .copyWith(color: AppColors.grey, fontSize: 12.sp),
             ),
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/card_chat_group_widget.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 
 class ChatCommunitiesPage extends StatefulWidget {
   const ChatCommunitiesPage({super.key});
@@ -30,15 +31,21 @@ class _ChatCommunitiesPageState extends State<ChatCommunitiesPage> {
           builder: (context, state) {
             return state.maybeWhen(
               success: (groups) {
+                final currentUid = firebaseAuth.currentUser!.uid;
+                final filterGroups = groups
+                    .where(
+                      (element) => element.joinedUserIds!.contains(currentUid),
+                    )
+                    .toList();
                 return ListView.separated(
                   itemBuilder: (context, index) {
                     return CardChatGroupWidget(
-                      groupId: groups[index].groupId.toString(),
-                      groupRoom: groups[index],
+                      groupId: filterGroups[index].groupId.toString(),
+                      groupRoom: filterGroups[index],
                     );
                   },
                   separatorBuilder: (context, index) => Container(),
-                  itemCount: groups.length,
+                  itemCount: filterGroups.length,
                 );
               },
               orElse: () => Container(),

@@ -131,23 +131,21 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                         ),
                       ),
                       const Spacer(),
-                      Expanded(
-                        child: TextFieldSendMessageWidget(
-                          onGallery: () => selectedImage(chatRoomId.toString()),
-                          controller: sendMessageCtrl,
-                          onPressed: () {
-                            if (sendMessageCtrl.text.isNotEmpty) {
-                              context.read<SendMessageBloc>().add(
-                                    SendMessageEvent.sendMessage(
-                                      chatRoomId: chatRoomId.toString(),
-                                      message: sendMessageCtrl.text,
-                                      receiverId: widget.userId.toString(),
-                                    ),
-                                  );
-                              sendMessageCtrl.clear();
-                            }
-                          },
-                        ),
+                      TextFieldSendMessageWidget(
+                        onGallery: () => selectedImage(chatRoomId.toString()),
+                        controller: sendMessageCtrl,
+                        onPressed: () {
+                          if (sendMessageCtrl.text.isNotEmpty) {
+                            context.read<SendMessageBloc>().add(
+                                  SendMessageEvent.sendMessage(
+                                    chatRoomId: chatRoomId.toString(),
+                                    message: sendMessageCtrl.text,
+                                    receiverId: widget.userId.toString(),
+                                  ),
+                                );
+                            sendMessageCtrl.clear();
+                          }
+                        },
                       ),
                     ],
                   ),

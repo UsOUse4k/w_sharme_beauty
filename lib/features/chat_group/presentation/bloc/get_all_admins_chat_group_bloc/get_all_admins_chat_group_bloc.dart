@@ -21,8 +21,9 @@ class GetAllAdminsChatGroupBloc
         getAllAdminsChatGroup: (groupId) async {
           emit(const GetAllAdminsChatGroupState.loading());
           try {
-            final dataGroup =
-                await _chatGroupRepository.getGroup(groupId: groupId);
+            final dataGroup = await _chatGroupRepository.getGroup(
+              groupId: groupId,
+            );
             await dataGroup.fold(
               (l) {
                 emit(GetAllAdminsChatGroupState.error(message: l.messasge));

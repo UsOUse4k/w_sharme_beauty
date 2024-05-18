@@ -8,8 +8,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/widgets/for_the_user_buttons_widget.dart';
-import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 
@@ -88,9 +87,13 @@ class _CommunityProfileSubscribePageState
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: posts.length,
-                                  itemBuilder: (context, index) => PostCard(
+                                  itemBuilder: (context, index) =>
+                                      CommunityPostCard(
                                     onPressed: () {},
                                     post: posts[index],
+                                    communityName:
+                                        community.communityName.toString(),
+                                    avatarUrl: community.avatarUrls.toString(),
                                   ),
                                 );
                               },

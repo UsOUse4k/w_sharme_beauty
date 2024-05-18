@@ -27,7 +27,7 @@ class Community with _$Community {
       avatarUrls: firestoreData['avatarUrls'] as String?,
       communityName: firestoreData['communityName'] as String?,
       description: firestoreData['description'] as String?,
-      category: firestoreData['uid'] as String?,
+      category: firestoreData['category'] as String?,
       participants: List<String>.from(
         firestoreData['participants'] as List<dynamic>? ?? [],
       ),

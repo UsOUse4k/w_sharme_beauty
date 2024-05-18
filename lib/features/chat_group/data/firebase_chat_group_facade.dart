@@ -22,6 +22,7 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
   Future<Either<PostError, String>> createChatGroup({
     required ChatGroupRoom chatGroupRoom,
     required Uint8List file,
+    required String communityId,
   }) async {
     try {
       final String groupId = const Uuid().v1();
@@ -49,6 +50,7 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
         return right(existingChatrooms.docs.first.id);
       } else {
         final groupRoom = chatGroupRoom.copyWith(
+          communityId: communityId,
           groupId: groupId,
           lastMessage: '',
           groupProfileImage: groupProfileImage,
@@ -221,9 +223,12 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       return left(PostError(e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<PostError, Unit>> addedUserChatGroup({required String groupId, required List<String> userIds}) async {
+  Future<Either<PostError, Unit>> addedUserChatGroup({
+    required String groupId,
+    required List<String> userIds,
+  }) async {
     try {
       await _firestore.collection('chat_groups').doc(groupId).update({
         'joinedUserIds': FieldValue.arrayUnion(userIds),
