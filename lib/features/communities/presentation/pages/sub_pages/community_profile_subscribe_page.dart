@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
@@ -9,14 +7,16 @@ import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/for_the_user_buttons_widget.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 
 class CommunityProfileSubscribePage extends StatefulWidget {
-  const CommunityProfileSubscribePage({super.key, this.communityId});
+  const CommunityProfileSubscribePage({super.key, required this.communityId});
 
-  final String? communityId;
+  final String communityId;
   @override
   State<CommunityProfileSubscribePage> createState() =>
       _CommunityProfileSubscribePageState();
@@ -30,6 +30,9 @@ class _CommunityProfileSubscribePageState
     context.read<CommunityDetailBloc>().add(
           CommunityDetailEvent.loaded(widget.communityId),
         );
+    context
+        .read<CommunityPostListBloc>()
+        .add(CommunityPostListEvent.getPosts(communityId: widget.communityId));
   }
 
   @override
@@ -47,7 +50,7 @@ class _CommunityProfileSubscribePageState
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: const  BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: BlocBuilder<CommunityDetailBloc, CommunityDetailState>(
             builder: (context, state) {
               return state.maybeWhen(
@@ -68,6 +71,33 @@ class _CommunityProfileSubscribePageState
                     child: Column(
                       children: [
                         _buildTop(community),
+                        BlocBuilder<CommunityPostListBloc,
+                            CommunityPostListState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loading: () => ListView.builder(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: 5,
+                                itemBuilder: (context, index) =>
+                                    const PostShimmer(),
+                              ),
+                              error: (message) => Text('Ошибка: $message'),
+                              success: (posts) {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: posts.length,
+                                  itemBuilder: (context, index) => PostCard(
+                                    onPressed: () {},
+                                    post: posts[index],
+                                  ),
+                                );
+                              },
+                              orElse: () => const SizedBox.shrink(),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   );

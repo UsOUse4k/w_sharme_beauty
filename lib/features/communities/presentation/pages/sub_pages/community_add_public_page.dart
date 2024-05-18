@@ -15,7 +15,9 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/imag
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 
 class CommunityAddPublicPage extends StatefulWidget {
-  const CommunityAddPublicPage({super.key});
+  const CommunityAddPublicPage({super.key, required this.communityId});
+
+  final String communityId;
 
   @override
   State<CommunityAddPublicPage> createState() => _CommunityAddPublicPageState();
@@ -83,7 +85,7 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
               );
               context
                   .read<CommunityPostListBloc>()
-                  .add(const CommunityPostListEvent.getPosts());
+                  .add(const CommunityPostListEvent.getPosts(communityId: ''));
               setState(() {
                 selectedImageBytes = [];
                 desc.clear();
@@ -157,6 +159,7 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
                         CommunityCreatePostEvent.createPost(
                           Post(text: desc.text),
                           selectedImageBytes,
+                          communityId: widget.communityId,
                         ),
                       );
                 }

@@ -33,7 +33,6 @@ class UserAvatarWithName extends StatelessWidget {
         children: [
           if (avatar != null)
             ClipRRect(
-
               borderRadius: BorderRadius.all(
                 Radius.circular(raduis!),
               ),

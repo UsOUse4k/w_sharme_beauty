@@ -195,6 +195,7 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<InviteUsersChatGroupBloc>(
           create: (context) => getIt<InviteUsersChatGroupBloc>(),
         ),
+       
       ],
       child: child,
     );

@@ -5,5 +5,6 @@ class CommunityCreatePostEvent with _$CommunityCreatePostEvent {
   const factory CommunityCreatePostEvent.createPost(
     Post post,
     List<Uint8List> imageFiles,
+    {required String communityId}
   ) = _CreatePost;
 }

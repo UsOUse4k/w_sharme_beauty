@@ -10,7 +10,6 @@ import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bl
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/subscribers_list_tile_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityChatPage extends StatefulWidget {
@@ -25,10 +24,7 @@ class CommunityChatPage extends StatefulWidget {
 class _CommunityChatPageState extends State<CommunityChatPage> {
   @override
   void initState() {
-    context
-        .read<GetAllChatGroupBloc>()
-        .add(const GetAllChatGroupEvent.getAllChatGroups());
-    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
+    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
     super.initState();
   }
 
@@ -55,7 +51,17 @@ class _CommunityChatPageState extends State<CommunityChatPage> {
             style: AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
           ),
           const SizedBox(height: 10),
-          BlocBuilder<GetAllUsersBloc, GetAllUsersState>(
+          BlocConsumer<GetAllUsersBloc, GetAllUsersState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                success: (users) {
+                  context
+                      .read<GetAllChatGroupBloc>()
+                      .add(const GetAllChatGroupEvent.getAllChatGroups());
+                },
+                orElse: () {},
+              );
+            },
             builder: (context, state) {
               return state.maybeWhen(
                 success: (users) {

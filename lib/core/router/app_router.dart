@@ -289,7 +289,7 @@ mixin AppRouter on State<App> {
                     builder: (BuildContext context, GoRouterState state) {
                       final communityId = state.pathParameters['communityId'];
                       return CommunityProfileSubscribePage(
-                        communityId: communityId,
+                        communityId: communityId.toString(),
                       );
                     },
                   ),
@@ -298,14 +298,24 @@ mixin AppRouter on State<App> {
                     path: '${RouterContants.communityProfile}/:communityId',
                     builder: (BuildContext context, GoRouterState state) {
                       final communityId = state.pathParameters['communityId'];
-                      return CommunityProfilePage(communityId: communityId.toString());
+                      return CommunityProfilePage(
+                        communityId: communityId.toString(),
+                      );
                     },
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityAddPublic,
-                    path: RouterContants.communityAddPublic,
-                    builder: (context, state) => const CommunityAddPublicPage(),
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path:
+                            '${RouterContants.communityAddPublic}/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return CommunityAddPublicPage(
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

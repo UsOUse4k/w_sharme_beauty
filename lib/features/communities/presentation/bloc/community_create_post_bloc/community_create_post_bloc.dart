@@ -47,8 +47,8 @@ class CommunityCreatePostBloc
               final result = await _repository.createPost(
                 updtCommunityPost,
                 event.imageFiles,
+                communityId: event.communityId,
               );
-
               result.fold((error) {
                 emit(CommunityCreatePostState.error(message: error.messasge));
               }, (post) {

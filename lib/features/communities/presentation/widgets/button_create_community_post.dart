@@ -1,14 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ButtonCreateCommutityPost extends StatelessWidget {
   const ButtonCreateCommutityPost({
-    super.key,
+    super.key, required this.communityId,
   });
+
+  final String communityId;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ButtonCreateCommutityPost extends StatelessWidget {
         ),
         onPressed: () {
           context.push(
-            '/communities/${RouterContants.communityAddPublic}',
+            '/communities/community-profile/$communityId/community-add-public/$communityId',
           );
         },
         child: Row(

@@ -29,7 +29,6 @@ class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
         },
         dislike: (_Dislike value) async {
           emit(const PostLikeState.loading());
-          emit(const PostLikeState.loading());
           final userOpt = await _authFacade.getSignedInUser();
           await userOpt.fold(() {
             emit(const PostLikeState.error(message: 'no sigin user'));

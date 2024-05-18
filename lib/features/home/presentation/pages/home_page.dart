@@ -96,14 +96,18 @@ class _HomePageState extends State<HomePage> {
               ),
               error: (message) => Text('Ошибка: $message'),
               success: (posts) {
+                final currentUid = firebaseAuth.currentUser!.uid;
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: posts.length,
                   itemBuilder: (context, index) => PostCard(
                     onPressed: () {
-                      context.push(
-                          '/home/profilePersonPage/${posts[index].authorId}',);
+                      if (posts[index].authorId != currentUid) {
+                        context.push(
+                          '/home/profilePersonPage/${posts[index].authorId}',
+                        );
+                      }
                     },
                     post: posts[index],
                   ),

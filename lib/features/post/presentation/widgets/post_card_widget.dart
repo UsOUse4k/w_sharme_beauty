@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,7 +116,6 @@ class _PostCardState extends State<PostCard> {
               PostIconsWidget(
                 onPessed: toggleLike,
                 icon: isLike
-                    // ignore: deprecated_member_use_from_same_package
                     ? Assets.svgs.likeRound.svg(color: Colors.red)
                     : Assets.svgs.like.svg(),
                 text: countLike.toString(),

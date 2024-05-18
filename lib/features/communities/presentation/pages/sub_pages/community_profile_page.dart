@@ -9,7 +9,9 @@ import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/like_community_post_bloc/like_community_post_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
@@ -29,11 +31,17 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
     context.read<CommunityDetailBloc>().add(
           CommunityDetailEvent.loaded(widget.communityId),
         );
+    context.read<CommunityPostListBloc>().add(
+          CommunityPostListEvent.getPosts(
+            communityId: widget.communityId,
+          ),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
+    final bloc = context.read<CommunityPostListBloc>();
     return GlScaffold(
       appBar: GlAppBar(
         leading: IconButton(
@@ -110,16 +118,6 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      //Padding(
-                      //  padding: const EdgeInsets.symmetric(horizontal: 18),
-                      //  child: Text(
-                      //    user.aboutYourself.toString(),
-                      //    style: AppStyles.w400f13,
-                      //  ),
-                      //),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: StoriesWidget(
@@ -143,14 +141,55 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       const SizedBox(
                         height: 50,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 18),
-                        child: ButtonCreateCommutityPost(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: ButtonCreateCommutityPost(
+                          communityId: community.communityId.toString(),
+                        ),
                       ),
                       const SizedBox(
                         height: 50,
                       ),
-                      _buildListCommunitPosts(),
+                      //StreamBuilder<CommunityPostListState>(
+                      //  stream: bloc.stream,
+                      //  builder: (context, snapshot) {
+                      //    return ListView.builder(
+                      //      itemBuilder: (context, index) {
+                      //        return Container();
+                      //      },
+                      //    );
+                      //  },
+                      //),
+                      BlocBuilder<CommunityPostListBloc,
+                          CommunityPostListState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            loading: () => ListView.separated(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: 5,
+                              itemBuilder: (context, index) =>
+                                  const PostShimmer(),
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const SizedBox(height: 10),
+                            ),
+                            error: (message) => Text('Ошибка: $message'),
+                            success: (posts) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: posts.length,
+                                itemBuilder: (context, index) => PostCard(
+                                  onPressed: () {},
+                                  post: posts[index],
+                                ),
+                              );
+                            },
+                            orElse: () => const SizedBox.shrink(),
+                          );
+                        },
+                      ),
                     ],
                   );
                 },
@@ -162,33 +201,28 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
       ),
     );
   }
+}
 
-  BlocBuilder<CommunityPostListBloc, CommunityPostListState>
-      _buildListCommunitPosts() {
-    return BlocBuilder<CommunityPostListBloc, CommunityPostListState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          loading: () => ListView.builder(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) => const PostShimmer(),
+class CommunityPostCard extends StatelessWidget {
+  const CommunityPostCard({
+    super.key,
+    required this.post,
+  });
+  final Post post;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Column(
+        children: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.favorite),
           ),
-          error: (message) => Text('Ошибка: $message'),
-          success: (posts) {
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              itemCount: posts.length,
-              itemBuilder: (context, index) => PostCard(
-                onPressed: () {},
-                post: posts[index],
-              ),
-            );
-          },
-          orElse: () => const SizedBox.shrink(),
-        );
-      },
+          Text('${post.likes.length}'),
+        ],
+      ),
     );
   }
 }

@@ -21,8 +21,9 @@ class FirestorePostRepository implements ICommunityPostRepository {
   @override
   Future<Either<PostError, Unit>> createPost(
     Post post,
-    List<Uint8List>? imageFiles,
-  ) async {
+    List<Uint8List>? imageFiles, {
+    required String communityId,
+  }) async {
     try {
       final String postId = const Uuid().v1();
       final String authorId = auth.currentUser!.uid;
@@ -31,16 +32,22 @@ class FirestorePostRepository implements ICommunityPostRepository {
       final List<String> imageUrls =
           await FirebaseStorageImageMethods(auth, storage)
               .uploadImageToStorage(imageFiles!, true, 'communities_posts');
+      final DocumentReference reference =
+          firestore.collection('communities').doc(communityId);
+
       final updatedPost = post.copyWith(
         postId: postId,
         createdAt: formattedDate,
         authorId: authorId,
         imageUrls: imageUrls,
       );
-      await firestore
-          .collection('communities_posts')
-          .doc(postId)
-          .set(updatedPost.toJson());
+      // added post communities
+      await reference.collection('posts').doc(postId).set(updatedPost.toJson());
+
+      // update count public
+      await reference.update({
+        'public': FieldValue.increment(1),
+      });
       return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -48,18 +55,16 @@ class FirestorePostRepository implements ICommunityPostRepository {
   }
 
   @override
-  Future<Either<PostError, List<Post>>> getPosts({String? userId}) async {
+  Future<Either<PostError, List<Post>>> getPosts({
+    required String communityId,
+  }) async {
     try {
-      late final QuerySnapshot querySnapshot;
+      final QuerySnapshot querySnapshot = await firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('posts')
+          .get();
 
-      if (userId != null) {
-        querySnapshot = await firestore
-            .collection('communities_posts')
-            .where('authorId', isEqualTo: userId)
-            .get();
-      } else {
-        querySnapshot = await firestore.collection('communities_posts').get();
-      }
       final List<Post> posts = querySnapshot.docs
           .map(
             (doc) => Post.fromJson(doc.data()! as Map<String, dynamic>),
@@ -75,8 +80,9 @@ class FirestorePostRepository implements ICommunityPostRepository {
   Future<Either<PostError, Unit>> updateLikes(
     String postId,
     String userId,
-    bool add,
-  ) async {
+    bool add, {
+    required String communityId,
+  }) async {
     try {
       await firestore
           .collection('communities')
@@ -94,29 +100,29 @@ class FirestorePostRepository implements ICommunityPostRepository {
     }
   }
 
-  @override
-  Future<Either<PostError, Post>> getPost(
-    String? postId,
-    String? userId,
-  ) async {
-    try {
-      if (postId == null) {
-        return left(PostError('no Post id'));
-      }
-      final DocumentSnapshot post = await firestore
-          .collection('communities')
-          .doc()
-          .collection('new_posts')
-          .doc(postId)
-          .get();
-      if (!post.exists) {
-        return left(PostError('Post not found.'));
-      }
-      final Post userProfile =
-          Post.fromStoreData(post.data()! as Map<String, dynamic>);
-      return right(userProfile);
-    } catch (e) {
-      return left(PostError(e.toString()));
-    }
-  }
+  //@override
+  //Future<Either<PostError, Post>> getPost(
+  //  String? postId,
+  //  String? userId,
+  //) async {
+  //  try {
+  //    if (postId == null) {
+  //      return left(PostError('no Post id'));
+  //    }
+  //    final DocumentSnapshot post = await firestore
+  //        .collection('communities')
+  //        .doc()
+  //        .collection('new_posts')
+  //        .doc(postId)
+  //        .get();
+  //    if (!post.exists) {
+  //      return left(PostError('Post not found.'));
+  //    }
+  //    final Post userProfile =
+  //        Post.fromStoreData(post.data()! as Map<String, dynamic>);
+  //    return right(userProfile);
+  //  } catch (e) {
+  //    return left(PostError(e.toString()));
+  //  }
+  //}
 }
