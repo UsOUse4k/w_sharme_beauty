@@ -6,10 +6,8 @@ import 'package:w_sharme_beauty/core/di/injector.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_circle_avatar.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
 
@@ -60,11 +58,6 @@ class _QuestionWidgetWithColumnAndListTileState
               height: 46.h,
             ),
           ),
-          // GlCircleAvatar(
-          //   avatar: widget.question.imageUrl.toString(),
-          //   width: 46,
-          //   height: 46,
-
           title: Text(
             widget.question.username.toString(),
             style: AppStyles.w500f16.copyWith(fontWeight: FontWeight.w600),
@@ -88,9 +81,9 @@ class _QuestionWidgetWithColumnAndListTileState
             const SizedBox(
               width: 10,
             ),
-            Text(
+            const Text(
               "ответить",
-              style: const TextStyle(color: Colors.black87),
+              style: TextStyle(color: Colors.black87),
             ),
           ],
         ),

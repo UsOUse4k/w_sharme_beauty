@@ -62,7 +62,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         filterText1 = text;
                         selectedRating = text;
                         setState(() {});
-                      }, selectedValue: selectedRating,
+                      },
+                      selectedValue: selectedRating,
                     ),
                   ),
                 ),
@@ -80,7 +81,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         filterText2 = text;
                         selectedLocation = text;
                         setState(() {});
-                      }, selectedValue: selectedLocation,
+                      },
+                      selectedValue: selectedLocation,
                     ),
                   ),
                 ),
@@ -98,7 +100,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                         filterText3 = text;
                         selectedWork = text;
                         setState(() {});
-                      }, selectedValue: selectedWork,
+                      },
+                      selectedValue: selectedWork,
                     ),
                   ),
                 ),

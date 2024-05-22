@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_feedbacks_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_grid_image_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_service_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/sub_pages.dart';
@@ -118,7 +119,7 @@ class _AdverDetailPageState extends State<AdverDetailPage>
                         AdverReviewPage(),
                         AdverServicePage(),
                         AdverGridImagePage(),
-                        Text('Отзывы'),
+                        AdvertFeedbacksPage(),
                       ],
                     ),
                   ),

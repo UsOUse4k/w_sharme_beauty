@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_add_service_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_create_advert_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_detail_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_edit_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_my_adverts_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_product_and_service_page.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
@@ -152,6 +157,41 @@ mixin AppRouter on State<App> {
                     path: RouterContants.advertDetailPage,
                     builder: (context, state) {
                       return const AdverDetailPage();
+                    },
+                  ),
+                  GoRoute(
+                    name: RouterContants.advertMyAdvertsPage,
+                    path: RouterContants.advertMyAdvertsPage,
+                    builder: (context, state) {
+                      return const AdvertMyAdvertsPage();
+                    },
+                  ),
+                  GoRoute(
+                    name: RouterContants.advertEditAdvertsPage,
+                    path: RouterContants.advertEditAdvertsPage,
+                    builder: (context, state) {
+                      return const AdvertEditPage();
+                    },
+                  ),
+                  GoRoute(
+                    name: RouterContants.advertProductAndServicePage,
+                    path: RouterContants.advertProductAndServicePage,
+                    builder: (context, state) {
+                      return const AdvertProductAndServicePage();
+                    },
+                  ),
+                  GoRoute(
+                    name: RouterContants.advertAddServicePage,
+                    path: RouterContants.advertAddServicePage,
+                    builder: (context, state) {
+                      return const AdvertAddServicePage();
+                    },
+                  ),
+                  GoRoute(
+                    name: RouterContants.advertCreateAdvertPage,
+                    path: RouterContants.advertCreateAdvertPage,
+                    builder: (context, state) {
+                      return const AdvertCreateAdvertPage();
                     },
                   ),
                 ],

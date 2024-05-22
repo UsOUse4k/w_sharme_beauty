@@ -31,9 +31,6 @@ class _QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    // context
-    //     .watch<GetAllQuestionBloc>()
-    //     .add(const GetAllQuestionEvent.getAllQuestions());
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(
@@ -124,7 +121,6 @@ class _QuestionPageState extends State<QuestionPage> {
                 return state.maybeWhen(
                   loading: () => const SizedBox(),
                   success: (questions) {
-                    print(questions);
                     return QuestionsList(questions: questions);
                   },
                   orElse: () => const SizedBox(),
@@ -134,14 +130,8 @@ class _QuestionPageState extends State<QuestionPage> {
             const SizedBox(
               height: 10,
             ),
-            // QuestionWidgetWithColumnAndListTile(
-            //   title: 'Irina',
-            //   subtitle: 'Посоветуйте каким гель-лаком пользоваться?',
-            //   avatar: Assets.images.irina.path,
-            // ),
-            const SizedBox(
-              height: 10,
-            ),
+            // Image.network(
+            //     ("https://images.nightcafe.studio/users/ZcDYVAlvjNbsAHbwNhUFxdU0rXs2/uploads/m7XuV1i6egth4ISiD240.jpeg?tr=w-1600,c-at_max")),
           ],
         ),
       ),

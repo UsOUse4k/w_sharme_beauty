@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/card_bloc_navbar.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/card_bloc_edit_navbar.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class CardBlocAdvertsWidget extends StatelessWidget {
-  const CardBlocAdvertsWidget({
+class CardBlocEditWidget extends StatelessWidget {
+  const CardBlocEditWidget({
     super.key,
     required this.title,
     required this.desc,
@@ -22,7 +20,7 @@ class CardBlocAdvertsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/adverts/${RouterContants.advertDetailPage}');
+        //context.push('/adverts/${RouterContants.advertDetailPage}');
       },
       child: Container(
         decoration: const BoxDecoration(
@@ -33,7 +31,7 @@ class CardBlocAdvertsWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: CardBlocNavbar(
+              child: CardBlocEditNavbar(
                 title: title,
                 desc: desc,
                 rating: rating,

@@ -230,6 +230,7 @@ class _AddQuestionState extends State<AddQuestion> {
                               theme: _themeCtrl.text,
                               category: _categoryCtrl.text,
                               questionText: _questionCtrl.text,
+                              //imageUrl: 'https://example.com/',
                             ),
                             isAnonymous: agreedToTerms,
                           ),

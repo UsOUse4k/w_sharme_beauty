@@ -36,8 +36,9 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
               emit(const QuestionState.error(message: 'not username'));
             }, (profile) async {
               final updateQuestion = question.copyWith(
-                username: isAnonymous ? 'anonymous' : profile.username,
+                username: isAnonymous ? 'Анонимный' : profile.username,
                 uid: isAnonymous ? '' : user.uid,
+                imageUrl: isAnonymous ? null : profile.profilePictureUrl,
                 questionId: const Uuid().v1(),
                 createdAt: Timestamp.now(),
               );
