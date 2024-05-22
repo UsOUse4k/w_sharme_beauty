@@ -34,7 +34,7 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
           addNewPost: (event) async {
             state.maybeWhen(
               success: (posts) async {
-                final data = [ event.post, ...posts];    
+                final data = [event.post, ...posts];
                 emit(PostListState.success(data));
               },
               orElse: () {},
@@ -44,6 +44,7 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
       },
     );
   }
+
   //final CommentL
   final IPostRepository _repository;
   final MyProfileInfoBloc _profileInfoBloc;

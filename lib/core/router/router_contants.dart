@@ -31,6 +31,14 @@ abstract class RouterContants {
   static const String profileChangePassword = 'profile-change-password';
   static const String createPost = 'create-post';
 
+  // advert sub pages
+  static const String advertMyAdvertsPage = 'advertMyAdvertsPage';
+  static const String advertEditAdvertsPage = 'advertEditAdvertsPage';
+  static const String advertProductAndServicePage =
+      'advertProductAndServicePage';
+  static const String advertAddServicePage = 'advertAddServicePage';
+  static const String advertCreateAdvertPage = 'advertCreateAdvertPage';
+
   // community sub pages
   static const String communityCreate = 'community-create';
   static const String communityProfileSubscribe = 'community-profile-subscribe';

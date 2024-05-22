@@ -48,6 +48,7 @@ import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_in
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
   const BlocProviders({
@@ -206,6 +207,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<UnsubscribeBloc>(
           create: (context) => getIt<UnsubscribeBloc>(),
+        ),
+        BlocProvider<QuestionBloc>(
+          create: (context) => getIt<QuestionBloc>(),
+        ),
+        BlocProvider<GetAllQuestionBloc>(
+          create: (context) => getIt<GetAllQuestionBloc>(),
         ),
       ],
       child: child,

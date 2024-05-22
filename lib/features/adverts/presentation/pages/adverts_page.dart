@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
@@ -18,6 +20,7 @@ class AdvertsPage extends StatefulWidget {
 class _AdvertsPageState extends State<AdvertsPage> {
   @override
   Widget build(BuildContext context) {
+    final route = GoRouter.of(context);
     return GlScaffold(
       body: Column(
         children: [
@@ -80,12 +83,20 @@ class _AdvertsPageState extends State<AdvertsPage> {
                               text: 'Мои',
                               icon:
                                   Assets.icons.ads.image(height: 24, width: 24),
-                              onPressed: () {},
+                              onPressed: () {
+                                route.push(
+                                  "/adverts/${RouterContants.advertMyAdvertsPage}",
+                                );
+                              },
                             ),
                             IconButtonTextWidget(
                               text: 'Создать',
                               icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () {},
+                              onPressed: () {
+                                route.push(
+                                  "/adverts/${RouterContants.advertCreateAdvertPage}",
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -97,7 +108,6 @@ class _AdvertsPageState extends State<AdvertsPage> {
             ),
           ),
         ],
-
       ),
     );
   }

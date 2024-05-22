@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/domain/entities/stories_model.dart';
+import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/add_question.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/my_questions.dart';
-import 'package:w_sharme_beauty/features/question/widgets/questions_widget.dart';
-import 'package:w_sharme_beauty/features/question/widgets/questiowidget_with_column_and_list_tile.dart';
+import 'package:w_sharme_beauty/features/question/presentation/widgets/questions_list.dart';
+import 'package:w_sharme_beauty/features/question/presentation/widgets/questions_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -18,37 +21,12 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
-  List<StoriesModel> storiesModel = [];
   @override
   void initState() {
+    context
+        .read<GetAllQuestionBloc>()
+        .add(const GetAllQuestionEvent.getAllQuestions());
     super.initState();
-    storiesModel = [
-      StoriesModel(
-        image: Assets.icons.manikur.path,
-        title: 'Маникюр',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.pedikur.path,
-        title: 'Педикюр',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.brovi.path,
-        title: 'Брови',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.resnitsy.path,
-        title: 'Ресницы',
-        onTap: () {},
-      ),
-      StoriesModel(
-        image: Assets.icons.strishka.path,
-        title: 'Стрижка',
-        onTap: () {},
-      ),
-    ];
   }
 
   @override
@@ -64,7 +42,7 @@ class _QuestionPageState extends State<QuestionPage> {
               height: 26,
             ),
             const SizedBox(width: 16),
-             Text(
+            Text(
               'Вопросы и ответы',
               style: AppStyles.w500f22,
             ),
@@ -131,60 +109,29 @@ class _QuestionPageState extends State<QuestionPage> {
                 color: AppColors.darkGrey,
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 100,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: storiesModel.length,
-                itemBuilder: (item, index) {
-                  final StoriesModel story = storiesModel[index];
-                  return Column(
-                    children: [
-                      Image.asset(
-                        story.image,
-                        color: AppColors.purple,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        story.title,
-                        style: AppStyles.w500f16.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ],
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(
-                  width: 10,
-                ),
-              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: StoriesWidget(storiesModel: storiesModel),
             ),
             const SizedBox(
               height: 10,
             ),
-            QuestionWidgetWithColumnAndListTile(
-              title: 'Irina',
-              subtitle: 'Посоветуйте каким гель-лаком пользоваться?',
-              avatar: Assets.images.irina.path,
+            BlocBuilder<GetAllQuestionBloc, GetAllQuestionState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  loading: () => const SizedBox(),
+                  success: (questions) {
+                    return QuestionsList(questions: questions);
+                  },
+                  orElse: () => const SizedBox(),
+                );
+              },
             ),
             const SizedBox(
               height: 10,
             ),
-            QuestionWidgetWithColumnAndListTile(
-              title: 'Анонимно',
-              subtitle: 'Посоветуйте каким гель-лаком пользоваться?',
-              avatar: Assets.icons.account.path,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            // Image.network(
+            //     ("https://images.nightcafe.studio/users/ZcDYVAlvjNbsAHbwNhUFxdU0rXs2/uploads/m7XuV1i6egth4ISiD240.jpeg?tr=w-1600,c-at_max")),
           ],
         ),
       ),

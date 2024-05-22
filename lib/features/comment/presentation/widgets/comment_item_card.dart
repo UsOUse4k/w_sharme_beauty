@@ -46,7 +46,6 @@ class _CommentItemCardState extends State<CommentItemCard> {
       getRepliesComment();
     }
     setState(() {
-      
       isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
     });

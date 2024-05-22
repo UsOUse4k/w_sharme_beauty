@@ -19,16 +19,10 @@ class CommentLikesBloc extends Bloc<CommentLikesEvent, CommentLikesState> {
           try {
             if (subCommentId != null && subCommentId.isNotEmpty) {
               await _commentRepository.updateLikes(
-                  postId: postId.toString(),
-                  commentId: commentId.toString(),
-                  isLike: isLiked,
-                  subCommentId: subCommentId,);
-              emit(const CommentLikesState.success());
-            } else {
-              await _commentRepository.updateLikes(
                 postId: postId.toString(),
                 commentId: commentId.toString(),
                 isLike: isLiked,
+                subCommentId: subCommentId,
               );
               emit(const CommentLikesState.success());
             }

@@ -121,6 +121,7 @@ class FirestoreCommunityRepository implements ICommunityRepository {
 
   @override
   Future<Either<PostError, Community>> getDetail({
+    String? userId,
     String? communityId,
   }) async {
     try {

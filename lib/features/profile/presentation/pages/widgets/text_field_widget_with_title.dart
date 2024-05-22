@@ -19,8 +19,11 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
     this.filled = true,
     this.contentPadding =
         const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-    this.maxLines = 1, this.controller,
+    this.maxLines = 1,
+    this.controller,
+    this.readOnly = false,
   });
+
   final int? maxLines;
   final String title;
   final bool? filled;
@@ -31,6 +34,8 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
   final Widget? suffixIcon;
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
+  final bool? readOnly;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,6 +51,7 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
         TextField(
           controller: controller,
           maxLines: maxLines,
+          readOnly: readOnly ?? false,
           decoration: InputDecoration(
             contentPadding: contentPadding,
             constraints: const BoxConstraints(),
