@@ -4,8 +4,8 @@ part of 'update_community_bloc.dart';
 class UpdateCommunityEvent with _$UpdateCommunityEvent {
   const factory UpdateCommunityEvent.updateCommunity({
     required String communityName,
-    required String desc,
-    required String category,
+    String? desc,
+    String? category,
     Uint8List? file,
     required String communityId,
   }) = _UpdateCommunity;

@@ -19,22 +19,25 @@ mixin _$UpdateChatGroupEvent {
   String get groupId => throw _privateConstructorUsedError;
   String? get groupName => throw _privateConstructorUsedError;
   Uint8List? get file => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String groupId, String? groupName, Uint8List? file)
+    required TResult Function(String groupId, String? groupName,
+            Uint8List? file, String communityId)
         updateChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId, String? groupName, Uint8List? file)?
+    TResult? Function(String groupId, String? groupName, Uint8List? file,
+            String communityId)?
         updateChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId, String? groupName, Uint8List? file)?
+    TResult Function(String groupId, String? groupName, Uint8List? file,
+            String communityId)?
         updateChatGroup,
     required TResult orElse(),
   }) =>
@@ -67,7 +70,8 @@ abstract class $UpdateChatGroupEventCopyWith<$Res> {
           $Res Function(UpdateChatGroupEvent) then) =
       _$UpdateChatGroupEventCopyWithImpl<$Res, UpdateChatGroupEvent>;
   @useResult
-  $Res call({String groupId, String? groupName, Uint8List? file});
+  $Res call(
+      {String groupId, String? groupName, Uint8List? file, String communityId});
 }
 
 /// @nodoc
@@ -87,6 +91,7 @@ class _$UpdateChatGroupEventCopyWithImpl<$Res,
     Object? groupId = null,
     Object? groupName = freezed,
     Object? file = freezed,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       groupId: null == groupId
@@ -101,6 +106,10 @@ class _$UpdateChatGroupEventCopyWithImpl<$Res,
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -113,7 +122,8 @@ abstract class _$$UpdateChatGroupImplCopyWith<$Res>
       __$$UpdateChatGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String groupId, String? groupName, Uint8List? file});
+  $Res call(
+      {String groupId, String? groupName, Uint8List? file, String communityId});
 }
 
 /// @nodoc
@@ -130,6 +140,7 @@ class __$$UpdateChatGroupImplCopyWithImpl<$Res>
     Object? groupId = null,
     Object? groupName = freezed,
     Object? file = freezed,
+    Object? communityId = null,
   }) {
     return _then(_$UpdateChatGroupImpl(
       groupId: null == groupId
@@ -144,6 +155,10 @@ class __$$UpdateChatGroupImplCopyWithImpl<$Res>
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -152,7 +167,10 @@ class __$$UpdateChatGroupImplCopyWithImpl<$Res>
 
 class _$UpdateChatGroupImpl implements _UpdateChatGroup {
   const _$UpdateChatGroupImpl(
-      {required this.groupId, this.groupName, this.file});
+      {required this.groupId,
+      this.groupName,
+      this.file,
+      required this.communityId});
 
   @override
   final String groupId;
@@ -160,10 +178,12 @@ class _$UpdateChatGroupImpl implements _UpdateChatGroup {
   final String? groupName;
   @override
   final Uint8List? file;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'UpdateChatGroupEvent.updateChatGroup(groupId: $groupId, groupName: $groupName, file: $file)';
+    return 'UpdateChatGroupEvent.updateChatGroup(groupId: $groupId, groupName: $groupName, file: $file, communityId: $communityId)';
   }
 
   @override
@@ -174,12 +194,14 @@ class _$UpdateChatGroupImpl implements _UpdateChatGroup {
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.groupName, groupName) ||
                 other.groupName == groupName) &&
-            const DeepCollectionEquality().equals(other.file, file));
+            const DeepCollectionEquality().equals(other.file, file) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, groupId, groupName,
-      const DeepCollectionEquality().hash(file));
+      const DeepCollectionEquality().hash(file), communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -191,31 +213,33 @@ class _$UpdateChatGroupImpl implements _UpdateChatGroup {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String groupId, String? groupName, Uint8List? file)
+    required TResult Function(String groupId, String? groupName,
+            Uint8List? file, String communityId)
         updateChatGroup,
   }) {
-    return updateChatGroup(groupId, groupName, file);
+    return updateChatGroup(groupId, groupName, file, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId, String? groupName, Uint8List? file)?
+    TResult? Function(String groupId, String? groupName, Uint8List? file,
+            String communityId)?
         updateChatGroup,
   }) {
-    return updateChatGroup?.call(groupId, groupName, file);
+    return updateChatGroup?.call(groupId, groupName, file, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId, String? groupName, Uint8List? file)?
+    TResult Function(String groupId, String? groupName, Uint8List? file,
+            String communityId)?
         updateChatGroup,
     required TResult orElse(),
   }) {
     if (updateChatGroup != null) {
-      return updateChatGroup(groupId, groupName, file);
+      return updateChatGroup(groupId, groupName, file, communityId);
     }
     return orElse();
   }
@@ -253,7 +277,8 @@ abstract class _UpdateChatGroup implements UpdateChatGroupEvent {
   const factory _UpdateChatGroup(
       {required final String groupId,
       final String? groupName,
-      final Uint8List? file}) = _$UpdateChatGroupImpl;
+      final Uint8List? file,
+      required final String communityId}) = _$UpdateChatGroupImpl;
 
   @override
   String get groupId;
@@ -261,6 +286,8 @@ abstract class _UpdateChatGroup implements UpdateChatGroupEvent {
   String? get groupName;
   @override
   Uint8List? get file;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$UpdateChatGroupImplCopyWith<_$UpdateChatGroupImpl> get copyWith =>

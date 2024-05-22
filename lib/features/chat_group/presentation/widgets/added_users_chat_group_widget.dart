@@ -11,7 +11,9 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/added_chat_users_group_bloc/added_chat_users_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/create_chat_group_bloc/create_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -29,79 +31,89 @@ class AddedUsersChatGroupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final filterUsers =
         users.where((e) => e.uid != firebaseAuth.currentUser!.uid).toList();
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: BlocBuilder<AddedChatUsersGroupBloc, AddedChatUsersGroupState>(
-        builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SearchWidget(),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 90,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => _buildUserCardRow(
-                    index,
-                    state.selectedUsers,
-                    context,
-                  ),
-                  separatorBuilder: (bContext, x) {
-                    return const SizedBox(width: 20);
-                  },
-                  itemCount: state.selectedUsers.length,
-                  // shrinkWrap: true,
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 240,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => _buildCheckboxUserCard(
-                    index,
-                    state.selectedUsers,
-                    context,
-                    filterUsers,
-                  ),
-                  separatorBuilder: (buildContext, y) {
-                    return const SizedBox(height: 10);
-                  },
-                  itemCount: filterUsers.length,
-                ),
-              ),
-              const SizedBox(height: 20),
-              GlButton(
-                text: 'Продолжить',
-                onPressed: () {
-                  if (state.selectedUsers.isNotEmpty) {
-                    BottomSheetUtil.showAppBottomSheet(
+    return BlocListener<CreateChatGroupBloc, CreateChatGroupState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          success: (groupId) {
+            context.read<CommunityDetailBloc>().add(CommunityDetailEvent.loaded(communityId));
+          },
+          orElse: () {},
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: BlocBuilder<AddedChatUsersGroupBloc, AddedChatUsersGroupState>(
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SearchWidget(),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 90,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => _buildUserCardRow(
+                      index,
+                      state.selectedUsers,
                       context,
-                      CustomBottomSheetLeading(
-                        maxHeight: 0.6,
-                        navbarTitle: "Создать группу",
-                        widget: CreateChatGroupWidget(
-                          users: state.selectedUsers,
-                          communityId: communityId,
+                    ),
+                    separatorBuilder: (bContext, x) {
+                      return const SizedBox(width: 20);
+                    },
+                    itemCount: state.selectedUsers.length,
+                    // shrinkWrap: true,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 240,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => _buildCheckboxUserCard(
+                      index,
+                      state.selectedUsers,
+                      context,
+                      filterUsers,
+                    ),
+                    separatorBuilder: (buildContext, y) {
+                      return const SizedBox(height: 10);
+                    },
+                    itemCount: filterUsers.length,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GlButton(
+                  text: 'Продолжить',
+                  onPressed: () {
+                    if (state.selectedUsers.isNotEmpty) {
+                      BottomSheetUtil.showAppBottomSheet(
+                        context,
+                        CustomBottomSheetLeading(
+                          maxHeight: 0.6,
+                          navbarTitle: "Создать группу",
+                          widget: CreateChatGroupWidget(
+                            users: state.selectedUsers,
+                            communityId: communityId,
+                          ),
                         ),
-                      ),
-                      closeCurrent: true,
-                    );
-                  } else {
-                    showMyDialog(
-                      context,
-                      'Вы должны добавить хотя бы одного пользователя, чтобы продолжить.',
-                    );
-                  }
-                },
-              ),
-            ],
-          );
-        },
+                        closeCurrent: true,
+                      );
+                    } else {
+                      showMyDialog(
+                        context,
+                        'Вы должны добавить хотя бы одного пользователя, чтобы продолжить.',
+                      );
+                    }
+                  },
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

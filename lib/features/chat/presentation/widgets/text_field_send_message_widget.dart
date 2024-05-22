@@ -9,7 +9,7 @@ class TextFieldSendMessageWidget extends StatelessWidget {
     this.show = 'hide',
     this.controller,
     this.hintext = 'Сообщение',
-    this.onPressed, 
+    this.onPressed,
     this.onGallery,
   });
 

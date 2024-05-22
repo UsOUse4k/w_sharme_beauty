@@ -19,24 +19,25 @@ mixin _$UpdateManagerChatGroupEvent {
   List<String> get editors => throw _privateConstructorUsedError;
   List<String> get administrator => throw _privateConstructorUsedError;
   String get groupId => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<String> editors, List<String> administrator, String groupId)
+    required TResult Function(List<String> editors, List<String> administrator,
+            String groupId, String communityId)
         updateManagerChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<String> editors, List<String> administrator, String groupId)?
+    TResult? Function(List<String> editors, List<String> administrator,
+            String groupId, String communityId)?
         updateManagerChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<String> editors, List<String> administrator, String groupId)?
+    TResult Function(List<String> editors, List<String> administrator,
+            String groupId, String communityId)?
         updateManagerChatGroup,
     required TResult orElse(),
   }) =>
@@ -72,7 +73,11 @@ abstract class $UpdateManagerChatGroupEventCopyWith<$Res> {
       _$UpdateManagerChatGroupEventCopyWithImpl<$Res,
           UpdateManagerChatGroupEvent>;
   @useResult
-  $Res call({List<String> editors, List<String> administrator, String groupId});
+  $Res call(
+      {List<String> editors,
+      List<String> administrator,
+      String groupId,
+      String communityId});
 }
 
 /// @nodoc
@@ -92,6 +97,7 @@ class _$UpdateManagerChatGroupEventCopyWithImpl<$Res,
     Object? editors = null,
     Object? administrator = null,
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       editors: null == editors
@@ -106,6 +112,10 @@ class _$UpdateManagerChatGroupEventCopyWithImpl<$Res,
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
               as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -119,7 +129,11 @@ abstract class _$$UpdateManagerChatGroupImplCopyWith<$Res>
       __$$UpdateManagerChatGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> editors, List<String> administrator, String groupId});
+  $Res call(
+      {List<String> editors,
+      List<String> administrator,
+      String groupId,
+      String communityId});
 }
 
 /// @nodoc
@@ -138,6 +152,7 @@ class __$$UpdateManagerChatGroupImplCopyWithImpl<$Res>
     Object? editors = null,
     Object? administrator = null,
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_$UpdateManagerChatGroupImpl(
       editors: null == editors
@@ -152,6 +167,10 @@ class __$$UpdateManagerChatGroupImplCopyWithImpl<$Res>
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
               as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -162,7 +181,8 @@ class _$UpdateManagerChatGroupImpl implements _UpdateManagerChatGroup {
   const _$UpdateManagerChatGroupImpl(
       {required final List<String> editors,
       required final List<String> administrator,
-      required this.groupId})
+      required this.groupId,
+      required this.communityId})
       : _editors = editors,
         _administrator = administrator;
 
@@ -184,10 +204,12 @@ class _$UpdateManagerChatGroupImpl implements _UpdateManagerChatGroup {
 
   @override
   final String groupId;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'UpdateManagerChatGroupEvent.updateManagerChatGroup(editors: $editors, administrator: $administrator, groupId: $groupId)';
+    return 'UpdateManagerChatGroupEvent.updateManagerChatGroup(editors: $editors, administrator: $administrator, groupId: $groupId, communityId: $communityId)';
   }
 
   @override
@@ -198,7 +220,9 @@ class _$UpdateManagerChatGroupImpl implements _UpdateManagerChatGroup {
             const DeepCollectionEquality().equals(other._editors, _editors) &&
             const DeepCollectionEquality()
                 .equals(other._administrator, _administrator) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId));
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
@@ -206,7 +230,8 @@ class _$UpdateManagerChatGroupImpl implements _UpdateManagerChatGroup {
       runtimeType,
       const DeepCollectionEquality().hash(_editors),
       const DeepCollectionEquality().hash(_administrator),
-      groupId);
+      groupId,
+      communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -218,33 +243,35 @@ class _$UpdateManagerChatGroupImpl implements _UpdateManagerChatGroup {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<String> editors, List<String> administrator, String groupId)
+    required TResult Function(List<String> editors, List<String> administrator,
+            String groupId, String communityId)
         updateManagerChatGroup,
   }) {
-    return updateManagerChatGroup(editors, administrator, groupId);
+    return updateManagerChatGroup(editors, administrator, groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<String> editors, List<String> administrator, String groupId)?
+    TResult? Function(List<String> editors, List<String> administrator,
+            String groupId, String communityId)?
         updateManagerChatGroup,
   }) {
-    return updateManagerChatGroup?.call(editors, administrator, groupId);
+    return updateManagerChatGroup?.call(
+        editors, administrator, groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<String> editors, List<String> administrator, String groupId)?
+    TResult Function(List<String> editors, List<String> administrator,
+            String groupId, String communityId)?
         updateManagerChatGroup,
     required TResult orElse(),
   }) {
     if (updateManagerChatGroup != null) {
-      return updateManagerChatGroup(editors, administrator, groupId);
+      return updateManagerChatGroup(
+          editors, administrator, groupId, communityId);
     }
     return orElse();
   }
@@ -283,7 +310,8 @@ abstract class _UpdateManagerChatGroup implements UpdateManagerChatGroupEvent {
   const factory _UpdateManagerChatGroup(
       {required final List<String> editors,
       required final List<String> administrator,
-      required final String groupId}) = _$UpdateManagerChatGroupImpl;
+      required final String groupId,
+      required final String communityId}) = _$UpdateManagerChatGroupImpl;
 
   @override
   List<String> get editors;
@@ -291,6 +319,8 @@ abstract class _UpdateManagerChatGroup implements UpdateManagerChatGroupEvent {
   List<String> get administrator;
   @override
   String get groupId;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$UpdateManagerChatGroupImplCopyWith<_$UpdateManagerChatGroupImpl>

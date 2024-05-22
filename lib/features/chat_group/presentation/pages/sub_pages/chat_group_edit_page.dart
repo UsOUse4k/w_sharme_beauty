@@ -7,16 +7,23 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/pick_image.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/update_chat_group_bloc/update_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 
 class ChatGroupEditPage extends StatefulWidget {
-  const ChatGroupEditPage({super.key, required this.groupId});
+  const ChatGroupEditPage({
+    super.key,
+    required this.groupId,
+    required this.communityId,
+  });
 
   final String groupId;
+  final String communityId;
 
   @override
   State<ChatGroupEditPage> createState() => _ChatGroupEditPageState();
@@ -40,6 +47,7 @@ class _ChatGroupEditPageState extends State<ChatGroupEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = firebaseAuth.currentUser;
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: GlAppBar(
@@ -79,7 +87,10 @@ class _ChatGroupEditPageState extends State<ChatGroupEditPage> {
                     ),
                   );
                   context.read<GetGroupBloc>().add(
-                        GetGroupEvent.getGroup(groupId: widget.groupId),
+                        GetGroupEvent.getGroup(
+                          groupId: widget.groupId,
+                          communityId: widget.communityId,
+                        ),
                       );
                   setState(() => isLoading = false);
                 },
@@ -136,20 +147,36 @@ class _ChatGroupEditPageState extends State<ChatGroupEditPage> {
                         GlButton(
                           text: isLoading ? "Загрузка..." : 'Сохранить',
                           onPressed: () {
-                            if (avatar != null) {
+                            if (currentUser!.uid == group.userId) {
+                              if (avatar != null) {
+                                context.read<UpdateChatGroupBloc>().add(
+                                      UpdateChatGroupEvent.updateChatGroup(
+                                        groupId: widget.groupId,
+                                        file: avatar,
+                                        communityId: widget.communityId,
+                                      ),
+                                    );
+                              } else {
+                                context.read<UpdateChatGroupBloc>().add(
+                                      UpdateChatGroupEvent.updateChatGroup(
+                                        groupId: widget.groupId,
+                                        groupName: _groupNameCtrl.text,
+                                        communityId: widget.communityId,
+                                      ),
+                                    );
+                              }
+                            } else if (group.editors != null &&
+                                group.editors!.contains(currentUser.uid) ==
+                                    true && avatar != null) {
                               context.read<UpdateChatGroupBloc>().add(
                                     UpdateChatGroupEvent.updateChatGroup(
                                       groupId: widget.groupId,
                                       file: avatar,
+                                      communityId: widget.communityId,
                                     ),
                                   );
                             } else {
-                              context.read<UpdateChatGroupBloc>().add(
-                                    UpdateChatGroupEvent.updateChatGroup(
-                                      groupId: widget.groupId,
-                                      groupName: _groupNameCtrl.text,
-                                    ),
-                                  );
+                              showMyDialog(context, 'У вас нет права!');
                             }
                           },
                         ),

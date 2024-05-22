@@ -14,12 +14,13 @@ class InviteUsersChatGroupBloc
       : super(const _Initial()) {
     on<InviteUsersChatGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        inviteUsersChatGroup: (userIds, groupId) async {
+        inviteUsersChatGroup: (userIds, groupId, community,) async {
           emit(const InviteUsersChatGroupState.loading());
           try {
             final result = await _chatGroupRepository.addedUserChatGroup(
               groupId: groupId,
               userIds: userIds,
+              communityId: community,
             );
             result.fold(
               (l) => emit(InviteUsersChatGroupState.error(message: l.messasge)),

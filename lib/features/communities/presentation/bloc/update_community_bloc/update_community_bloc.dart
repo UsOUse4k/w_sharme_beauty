@@ -19,8 +19,8 @@ class UpdateCommunityBloc
           emit(const UpdateCommunityState.loading());
           try {
             final result = await _communityRepository.updateCommunity(
-              category: category,
-              desc: desc,
+              category: category!,
+              desc: desc!,
               file: file,
               communityId: communityId,
               communityName: communityName,

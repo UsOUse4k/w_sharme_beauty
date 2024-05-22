@@ -15,13 +15,14 @@ class UpdateChatGroupBloc
   UpdateChatGroupBloc(this._chatGroupRepository) : super(const _Initial()) {
     on<UpdateChatGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        updateChatGroup: (groupId, groupName, file) async {
+        updateChatGroup: (groupId, groupName, file, communitid,) async {
           emit(const UpdateChatGroupState.loading());
           try {
             final result = await _chatGroupRepository.updateGroup(
               groupId: groupId,
               file: file,
               groupName: groupName,
+              communityId: communitid,
             );
             result.fold((l) {
               emit(UpdateChatGroupState.error(message: l.messasge));

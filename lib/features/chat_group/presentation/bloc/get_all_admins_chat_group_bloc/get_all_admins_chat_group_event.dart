@@ -4,5 +4,6 @@ part of 'get_all_admins_chat_group_bloc.dart';
 class GetAllAdminsChatGroupEvent with _$GetAllAdminsChatGroupEvent {
   const factory GetAllAdminsChatGroupEvent.getAllAdminsChatGroup({
     required String groupId,
+    required String communityId,
   }) = _GetAllAdminsChatGroup;
 }

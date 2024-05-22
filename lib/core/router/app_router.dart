@@ -152,50 +152,64 @@ mixin AppRouter on State<App> {
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
-                        path: '${RouterContants.chatGroupMessages}/:groupId',
+                        path:
+                            '${RouterContants.chatGroupMessages}/:groupId/:communityId',
                         builder: (BuildContext context, GoRouterState state) {
                           final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
                           return ChatGroupMessagesPage(
                             groupId: groupId.toString(),
+                            communityId: communityId.toString(),
                           );
                         },
                         routes: [
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
-                            path: 'chatGroupEdit/:groupId',
+                            path: 'chatGroupEdit/:groupId/:communityId',
                             builder:
                                 (BuildContext context, GoRouterState state) {
                               final groupId = state.pathParameters['groupId'];
+                              final communityId =
+                                  state.pathParameters['communityId'];
                               return ChatGroupEditPage(
                                 groupId: groupId.toString(),
+                                communityId: communityId.toString(),
                               );
                             },
                           ),
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
-                            path: 'chatAdmins/:groupId',
+                            path: 'chatAdmins/:groupId/:communityId',
                             builder:
                                 (BuildContext context, GoRouterState state) {
                               final groupId = state.pathParameters['groupId'];
+                              final communityId =
+                                  state.pathParameters['communityId'];
+
                               return ChatGroupAdminsPage(
                                 groupId: groupId.toString(),
+                                communityId: communityId.toString(),
                               );
                             },
                             routes: [
                               GoRoute(
                                 parentNavigatorKey: RouterKeys.rootKey,
-                                path: 'appointManagment/:userId/:groupId',
+                                path:
+                                    'appointManagment/:userId/:groupId/:communityId',
                                 builder: (
                                   BuildContext context,
                                   GoRouterState state,
                                 ) {
                                   final userId = state.pathParameters['userId'];
+                                  final communityId =
+                                      state.pathParameters['communityId'];
                                   final groupId =
                                       state.pathParameters['groupId'];
-
                                   return ChatGroupAppointManagmentPage(
                                     userId: userId.toString(),
                                     groupId: groupId.toString(),
+                                    communityId: communityId.toString(),
                                   );
                                 },
                               ),
@@ -203,28 +217,35 @@ mixin AppRouter on State<App> {
                           ),
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
-                            path: 'chatParticipants/:groupId',
+                            path: 'chatParticipants/:groupId/:communityId',
                             builder:
                                 (BuildContext context, GoRouterState state) {
                               final groupId = state.pathParameters['groupId'];
+                              final communityId =
+                                  state.pathParameters['communityId'];
                               return ChatParticipantsPage(
                                 groupId: groupId.toString(),
+                                communityId: communityId,
                               );
                             },
                             routes: [
                               GoRoute(
                                 parentNavigatorKey: RouterKeys.rootKey,
-                                path: 'appointManagment/:userId/:groupId',
+                                path:
+                                    'appointManagment/:userId/:groupId/:communityId',
                                 builder: (
                                   BuildContext context,
                                   GoRouterState state,
                                 ) {
                                   final userId = state.pathParameters['userId'];
+                                  final communityId =
+                                      state.pathParameters['communityId'];
                                   final groupId =
                                       state.pathParameters['groupId'];
                                   return ChatGroupAppointManagmentPage(
                                     userId: userId.toString(),
                                     groupId: groupId.toString(),
+                                    communityId: communityId.toString(),
                                   );
                                 },
                               ),
@@ -317,20 +338,14 @@ mixin AppRouter on State<App> {
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
-                        path: 'chatAdmins/:groupId',
+                        path: 'chatAdmins/:groupId/:communityId',
                         builder: (BuildContext context, GoRouterState state) {
                           final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+
                           return ChatGroupAdminsPage(
-                            groupId: groupId.toString(),
-                          );
-                        },
-                      ),
-                      GoRoute(
-                        parentNavigatorKey: RouterKeys.rootKey,
-                        path: '${RouterContants.chatGroupMessages}/:groupId',
-                        builder: (BuildContext context, GoRouterState state) {
-                          final groupId = state.pathParameters['groupId'];
-                          return ChatGroupMessagesPage(
+                            communityId: communityId,
                             groupId: groupId.toString(),
                           );
                         },
@@ -338,7 +353,21 @@ mixin AppRouter on State<App> {
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
                         path:
-                            "${RouterContants.communityEdit}/:communityId",
+                            '${RouterContants.chatGroupMessages}/:groupId/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+
+                          return ChatGroupMessagesPage(
+                            communityId: communityId.toString(),
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: "${RouterContants.communityEdit}/:communityId",
                         builder: (BuildContext context, GoRouterState state) {
                           final communityId =
                               state.pathParameters['communityId'];
@@ -349,10 +378,13 @@ mixin AppRouter on State<App> {
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
-                        path: 'chatParticipants/:groupId',
+                        path: 'chatParticipants/:groupId/:communityId',
                         builder: (BuildContext context, GoRouterState state) {
                           final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
                           return ChatParticipantsPage(
+                            communityId: communityId,
                             groupId: groupId.toString(),
                           );
                         },
@@ -372,11 +404,12 @@ mixin AppRouter on State<App> {
                     ],
                   ),
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityMembers,
-                    path: RouterContants.communityMembers,
-                    builder: (context, state) => const CommunityMembersPage(),
-                  ),
+                      parentNavigatorKey: RouterKeys.rootKey,
+                      path: "${RouterContants.communityMembers}/:communityId",
+                      builder: (BuildContext context, GoRouterState state) {
+                        final communityId = state.pathParameters['communityId'];
+                        return CommunityMembersPage(communityId: communityId.toString());
+                      },),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.communitySubscribers,

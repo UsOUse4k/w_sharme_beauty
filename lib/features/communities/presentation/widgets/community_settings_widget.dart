@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -28,12 +28,14 @@ class CommunitySettingsWidget extends StatefulWidget {
 
 class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
   String? groupId;
-
+  String? userId;
   @override
   void initState() {
-    context
-        .read<GetAllChatGroupBloc>()
-        .add(const GetAllChatGroupEvent.getAllChatGroups());
+    context.read<GetAllChatGroupBloc>().add(
+          GetAllChatGroupEvent.getAllChatGroups(
+            communityId: widget.communityId,
+          ),
+        );
     super.initState();
   }
 
@@ -48,16 +50,18 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
       child: BlocListener<GetAllChatGroupBloc, GetAllChatGroupState>(
         listener: (context, state) {
           state.maybeWhen(
-            success: (groups) {
-              try {
-                final group = groups.firstWhere(
-                  (element) => element.communityId == widget.communityId,
-                );
-                context.read<GetGroupBloc>().add(
-                      GetGroupEvent.getGroup(
-                        groupId: group.groupId.toString(),
-                      ),
-                    );
+            success: (group) {
+              groupId = group.groupId;
+              setState(() {});
+              context.read<GetGroupBloc>().add(
+                    GetGroupEvent.getGroup(
+                      groupId: group.groupId.toString(),
+                      communityId: widget.communityId,
+                    ),
+                  );
+              if (group.editors != null &&
+                  group.administrator != null &&
+                  group.groupId != null) {
                 context.read<ChatGroupCheckManagerBloc>().add(
                       ChatGroupCheckManagerEvent.getAllAdministrator(
                         administrator: group.administrator!,
@@ -65,10 +69,12 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
                         groupId: group.groupId!,
                       ),
                     );
-                groupId = group.groupId;
-                setState(() {});
-              } catch (e) {
-                print('not found');
+                context.read<GetAllGroupMessagesBloc>().add(
+                      GetAllGroupMessagesEvent.getAllGroupMessages(
+                        groupId: group.groupId.toString(),
+                        communityId: group.communityId.toString(),
+                      ),
+                    );
               }
             },
             orElse: () {},
@@ -97,7 +103,7 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
                   onPressed: () {
                     if (groupId != null) {
                       widget.route.push(
-                        '/communities/community-profile/${widget.communityId}/chatGroupMessages/$groupId',
+                        '/communities/community-profile/${widget.communityId}/chatGroupMessages/$groupId/${widget.communityId}',
                       );
                     } else {
                       showMyDialog(context, 'Сначала создайте чат!');
@@ -111,7 +117,7 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
                   onPressed: () {
                     if (groupId != null) {
                       widget.route.push(
-                        '/communities/community-profile/${widget.communityId}/chatAdmins/$groupId',
+                        '/communities/community-profile/${widget.communityId}/chatAdmins/$groupId/${widget.communityId}',
                       );
                     } else {
                       showMyDialog(context, 'Сначала создайте чат!');
@@ -124,7 +130,7 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
                   onPressed: () {
                     if (groupId != null) {
                       widget.route.push(
-                        '/communities/community-profile/${widget.communityId}/chatParticipants/$groupId',
+                        '/communities/community-profile/${widget.communityId}/chatParticipants/$groupId/${widget.communityId}',
                       );
                     } else {
                       showMyDialog(context, 'Сначала создайте чат!');

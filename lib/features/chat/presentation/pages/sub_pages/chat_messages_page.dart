@@ -68,6 +68,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
     return Scaffold(
+      backgroundColor: AppColors.white,
       resizeToAvoidBottomInset: true,
       appBar: GlAppBar(
         leading: GlIconButton(
@@ -78,6 +79,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
         ),
         title: _buildProfileName(),
         action: _buildAvatarUser(router, widget.userId.toString()),
+        
       ),
       body: BlocConsumer<CreateChatroomBloc, CreateChatroomState>(
         listener: (context, state) {
@@ -104,17 +106,17 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
           return state.maybeWhen(
             sucsess: (chatRoomId) {
               return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 30,
-                    left: 18,
-                    right: 18,
-                    bottom: 4,
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 25,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 70,
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          top: 30,
+                          left: 18,
+                          right: 18,
+                        ),
+                        decoration: const BoxDecoration(color: AppColors.bgColors),
                         child: BlocBuilder<GetMessagesBloc, GetMessagesState>(
                           builder: (context, state) {
                             return state.maybeWhen(
@@ -130,25 +132,25 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                           },
                         ),
                       ),
-                      const Spacer(),
-                      TextFieldSendMessageWidget(
-                        onGallery: () => selectedImage(chatRoomId.toString()),
-                        controller: sendMessageCtrl,
-                        onPressed: () {
-                          if (sendMessageCtrl.text.isNotEmpty) {
-                            context.read<SendMessageBloc>().add(
-                                  SendMessageEvent.sendMessage(
-                                    chatRoomId: chatRoomId.toString(),
-                                    message: sendMessageCtrl.text,
-                                    receiverId: widget.userId.toString(),
-                                  ),
-                                );
-                            sendMessageCtrl.clear();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Spacer(),
+                    TextFieldSendMessageWidget(
+                      onGallery: () => selectedImage(chatRoomId.toString()),
+                      controller: sendMessageCtrl,
+                      onPressed: () {
+                        if (sendMessageCtrl.text.isNotEmpty) {
+                          context.read<SendMessageBloc>().add(
+                                SendMessageEvent.sendMessage(
+                                  chatRoomId: chatRoomId.toString(),
+                                  message: sendMessageCtrl.text,
+                                  receiverId: widget.userId.toString(),
+                                ),
+                              );
+                          sendMessageCtrl.clear();
+                        }
+                      },
+                    ),
+                  ],
                 ),
               );
             },
@@ -156,6 +158,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
           );
         },
       ),
+      
     );
   }
 

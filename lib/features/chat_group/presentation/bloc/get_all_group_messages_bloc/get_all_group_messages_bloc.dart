@@ -14,11 +14,13 @@ class GetAllGroupMessagesBloc
   GetAllGroupMessagesBloc(this._chatGroupRepository) : super(const _Initial()) {
     on<GetAllGroupMessagesEvent>((event, emit) async {
       await event.maybeWhen(
-        getAllGroupMessages: (groupId) async {
+        getAllGroupMessages: (groupId, communityId) async {
           emit(const GetAllGroupMessagesState.loading());
           try {
-            await for (final messages
-                in _chatGroupRepository.getMessages(groupId: groupId)) {
+            await for (final messages in _chatGroupRepository.getMessages(
+              groupId: groupId,
+              communityId: communityId,
+            )) {
               emit(GetAllGroupMessagesState.success(messages));
             }
           } catch (e) {

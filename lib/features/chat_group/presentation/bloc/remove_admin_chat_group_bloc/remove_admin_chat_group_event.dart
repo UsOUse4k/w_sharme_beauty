@@ -6,5 +6,7 @@ class RemoveAdminChatGroupEvent with _$RemoveAdminChatGroupEvent {
     required String userId,
     required String groupId,
     required String type,
+    required String communityId,
+
   }) = _RemoveAdmin;
 }

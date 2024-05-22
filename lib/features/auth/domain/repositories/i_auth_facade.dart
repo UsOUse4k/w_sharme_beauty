@@ -30,4 +30,11 @@ abstract class IAuthFacade {
   Future<List<UserProfile>> getUserProfiles({
     required List<String> userIds,
   });
+
+  Future<Either<PostError, Unit>> subscribe({
+    required String targetUserUid,
+  });
+  Future<Either<PostError, Unit>> unsubscribe({
+    required String targetUserUid,
+  });
 }

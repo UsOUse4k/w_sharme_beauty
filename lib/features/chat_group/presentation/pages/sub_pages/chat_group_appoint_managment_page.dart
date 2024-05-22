@@ -16,10 +16,12 @@ class ChatGroupAppointManagmentPage extends StatefulWidget {
     super.key,
     required this.userId,
     required this.groupId,
+    required this.communityId,
   });
 
   final String userId;
   final String groupId;
+  final String communityId;
 
   @override
   State<ChatGroupAppointManagmentPage> createState() =>
@@ -63,6 +65,7 @@ class _ChatGroupAppointManagmentPageState
                       context.read<GetAllAdminsChatGroupBloc>().add(
                             GetAllAdminsChatGroupEvent.getAllAdminsChatGroup(
                               groupId: widget.groupId,
+                              communityId: widget.communityId,
                             ),
                           );
                     },
@@ -162,6 +165,7 @@ class _ChatGroupAppointManagmentPageState
                                       groupId: widget.groupId,
                                       administrator: editState.administrator,
                                       editors: editState.editors,
+                                      communityId: widget.communityId,
                                     ),
                                   );
                             },

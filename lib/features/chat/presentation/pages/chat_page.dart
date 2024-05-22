@@ -7,6 +7,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -22,6 +23,9 @@ class _ChatPageState extends State<ChatPage>
   @override
   void initState() {
     super.initState();
+    context
+        .read<CommunityListBloc>()
+        .add(const CommunityListEvent.getCommunities());
     context
         .read<UpdateStatusUserBloc>()
         .add(const UpdateStatusUserEvent.updateStatusUser());

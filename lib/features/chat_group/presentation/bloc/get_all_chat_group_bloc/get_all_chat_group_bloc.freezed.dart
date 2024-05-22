@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetAllChatGroupEvent {
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllChatGroups,
+    required TResult Function(String communityId) getAllChatGroups,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllChatGroups,
+    TResult? Function(String communityId)? getAllChatGroups,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllChatGroups,
+    TResult Function(String communityId)? getAllChatGroups,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$GetAllChatGroupEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $GetAllChatGroupEventCopyWith<GetAllChatGroupEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $GetAllChatGroupEventCopyWith<$Res> {
   factory $GetAllChatGroupEventCopyWith(GetAllChatGroupEvent value,
           $Res Function(GetAllChatGroupEvent) then) =
       _$GetAllChatGroupEventCopyWithImpl<$Res, GetAllChatGroupEvent>;
+  @useResult
+  $Res call({String communityId});
 }
 
 /// @nodoc
@@ -67,13 +74,30 @@ class _$GetAllChatGroupEventCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? communityId = null,
+  }) {
+    return _then(_value.copyWith(
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetAllChatGroupsImplCopyWith<$Res> {
+abstract class _$$GetAllChatGroupsImplCopyWith<$Res>
+    implements $GetAllChatGroupEventCopyWith<$Res> {
   factory _$$GetAllChatGroupsImplCopyWith(_$GetAllChatGroupsImpl value,
           $Res Function(_$GetAllChatGroupsImpl) then) =
       __$$GetAllChatGroupsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String communityId});
 }
 
 /// @nodoc
@@ -83,51 +107,77 @@ class __$$GetAllChatGroupsImplCopyWithImpl<$Res>
   __$$GetAllChatGroupsImplCopyWithImpl(_$GetAllChatGroupsImpl _value,
       $Res Function(_$GetAllChatGroupsImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? communityId = null,
+  }) {
+    return _then(_$GetAllChatGroupsImpl(
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetAllChatGroupsImpl implements _GetAllChatGroups {
-  const _$GetAllChatGroupsImpl();
+  const _$GetAllChatGroupsImpl({required this.communityId});
+
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'GetAllChatGroupEvent.getAllChatGroups()';
+    return 'GetAllChatGroupEvent.getAllChatGroups(communityId: $communityId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllChatGroupsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllChatGroupsImpl &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, communityId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAllChatGroupsImplCopyWith<_$GetAllChatGroupsImpl> get copyWith =>
+      __$$GetAllChatGroupsImplCopyWithImpl<_$GetAllChatGroupsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllChatGroups,
+    required TResult Function(String communityId) getAllChatGroups,
   }) {
-    return getAllChatGroups();
+    return getAllChatGroups(communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllChatGroups,
+    TResult? Function(String communityId)? getAllChatGroups,
   }) {
-    return getAllChatGroups?.call();
+    return getAllChatGroups?.call(communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllChatGroups,
+    TResult Function(String communityId)? getAllChatGroups,
     required TResult orElse(),
   }) {
     if (getAllChatGroups != null) {
-      return getAllChatGroups();
+      return getAllChatGroups(communityId);
     }
     return orElse();
   }
@@ -162,7 +212,15 @@ class _$GetAllChatGroupsImpl implements _GetAllChatGroups {
 }
 
 abstract class _GetAllChatGroups implements GetAllChatGroupEvent {
-  const factory _GetAllChatGroups() = _$GetAllChatGroupsImpl;
+  const factory _GetAllChatGroups({required final String communityId}) =
+      _$GetAllChatGroupsImpl;
+
+  @override
+  String get communityId;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetAllChatGroupsImplCopyWith<_$GetAllChatGroupsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -171,7 +229,7 @@ mixin _$GetAllChatGroupState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ChatGroupRoom> groups) success,
+    required TResult Function(ChatGroupRoom group) success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -179,7 +237,7 @@ mixin _$GetAllChatGroupState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ChatGroupRoom> groups)? success,
+    TResult? Function(ChatGroupRoom group)? success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -187,7 +245,7 @@ mixin _$GetAllChatGroupState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ChatGroupRoom> groups)? success,
+    TResult Function(ChatGroupRoom group)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -278,7 +336,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ChatGroupRoom> groups) success,
+    required TResult Function(ChatGroupRoom group) success,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -289,7 +347,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ChatGroupRoom> groups)? success,
+    TResult? Function(ChatGroupRoom group)? success,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -300,7 +358,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ChatGroupRoom> groups)? success,
+    TResult Function(ChatGroupRoom group)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -392,7 +450,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ChatGroupRoom> groups) success,
+    required TResult Function(ChatGroupRoom group) success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -403,7 +461,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ChatGroupRoom> groups)? success,
+    TResult? Function(ChatGroupRoom group)? success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -414,7 +472,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ChatGroupRoom> groups)? success,
+    TResult Function(ChatGroupRoom group)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -472,7 +530,9 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ChatGroupRoom> groups});
+  $Res call({ChatGroupRoom group});
+
+  $ChatGroupRoomCopyWith<$Res> get group;
 }
 
 /// @nodoc
@@ -486,33 +546,36 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? groups = null,
+    Object? group = null,
   }) {
     return _then(_$SuccessImpl(
-      null == groups
-          ? _value._groups
-          : groups // ignore: cast_nullable_to_non_nullable
-              as List<ChatGroupRoom>,
+      null == group
+          ? _value.group
+          : group // ignore: cast_nullable_to_non_nullable
+              as ChatGroupRoom,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChatGroupRoomCopyWith<$Res> get group {
+    return $ChatGroupRoomCopyWith<$Res>(_value.group, (value) {
+      return _then(_value.copyWith(group: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(final List<ChatGroupRoom> groups) : _groups = groups;
+  const _$SuccessImpl(this.group);
 
-  final List<ChatGroupRoom> _groups;
   @override
-  List<ChatGroupRoom> get groups {
-    if (_groups is EqualUnmodifiableListView) return _groups;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_groups);
-  }
+  final ChatGroupRoom group;
 
   @override
   String toString() {
-    return 'GetAllChatGroupState.success(groups: $groups)';
+    return 'GetAllChatGroupState.success(group: $group)';
   }
 
   @override
@@ -520,12 +583,11 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            const DeepCollectionEquality().equals(other._groups, _groups));
+            (identical(other.group, group) || other.group == group));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_groups));
+  int get hashCode => Object.hash(runtimeType, group);
 
   @JsonKey(ignore: true)
   @override
@@ -538,10 +600,10 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ChatGroupRoom> groups) success,
+    required TResult Function(ChatGroupRoom group) success,
     required TResult Function(String message) error,
   }) {
-    return success(groups);
+    return success(group);
   }
 
   @override
@@ -549,10 +611,10 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ChatGroupRoom> groups)? success,
+    TResult? Function(ChatGroupRoom group)? success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(groups);
+    return success?.call(group);
   }
 
   @override
@@ -560,12 +622,12 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ChatGroupRoom> groups)? success,
+    TResult Function(ChatGroupRoom group)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(groups);
+      return success(group);
     }
     return orElse();
   }
@@ -609,9 +671,9 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements GetAllChatGroupState {
-  const factory _Success(final List<ChatGroupRoom> groups) = _$SuccessImpl;
+  const factory _Success(final ChatGroupRoom group) = _$SuccessImpl;
 
-  List<ChatGroupRoom> get groups;
+  ChatGroupRoom get group;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -683,7 +745,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ChatGroupRoom> groups) success,
+    required TResult Function(ChatGroupRoom group) success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -694,7 +756,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ChatGroupRoom> groups)? success,
+    TResult? Function(ChatGroupRoom group)? success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -705,7 +767,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<ChatGroupRoom> groups)? success,
+    TResult Function(ChatGroupRoom group)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

@@ -62,11 +62,15 @@ class ProfileNavbarWidget extends StatelessWidget {
         ),
         Column(
           children: [
-            if (followers != null) Text(followers!, style: AppStyles.w500f16),
             if (followers != null)
               GestureDetector(
                 onTap: onPressedFollowers,
-                child: Text(subscribeText!, style: AppStyles.w400f14),
+                child: Column(
+                  children: [
+                    Text(followers!, style: AppStyles.w500f16),
+                    Text(subscribeText!, style: AppStyles.w400f14),
+                  ],
+                ),
               ),
           ],
         ),

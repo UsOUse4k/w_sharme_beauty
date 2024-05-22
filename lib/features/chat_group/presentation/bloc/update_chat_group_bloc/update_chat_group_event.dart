@@ -6,5 +6,6 @@ class UpdateChatGroupEvent with _$UpdateChatGroupEvent {
     required String groupId,
     String? groupName,
     Uint8List? file,
+    required String communityId,
   }) = _UpdateChatGroup;
 }

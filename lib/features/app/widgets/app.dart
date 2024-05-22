@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/provider/bloc_provider.dart';
 import 'package:w_sharme_beauty/core/router/app_router.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -19,6 +20,9 @@ class _AppState extends State<App> with AppRouter {
       splitScreenMode: true,
       child: BlocProviders(
         child: MaterialApp.router(
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.white,
+          ),
           routerConfig: routerConfig,
           debugShowCheckedModeBanner: false,
         ),

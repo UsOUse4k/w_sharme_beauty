@@ -38,6 +38,8 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       }
       members.sort((a, b) => a.compareTo(b));
       final QuerySnapshot existingChatrooms = await _firestore
+          .collection('communities')
+          .doc(communityId)
           .collection('chat_groups')
           .where(
             'joinedUserIds',
@@ -63,7 +65,13 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
           userId: myUid,
           //groupName:
         );
+        await _firestore.collection('communities').doc(communityId).update({
+          'participants': FieldValue.arrayUnion(members),
+          'chatGroupId': groupId,
+        });
         await _firestore
+            .collection('communities')
+            .doc(communityId)
             .collection('chat_groups')
             .doc(groupId)
             .set(groupRoom.toJson());
@@ -81,6 +89,7 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
     required String receiverId,
     required String username,
     required String avatarUrl,
+    required String communityId,
   }) async {
     try {
       final String messageId = const Uuid().v1();
@@ -97,8 +106,11 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
         avatarUrl: avatarUrl,
         username: username,
       );
-      final DocumentReference myChatRoomRef =
-          _firestore.collection('chat_groups').doc(groupId);
+      final DocumentReference myChatRoomRef = _firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('chat_groups')
+          .doc(groupId);
       await myChatRoomRef
           .collection('messages')
           .doc(messageId)
@@ -119,8 +131,13 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
   }
 
   @override
-  Stream<List<Message>> getMessages({required String groupId}) {
+  Stream<List<Message>> getMessages({
+    required String groupId,
+    required String communityId,
+  }) {
     return _firestore
+        .collection('communities')
+        .doc(communityId)
         .collection('chat_groups')
         .doc(groupId)
         .collection('messages')
@@ -134,9 +151,13 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
   }
 
   @override
-  Stream<List<ChatGroupRoom>> getAllChatGroups() {
+  Stream<List<ChatGroupRoom>> getAllChatGroup({
+    required String communityId,
+  }) {
     final myUid = _auth.currentUser!.uid;
     return _firestore
+        .collection('communities')
+        .doc(communityId)
         .collection('chat_groups')
         .where('joinedUserIds', arrayContains: myUid)
         .orderBy('lastMessageTs', descending: true)
@@ -151,10 +172,15 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
   @override
   Future<Either<PostError, ChatGroupRoom>> getGroup({
     required String groupId,
+    required String communityId,
   }) async {
     try {
-      final DocumentSnapshot groupDoc =
-          await _firestore.collection('chat_groups').doc(groupId).get();
+      final DocumentSnapshot groupDoc = await _firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('chat_groups')
+          .doc(groupId)
+          .get();
       if (!groupDoc.exists) {
         return left(PostError('Group not found.'));
       }
@@ -172,10 +198,18 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
     Uint8List? file,
     String? groupName,
     ChatGroupRoom? groupRoom,
+    required String communityId,
   }) async {
     try {
-      final updateChatGroup = _firestore.collection('chat_groups').doc(groupId);
+      final updateChatGroup = _firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('chat_groups')
+          .doc(groupId);
+      final updateCommunity =
+          _firestore.collection('communities').doc(communityId);
       final Map<String, dynamic> updates = {};
+      final Map<String, dynamic> communityUpdates = {};
       if (groupName != null) {
         updates['groupName'] = groupName;
       }
@@ -186,12 +220,17 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       }
       if (groupRoom != null && groupRoom.administrator != null) {
         updates['administrator'] = groupRoom.administrator;
+        communityUpdates['administrator'] = groupRoom.administrator;
       }
       if (groupRoom != null && groupRoom.editors != null) {
         updates['editors'] = groupRoom.editors;
+        communityUpdates['editors'] = groupRoom.editors;
       }
       if (updates.isNotEmpty) {
         await updateChatGroup.update(updates);
+      }
+      if (communityUpdates.isNotEmpty) {
+        await updateCommunity.update(communityUpdates);
       }
       return right(unit);
     } catch (e) {
@@ -204,10 +243,15 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
     required String groupId,
     required String userId,
     required String type,
+    required String communityId,
   }) async {
     try {
+      final DocumentReference communityReference =
+          _firestore.collection('communities').doc(communityId);
+
       final DocumentReference reference =
-          _firestore.collection('chat_groups').doc(groupId);
+          communityReference.collection('chat_groups').doc(groupId);
+
       if (type == 'user') {
         await reference.update({
           'joinedUserIds': FieldValue.arrayRemove([userId]),
@@ -216,6 +260,16 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
         await reference.update({
           'administrator': FieldValue.arrayRemove([userId]),
           'editors': FieldValue.arrayRemove([userId]),
+        });
+      }
+      if (type == 'user') {
+        await communityReference.update({
+          "participants": FieldValue.arrayRemove([userId]),
+        });
+      } else {
+        await communityReference.update({
+          "administrator": FieldValue.arrayRemove([userId]),
+          "editors": FieldValue.arrayRemove([userId]),
         });
       }
       return right(unit);
@@ -228,10 +282,19 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
   Future<Either<PostError, Unit>> addedUserChatGroup({
     required String groupId,
     required List<String> userIds,
+    required String communityId,
   }) async {
     try {
-      await _firestore.collection('chat_groups').doc(groupId).update({
+      await _firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('chat_groups')
+          .doc(groupId)
+          .update({
         'joinedUserIds': FieldValue.arrayUnion(userIds),
+      });
+      await _firestore.collection('communities').doc(communityId).update({
+        'participants': FieldValue.arrayUnion(userIds),
       });
       return right(unit);
     } catch (e) {

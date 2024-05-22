@@ -17,19 +17,20 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GetGroupEvent {
   String get groupId => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId) getGroup,
+    required TResult Function(String groupId, String communityId) getGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId)? getGroup,
+    TResult? Function(String groupId, String communityId)? getGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId)? getGroup,
+    TResult Function(String groupId, String communityId)? getGroup,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +62,7 @@ abstract class $GetGroupEventCopyWith<$Res> {
           GetGroupEvent value, $Res Function(GetGroupEvent) then) =
       _$GetGroupEventCopyWithImpl<$Res, GetGroupEvent>;
   @useResult
-  $Res call({String groupId});
+  $Res call({String groupId, String communityId});
 }
 
 /// @nodoc
@@ -78,11 +79,16 @@ class _$GetGroupEventCopyWithImpl<$Res, $Val extends GetGroupEvent>
   @override
   $Res call({
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -96,7 +102,7 @@ abstract class _$$GetGroupImplCopyWith<$Res>
       __$$GetGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String groupId});
+  $Res call({String groupId, String communityId});
 }
 
 /// @nodoc
@@ -111,11 +117,16 @@ class __$$GetGroupImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_$GetGroupImpl(
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -124,14 +135,16 @@ class __$$GetGroupImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetGroupImpl implements _GetGroup {
-  const _$GetGroupImpl({required this.groupId});
+  const _$GetGroupImpl({required this.groupId, required this.communityId});
 
   @override
   final String groupId;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'GetGroupEvent.getGroup(groupId: $groupId)';
+    return 'GetGroupEvent.getGroup(groupId: $groupId, communityId: $communityId)';
   }
 
   @override
@@ -139,11 +152,13 @@ class _$GetGroupImpl implements _GetGroup {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetGroupImpl &&
-            (identical(other.groupId, groupId) || other.groupId == groupId));
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, groupId);
+  int get hashCode => Object.hash(runtimeType, groupId, communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -154,27 +169,27 @@ class _$GetGroupImpl implements _GetGroup {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId) getGroup,
+    required TResult Function(String groupId, String communityId) getGroup,
   }) {
-    return getGroup(groupId);
+    return getGroup(groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId)? getGroup,
+    TResult? Function(String groupId, String communityId)? getGroup,
   }) {
-    return getGroup?.call(groupId);
+    return getGroup?.call(groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId)? getGroup,
+    TResult Function(String groupId, String communityId)? getGroup,
     required TResult orElse(),
   }) {
     if (getGroup != null) {
-      return getGroup(groupId);
+      return getGroup(groupId, communityId);
     }
     return orElse();
   }
@@ -209,10 +224,14 @@ class _$GetGroupImpl implements _GetGroup {
 }
 
 abstract class _GetGroup implements GetGroupEvent {
-  const factory _GetGroup({required final String groupId}) = _$GetGroupImpl;
+  const factory _GetGroup(
+      {required final String groupId,
+      required final String communityId}) = _$GetGroupImpl;
 
   @override
   String get groupId;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$GetGroupImplCopyWith<_$GetGroupImpl> get copyWith =>

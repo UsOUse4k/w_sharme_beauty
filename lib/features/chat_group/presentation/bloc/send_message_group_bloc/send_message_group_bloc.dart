@@ -13,21 +13,26 @@ part 'send_message_group_bloc.freezed.dart';
 class SendMessageGroupBloc
     extends Bloc<SendMessageGroupEvent, SendMessageGroupState> {
   SendMessageGroupBloc(
-      this._chatGroupRepository, this._authFacade,)
-      : super(const _Initial()) {
+    this._chatGroupRepository,
+    this._authFacade,
+  ) : super(const _Initial()) {
     on<SendMessageGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        sendMessage: (groupId, message, file) async {
+        sendMessage: (groupId, message, file, communityId) async {
+          emit(const SendMessageGroupState.loading());
           try {
             final userOption = await _authFacade.getSignedInUser();
             await userOption.fold(() async {
-              emit(const SendMessageGroupState.error(
-                  message: 'not User sign in',),);
+              emit(
+                const SendMessageGroupState.error(
+                  message: 'not User sign in',
+                ),
+              );
             }, (userData) async {
-              final data =
-                  await _authFacade.getMeInfo(userData.uid);
+              final data = await _authFacade.getMeInfo(userData.uid);
               await data.fold((l) {
                 emit(SendMessageGroupState.error(message: l.messasge));
+                
               }, (user) async {
                 final result = await _chatGroupRepository.sendMessage(
                   message: message,
@@ -35,6 +40,7 @@ class SendMessageGroupBloc
                   receiverId: '',
                   username: user.username.toString(),
                   avatarUrl: user.profilePictureUrl.toString(),
+                  communityId: communityId,
                 );
                 result.fold(
                   (error) {

@@ -196,4 +196,106 @@ class FirebaseAuthFacade implements IAuthFacade {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<Either<PostError, Unit>> subscribe({
+    required String targetUserUid,
+  }) async {
+    try {
+      final currentUserId = _firebaseAuth.currentUser!.uid;
+      final DocumentReference<Map<String, dynamic>> currentUserDoc = _firestore
+          .collection('users')
+          .doc(currentUserId)
+          .withConverter<Map<String, dynamic>>(
+            fromFirestore: (snapshot, _) => snapshot.data()!,
+            toFirestore: (value, _) => value,
+          );
+      final DocumentReference<Map<String, dynamic>> targetUserDoc = _firestore
+          .collection('users')
+          .doc(targetUserUid)
+          .withConverter<Map<String, dynamic>>(
+            fromFirestore: (snapshot, _) => snapshot.data()!,
+            toFirestore: (value, _) => value,
+          );
+
+      await _firestore.runTransaction(
+        (transaction) async {
+          final DocumentSnapshot<Map<String, dynamic>> currentUserSnapshot =
+              await transaction.get(currentUserDoc);
+          final DocumentSnapshot<Map<String, dynamic>> targetUserSnapshot =
+              await transaction.get(targetUserDoc);
+
+          final List<dynamic> currentUserSubscriptions = (currentUserSnapshot
+                  .data()?['subscriptions'] as List<dynamic>?) ??
+              [];
+          final List<dynamic> targetUserFollowers =
+              (targetUserSnapshot.data()?['followers'] as List<dynamic>?) ?? [];
+
+          if (!currentUserSubscriptions.contains(targetUserUid)) {
+            currentUserSubscriptions.add(targetUserUid);
+            transaction.update(
+              currentUserDoc,
+              {'subscriptions': currentUserSubscriptions},
+            );
+          }
+
+          if (!targetUserFollowers.contains(currentUserId)) {
+            targetUserFollowers.add(currentUserId);
+            transaction
+                .update(targetUserDoc, {'followers': targetUserFollowers});
+          }
+        },
+      );
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Unit>> unsubscribe({
+    required String targetUserUid,
+  }) async {
+    try {
+      final currentUserId = _firebaseAuth.currentUser!.uid;
+      final DocumentReference<Map<String, dynamic>> currentUserDoc = _firestore
+          .collection('users')
+          .doc(currentUserId)
+          .withConverter<Map<String, dynamic>>(
+            fromFirestore: (snapshot, _) => snapshot.data()!,
+            toFirestore: (value, _) => value,
+          );
+      final DocumentReference<Map<String, dynamic>> targetUserDoc = _firestore
+          .collection('users')
+          .doc(targetUserUid)
+          .withConverter<Map<String, dynamic>>(
+            fromFirestore: (snapshot, _) => snapshot.data()!,
+            toFirestore: (value, _) => value,
+          );
+
+      await _firestore.runTransaction(
+        (transaction) async {
+          final DocumentSnapshot<Map<String, dynamic>> currentUserSnapshot =
+              await transaction.get(currentUserDoc);
+          final DocumentSnapshot<Map<String, dynamic>> targetUserSnapshot =
+              await transaction.get(targetUserDoc);
+
+          final List<dynamic> currentUserSubscriptions = (currentUserSnapshot
+                  .data()?['subscriptions'] as List<dynamic>?) ??
+              [];
+          final List<dynamic> targetUserFollowers =
+              (targetUserSnapshot.data()?['followers'] as List<dynamic>?) ?? [];
+
+          currentUserSubscriptions.remove(targetUserUid);
+          targetUserFollowers.remove(currentUserId);
+          transaction.update(
+              currentUserDoc, {'subscriptions': currentUserSubscriptions},);
+          transaction.update(targetUserDoc, {'followers': targetUserFollowers});
+        },
+      );
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

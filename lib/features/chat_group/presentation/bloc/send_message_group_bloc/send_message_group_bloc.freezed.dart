@@ -19,21 +19,25 @@ mixin _$SendMessageGroupEvent {
   String get groupId => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   Uint8List? get file => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId, String message, Uint8List? file)
+    required TResult Function(
+            String groupId, String message, Uint8List? file, String communityId)
         sendMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId, String message, Uint8List? file)?
+    TResult? Function(String groupId, String message, Uint8List? file,
+            String communityId)?
         sendMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId, String message, Uint8List? file)?
+    TResult Function(String groupId, String message, Uint8List? file,
+            String communityId)?
         sendMessage,
     required TResult orElse(),
   }) =>
@@ -66,7 +70,8 @@ abstract class $SendMessageGroupEventCopyWith<$Res> {
           $Res Function(SendMessageGroupEvent) then) =
       _$SendMessageGroupEventCopyWithImpl<$Res, SendMessageGroupEvent>;
   @useResult
-  $Res call({String groupId, String message, Uint8List? file});
+  $Res call(
+      {String groupId, String message, Uint8List? file, String communityId});
 }
 
 /// @nodoc
@@ -86,6 +91,7 @@ class _$SendMessageGroupEventCopyWithImpl<$Res,
     Object? groupId = null,
     Object? message = null,
     Object? file = freezed,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       groupId: null == groupId
@@ -100,6 +106,10 @@ class _$SendMessageGroupEventCopyWithImpl<$Res,
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -112,7 +122,8 @@ abstract class _$$SendMessageImplCopyWith<$Res>
       __$$SendMessageImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String groupId, String message, Uint8List? file});
+  $Res call(
+      {String groupId, String message, Uint8List? file, String communityId});
 }
 
 /// @nodoc
@@ -129,6 +140,7 @@ class __$$SendMessageImplCopyWithImpl<$Res>
     Object? groupId = null,
     Object? message = null,
     Object? file = freezed,
+    Object? communityId = null,
   }) {
     return _then(_$SendMessageImpl(
       groupId: null == groupId
@@ -143,6 +155,10 @@ class __$$SendMessageImplCopyWithImpl<$Res>
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -151,7 +167,10 @@ class __$$SendMessageImplCopyWithImpl<$Res>
 
 class _$SendMessageImpl with DiagnosticableTreeMixin implements _SendMessage {
   const _$SendMessageImpl(
-      {required this.groupId, required this.message, this.file});
+      {required this.groupId,
+      required this.message,
+      this.file,
+      required this.communityId});
 
   @override
   final String groupId;
@@ -159,10 +178,12 @@ class _$SendMessageImpl with DiagnosticableTreeMixin implements _SendMessage {
   final String message;
   @override
   final Uint8List? file;
+  @override
+  final String communityId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SendMessageGroupEvent.sendMessage(groupId: $groupId, message: $message, file: $file)';
+    return 'SendMessageGroupEvent.sendMessage(groupId: $groupId, message: $message, file: $file, communityId: $communityId)';
   }
 
   @override
@@ -172,7 +193,8 @@ class _$SendMessageImpl with DiagnosticableTreeMixin implements _SendMessage {
       ..add(DiagnosticsProperty('type', 'SendMessageGroupEvent.sendMessage'))
       ..add(DiagnosticsProperty('groupId', groupId))
       ..add(DiagnosticsProperty('message', message))
-      ..add(DiagnosticsProperty('file', file));
+      ..add(DiagnosticsProperty('file', file))
+      ..add(DiagnosticsProperty('communityId', communityId));
   }
 
   @override
@@ -182,12 +204,14 @@ class _$SendMessageImpl with DiagnosticableTreeMixin implements _SendMessage {
             other is _$SendMessageImpl &&
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.file, file));
+            const DeepCollectionEquality().equals(other.file, file) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, groupId, message, const DeepCollectionEquality().hash(file));
+  int get hashCode => Object.hash(runtimeType, groupId, message,
+      const DeepCollectionEquality().hash(file), communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -198,30 +222,33 @@ class _$SendMessageImpl with DiagnosticableTreeMixin implements _SendMessage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId, String message, Uint8List? file)
+    required TResult Function(
+            String groupId, String message, Uint8List? file, String communityId)
         sendMessage,
   }) {
-    return sendMessage(groupId, message, file);
+    return sendMessage(groupId, message, file, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId, String message, Uint8List? file)?
+    TResult? Function(String groupId, String message, Uint8List? file,
+            String communityId)?
         sendMessage,
   }) {
-    return sendMessage?.call(groupId, message, file);
+    return sendMessage?.call(groupId, message, file, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId, String message, Uint8List? file)?
+    TResult Function(String groupId, String message, Uint8List? file,
+            String communityId)?
         sendMessage,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
-      return sendMessage(groupId, message, file);
+      return sendMessage(groupId, message, file, communityId);
     }
     return orElse();
   }
@@ -259,7 +286,8 @@ abstract class _SendMessage implements SendMessageGroupEvent {
   const factory _SendMessage(
       {required final String groupId,
       required final String message,
-      final Uint8List? file}) = _$SendMessageImpl;
+      final Uint8List? file,
+      required final String communityId}) = _$SendMessageImpl;
 
   @override
   String get groupId;
@@ -267,6 +295,8 @@ abstract class _SendMessage implements SendMessageGroupEvent {
   String get message;
   @override
   Uint8List? get file;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$SendMessageImplCopyWith<_$SendMessageImpl> get copyWith =>

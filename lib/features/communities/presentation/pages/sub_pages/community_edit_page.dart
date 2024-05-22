@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/pick_image.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/update_community_bloc/update_community_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 
 class CommunityEditPage extends StatefulWidget {
@@ -56,6 +58,8 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = firebaseAuth.currentUser;
+
     GoRouter.of(context);
     return GlScaffold(
       horizontalPadding: 16,
@@ -190,25 +194,39 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                       GlButton(
                         text: 'Сохранить',
                         onPressed: () {
-                          if (file != null) {
+                          if (currentUser!.uid == community.uid) {
+                            if (file != null) {
+                              context.read<UpdateCommunityBloc>().add(
+                                    UpdateCommunityEvent.updateCommunity(
+                                      communityName: _communityNameCtrl.text,
+                                      desc: _descNameCtrl.text,
+                                      category: _categoryCtrl.text,
+                                      file: file,
+                                      communityId: widget.communityId,
+                                    ),
+                                  );
+                            } else {
+                              context.read<UpdateCommunityBloc>().add(
+                                    UpdateCommunityEvent.updateCommunity(
+                                      communityName: _communityNameCtrl.text,
+                                      desc: _descNameCtrl.text,
+                                      category: _categoryCtrl.text,
+                                      communityId: widget.communityId,
+                                    ),
+                                  );
+                            }
+                          } else if (community.administrator != null &&
+                              community.administrator!
+                                      .contains(currentUser.uid) ==
+                                  true) {
                             context.read<UpdateCommunityBloc>().add(
                                   UpdateCommunityEvent.updateCommunity(
                                     communityName: _communityNameCtrl.text,
-                                    desc: _descNameCtrl.text,
-                                    category: _categoryCtrl.text,
-                                    file: file,
                                     communityId: widget.communityId,
                                   ),
                                 );
                           } else {
-                            context.read<UpdateCommunityBloc>().add(
-                                  UpdateCommunityEvent.updateCommunity(
-                                    communityName: _communityNameCtrl.text,
-                                    desc: _descNameCtrl.text,
-                                    category: _categoryCtrl.text,
-                                    communityId: widget.communityId,
-                                  ),
-                                );
+                            showMyDialog(context, 'У вас нет права!');
                           }
                         },
                       ),

@@ -14,16 +14,25 @@ class GetAllChatGroupBloc
   GetAllChatGroupBloc(this._chatGroupRepository) : super(const _Initial()) {
     on<GetAllChatGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        getAllChatGroups: () async {
+        getAllChatGroups: (communityId) async {
           emit(const GetAllChatGroupState.loading());
-          final streamResponse = _chatGroupRepository.getAllChatGroups();
-          await for(final groups in streamResponse) {
-            emit(GetAllChatGroupState.success(groups));
+          try {
+            final streamResponse =
+                _chatGroupRepository.getAllChatGroup(communityId: communityId);
+            final groups = await streamResponse.first;
+            if (groups.isNotEmpty) {
+              emit(GetAllChatGroupState.success(groups.first));
+            } else {
+              emit(const GetAllChatGroupState.error(message: 'error'));
+            }
+          } catch (e) {
+            emit(GetAllChatGroupState.error(message: e.toString()));
           }
         },
         orElse: () {},
       );
     });
   }
+
   final IChatGroupRepository _chatGroupRepository;
 }

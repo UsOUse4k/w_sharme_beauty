@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,8 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
@@ -35,6 +40,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
+    final currentUid = firebaseAuth.currentUser!.uid;
     return GlScaffold(
       appBar: GlAppBar(
         leading: IconButton(
@@ -68,11 +74,27 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
         child: SingleChildScrollView(
           child: BlocConsumer<CommunityDetailBloc, CommunityDetailState>(
             listener: (context, state) {
-              context.read<CommunityPostListBloc>().add(
-                    CommunityPostListEvent.getPosts(
-                      communityId: widget.communityId,
-                    ),
-                  );
+              state.maybeWhen(
+                success: (community) {
+                  context.read<CommunityPostListBloc>().add(
+                        CommunityPostListEvent.getPosts(
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                  context.read<GetAllChatGroupBloc>().add(
+                        GetAllChatGroupEvent.getAllChatGroups(
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                  context.read<GetGroupBloc>().add(
+                        GetGroupEvent.getGroup(
+                          groupId: community.chatGroupId.toString(),
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                },
+                orElse: () {},
+              );
             },
             builder: (context, state) {
               return state.maybeWhen(
@@ -93,7 +115,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                           subscribeText: "Участники",
                           onPressedFollowers: () {
                             route.push(
-                              '/communities/${RouterContants.communityMembers}',
+                              '/communities/${RouterContants.communityMembers}/${community.communityId}',
                             );
                           },
                         ),
@@ -135,9 +157,17 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                         child: GlButton(
                           text: 'Создать чат',
                           onPressed: () {
-                            context.push(
-                              '/communities/community-profile/${widget.communityId}/${RouterContants.communityChat}/${widget.communityId}',
-                            );
+                            if (community.uid == currentUid ||
+                                community.administrator != null &&
+                                    community.administrator!
+                                            .contains(currentUid) ==
+                                        true) {
+                              context.push(
+                                '/communities/community-profile/${widget.communityId}/${RouterContants.communityChat}/${widget.communityId}',
+                              );
+                            } else {
+                              showMyDialog(context, 'У вас нет права!');
+                            }
                           },
                         ),
                       ),
@@ -147,6 +177,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: ButtonCreateCommutityPost(
+                          community: community,
                           communityId: community.communityId.toString(),
                         ),
                       ),

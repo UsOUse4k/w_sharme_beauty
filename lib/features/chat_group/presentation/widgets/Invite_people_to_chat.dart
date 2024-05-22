@@ -22,10 +22,12 @@ class InvitePeopleToChat extends StatelessWidget {
     super.key,
     required this.users,
     required this.groupId,
+    required this.communityId,
   });
 
   final List<UserProfile> users;
   final String groupId;
+  final String communityId;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +97,7 @@ class InvitePeopleToChat extends StatelessWidget {
                             InviteUsersChatGroupEvent.inviteUsersChatGroup(
                               userIds: userIds,
                               groupId: groupId,
+                              communityId: communityId,
                             ),
                           );
                     } else {

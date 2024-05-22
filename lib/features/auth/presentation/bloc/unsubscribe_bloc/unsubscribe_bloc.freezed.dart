@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'get_all_group_messages_bloc.dart';
+part of 'unsubscribe_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,62 +15,59 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$GetAllGroupMessagesEvent {
-  String get groupId => throw _privateConstructorUsedError;
-  String get communityId => throw _privateConstructorUsedError;
+mixin _$UnsubscribeEvent {
+  String get targetUserId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId, String communityId)
-        getAllGroupMessages,
+    required TResult Function(String targetUserId) unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId, String communityId)? getAllGroupMessages,
+    TResult? Function(String targetUserId)? unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId, String communityId)? getAllGroupMessages,
+    TResult Function(String targetUserId)? unsubscribe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetAllGroupMessages value) getAllGroupMessages,
+    required TResult Function(_Unsubscribe value) unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetAllGroupMessages value)? getAllGroupMessages,
+    TResult? Function(_Unsubscribe value)? unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetAllGroupMessages value)? getAllGroupMessages,
+    TResult Function(_Unsubscribe value)? unsubscribe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $GetAllGroupMessagesEventCopyWith<GetAllGroupMessagesEvent> get copyWith =>
+  $UnsubscribeEventCopyWith<UnsubscribeEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GetAllGroupMessagesEventCopyWith<$Res> {
-  factory $GetAllGroupMessagesEventCopyWith(GetAllGroupMessagesEvent value,
-          $Res Function(GetAllGroupMessagesEvent) then) =
-      _$GetAllGroupMessagesEventCopyWithImpl<$Res, GetAllGroupMessagesEvent>;
+abstract class $UnsubscribeEventCopyWith<$Res> {
+  factory $UnsubscribeEventCopyWith(
+          UnsubscribeEvent value, $Res Function(UnsubscribeEvent) then) =
+      _$UnsubscribeEventCopyWithImpl<$Res, UnsubscribeEvent>;
   @useResult
-  $Res call({String groupId, String communityId});
+  $Res call({String targetUserId});
 }
 
 /// @nodoc
-class _$GetAllGroupMessagesEventCopyWithImpl<$Res,
-        $Val extends GetAllGroupMessagesEvent>
-    implements $GetAllGroupMessagesEventCopyWith<$Res> {
-  _$GetAllGroupMessagesEventCopyWithImpl(this._value, this._then);
+class _$UnsubscribeEventCopyWithImpl<$Res, $Val extends UnsubscribeEvent>
+    implements $UnsubscribeEventCopyWith<$Res> {
+  _$UnsubscribeEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,56 +77,45 @@ class _$GetAllGroupMessagesEventCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? groupId = null,
-    Object? communityId = null,
+    Object? targetUserId = null,
   }) {
     return _then(_value.copyWith(
-      groupId: null == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
-              as String,
-      communityId: null == communityId
-          ? _value.communityId
-          : communityId // ignore: cast_nullable_to_non_nullable
+      targetUserId: null == targetUserId
+          ? _value.targetUserId
+          : targetUserId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$GetAllGroupMessagesImplCopyWith<$Res>
-    implements $GetAllGroupMessagesEventCopyWith<$Res> {
-  factory _$$GetAllGroupMessagesImplCopyWith(_$GetAllGroupMessagesImpl value,
-          $Res Function(_$GetAllGroupMessagesImpl) then) =
-      __$$GetAllGroupMessagesImplCopyWithImpl<$Res>;
+abstract class _$$UnsubscribeImplCopyWith<$Res>
+    implements $UnsubscribeEventCopyWith<$Res> {
+  factory _$$UnsubscribeImplCopyWith(
+          _$UnsubscribeImpl value, $Res Function(_$UnsubscribeImpl) then) =
+      __$$UnsubscribeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String groupId, String communityId});
+  $Res call({String targetUserId});
 }
 
 /// @nodoc
-class __$$GetAllGroupMessagesImplCopyWithImpl<$Res>
-    extends _$GetAllGroupMessagesEventCopyWithImpl<$Res,
-        _$GetAllGroupMessagesImpl>
-    implements _$$GetAllGroupMessagesImplCopyWith<$Res> {
-  __$$GetAllGroupMessagesImplCopyWithImpl(_$GetAllGroupMessagesImpl _value,
-      $Res Function(_$GetAllGroupMessagesImpl) _then)
+class __$$UnsubscribeImplCopyWithImpl<$Res>
+    extends _$UnsubscribeEventCopyWithImpl<$Res, _$UnsubscribeImpl>
+    implements _$$UnsubscribeImplCopyWith<$Res> {
+  __$$UnsubscribeImplCopyWithImpl(
+      _$UnsubscribeImpl _value, $Res Function(_$UnsubscribeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? groupId = null,
-    Object? communityId = null,
+    Object? targetUserId = null,
   }) {
-    return _then(_$GetAllGroupMessagesImpl(
-      groupId: null == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
-              as String,
-      communityId: null == communityId
-          ? _value.communityId
-          : communityId // ignore: cast_nullable_to_non_nullable
+    return _then(_$UnsubscribeImpl(
+      targetUserId: null == targetUserId
+          ? _value.targetUserId
+          : targetUserId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -137,65 +123,59 @@ class __$$GetAllGroupMessagesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GetAllGroupMessagesImpl implements _GetAllGroupMessages {
-  const _$GetAllGroupMessagesImpl(
-      {required this.groupId, required this.communityId});
+class _$UnsubscribeImpl implements _Unsubscribe {
+  const _$UnsubscribeImpl({required this.targetUserId});
 
   @override
-  final String groupId;
-  @override
-  final String communityId;
+  final String targetUserId;
 
   @override
   String toString() {
-    return 'GetAllGroupMessagesEvent.getAllGroupMessages(groupId: $groupId, communityId: $communityId)';
+    return 'UnsubscribeEvent.unsubscribe(targetUserId: $targetUserId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetAllGroupMessagesImpl &&
-            (identical(other.groupId, groupId) || other.groupId == groupId) &&
-            (identical(other.communityId, communityId) ||
-                other.communityId == communityId));
+            other is _$UnsubscribeImpl &&
+            (identical(other.targetUserId, targetUserId) ||
+                other.targetUserId == targetUserId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, groupId, communityId);
+  int get hashCode => Object.hash(runtimeType, targetUserId);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$GetAllGroupMessagesImplCopyWith<_$GetAllGroupMessagesImpl> get copyWith =>
-      __$$GetAllGroupMessagesImplCopyWithImpl<_$GetAllGroupMessagesImpl>(
-          this, _$identity);
+  _$$UnsubscribeImplCopyWith<_$UnsubscribeImpl> get copyWith =>
+      __$$UnsubscribeImplCopyWithImpl<_$UnsubscribeImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId, String communityId)
-        getAllGroupMessages,
+    required TResult Function(String targetUserId) unsubscribe,
   }) {
-    return getAllGroupMessages(groupId, communityId);
+    return unsubscribe(targetUserId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId, String communityId)? getAllGroupMessages,
+    TResult? Function(String targetUserId)? unsubscribe,
   }) {
-    return getAllGroupMessages?.call(groupId, communityId);
+    return unsubscribe?.call(targetUserId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId, String communityId)? getAllGroupMessages,
+    TResult Function(String targetUserId)? unsubscribe,
     required TResult orElse(),
   }) {
-    if (getAllGroupMessages != null) {
-      return getAllGroupMessages(groupId, communityId);
+    if (unsubscribe != null) {
+      return unsubscribe(targetUserId);
     }
     return orElse();
   }
@@ -203,113 +183,109 @@ class _$GetAllGroupMessagesImpl implements _GetAllGroupMessages {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetAllGroupMessages value) getAllGroupMessages,
+    required TResult Function(_Unsubscribe value) unsubscribe,
   }) {
-    return getAllGroupMessages(this);
+    return unsubscribe(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetAllGroupMessages value)? getAllGroupMessages,
+    TResult? Function(_Unsubscribe value)? unsubscribe,
   }) {
-    return getAllGroupMessages?.call(this);
+    return unsubscribe?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetAllGroupMessages value)? getAllGroupMessages,
+    TResult Function(_Unsubscribe value)? unsubscribe,
     required TResult orElse(),
   }) {
-    if (getAllGroupMessages != null) {
-      return getAllGroupMessages(this);
+    if (unsubscribe != null) {
+      return unsubscribe(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetAllGroupMessages implements GetAllGroupMessagesEvent {
-  const factory _GetAllGroupMessages(
-      {required final String groupId,
-      required final String communityId}) = _$GetAllGroupMessagesImpl;
+abstract class _Unsubscribe implements UnsubscribeEvent {
+  const factory _Unsubscribe({required final String targetUserId}) =
+      _$UnsubscribeImpl;
 
   @override
-  String get groupId;
-  @override
-  String get communityId;
+  String get targetUserId;
   @override
   @JsonKey(ignore: true)
-  _$$GetAllGroupMessagesImplCopyWith<_$GetAllGroupMessagesImpl> get copyWith =>
+  _$$UnsubscribeImplCopyWith<_$UnsubscribeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$GetAllGroupMessagesState {
+mixin _$UnsubscribeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Message> messages) success,
+    required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function() loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Message> messages)? success,
+    TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Message> messages)? success,
+    TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function()? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GetAllGroupMessagesStateCopyWith<$Res> {
-  factory $GetAllGroupMessagesStateCopyWith(GetAllGroupMessagesState value,
-          $Res Function(GetAllGroupMessagesState) then) =
-      _$GetAllGroupMessagesStateCopyWithImpl<$Res, GetAllGroupMessagesState>;
+abstract class $UnsubscribeStateCopyWith<$Res> {
+  factory $UnsubscribeStateCopyWith(
+          UnsubscribeState value, $Res Function(UnsubscribeState) then) =
+      _$UnsubscribeStateCopyWithImpl<$Res, UnsubscribeState>;
 }
 
 /// @nodoc
-class _$GetAllGroupMessagesStateCopyWithImpl<$Res,
-        $Val extends GetAllGroupMessagesState>
-    implements $GetAllGroupMessagesStateCopyWith<$Res> {
-  _$GetAllGroupMessagesStateCopyWithImpl(this._value, this._then);
+class _$UnsubscribeStateCopyWithImpl<$Res, $Val extends UnsubscribeState>
+    implements $UnsubscribeStateCopyWith<$Res> {
+  _$UnsubscribeStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -326,7 +302,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$GetAllGroupMessagesStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$UnsubscribeStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -340,7 +316,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'GetAllGroupMessagesState.initial()';
+    return 'UnsubscribeState.initial()';
   }
 
   @override
@@ -356,9 +332,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Message> messages) success,
+    required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function() loading,
   }) {
     return initial();
   }
@@ -367,9 +343,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Message> messages)? success,
+    TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
   }) {
     return initial?.call();
   }
@@ -378,9 +354,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Message> messages)? success,
+    TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function()? loading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -393,9 +369,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) {
     return initial(this);
   }
@@ -404,9 +380,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) {
     return initial?.call(this);
   }
@@ -415,9 +391,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -427,40 +403,40 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements GetAllGroupMessagesState {
+abstract class _Initial implements UnsubscribeState {
   const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$SuccessImplCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$GetAllGroupMessagesStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$UnsubscribeStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+class _$SuccessImpl implements _Success {
+  const _$SuccessImpl();
 
   @override
   String toString() {
-    return 'GetAllGroupMessagesState.loading()';
+    return 'UnsubscribeState.success()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$SuccessImpl);
   }
 
   @override
@@ -470,181 +446,35 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Message> messages) success,
+    required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function() loading,
   }) {
-    return loading();
+    return success();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Message> messages)? success,
+    TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
   }) {
-    return loading?.call();
+    return success?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Message> messages)? success,
+    TResult Function()? success,
     TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Success value) success,
-    required TResult Function(_Error value) error,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Success value)? success,
-    TResult? Function(_Error value)? error,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Success value)? success,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loading implements GetAllGroupMessagesState {
-  const factory _Loading() = _$LoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$SuccessImplCopyWith<$Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
-      __$$SuccessImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Message> messages});
-}
-
-/// @nodoc
-class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$GetAllGroupMessagesStateCopyWithImpl<$Res, _$SuccessImpl>
-    implements _$$SuccessImplCopyWith<$Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? messages = null,
-  }) {
-    return _then(_$SuccessImpl(
-      null == messages
-          ? _value._messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<Message>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(final List<Message> messages) : _messages = messages;
-
-  final List<Message> _messages;
-  @override
-  List<Message> get messages {
-    if (_messages is EqualUnmodifiableListView) return _messages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_messages);
-  }
-
-  @override
-  String toString() {
-    return 'GetAllGroupMessagesState.success(messages: $messages)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl &&
-            const DeepCollectionEquality().equals(other._messages, _messages));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_messages));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Message> messages) success,
-    required TResult Function(String message) error,
-  }) {
-    return success(messages);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Message> messages)? success,
-    TResult? Function(String message)? error,
-  }) {
-    return success?.call(messages);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Message> messages)? success,
-    TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(messages);
+      return success();
     }
     return orElse();
   }
@@ -653,9 +483,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) {
     return success(this);
   }
@@ -664,9 +494,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) {
     return success?.call(this);
   }
@@ -675,9 +505,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -687,13 +517,8 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements GetAllGroupMessagesState {
-  const factory _Success(final List<Message> messages) = _$SuccessImpl;
-
-  List<Message> get messages;
-  @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _Success implements UnsubscribeState {
+  const factory _Success() = _$SuccessImpl;
 }
 
 /// @nodoc
@@ -707,7 +532,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$GetAllGroupMessagesStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$UnsubscribeStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -737,7 +562,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'GetAllGroupMessagesState.error(message: $message)';
+    return 'UnsubscribeState.error(message: $message)';
   }
 
   @override
@@ -761,9 +586,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Message> messages) success,
+    required TResult Function() success,
     required TResult Function(String message) error,
+    required TResult Function() loading,
   }) {
     return error(message);
   }
@@ -772,9 +597,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Message> messages)? success,
+    TResult? Function()? success,
     TResult? Function(String message)? error,
+    TResult? Function()? loading,
   }) {
     return error?.call(message);
   }
@@ -783,9 +608,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Message> messages)? success,
+    TResult Function()? success,
     TResult Function(String message)? error,
+    TResult Function()? loading,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -798,9 +623,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
   }) {
     return error(this);
   }
@@ -809,9 +634,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
   }) {
     return error?.call(this);
   }
@@ -820,9 +645,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -832,11 +657,125 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements GetAllGroupMessagesState {
+abstract class _Error implements UnsubscribeState {
   const factory _Error({required final String message}) = _$ErrorImpl;
 
   String get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$UnsubscribeStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoadingImpl implements _Loading {
+  const _$LoadingImpl();
+
+  @override
+  String toString() {
+    return 'UnsubscribeState.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() success,
+    required TResult Function(String message) error,
+    required TResult Function() loading,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? success,
+    TResult? Function(String message)? error,
+    TResult? Function()? loading,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? success,
+    TResult Function(String message)? error,
+    TResult Function()? loading,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loading implements UnsubscribeState {
+  const factory _Loading() = _$LoadingImpl;
 }

@@ -18,11 +18,12 @@ class GetAllAdminsChatGroupBloc
   ) : super(const _Initial()) {
     on<GetAllAdminsChatGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        getAllAdminsChatGroup: (groupId) async {
+        getAllAdminsChatGroup: (groupId, communityId) async {
           emit(const GetAllAdminsChatGroupState.loading());
           try {
             final dataGroup = await _chatGroupRepository.getGroup(
               groupId: groupId,
+              communityId: communityId,
             );
             await dataGroup.fold(
               (l) {

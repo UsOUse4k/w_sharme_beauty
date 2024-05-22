@@ -18,10 +18,11 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
   ) : super(const _Initial()) {
     on<GetGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        getGroup: (groupId) async {
+        getGroup: (groupId, communityId) async {
           try {
             final result = await _chatGroupRepository.getGroup(
               groupId: groupId,
+              communityId: communityId,
             );
             await result.fold((error) {
               emit(GetGroupState.error(message: error.messasge));

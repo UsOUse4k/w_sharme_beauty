@@ -1,18 +1,24 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ButtonCreateCommutityPost extends StatelessWidget {
   const ButtonCreateCommutityPost({
-    super.key, required this.communityId,
+    super.key,
+    required this.communityId,
+    required this.community,
   });
 
   final String communityId;
+  final Community community;
 
   @override
   Widget build(BuildContext context) {
+    final currentUid = firebaseAuth.currentUser!.uid;
     return SizedBox(
       height: 50,
       width: double.infinity,
@@ -24,9 +30,13 @@ class ButtonCreateCommutityPost extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          context.push(
-            '/communities/community-profile/$communityId/community-add-public/$communityId',
-          );
+          if (community.uid == currentUid) {
+            context.push(
+              '/communities/community-profile/$communityId/community-add-public/$communityId',
+            );
+          } else {
+            showMyDialog(context, 'У вас нет права!');
+          }
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

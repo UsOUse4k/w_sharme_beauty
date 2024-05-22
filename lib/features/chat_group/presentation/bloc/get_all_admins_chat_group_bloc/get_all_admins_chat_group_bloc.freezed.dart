@@ -17,19 +17,22 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GetAllAdminsChatGroupEvent {
   String get groupId => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId) getAllAdminsChatGroup,
+    required TResult Function(String groupId, String communityId)
+        getAllAdminsChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId)? getAllAdminsChatGroup,
+    TResult? Function(String groupId, String communityId)?
+        getAllAdminsChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId)? getAllAdminsChatGroup,
+    TResult Function(String groupId, String communityId)? getAllAdminsChatGroup,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +66,7 @@ abstract class $GetAllAdminsChatGroupEventCopyWith<$Res> {
       _$GetAllAdminsChatGroupEventCopyWithImpl<$Res,
           GetAllAdminsChatGroupEvent>;
   @useResult
-  $Res call({String groupId});
+  $Res call({String groupId, String communityId});
 }
 
 /// @nodoc
@@ -81,11 +84,16 @@ class _$GetAllAdminsChatGroupEventCopyWithImpl<$Res,
   @override
   $Res call({
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -100,7 +108,7 @@ abstract class _$$GetAllAdminsChatGroupImplCopyWith<$Res>
       __$$GetAllAdminsChatGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String groupId});
+  $Res call({String groupId, String communityId});
 }
 
 /// @nodoc
@@ -116,11 +124,16 @@ class __$$GetAllAdminsChatGroupImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_$GetAllAdminsChatGroupImpl(
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -129,14 +142,17 @@ class __$$GetAllAdminsChatGroupImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetAllAdminsChatGroupImpl implements _GetAllAdminsChatGroup {
-  const _$GetAllAdminsChatGroupImpl({required this.groupId});
+  const _$GetAllAdminsChatGroupImpl(
+      {required this.groupId, required this.communityId});
 
   @override
   final String groupId;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'GetAllAdminsChatGroupEvent.getAllAdminsChatGroup(groupId: $groupId)';
+    return 'GetAllAdminsChatGroupEvent.getAllAdminsChatGroup(groupId: $groupId, communityId: $communityId)';
   }
 
   @override
@@ -144,11 +160,13 @@ class _$GetAllAdminsChatGroupImpl implements _GetAllAdminsChatGroup {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetAllAdminsChatGroupImpl &&
-            (identical(other.groupId, groupId) || other.groupId == groupId));
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, groupId);
+  int get hashCode => Object.hash(runtimeType, groupId, communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -160,27 +178,29 @@ class _$GetAllAdminsChatGroupImpl implements _GetAllAdminsChatGroup {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String groupId) getAllAdminsChatGroup,
+    required TResult Function(String groupId, String communityId)
+        getAllAdminsChatGroup,
   }) {
-    return getAllAdminsChatGroup(groupId);
+    return getAllAdminsChatGroup(groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String groupId)? getAllAdminsChatGroup,
+    TResult? Function(String groupId, String communityId)?
+        getAllAdminsChatGroup,
   }) {
-    return getAllAdminsChatGroup?.call(groupId);
+    return getAllAdminsChatGroup?.call(groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String groupId)? getAllAdminsChatGroup,
+    TResult Function(String groupId, String communityId)? getAllAdminsChatGroup,
     required TResult orElse(),
   }) {
     if (getAllAdminsChatGroup != null) {
-      return getAllAdminsChatGroup(groupId);
+      return getAllAdminsChatGroup(groupId, communityId);
     }
     return orElse();
   }
@@ -216,11 +236,14 @@ class _$GetAllAdminsChatGroupImpl implements _GetAllAdminsChatGroup {
 }
 
 abstract class _GetAllAdminsChatGroup implements GetAllAdminsChatGroupEvent {
-  const factory _GetAllAdminsChatGroup({required final String groupId}) =
-      _$GetAllAdminsChatGroupImpl;
+  const factory _GetAllAdminsChatGroup(
+      {required final String groupId,
+      required final String communityId}) = _$GetAllAdminsChatGroupImpl;
 
   @override
   String get groupId;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$GetAllAdminsChatGroupImplCopyWith<_$GetAllAdminsChatGroupImpl>

@@ -6,5 +6,7 @@ class UpdateManagerChatGroupEvent with _$UpdateManagerChatGroupEvent {
     required List<String> editors,
     required List<String> administrator,
     required String groupId,
+    required String communityId,
+
   }) = _UpdateManagerChatGroup;
 }

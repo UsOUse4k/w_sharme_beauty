@@ -4,5 +4,7 @@ part of 'get_group_bloc.dart';
 class GetGroupEvent with _$GetGroupEvent {
   const factory GetGroupEvent.getGroup({
     required String groupId,
+    required String communityId,
+
   }) = _GetGroup;
 }

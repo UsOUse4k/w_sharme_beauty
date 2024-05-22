@@ -8,9 +8,12 @@ class Community with _$Community {
   factory Community({
     String? communityId,
     String? uid,
+    String? chatGroupId,
     String? communityName,
     String? description,
     String? category,
+    @Default([]) List<String>? administrator,
+    @Default([]) List<String>? editors,
     @Default("") String? avatarUrls,
     @Default([]) List<String>? participants,
     @Default(0) int? public,
@@ -31,8 +34,15 @@ class Community with _$Community {
       participants: List<String>.from(
         firestoreData['participants'] as List<dynamic>? ?? [],
       ),
+      editors: List<String>.from(
+        firestoreData['editors'] as List<dynamic>? ?? [],
+      ),
+      administrator: List<String>.from(
+        firestoreData['administrator'] as List<dynamic>? ?? [],
+      ),
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
       createdAt: firestoreData['createdAt'] as String?,
+      chatGroupId: firestoreData['chatGroupId'] as String?,
       public: firestoreData['public'] as int?,
     );
   }

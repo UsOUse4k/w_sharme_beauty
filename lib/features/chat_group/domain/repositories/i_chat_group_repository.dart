@@ -17,28 +17,36 @@ abstract class IChatGroupRepository {
     required String receiverId,
     required String username,
     required String avatarUrl,
+    required String communityId,
   });
 
   Stream<List<Message>> getMessages({
     required String groupId,
+    required String communityId,
   });
-  Stream<List<ChatGroupRoom>> getAllChatGroups();
+  Stream<List<ChatGroupRoom>> getAllChatGroup({
+    required String communityId,
+  });
   Future<Either<PostError, ChatGroupRoom>> getGroup({
     required String groupId,
+    required String communityId,
   });
   Future<Either<PostError, Unit>> updateGroup({
     required String groupId,
     Uint8List? file,
     String? groupName,
     ChatGroupRoom? groupRoom,
+    required String communityId,
   });
   Future<Either<PostError, Unit>> removeAdminAndUserChatGroup({
     required String groupId,
     required String userId,
     required String type,
+    required String communityId,
   });
   Future<Either<PostError, Unit>> addedUserChatGroup({
     required String groupId,
     required List<String> userIds,
+    required String communityId,
   });
 }

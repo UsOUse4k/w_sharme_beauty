@@ -14,13 +14,14 @@ class RemoveAdminChatGroupBloc
       : super(const _Initial()) {
     on<RemoveAdminChatGroupEvent>((event, emit) async {
       await event.maybeWhen(
-        removeAdmin: (userId, groupId, type) async {
+        removeAdmin: (userId, groupId, type, communityId) async {
           emit(const RemoveAdminChatGroupState.loading());
           try {
             final result = await _chatGroupRepository.removeAdminAndUserChatGroup(
               groupId: groupId,
               userId: userId,
               type: type,
+              communityId: communityId,
             );
             result.fold(
               (l) => emit(RemoveAdminChatGroupState.error(message: l.messasge)),

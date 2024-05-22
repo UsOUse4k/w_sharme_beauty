@@ -33,6 +33,7 @@ class ChatGroupRoom with _$ChatGroupRoom {
   factory ChatGroupRoom.fromFirestore(Map<String, dynamic> firestoreData) {
     return ChatGroupRoom(
       groupName: firestoreData['groupName'] as String?,
+      communityId: firestoreData['communityId'] as String?,
       groupProfileImage: firestoreData['groupProfileImage'] as String?,
       userRoles: firestoreData['userRoles'] as Map<String, String>?,
       limitUsers: firestoreData['limitUsers'] as int?,

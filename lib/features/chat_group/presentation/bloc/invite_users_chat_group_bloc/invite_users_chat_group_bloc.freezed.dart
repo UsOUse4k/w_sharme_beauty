@@ -18,21 +18,23 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$InviteUsersChatGroupEvent {
   List<String> get userIds => throw _privateConstructorUsedError;
   String get groupId => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> userIds, String groupId)
+    required TResult Function(
+            List<String> userIds, String groupId, String communityId)
         inviteUsersChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> userIds, String groupId)?
+    TResult? Function(List<String> userIds, String groupId, String communityId)?
         inviteUsersChatGroup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> userIds, String groupId)?
+    TResult Function(List<String> userIds, String groupId, String communityId)?
         inviteUsersChatGroup,
     required TResult orElse(),
   }) =>
@@ -65,7 +67,7 @@ abstract class $InviteUsersChatGroupEventCopyWith<$Res> {
           $Res Function(InviteUsersChatGroupEvent) then) =
       _$InviteUsersChatGroupEventCopyWithImpl<$Res, InviteUsersChatGroupEvent>;
   @useResult
-  $Res call({List<String> userIds, String groupId});
+  $Res call({List<String> userIds, String groupId, String communityId});
 }
 
 /// @nodoc
@@ -84,6 +86,7 @@ class _$InviteUsersChatGroupEventCopyWithImpl<$Res,
   $Res call({
     Object? userIds = null,
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       userIds: null == userIds
@@ -93,6 +96,10 @@ class _$InviteUsersChatGroupEventCopyWithImpl<$Res,
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
+              as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -106,7 +113,7 @@ abstract class _$$InviteUsersChatGroupImplCopyWith<$Res>
       __$$InviteUsersChatGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> userIds, String groupId});
+  $Res call({List<String> userIds, String groupId, String communityId});
 }
 
 /// @nodoc
@@ -123,6 +130,7 @@ class __$$InviteUsersChatGroupImplCopyWithImpl<$Res>
   $Res call({
     Object? userIds = null,
     Object? groupId = null,
+    Object? communityId = null,
   }) {
     return _then(_$InviteUsersChatGroupImpl(
       userIds: null == userIds
@@ -133,6 +141,10 @@ class __$$InviteUsersChatGroupImplCopyWithImpl<$Res>
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
               as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -141,7 +153,9 @@ class __$$InviteUsersChatGroupImplCopyWithImpl<$Res>
 
 class _$InviteUsersChatGroupImpl implements _InviteUsersChatGroup {
   const _$InviteUsersChatGroupImpl(
-      {required final List<String> userIds, required this.groupId})
+      {required final List<String> userIds,
+      required this.groupId,
+      required this.communityId})
       : _userIds = userIds;
 
   final List<String> _userIds;
@@ -154,10 +168,12 @@ class _$InviteUsersChatGroupImpl implements _InviteUsersChatGroup {
 
   @override
   final String groupId;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'InviteUsersChatGroupEvent.inviteUsersChatGroup(userIds: $userIds, groupId: $groupId)';
+    return 'InviteUsersChatGroupEvent.inviteUsersChatGroup(userIds: $userIds, groupId: $groupId, communityId: $communityId)';
   }
 
   @override
@@ -166,12 +182,14 @@ class _$InviteUsersChatGroupImpl implements _InviteUsersChatGroup {
         (other.runtimeType == runtimeType &&
             other is _$InviteUsersChatGroupImpl &&
             const DeepCollectionEquality().equals(other._userIds, _userIds) &&
-            (identical(other.groupId, groupId) || other.groupId == groupId));
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_userIds), groupId);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_userIds), groupId, communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -184,30 +202,31 @@ class _$InviteUsersChatGroupImpl implements _InviteUsersChatGroup {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> userIds, String groupId)
+    required TResult Function(
+            List<String> userIds, String groupId, String communityId)
         inviteUsersChatGroup,
   }) {
-    return inviteUsersChatGroup(userIds, groupId);
+    return inviteUsersChatGroup(userIds, groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> userIds, String groupId)?
+    TResult? Function(List<String> userIds, String groupId, String communityId)?
         inviteUsersChatGroup,
   }) {
-    return inviteUsersChatGroup?.call(userIds, groupId);
+    return inviteUsersChatGroup?.call(userIds, groupId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> userIds, String groupId)?
+    TResult Function(List<String> userIds, String groupId, String communityId)?
         inviteUsersChatGroup,
     required TResult orElse(),
   }) {
     if (inviteUsersChatGroup != null) {
-      return inviteUsersChatGroup(userIds, groupId);
+      return inviteUsersChatGroup(userIds, groupId, communityId);
     }
     return orElse();
   }
@@ -244,12 +263,15 @@ class _$InviteUsersChatGroupImpl implements _InviteUsersChatGroup {
 abstract class _InviteUsersChatGroup implements InviteUsersChatGroupEvent {
   const factory _InviteUsersChatGroup(
       {required final List<String> userIds,
-      required final String groupId}) = _$InviteUsersChatGroupImpl;
+      required final String groupId,
+      required final String communityId}) = _$InviteUsersChatGroupImpl;
 
   @override
   List<String> get userIds;
   @override
   String get groupId;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$InviteUsersChatGroupImplCopyWith<_$InviteUsersChatGroupImpl>

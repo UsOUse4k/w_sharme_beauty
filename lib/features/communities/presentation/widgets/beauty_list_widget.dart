@@ -30,16 +30,20 @@ class BeutyList extends StatelessWidget {
               itemExtent: 55,
               itemBuilder: (BuildContext context, int index) {
                 final item = data[index];
-                final uid = firebaseAuth.currentUser!.uid;
+                final currentUid = firebaseAuth.currentUser!.uid;
                 return GestureDetector(
                   onTap: () {
-                    if (item.uid != uid) {
+                    if (item.uid == currentUid ||
+                        item.administrator != null &&
+                            item.administrator!.contains(currentUid) == true ||
+                        item.editors != null &&
+                            item.editors!.contains(currentUid) == true) {
                       context.push(
-                        '/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
+                        '/communities/${RouterContants.communityProfile}/${item.communityId}',
                       );
                     } else {
                       context.push(
-                        '/communities/${RouterContants.communityProfile}/${item.communityId}',
+                        '/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
                       );
                     }
                   },

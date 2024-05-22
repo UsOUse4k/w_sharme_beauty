@@ -6,11 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/pick_image.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/user_profile.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/entities/chat_group_room.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/create_chat_group_bloc/create_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -59,6 +61,9 @@ class _CreateChatGroupWidgetState extends State<CreateChatGroupWidget> {
                   content: Text('Успешно'),
                 ),
               );
+              context
+                  .read<MyCommunityListBloc>()
+                  .add(const MyCommunityListEvent.getMyCommunity());
             },
             orElse: () {},
           );
@@ -188,42 +193,16 @@ class _CreateChatGroupWidgetState extends State<CreateChatGroupWidget> {
                         ),
                       );
                 } else {
-                  _showMyDialog();
+                  showMyDialog(
+                    context,
+                    'Вы должны выбрать картину для группы или написать названия чата',
+                  );
                 }
               },
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Предупреждение'),
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(
-                  'Вы должны выбрать картину для группы или написать названия чата',
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

@@ -19,20 +19,26 @@ mixin _$RemoveAdminChatGroupEvent {
   String get userId => throw _privateConstructorUsedError;
   String get groupId => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId, String groupId, String type)
+    required TResult Function(
+            String userId, String groupId, String type, String communityId)
         removeAdmin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId, String groupId, String type)? removeAdmin,
+    TResult? Function(
+            String userId, String groupId, String type, String communityId)?
+        removeAdmin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId, String groupId, String type)? removeAdmin,
+    TResult Function(
+            String userId, String groupId, String type, String communityId)?
+        removeAdmin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +70,7 @@ abstract class $RemoveAdminChatGroupEventCopyWith<$Res> {
           $Res Function(RemoveAdminChatGroupEvent) then) =
       _$RemoveAdminChatGroupEventCopyWithImpl<$Res, RemoveAdminChatGroupEvent>;
   @useResult
-  $Res call({String userId, String groupId, String type});
+  $Res call({String userId, String groupId, String type, String communityId});
 }
 
 /// @nodoc
@@ -84,6 +90,7 @@ class _$RemoveAdminChatGroupEventCopyWithImpl<$Res,
     Object? userId = null,
     Object? groupId = null,
     Object? type = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -98,6 +105,10 @@ class _$RemoveAdminChatGroupEventCopyWithImpl<$Res,
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -110,7 +121,7 @@ abstract class _$$RemoveAdminImplCopyWith<$Res>
       __$$RemoveAdminImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String groupId, String type});
+  $Res call({String userId, String groupId, String type, String communityId});
 }
 
 /// @nodoc
@@ -127,6 +138,7 @@ class __$$RemoveAdminImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? groupId = null,
     Object? type = null,
+    Object? communityId = null,
   }) {
     return _then(_$RemoveAdminImpl(
       userId: null == userId
@@ -141,6 +153,10 @@ class __$$RemoveAdminImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -149,7 +165,10 @@ class __$$RemoveAdminImplCopyWithImpl<$Res>
 
 class _$RemoveAdminImpl implements _RemoveAdmin {
   const _$RemoveAdminImpl(
-      {required this.userId, required this.groupId, required this.type});
+      {required this.userId,
+      required this.groupId,
+      required this.type,
+      required this.communityId});
 
   @override
   final String userId;
@@ -157,10 +176,12 @@ class _$RemoveAdminImpl implements _RemoveAdmin {
   final String groupId;
   @override
   final String type;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'RemoveAdminChatGroupEvent.removeAdmin(userId: $userId, groupId: $groupId, type: $type)';
+    return 'RemoveAdminChatGroupEvent.removeAdmin(userId: $userId, groupId: $groupId, type: $type, communityId: $communityId)';
   }
 
   @override
@@ -170,11 +191,14 @@ class _$RemoveAdminImpl implements _RemoveAdmin {
             other is _$RemoveAdminImpl &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId, groupId, type);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, groupId, type, communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -185,28 +209,33 @@ class _$RemoveAdminImpl implements _RemoveAdmin {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId, String groupId, String type)
+    required TResult Function(
+            String userId, String groupId, String type, String communityId)
         removeAdmin,
   }) {
-    return removeAdmin(userId, groupId, type);
+    return removeAdmin(userId, groupId, type, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId, String groupId, String type)? removeAdmin,
+    TResult? Function(
+            String userId, String groupId, String type, String communityId)?
+        removeAdmin,
   }) {
-    return removeAdmin?.call(userId, groupId, type);
+    return removeAdmin?.call(userId, groupId, type, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId, String groupId, String type)? removeAdmin,
+    TResult Function(
+            String userId, String groupId, String type, String communityId)?
+        removeAdmin,
     required TResult orElse(),
   }) {
     if (removeAdmin != null) {
-      return removeAdmin(userId, groupId, type);
+      return removeAdmin(userId, groupId, type, communityId);
     }
     return orElse();
   }
@@ -244,7 +273,8 @@ abstract class _RemoveAdmin implements RemoveAdminChatGroupEvent {
   const factory _RemoveAdmin(
       {required final String userId,
       required final String groupId,
-      required final String type}) = _$RemoveAdminImpl;
+      required final String type,
+      required final String communityId}) = _$RemoveAdminImpl;
 
   @override
   String get userId;
@@ -252,6 +282,8 @@ abstract class _RemoveAdmin implements RemoveAdminChatGroupEvent {
   String get groupId;
   @override
   String get type;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$RemoveAdminImplCopyWith<_$RemoveAdminImpl> get copyWith =>
