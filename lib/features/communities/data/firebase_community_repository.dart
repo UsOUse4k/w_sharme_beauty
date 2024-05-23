@@ -140,4 +140,50 @@ class FirestoreCommunityRepository implements ICommunityRepository {
       return left(PostError(e.toString()));
     }
   }
+
+  @override
+  Future<Either<PostError, Unit>> subscribeCommunity({
+    required String communityId,
+    required String targetUid,
+    required String chatGroupId,
+  }) async {
+    try {
+      final DocumentReference communityReference =
+          firestore.collection('communities').doc(communityId);
+      final DocumentReference chatReference =
+          communityReference.collection('chat_groups').doc(chatGroupId);
+      await chatReference.update({
+        "joinedUserIds": FieldValue.arrayUnion([targetUid]),
+      });
+      await communityReference.update({
+        "participants": FieldValue.arrayUnion([targetUid]),
+      });
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Unit>> unsubscribeCommunity({
+    required String communityId,
+    required String targetUid,
+    required String chatGroupId,
+  }) async {
+    try {
+      final DocumentReference communityReference =
+          firestore.collection('communities').doc(communityId);
+      final DocumentReference chatReference =
+          communityReference.collection('chat_groups').doc(chatGroupId);
+      await chatReference.update({
+        "joinedUserIds": FieldValue.arrayRemove([targetUid]),
+      });
+      await communityReference.update({
+        "participants": FieldValue.arrayRemove([targetUid]),
+      });
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

@@ -8,6 +8,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/subscribe_community_bloc/subscribe_community_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
@@ -23,6 +24,7 @@ class CommunityProfileSubscribePage extends StatefulWidget {
 
 class _CommunityProfileSubscribePageState
     extends State<CommunityProfileSubscribePage> {
+  bool isSubscribe = false;
   @override
   void initState() {
     super.initState();
@@ -34,8 +36,39 @@ class _CommunityProfileSubscribePageState
         .add(CommunityPostListEvent.getPosts(communityId: widget.communityId));
   }
 
+  void toggleSubscribe(
+    String communitId,
+    String groupId,
+    String targetUid,
+  ) {
+    final bool newIsSubscribe = !isSubscribe;
+    if (isSubscribe) {
+      context.read<SubscribeCommunityBloc>().add(
+            SubscribeCommunityEvent.unsubscribeCommunity(
+              chatGroupId: groupId,
+              communityId: communitId,
+              targetUid: targetUid,
+            ),
+          );
+    } else {
+      context.read<SubscribeCommunityBloc>().add(
+            SubscribeCommunityEvent.subscribeCommunity(
+              chatGroupId: groupId,
+              communityId: communitId,
+              targetUid: targetUid,
+            ),
+          );
+    }
+    if (mounted) {
+      setState(() {
+        isSubscribe = newIsSubscribe;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentUid = firebaseAuth.currentUser!.uid;
     return GlScaffold(
       appBar: GlAppBar(
         leading: IconButton(
@@ -50,7 +83,16 @@ class _CommunityProfileSubscribePageState
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: BlocBuilder<CommunityDetailBloc, CommunityDetailState>(
+          child: BlocConsumer<CommunityDetailBloc, CommunityDetailState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                success: (community) {
+                  isSubscribe = community.participants!.contains(currentUid);
+                  setState(() {});
+                },
+                orElse: () {},
+              );
+            },
             builder: (context, state) {
               return state.maybeWhen(
                 loading: () => const Center(
@@ -69,7 +111,7 @@ class _CommunityProfileSubscribePageState
                     ),
                     child: Column(
                       children: [
-                        _buildTop(community),
+                        _buildTop(community, currentUid),
                         BlocBuilder<CommunityPostListBloc,
                             CommunityPostListState>(
                           builder: (context, state) {
@@ -114,7 +156,10 @@ class _CommunityProfileSubscribePageState
     );
   }
 
-  Column _buildTop(Community community) {
+  Column _buildTop(
+    Community community,
+    String currentUid,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -145,7 +190,15 @@ class _CommunityProfileSubscribePageState
         const SizedBox(
           height: 10,
         ),
-        const ForTheUserButtonsWidget(),
+        ForTheUserButtonsWidget(
+          isSubscribe: isSubscribe,
+          onPressedSubscribe: () => toggleSubscribe(
+            community.communityId.toString(),
+            community.chatGroupId.toString(),
+            currentUid,
+          ),
+          onPressed: () {},
+        ),
       ],
     );
   }

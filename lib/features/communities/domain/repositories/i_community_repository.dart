@@ -24,4 +24,14 @@ abstract class ICommunityRepository {
   Future<Either<PostError, Community>> getDetail({
     String? communityId,
   });
+  Future<Either<PostError, Unit>> subscribeCommunity ({
+    required String communityId,
+    required String targetUid,
+    required String chatGroupId,
+  });
+  Future<Either<PostError, Unit>> unsubscribeCommunity({
+    required String communityId,
+    required String targetUid,
+    required String chatGroupId,
+  });
 }
