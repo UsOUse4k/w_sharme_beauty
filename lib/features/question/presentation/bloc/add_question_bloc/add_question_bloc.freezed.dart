@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'question_bloc.dart';
+part of 'add_question_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -60,12 +60,12 @@ mixin _$QuestionEvent {
 /// @nodoc
 abstract class $QuestionEventCopyWith<$Res> {
   factory $QuestionEventCopyWith(
-          QuestionEvent value, $Res Function(QuestionEvent) then) =
-      _$QuestionEventCopyWithImpl<$Res, QuestionEvent>;
+          AddQuestionEvent value, $Res Function(AddQuestionEvent) then) =
+      _$QuestionEventCopyWithImpl<$Res, AddQuestionEvent>;
 }
 
 /// @nodoc
-class _$QuestionEventCopyWithImpl<$Res, $Val extends QuestionEvent>
+class _$QuestionEventCopyWithImpl<$Res, $Val extends AddQuestionEvent>
     implements $QuestionEventCopyWith<$Res> {
   _$QuestionEventCopyWithImpl(this._value, this._then);
 
@@ -222,7 +222,7 @@ class _$AddedQuestionEventImpl implements _AddedQuestionEvent {
   }
 }
 
-abstract class _AddedQuestionEvent implements QuestionEvent {
+abstract class _AddedQuestionEvent implements AddQuestionEvent {
   const factory _AddedQuestionEvent(
       {required final Question question,
       required final bool isAnonymous}) = _$AddedQuestionEventImpl;
@@ -333,7 +333,7 @@ class _$GetQuestionsImpl implements _GetQuestions {
   }
 }
 
-abstract class _GetQuestions implements QuestionEvent {
+abstract class _GetQuestions implements AddQuestionEvent {
   const factory _GetQuestions() = _$GetQuestionsImpl;
 }
 
@@ -394,12 +394,12 @@ mixin _$QuestionState {
 /// @nodoc
 abstract class $QuestionStateCopyWith<$Res> {
   factory $QuestionStateCopyWith(
-          QuestionState value, $Res Function(QuestionState) then) =
-      _$QuestionStateCopyWithImpl<$Res, QuestionState>;
+          AddQuestionState value, $Res Function(AddQuestionState) then) =
+      _$QuestionStateCopyWithImpl<$Res, AddQuestionState>;
 }
 
 /// @nodoc
-class _$QuestionStateCopyWithImpl<$Res, $Val extends QuestionState>
+class _$QuestionStateCopyWithImpl<$Res, $Val extends AddQuestionState>
     implements $QuestionStateCopyWith<$Res> {
   _$QuestionStateCopyWithImpl(this._value, this._then);
 
@@ -519,7 +519,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements QuestionState {
+abstract class _Initial implements AddQuestionState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -633,7 +633,7 @@ class _$LoadingQuestionImpl implements _LoadingQuestion {
   }
 }
 
-abstract class _LoadingQuestion implements QuestionState {
+abstract class _LoadingQuestion implements AddQuestionState {
   const factory _LoadingQuestion() = _$LoadingQuestionImpl;
 }
 
@@ -785,7 +785,7 @@ class _$SuccessQuestionImpl implements _SuccessQuestion {
   }
 }
 
-abstract class _SuccessQuestion implements QuestionState {
+abstract class _SuccessQuestion implements AddQuestionState {
   const factory _SuccessQuestion(final Question question) =
       _$SuccessQuestionImpl;
 
@@ -931,7 +931,7 @@ class _$ErrorQuestionImpl implements _ErrorQuestion {
   }
 }
 
-abstract class _ErrorQuestion implements QuestionState {
+abstract class _ErrorQuestion implements AddQuestionState {
   const factory _ErrorQuestion({required final String message}) =
       _$ErrorQuestionImpl;
 

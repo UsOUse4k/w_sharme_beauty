@@ -115,7 +115,7 @@ import 'package:w_sharme_beauty/features/question/domain/repositories/add_questi
     as _i46;
 import 'package:w_sharme_beauty/features/question/domain/repositories/i_question_repository.dart'
     as _i24;
-import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart'
+import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart'
     as _i51;
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart'
     as _i54;
@@ -258,7 +258,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i49.CommentLikesBloc(gh<_i22.ICommentRepository>()));
     gh.factory<_i50.CommentListBloc>(
         () => _i50.CommentListBloc(gh<_i22.ICommentRepository>()));
-    gh.factory<_i51.QuestionBloc>(() => _i51.QuestionBloc(
+    gh.factory<_i51.AddQuestionBloc>(() => _i51.AddQuestionBloc(
           gh<_i46.AddQuestionRepository>(),
           gh<_i19.IProfileInfoRepository>(),
           gh<_i12.IAuthFacade>(),
