@@ -65,6 +65,7 @@ class _CommunityMembersPageState extends State<CommunityMembersPage> {
                                           .contains(element.uid),
                                     )
                                     .toList();
+                                filterUsers.sort((a, b) => a.username!.compareTo(b.username!));
                                 return ListView.separated(
                                   physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
@@ -73,7 +74,8 @@ class _CommunityMembersPageState extends State<CommunityMembersPage> {
                                       user: filterUsers[index],
                                     );
                                   },
-                                  separatorBuilder: (context, index) => SizedBox(
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(
                                     height: 10.h,
                                   ),
                                   itemCount: filterUsers.length,

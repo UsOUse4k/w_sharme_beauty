@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/auth/domain/entities/subscribe_result.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 
 @LazySingleton(as: IAuthFacade)
@@ -198,14 +199,14 @@ class FirebaseAuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<PostError, Unit>> subscribe({
+  Future<Either<PostError, SubscriptionResult>> subscribe({
     required String targetUserUid,
   }) async {
+    final currentUid = _firebaseAuth.currentUser!.uid;
     try {
-      final currentUserId = _firebaseAuth.currentUser!.uid;
       final DocumentReference<Map<String, dynamic>> currentUserDoc = _firestore
           .collection('users')
-          .doc(currentUserId)
+          .doc(currentUid)
           .withConverter<Map<String, dynamic>>(
             fromFirestore: (snapshot, _) => snapshot.data()!,
             toFirestore: (value, _) => value,
@@ -239,28 +240,30 @@ class FirebaseAuthFacade implements IAuthFacade {
             );
           }
 
-          if (!targetUserFollowers.contains(currentUserId)) {
-            targetUserFollowers.add(currentUserId);
-            transaction
-                .update(targetUserDoc, {'followers': targetUserFollowers});
+          if (!targetUserFollowers.contains(currentUid)) {
+            targetUserFollowers.add(currentUid);
+            transaction.update(
+              targetUserDoc,
+              {'followers': targetUserFollowers},
+            );
           }
         },
       );
-      return right(unit);
+      return right(SubscriptionResult(isSubscribed: true));
     } catch (e) {
       return left(PostError(e.toString()));
     }
   }
 
   @override
-  Future<Either<PostError, Unit>> unsubscribe({
+  Future<Either<PostError, SubscriptionResult>> unsubscribe({
     required String targetUserUid,
   }) async {
+    final currentUid = _firebaseAuth.currentUser!.uid;
     try {
-      final currentUserId = _firebaseAuth.currentUser!.uid;
       final DocumentReference<Map<String, dynamic>> currentUserDoc = _firestore
           .collection('users')
-          .doc(currentUserId)
+          .doc(currentUid)
           .withConverter<Map<String, dynamic>>(
             fromFirestore: (snapshot, _) => snapshot.data()!,
             toFirestore: (value, _) => value,
@@ -287,13 +290,19 @@ class FirebaseAuthFacade implements IAuthFacade {
               (targetUserSnapshot.data()?['followers'] as List<dynamic>?) ?? [];
 
           currentUserSubscriptions.remove(targetUserUid);
-          targetUserFollowers.remove(currentUserId);
+          targetUserFollowers.remove(currentUid);
+
           transaction.update(
-              currentUserDoc, {'subscriptions': currentUserSubscriptions},);
-          transaction.update(targetUserDoc, {'followers': targetUserFollowers});
+            currentUserDoc,
+            {'subscriptions': currentUserSubscriptions},
+          );
+          transaction.update(
+            targetUserDoc,
+            {'followers': targetUserFollowers},
+          );
         },
       );
-      return right(unit);
+      return right(SubscriptionResult(isSubscribed: false));
     } catch (e) {
       return left(PostError(e.toString()));
     }

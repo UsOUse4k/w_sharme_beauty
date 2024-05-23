@@ -75,11 +75,19 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
+          child: BlocConsumer<MyProfileInfoBloc, MyProfileInfoState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                succes: (user) {
+                  context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
+                },
+                orElse: () {},
+              );
+            },
             builder: (context, state) {
               return state.maybeWhen(
                 error: () => const Center(
-                  child:Text('error not Profile Page'),
+                  child: Text('error not Profile Page'),
                 ),
                 loading: () => const Center(
                   child: CircularProgressIndicator(

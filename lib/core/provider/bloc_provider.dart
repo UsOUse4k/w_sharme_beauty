@@ -4,7 +4,6 @@ import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/subscribe_bloc/subscribe_bloc.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/bloc/unsubscribe_bloc/unsubscribe_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bloc/get_all_chats_bloc.dart';
@@ -86,9 +85,7 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<MyProfileInfoBloc>(
           create: (context) {
-            final getMe = getIt<MyProfileInfoBloc>();
-            getMe.add(const MyProfileInfoEvent.getMe());
-            return getMe;
+            return getIt<MyProfileInfoBloc>();
           },
         ),
         BlocProvider<CommentCreateBloc>(
@@ -204,9 +201,6 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<SubscribeBloc>(
           create: (context) => getIt<SubscribeBloc>(),
-        ),
-        BlocProvider<UnsubscribeBloc>(
-          create: (context) => getIt<UnsubscribeBloc>(),
         ),
         BlocProvider<QuestionBloc>(
           create: (context) => getIt<QuestionBloc>(),

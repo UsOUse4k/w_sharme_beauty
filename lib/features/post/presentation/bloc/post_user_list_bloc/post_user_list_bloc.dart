@@ -15,12 +15,16 @@ class PostUserListBloc extends Bloc<PostUserListEvent, PostUserListState> {
       await event.maybeWhen(
         getUserPosts: (userId) async {
           emit(const PostUserListState.loading());
-          final result = await _postRepository.getPosts(userId: userId);
-          await result.fold((error) async {
-            emit(PostUserListState.error(message: error.messasge));
-          }, (posts) {
-            emit(PostUserListState.success(posts));
-          });
+          try {
+            final result = await _postRepository.getPosts(userId: userId);
+            await result.fold((error) async {
+              emit(PostUserListState.error(message: error.messasge));
+            }, (posts) {
+              emit(PostUserListState.success(posts));
+            });
+          } catch (e) {
+            emit(PostUserListState.error(message: e.toString()));
+          }
         },
         addNewPosts: (post) {
           state.maybeWhen(

@@ -10,6 +10,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,8 +27,25 @@ class _HomePageState extends State<HomePage> {
     context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
   }
 
+  void preloadUserDetails() {
+    final postBlocState = context.read<PostListBloc>().state;
+    postBlocState.maybeWhen(
+      success: (posts) {
+        for (final post in posts) {
+          if (post.authorId != null) {
+            context.read<UserDetailBloc>().add(
+                  UserDetailEvent.getUserDetail(userId: post.authorId!),
+                );
+          }
+        }
+      },
+      orElse: () {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentUid = firebaseAuth.currentUser!.uid;
     final route = GoRouter.of(context);
     return GlScaffold(
       appBar: GlAppBar(
@@ -83,7 +101,16 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        child: BlocBuilder<PostListBloc, PostListState>(
+        child: BlocConsumer<PostListBloc, PostListState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              success: (posts) {
+                preloadUserDetails();
+                //print(posts);
+              },
+              orElse: () {},
+            );
+          },
           builder: (context, state) {
             return state.maybeWhen(
               loading: () => ListView.separated(
@@ -96,21 +123,23 @@ class _HomePageState extends State<HomePage> {
               ),
               error: (message) => Text('Ошибка: $message'),
               success: (posts) {
-                final currentUid = firebaseAuth.currentUser!.uid;
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   itemCount: posts.length,
-                  itemBuilder: (context, index) => PostCard(
-                    onPressed: () {
-                      if (posts[index].authorId != currentUid) {
-                        context.push(
-                          '/home/profilePersonPage/${posts[index].authorId}',
-                        );
-                      }
-                    },
-                    post: posts[index],
-                  ),
+                  itemBuilder: (context, index) {
+                    return PostCard(
+                      showButton: true,
+                      onPressed: () {
+                        if (posts[index].authorId != currentUid) {
+                          context.push(
+                            '/home/profilePersonPage/${posts[index].authorId}',
+                          );
+                        }
+                      },
+                      post: posts[index],
+                    );
+                  },
                 );
               },
               orElse: () => const SizedBox.shrink(),

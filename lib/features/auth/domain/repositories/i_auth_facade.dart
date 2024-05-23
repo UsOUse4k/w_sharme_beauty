@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/auth/domain/entities/subscribe_result.dart';
 
 typedef AuthFacadeResult = Either<AuthFailure, Unit>;
 
@@ -31,10 +32,10 @@ abstract class IAuthFacade {
     required List<String> userIds,
   });
 
-  Future<Either<PostError, Unit>> subscribe({
+  Future<Either<PostError, SubscriptionResult>> subscribe({
     required String targetUserUid,
   });
-  Future<Either<PostError, Unit>> unsubscribe({
+  Future<Either<PostError, SubscriptionResult>> unsubscribe({
     required String targetUserUid,
   });
 }

@@ -20,32 +20,38 @@ mixin _$SubscribeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String targetUserId) subscribe,
+    required TResult Function(String targetUserId) unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String targetUserId)? subscribe,
+    TResult? Function(String targetUserId)? unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String targetUserId)? subscribe,
+    TResult Function(String targetUserId)? unsubscribe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Subscribe value) subscribe,
+    required TResult Function(_UnSubscribe value) unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Subscribe value)? subscribe,
+    TResult? Function(_UnSubscribe value)? unsubscribe,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Subscribe value)? subscribe,
+    TResult Function(_UnSubscribe value)? unsubscribe,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -156,6 +162,7 @@ class _$SubscribeImpl implements _Subscribe {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String targetUserId) subscribe,
+    required TResult Function(String targetUserId) unsubscribe,
   }) {
     return subscribe(targetUserId);
   }
@@ -164,6 +171,7 @@ class _$SubscribeImpl implements _Subscribe {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String targetUserId)? subscribe,
+    TResult? Function(String targetUserId)? unsubscribe,
   }) {
     return subscribe?.call(targetUserId);
   }
@@ -172,6 +180,7 @@ class _$SubscribeImpl implements _Subscribe {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String targetUserId)? subscribe,
+    TResult Function(String targetUserId)? unsubscribe,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -184,6 +193,7 @@ class _$SubscribeImpl implements _Subscribe {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Subscribe value) subscribe,
+    required TResult Function(_UnSubscribe value) unsubscribe,
   }) {
     return subscribe(this);
   }
@@ -192,6 +202,7 @@ class _$SubscribeImpl implements _Subscribe {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Subscribe value)? subscribe,
+    TResult? Function(_UnSubscribe value)? unsubscribe,
   }) {
     return subscribe?.call(this);
   }
@@ -200,6 +211,7 @@ class _$SubscribeImpl implements _Subscribe {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Subscribe value)? subscribe,
+    TResult Function(_UnSubscribe value)? unsubscribe,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -222,11 +234,150 @@ abstract class _Subscribe implements SubscribeEvent {
 }
 
 /// @nodoc
+abstract class _$$UnSubscribeImplCopyWith<$Res>
+    implements $SubscribeEventCopyWith<$Res> {
+  factory _$$UnSubscribeImplCopyWith(
+          _$UnSubscribeImpl value, $Res Function(_$UnSubscribeImpl) then) =
+      __$$UnSubscribeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String targetUserId});
+}
+
+/// @nodoc
+class __$$UnSubscribeImplCopyWithImpl<$Res>
+    extends _$SubscribeEventCopyWithImpl<$Res, _$UnSubscribeImpl>
+    implements _$$UnSubscribeImplCopyWith<$Res> {
+  __$$UnSubscribeImplCopyWithImpl(
+      _$UnSubscribeImpl _value, $Res Function(_$UnSubscribeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? targetUserId = null,
+  }) {
+    return _then(_$UnSubscribeImpl(
+      targetUserId: null == targetUserId
+          ? _value.targetUserId
+          : targetUserId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnSubscribeImpl implements _UnSubscribe {
+  const _$UnSubscribeImpl({required this.targetUserId});
+
+  @override
+  final String targetUserId;
+
+  @override
+  String toString() {
+    return 'SubscribeEvent.unsubscribe(targetUserId: $targetUserId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnSubscribeImpl &&
+            (identical(other.targetUserId, targetUserId) ||
+                other.targetUserId == targetUserId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, targetUserId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnSubscribeImplCopyWith<_$UnSubscribeImpl> get copyWith =>
+      __$$UnSubscribeImplCopyWithImpl<_$UnSubscribeImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String targetUserId) subscribe,
+    required TResult Function(String targetUserId) unsubscribe,
+  }) {
+    return unsubscribe(targetUserId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String targetUserId)? subscribe,
+    TResult? Function(String targetUserId)? unsubscribe,
+  }) {
+    return unsubscribe?.call(targetUserId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String targetUserId)? subscribe,
+    TResult Function(String targetUserId)? unsubscribe,
+    required TResult orElse(),
+  }) {
+    if (unsubscribe != null) {
+      return unsubscribe(targetUserId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Subscribe value) subscribe,
+    required TResult Function(_UnSubscribe value) unsubscribe,
+  }) {
+    return unsubscribe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Subscribe value)? subscribe,
+    TResult? Function(_UnSubscribe value)? unsubscribe,
+  }) {
+    return unsubscribe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Subscribe value)? subscribe,
+    TResult Function(_UnSubscribe value)? unsubscribe,
+    required TResult orElse(),
+  }) {
+    if (unsubscribe != null) {
+      return unsubscribe(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnSubscribe implements SubscribeEvent {
+  const factory _UnSubscribe({required final String targetUserId}) =
+      _$UnSubscribeImpl;
+
+  @override
+  String get targetUserId;
+  @override
+  @JsonKey(ignore: true)
+  _$$UnSubscribeImplCopyWith<_$UnSubscribeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SubscribeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(bool subscriptions) success,
     required TResult Function(String message) error,
     required TResult Function() loading,
   }) =>
@@ -234,7 +385,7 @@ mixin _$SubscribeState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(bool subscriptions)? success,
     TResult? Function(String message)? error,
     TResult? Function()? loading,
   }) =>
@@ -242,7 +393,7 @@ mixin _$SubscribeState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(bool subscriptions)? success,
     TResult Function(String message)? error,
     TResult Function()? loading,
     required TResult orElse(),
@@ -332,7 +483,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(bool subscriptions) success,
     required TResult Function(String message) error,
     required TResult Function() loading,
   }) {
@@ -343,7 +494,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(bool subscriptions)? success,
     TResult? Function(String message)? error,
     TResult? Function()? loading,
   }) {
@@ -354,7 +505,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(bool subscriptions)? success,
     TResult Function(String message)? error,
     TResult Function()? loading,
     required TResult orElse(),
@@ -412,6 +563,8 @@ abstract class _$$SuccessImplCopyWith<$Res> {
   factory _$$SuccessImplCopyWith(
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool subscriptions});
 }
 
 /// @nodoc
@@ -421,60 +574,85 @@ class __$$SuccessImplCopyWithImpl<$Res>
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? subscriptions = null,
+  }) {
+    return _then(_$SuccessImpl(
+      null == subscriptions
+          ? _value.subscriptions
+          : subscriptions // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl();
+  const _$SuccessImpl(this.subscriptions);
+
+  @override
+  final bool subscriptions;
 
   @override
   String toString() {
-    return 'SubscribeState.success()';
+    return 'SubscribeState.success(subscriptions: $subscriptions)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.subscriptions, subscriptions) ||
+                other.subscriptions == subscriptions));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, subscriptions);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(bool subscriptions) success,
     required TResult Function(String message) error,
     required TResult Function() loading,
   }) {
-    return success();
+    return success(subscriptions);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(bool subscriptions)? success,
     TResult? Function(String message)? error,
     TResult? Function()? loading,
   }) {
-    return success?.call();
+    return success?.call(subscriptions);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(bool subscriptions)? success,
     TResult Function(String message)? error,
     TResult Function()? loading,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(subscriptions);
     }
     return orElse();
   }
@@ -518,7 +696,12 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements SubscribeState {
-  const factory _Success() = _$SuccessImpl;
+  const factory _Success(final bool subscriptions) = _$SuccessImpl;
+
+  bool get subscriptions;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -586,7 +769,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(bool subscriptions) success,
     required TResult Function(String message) error,
     required TResult Function() loading,
   }) {
@@ -597,7 +780,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(bool subscriptions)? success,
     TResult? Function(String message)? error,
     TResult? Function()? loading,
   }) {
@@ -608,7 +791,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(bool subscriptions)? success,
     TResult Function(String message)? error,
     TResult Function()? loading,
     required TResult orElse(),
@@ -705,7 +888,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() success,
+    required TResult Function(bool subscriptions) success,
     required TResult Function(String message) error,
     required TResult Function() loading,
   }) {
@@ -716,7 +899,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? success,
+    TResult? Function(bool subscriptions)? success,
     TResult? Function(String message)? error,
     TResult? Function()? loading,
   }) {
@@ -727,7 +910,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? success,
+    TResult Function(bool subscriptions)? success,
     TResult Function(String message)? error,
     TResult Function()? loading,
     required TResult orElse(),

@@ -17,12 +17,16 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
       await event.maybeWhen(
         getUserDetail: (userId) async {
           emit(const UserDetailState.loading());
-          final result = await _authFacade.getMeInfo(userId);
-          await result.fold((error) async {
-            emit(UserDetailState.error(message: error.messasge));
-          }, (data) async {
-            emit(UserDetailState.success(data));
-          });
+          try {
+            final result = await _authFacade.getMeInfo(userId);
+            await result.fold((error) async {
+              emit(UserDetailState.error(message: error.messasge));
+            }, (data) async {
+              emit(UserDetailState.success(data));
+            });
+          } catch (e) {
+            emit(UserDetailState.error(message: e.toString()));
+          }
         },
         orElse: () {},
       );
