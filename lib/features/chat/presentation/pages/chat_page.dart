@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -20,6 +23,12 @@ class _ChatPageState extends State<ChatPage>
   @override
   void initState() {
     super.initState();
+    context
+        .read<CommunityListBloc>()
+        .add(const CommunityListEvent.getCommunities());
+    context
+        .read<UpdateStatusUserBloc>()
+        .add(const UpdateStatusUserEvent.updateStatusUser());
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -41,7 +50,7 @@ class _ChatPageState extends State<ChatPage>
             context.pop();
           },
         ),
-        title:  CenterTitleAppBar(
+        title: CenterTitleAppBar(
           title: 'Чат',
           textStyle: AppStyles.w500f18,
         ),

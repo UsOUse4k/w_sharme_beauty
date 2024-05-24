@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
@@ -127,14 +129,19 @@ class _CommentItemCardState extends State<CommentItemCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  child: GlCachedNetworImage(
-                    height: 40.h,
-                    width: 40.w,
-                    urlImage: widget.avatar,
+                child: InkWell(
+                  onTap: () {
+                    context.push('/home/${RouterContants.profilePersonPage}/${widget.item.uid}');
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    child: GlCachedNetworImage(
+                      height: 40.h,
+                      width: 40.w,
+                      urlImage: widget.avatar,
+                    ),
                   ),
                 ),
               ),

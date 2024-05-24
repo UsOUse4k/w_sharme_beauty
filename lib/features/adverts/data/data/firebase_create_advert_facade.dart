@@ -7,10 +7,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
+import 'package:w_sharme_beauty/core/utils/firebase_storage_url/firebase_storage_image_methods.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/date_formatter.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/entities/create_advert.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/repositories/i_create_advert_repository.dart';
-import 'package:w_sharme_beauty/features/post/data/firebase_storage_image_methods.dart';
 
 @LazySingleton(as: ICreateAdvartRepository)
 class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {

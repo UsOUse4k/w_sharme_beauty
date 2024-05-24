@@ -14,9 +14,14 @@ abstract class ICommunityRepository {
     String userId,
   );
   Future<Either<PostError, Unit>> deleteCommunity(Community community);
-  Future<Either<PostError, Unit>> updateCommunity(Community community);
+  Future<Either<PostError, Unit>> updateCommunity({
+    required String communityName,
+    required String desc,
+    required String category,
+    Uint8List? file,
+    required String communityId,
+  });
   Future<Either<PostError, Community>> getDetail({
-    String? userId,
     String? communityId,
   });
 }

@@ -19,17 +19,21 @@ class PostListBloc extends Bloc<PostListEvent, PostListState> {
         await event.map(
           getPosts: (event) async {
             emit(const PostListState.loading());
-            final result = await _repository.getPosts();
-            result.fold(
-              (error) {
-                emit(PostListState.error(message: error.messasge));
-              },
-              (posts) {
-                emit(PostListState.success(posts));
-                _profileInfoBloc.add(const MyProfileInfoEvent.getMe());
-                _myPostListBloc.add(const MyPostListEvent.getPosts());
-              },
-            );
+            try {
+              final result = await _repository.getPosts();
+              result.fold(
+                (error) {
+                  emit(PostListState.error(message: error.messasge));
+                },
+                (posts) {
+                  emit(PostListState.success(posts));
+                  _profileInfoBloc.add(const MyProfileInfoEvent.getMe());
+                  _myPostListBloc.add(const MyPostListEvent.getPosts());
+                },
+              );
+            } catch (e) {
+              emit(PostListState.error(message: e.toString()));
+            }
           },
           addNewPost: (event) async {
             state.maybeWhen(

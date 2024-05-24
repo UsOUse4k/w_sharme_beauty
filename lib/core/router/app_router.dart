@@ -13,18 +13,10 @@ import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/pages/chat_group_messages_page.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_add_public_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_chat_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_managers.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_edit_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_leo_monic_chat_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_managers_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_members_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_profile_subscribe_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_subscribers_page.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/create_a_community_page.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
@@ -115,6 +107,26 @@ mixin AppRouter on State<App> {
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
+                    path: "${RouterContants.profilePersonPage}/:authorId",
+                    builder: (BuildContext context, GoRouterState state) {
+                      final authorId = state.pathParameters['authorId'];
+                      return ProfilePersonPage(authorId: authorId);
+                    },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: '${RouterContants.chatMessages}/:userId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final userId = state.pathParameters['userId'];
+                          return ChatMessagesPage(
+                            userId: userId,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
                   ),
@@ -125,16 +137,124 @@ mixin AppRouter on State<App> {
                     routes: [
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
-                        name: RouterContants.chatMessages,
-                        path: RouterContants.chatMessages,
-                        builder: (context, state) => const ChatMessagesPage(),
+                        path: "${RouterContants.chatMessages}/:userId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final userId = state.pathParameters['userId'];
+                          return ChatMessagesPage(userId: userId);
+                        },
                         routes: [
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
                             name: RouterContants.profilePersonPage,
-                            path: RouterContants.profilePersonPage,
-                            builder: (context, state) =>
-                                const ProfilePersonPage(),
+                            path: "${RouterContants.profilePersonPage}/:userId",
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final userId = state.pathParameters['userId'];
+                              return ProfilePersonPage(authorId: userId);
+                            },
+                          ),
+                        ],
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path:
+                            '${RouterContants.chatGroupMessages}/:groupId/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return ChatGroupMessagesPage(
+                            groupId: groupId.toString(),
+                            communityId: communityId.toString(),
+                          );
+                        },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: 'chatGroupEdit/:groupId/:communityId',
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final groupId = state.pathParameters['groupId'];
+                              final communityId =
+                                  state.pathParameters['communityId'];
+                              return ChatGroupEditPage(
+                                groupId: groupId.toString(),
+                                communityId: communityId.toString(),
+                              );
+                            },
+                          ),
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: 'chatAdmins/:groupId/:communityId',
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final groupId = state.pathParameters['groupId'];
+                              final communityId =
+                                  state.pathParameters['communityId'];
+
+                              return ChatGroupAdminsPage(
+                                groupId: groupId.toString(),
+                                communityId: communityId.toString(),
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: RouterKeys.rootKey,
+                                path:
+                                    'appointManagment/:userId/:groupId/:communityId',
+                                builder: (
+                                  BuildContext context,
+                                  GoRouterState state,
+                                ) {
+                                  final userId = state.pathParameters['userId'];
+                                  final communityId =
+                                      state.pathParameters['communityId'];
+                                  final groupId =
+                                      state.pathParameters['groupId'];
+                                  return ChatGroupAppointManagmentPage(
+                                    userId: userId.toString(),
+                                    groupId: groupId.toString(),
+                                    communityId: communityId.toString(),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: 'chatParticipants/:groupId/:communityId',
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final groupId = state.pathParameters['groupId'];
+                              final communityId =
+                                  state.pathParameters['communityId'];
+                              return ChatParticipantsPage(
+                                groupId: groupId.toString(),
+                                communityId: communityId,
+                              );
+                            },
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: RouterKeys.rootKey,
+                                path:
+                                    'appointManagment/:userId/:groupId/:communityId',
+                                builder: (
+                                  BuildContext context,
+                                  GoRouterState state,
+                                ) {
+                                  final userId = state.pathParameters['userId'];
+                                  final communityId =
+                                      state.pathParameters['communityId'];
+                                  final groupId =
+                                      state.pathParameters['groupId'];
+                                  return ChatGroupAppointManagmentPage(
+                                    userId: userId.toString(),
+                                    groupId: groupId.toString(),
+                                    communityId: communityId.toString(),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -230,28 +350,106 @@ mixin AppRouter on State<App> {
                     builder: (BuildContext context, GoRouterState state) {
                       final communityId = state.pathParameters['communityId'];
                       return CommunityProfileSubscribePage(
-                        communityId: communityId,
+                        communityId: communityId.toString(),
                       );
                     },
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityProfile,
-                    path: RouterContants.communityProfile,
-                    builder: (context, state) => const CommunityProfilePage(),
+                    path: '${RouterContants.communityProfile}/:communityId',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final communityId = state.pathParameters['communityId'];
+                      return CommunityProfilePage(
+                        communityId: communityId.toString(),
+                      );
+                    },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path:
+                            '${RouterContants.communityAddPublic}/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return CommunityAddPublicPage(
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'chatAdmins/:groupId/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+
+                          return ChatGroupAdminsPage(
+                            communityId: communityId,
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path:
+                            '${RouterContants.chatGroupMessages}/:groupId/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+
+                          return ChatGroupMessagesPage(
+                            communityId: communityId.toString(),
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: "${RouterContants.communityEdit}/:communityId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return CommunityEditPage(
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'chatParticipants/:groupId/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return ChatParticipantsPage(
+                            communityId: communityId,
+                            groupId: groupId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        name: RouterContants.communityChat,
+                        path: "${RouterContants.communityChat}/:communityId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return CommunityChatPage(
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityAddPublic,
-                    path: RouterContants.communityAddPublic,
-                    builder: (context, state) => const CommunityAddPublicPage(),
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityMembers,
-                    path: RouterContants.communityMembers,
-                    builder: (context, state) => const CommunityMembersPage(),
-                  ),
+                      parentNavigatorKey: RouterKeys.rootKey,
+                      path: "${RouterContants.communityMembers}/:communityId",
+                      builder: (BuildContext context, GoRouterState state) {
+                        final communityId = state.pathParameters['communityId'];
+                        return CommunityMembersPage(communityId: communityId.toString());
+                      },),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.communitySubscribers,
@@ -267,29 +465,10 @@ mixin AppRouter on State<App> {
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityEdit,
-                    path: RouterContants.communityEdit,
-                    builder: (context, state) => const CommunityEditPage(),
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityChat,
-                    path: RouterContants.communityChat,
-                    builder: (context, state) => const CommunityChatPage(),
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.communityEditManagers,
                     path: RouterContants.communityEditManagers,
                     builder: (context, state) =>
                         const CommunityEditManagersPage(),
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.communityLeoMonicChat,
-                    path: RouterContants.communityLeoMonicChat,
-                    builder: (context, state) =>
-                        const CommunityLeoMonicChatPage(),
                   ),
                 ],
               ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_circle_avatar.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class SubscribersListTileWidget extends StatelessWidget {
@@ -22,10 +23,13 @@ class SubscribersListTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: GlCircleAvatar(
-        avatar: avatar,
-        width: 50,
-        height: 50,
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: GlCachedNetworImage(
+          height: 50.h,
+          width: 50.w,
+          urlImage: avatar,
+        ),
       ),
       title: Text(title, style: AppStyles.w500f18),
       subtitle: Text(

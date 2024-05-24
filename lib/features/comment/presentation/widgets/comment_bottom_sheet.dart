@@ -108,8 +108,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                               color: AppColors.lightGrey,
                             ),
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(state.username.toString()),
                                 GestureDetector(

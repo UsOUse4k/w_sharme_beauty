@@ -6,22 +6,8 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 
-class MyBeutyList extends StatefulWidget {
+class MyBeutyList extends StatelessWidget {
   const MyBeutyList.beautyList({super.key});
-
-  @override
-  State<MyBeutyList> createState() => _MyBeutyListState();
-}
-
-class _MyBeutyListState extends State<MyBeutyList> {
-  @override
-  void initState() {
-    context
-        .read<MyCommunityListBloc>()
-        .add(const MyCommunityListEvent.getMyCommunity());
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +34,7 @@ class _MyBeutyListState extends State<MyBeutyList> {
                 return GestureDetector(
                   onTap: () {
                     context.push(
-                      // '/communities/${RouterContants.communityProfileSubscribe}/${item.communityId}',
-                      "/communities/${RouterContants.communityProfile}",
+                      '/communities/${RouterContants.communityProfile}/${item.communityId}',
                     );
                   },
                   child: ListTile(

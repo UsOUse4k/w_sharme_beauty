@@ -1,27 +1,27 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
-
-import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
-import 'package:w_sharme_beauty/core/widgets/custom_bottom_sheet_leading.dart';
-
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
+import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/widgets/text_field_widget_buttom_sheet.dart';
-import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/data/data/stories_data.dart';
-
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityProfilePage extends StatefulWidget {
-  const CommunityProfilePage({super.key});
-
+  const CommunityProfilePage({super.key, required this.communityId});
+  final String communityId;
   @override
   State<CommunityProfilePage> createState() => _CommunityProfilePageState();
 }
@@ -29,30 +29,22 @@ class CommunityProfilePage extends StatefulWidget {
 class _CommunityProfilePageState extends State<CommunityProfilePage> {
   @override
   void initState() {
-    context
-        .read<CommunityPostListBloc>()
-        .add(const CommunityPostListEvent.getPosts());
     super.initState();
-    context
-        .read<CommunityProfileInfoBloc>()
-        .add(const CommunityProfileInfoEvent.getMe());
+    if (mounted) {
+      context.read<CommunityDetailBloc>().add(
+            CommunityDetailEvent.loaded(widget.communityId),
+          );
+    }
   }
-
-  String publics = '0';
-  String followers = '0';
-  String subscriptions = '0';
-  String? username;
-  String? city;
-  String? aboutYourself;
-  String? rating;
-  String? avatarUrl;
 
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
+    final currentUid = firebaseAuth.currentUser!.uid;
     return GlScaffold(
       appBar: GlAppBar(
         leading: IconButton(
+          iconSize: 16,
           onPressed: () => context.pop(),
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -64,89 +56,9 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
               CustomBottomSheetLeading(
                 maxHeight: 0.5,
                 navbarTitle: 'Управление сообществом',
-                widget: Container(
-                  height: 300,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: AppColors.white,
-                  ),
-                  child: GlScaffold(
-                    horizontalPadding: 16,
-                    body: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          TextFieldWidgetWithTitle(
-                            filled: false,
-                            prefixIcon: Image.asset(Assets.icons.edit.path),
-                            title: 'Основное',
-                            hintText: 'Редактировать сообщество',
-                            hintStyle: AppStyles.w400f16.copyWith(
-                              color: AppColors.black,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                route.push(
-                                  '/communities/${RouterContants.communityEdit}',
-                                );
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios),
-                            ),
-                          ),
-                          TextFieldWidgetWithTitle(
-                            filled: false,
-                            prefixIcon: Image.asset(Assets.icons.message.path),
-                            title: 'Общение',
-                            hintText: 'Чаты',
-                            hintStyle: AppStyles.w400f16.copyWith(
-                              color: AppColors.black,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                route.push(
-                                  '/communities/${RouterContants.communityChat}',
-                                );
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios),
-                            ),
-                          ),
-                          TextFieldWidgetWithTitle(
-                            filled: false,
-                            prefixIcon: Image.asset(Assets.icons.managers.path),
-                            title: 'Участники',
-                            hintText: 'Руководители',
-                            hintStyle: AppStyles.w400f16.copyWith(
-                              color: AppColors.black,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                route.push(
-                                  '/communities/${RouterContants.communityManagers}',
-                                );
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios),
-                            ),
-                          ),
-                          TextFieldWidgetButtomSheet(
-                            filled: false,
-                            prefixIcon:
-                                Image.asset(Assets.icons.subscribers.path),
-                            hintText: 'Подписчики',
-                            hintStyle: AppStyles.w400f16.copyWith(
-                              color: AppColors.black,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                route.push(
-                                  '/communities/${RouterContants.communitySubscribers}',
-                                );
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                widget: CommunitySettingsWidget(
+                  route: route,
+                  communityId: widget.communityId,
                 ),
               ),
             );
@@ -158,149 +70,160 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: BlocListener<CommunityProfileInfoBloc,
-                CommunityProfileInfoState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  succes: (user) {
-                    setState(() {
-                      publics = user.publics!.length.toString();
-                      followers = user.followers!.length.toString();
-                      subscriptions = user.subscriptions!.length.toString();
-                      username = user.username;
-                      aboutYourself = user.aboutYourself;
-                      rating = user.rating;
-                      city = user.city;
-                      avatarUrl = user.profilePictureUrl;
-                    });
-                  },
-                  orElse: () {},
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text("Комьюнити", style: AppStyles.w500f18),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Всем привет, мы публикуем самые трендовые и красивые дизайны для твоего маникюра!",
-                    style: AppStyles.w400f13,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  StoriesWidget(storiesModel: storiesModel),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.purple,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(
-                            color: AppColors.purple,
-                          ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: BlocConsumer<CommunityDetailBloc, CommunityDetailState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                success: (community) {
+                  context.read<CommunityPostListBloc>().add(
+                        CommunityPostListEvent.getPosts(
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                  context.read<GetAllChatGroupBloc>().add(
+                        GetAllChatGroupEvent.getAllChatGroups(
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                  context.read<GetGroupBloc>().add(
+                        GetGroupEvent.getGroup(
+                          groupId: community.chatGroupId.toString(),
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                },
+                orElse: () {},
+              );
+            },
+            builder: (context, state) {
+              return state.maybeWhen(
+                error: (error) => Container(),
+                success: (community) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: ProfileNavbarWidget(
+                          avatar: community.avatarUrls,
+                          publications: community.public.toString(),
+                          followers: community.participants!.length.toString(),
+                          subscribeText: "Участники",
+                          onPressedFollowers: () {
+                            route.push(
+                              '/communities/${RouterContants.communityMembers}/${community.communityId}',
+                            );
+                          },
                         ),
                       ),
-                      onPressed: () {},
-                      child: const Text(
-                        "Создать чат",
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      const SizedBox(
+                        height: 15,
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.lightPurple,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {
-                        route.push(
-                          '/communities/${RouterContants.communityAddPublic}',
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Assets.icons.plus.path,
-                            color: AppColors.purple,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Опубликовать",
-                            style: TextStyle(
-                              color: AppColors.purple,
-                              fontWeight: FontWeight.w700,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              community.communityName.toString(),
+                              style: AppStyles.w500f18,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  BlocBuilder<CommunityPostListBloc, CommunityPostListState>(
-                    builder: (context, state) {
-                      return state.maybeWhen(
-                        loading: () => ListView.builder(
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: 5,
-                          itemBuilder: (context, index) => const PostShimmer(),
+                            SizedBox(height: 10.h),
+                            Text(
+                              "${community.description}",
+                              style: AppStyles.w400f13,
+                            ),
+                          ],
                         ),
-                        error: (message) => Text('Ошибка: $message'),
-                        success: (posts) {
-                          return ListView.builder(
-                            key: const PageStorageKey<String>(
-                              'communityPostsPage',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: StoriesWidget(
+                          storiesModel: storiesModel,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: GlButton(
+                          text: 'Создать чат',
+                          onPressed: () {
+                            if (community.uid == currentUid ||
+                                community.administrator != null &&
+                                    community.administrator!
+                                            .contains(currentUid) ==
+                                        true) {
+                              context.push(
+                                '/communities/community-profile/${widget.communityId}/${RouterContants.communityChat}/${widget.communityId}',
+                              );
+                            } else {
+                              showMyDialog(context, 'У вас нет права!');
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: ButtonCreateCommutityPost(
+                          community: community,
+                          communityId: community.communityId.toString(),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      BlocBuilder<CommunityPostListBloc,
+                          CommunityPostListState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            loading: () => ListView.separated(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: 5,
+                              itemBuilder: (context, index) =>
+                                  const PostShimmer(),
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const SizedBox(height: 10),
                             ),
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: posts.length,
-                            itemBuilder: (context, index) => PostCard(
-                              onPressed: () {},
-                              post: posts[index],
-                            ),
+                            error: (message) => Text('Ошибка: $message'),
+                            success: (posts) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: posts.length,
+                                itemBuilder: (context, index) =>
+                                    CommunityPostCard(
+                                  onPressed: () {},
+                                  communityName:
+                                      community.communityName.toString(),
+                                  post: posts[index],
+                                  avatarUrl: community.avatarUrls.toString(),
+                                ),
+                              );
+                            },
+                            orElse: () => const SizedBox.shrink(),
                           );
                         },
-                        orElse: () => const SizedBox.shrink(),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+                      ),
+                    ],
+                  );
+                },
+                orElse: () => Container(),
+              );
+            },
           ),
         ),
       ),

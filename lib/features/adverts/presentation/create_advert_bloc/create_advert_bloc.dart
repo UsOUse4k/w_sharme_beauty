@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/entities/create_advert.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/repositories/i_create_advert_repository.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
-import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'create_advert_event.dart';
 part 'create_advert_state.dart';
@@ -16,7 +15,6 @@ part 'create_advert_bloc.freezed.dart';
 class CreateAdvertBloc extends Bloc<CreateAdvertEvent, CreateAdvertState> {
   CreateAdvertBloc(
     this._createAdvartRepository,
-    this._iProfileInfoRepository,
     this._authFacade,
   ) : super(
           const CreateAdvertState.initial(),
@@ -33,7 +31,7 @@ class CreateAdvertBloc extends Bloc<CreateAdvertEvent, CreateAdvertState> {
               ),
             );
           }, (user) async {
-            final username = await _iProfileInfoRepository.getMeInfo(user.uid);
+            final username = await _authFacade.getMeInfo(user.uid);
             await username.fold((l) {
               emit(const CreateAdvertState.error(message: 'not username'));
             }, (advert) async {
@@ -59,6 +57,5 @@ class CreateAdvertBloc extends Bloc<CreateAdvertEvent, CreateAdvertState> {
   }
 
   final ICreateAdvartRepository _createAdvartRepository;
-  final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
 }

@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart';
-import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'post_create_event.dart';
 part 'post_create_state.dart';
@@ -16,7 +15,6 @@ part 'post_create_bloc.freezed.dart';
 class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
   PostCreateBloc(
     this._repository,
-    this._iProfileInfoRepository,
     this._authFacade,
   ) : super(const PostCreateState.initial()) {
     on<PostCreateEvent>(
@@ -33,7 +31,7 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
               );
             }, (user) async {
               final username =
-                  await _iProfileInfoRepository.getMeInfo(user.uid);
+                  await _authFacade.getMeInfo(user.uid);
               await username.fold((l) {
                 emit(const PostCreateState.error(message: 'not username'));
               }, (post) async {
@@ -60,6 +58,5 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
   }
 
   final IPostRepository _repository;
-  final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
 }

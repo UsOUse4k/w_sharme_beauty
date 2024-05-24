@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
+  return _UserProfile.fromJson(json);
+}
+
 /// @nodoc
 mixin _$UserProfile {
   String? get uid => throw _privateConstructorUsedError;
@@ -26,12 +30,15 @@ mixin _$UserProfile {
   String? get theme => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
-  List<String>? get publics => throw _privateConstructorUsedError;
+  int? get publics => throw _privateConstructorUsedError;
   List<String>? get followers => throw _privateConstructorUsedError;
   List<String>? get subscriptions => throw _privateConstructorUsedError;
   String? get rating => throw _privateConstructorUsedError;
   List<Stories>? get stories => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  Timestamp? get lastSeen => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UserProfileCopyWith<UserProfile> get copyWith =>
       throw _privateConstructorUsedError;
@@ -54,11 +61,12 @@ abstract class $UserProfileCopyWith<$Res> {
       String? theme,
       String? city,
       String? date,
-      List<String>? publics,
+      int? publics,
       List<String>? followers,
       List<String>? subscriptions,
       String? rating,
-      List<Stories>? stories});
+      List<Stories>? stories,
+      @TimestampConverter() Timestamp? lastSeen});
 }
 
 /// @nodoc
@@ -89,6 +97,7 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
     Object? subscriptions = freezed,
     Object? rating = freezed,
     Object? stories = freezed,
+    Object? lastSeen = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -134,7 +143,7 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
       publics: freezed == publics
           ? _value.publics
           : publics // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as int?,
       followers: freezed == followers
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -151,6 +160,10 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
           ? _value.stories
           : stories // ignore: cast_nullable_to_non_nullable
               as List<Stories>?,
+      lastSeen: freezed == lastSeen
+          ? _value.lastSeen
+          : lastSeen // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
     ) as $Val);
   }
 }
@@ -174,11 +187,12 @@ abstract class _$$UserProfileImplCopyWith<$Res>
       String? theme,
       String? city,
       String? date,
-      List<String>? publics,
+      int? publics,
       List<String>? followers,
       List<String>? subscriptions,
       String? rating,
-      List<Stories>? stories});
+      List<Stories>? stories,
+      @TimestampConverter() Timestamp? lastSeen});
 }
 
 /// @nodoc
@@ -207,6 +221,7 @@ class __$$UserProfileImplCopyWithImpl<$Res>
     Object? subscriptions = freezed,
     Object? rating = freezed,
     Object? stories = freezed,
+    Object? lastSeen = freezed,
   }) {
     return _then(_$UserProfileImpl(
       uid: freezed == uid
@@ -250,9 +265,9 @@ class __$$UserProfileImplCopyWithImpl<$Res>
           : date // ignore: cast_nullable_to_non_nullable
               as String?,
       publics: freezed == publics
-          ? _value._publics
+          ? _value.publics
           : publics // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as int?,
       followers: freezed == followers
           ? _value._followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -269,12 +284,16 @@ class __$$UserProfileImplCopyWithImpl<$Res>
           ? _value._stories
           : stories // ignore: cast_nullable_to_non_nullable
               as List<Stories>?,
+      lastSeen: freezed == lastSeen
+          ? _value.lastSeen
+          : lastSeen // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
   const _$UserProfileImpl(
       {this.uid,
@@ -287,15 +306,18 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       this.theme = '',
       this.city = '',
       this.date = '',
-      final List<String>? publics = const [],
+      this.publics = 0,
       final List<String>? followers = const [],
       final List<String>? subscriptions = const [],
       this.rating = '10',
-      final List<Stories>? stories = const []})
-      : _publics = publics,
-        _followers = followers,
+      final List<Stories>? stories = const [],
+      @TimestampConverter() this.lastSeen})
+      : _followers = followers,
         _subscriptions = subscriptions,
         _stories = stories;
+
+  factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileImplFromJson(json);
 
   @override
   final String? uid;
@@ -325,17 +347,9 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
   @override
   @JsonKey()
   final String? date;
-  final List<String>? _publics;
   @override
   @JsonKey()
-  List<String>? get publics {
-    final value = _publics;
-    if (value == null) return null;
-    if (_publics is EqualUnmodifiableListView) return _publics;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final int? publics;
   final List<String>? _followers;
   @override
   @JsonKey()
@@ -373,8 +387,12 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
   }
 
   @override
+  @TimestampConverter()
+  final Timestamp? lastSeen;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserProfile(uid: $uid, email: $email, name: $name, username: $username, profilePictureUrl: $profilePictureUrl, aboutYourself: $aboutYourself, category: $category, theme: $theme, city: $city, date: $date, publics: $publics, followers: $followers, subscriptions: $subscriptions, rating: $rating, stories: $stories)';
+    return 'UserProfile(uid: $uid, email: $email, name: $name, username: $username, profilePictureUrl: $profilePictureUrl, aboutYourself: $aboutYourself, category: $category, theme: $theme, city: $city, date: $date, publics: $publics, followers: $followers, subscriptions: $subscriptions, rating: $rating, stories: $stories, lastSeen: $lastSeen)';
   }
 
   @override
@@ -396,7 +414,8 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       ..add(DiagnosticsProperty('followers', followers))
       ..add(DiagnosticsProperty('subscriptions', subscriptions))
       ..add(DiagnosticsProperty('rating', rating))
-      ..add(DiagnosticsProperty('stories', stories));
+      ..add(DiagnosticsProperty('stories', stories))
+      ..add(DiagnosticsProperty('lastSeen', lastSeen));
   }
 
   @override
@@ -418,15 +437,18 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
             (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(other._publics, _publics) &&
+            (identical(other.publics, publics) || other.publics == publics) &&
             const DeepCollectionEquality()
                 .equals(other._followers, _followers) &&
             const DeepCollectionEquality()
                 .equals(other._subscriptions, _subscriptions) &&
             (identical(other.rating, rating) || other.rating == rating) &&
-            const DeepCollectionEquality().equals(other._stories, _stories));
+            const DeepCollectionEquality().equals(other._stories, _stories) &&
+            (identical(other.lastSeen, lastSeen) ||
+                other.lastSeen == lastSeen));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -440,17 +462,25 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       theme,
       city,
       date,
-      const DeepCollectionEquality().hash(_publics),
+      publics,
       const DeepCollectionEquality().hash(_followers),
       const DeepCollectionEquality().hash(_subscriptions),
       rating,
-      const DeepCollectionEquality().hash(_stories));
+      const DeepCollectionEquality().hash(_stories),
+      lastSeen);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
       __$$UserProfileImplCopyWithImpl<_$UserProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserProfileImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _UserProfile implements UserProfile {
@@ -465,11 +495,15 @@ abstract class _UserProfile implements UserProfile {
       final String? theme,
       final String? city,
       final String? date,
-      final List<String>? publics,
+      final int? publics,
       final List<String>? followers,
       final List<String>? subscriptions,
       final String? rating,
-      final List<Stories>? stories}) = _$UserProfileImpl;
+      final List<Stories>? stories,
+      @TimestampConverter() final Timestamp? lastSeen}) = _$UserProfileImpl;
+
+  factory _UserProfile.fromJson(Map<String, dynamic> json) =
+      _$UserProfileImpl.fromJson;
 
   @override
   String? get uid;
@@ -492,7 +526,7 @@ abstract class _UserProfile implements UserProfile {
   @override
   String? get date;
   @override
-  List<String>? get publics;
+  int? get publics;
   @override
   List<String>? get followers;
   @override
@@ -501,6 +535,9 @@ abstract class _UserProfile implements UserProfile {
   String? get rating;
   @override
   List<Stories>? get stories;
+  @override
+  @TimestampConverter()
+  Timestamp? get lastSeen;
   @override
   @JsonKey(ignore: true)
   _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>

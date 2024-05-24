@@ -19,23 +19,28 @@ class MyPostListBloc extends Bloc<MyPostListEvent, MyPostListState> {
         await event.map(
           getPosts: (event) async {
             emit(const MyPostListState.loading());
-            final userOption = await _authFacade.getSignedInUser();
-            await userOption.fold(
-              () {
-                emit(const MyPostListState.notSignedIn());
-              },
-              (user) async {
-                final result = await _postRepository.getPosts(userId: user.uid);
-                result.fold(
-                  (error) {
-                    emit(MyPostListState.error(message: error.messasge));
-                  },
-                  (posts) {
-                    emit(MyPostListState.success(posts));
-                  },
-                );
-              },
-            );
+            try {
+              final userOption = await _authFacade.getSignedInUser();
+              await userOption.fold(
+                () {
+                  emit(const MyPostListState.notSignedIn());
+                },
+                (user) async {
+                  final result =
+                      await _postRepository.getPosts(userId: user.uid);
+                  result.fold(
+                    (error) {
+                      emit(MyPostListState.error(message: error.messasge));
+                    },
+                    (posts) {
+                      emit(MyPostListState.success(posts));
+                    },
+                  );
+                },
+              );
+            } catch (e) {
+              emit(MyPostListState.error(message: e.toString()));
+            }
           },
           addNewPost: (event) async {
             state.maybeWhen(

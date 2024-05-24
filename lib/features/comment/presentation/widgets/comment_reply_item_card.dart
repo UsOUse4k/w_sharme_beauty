@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
@@ -67,6 +71,8 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
 
   @override
   Widget build(BuildContext context) {
+    final Timestamp timestamp = widget.item.createdAt!;
+    final String formattedDate = formatDateTime(timestamp);
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Column(
@@ -77,14 +83,21 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
             children: [
               SizedBox(width: 35.w),
               Flexible(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  child: GlCachedNetworImage(
-                    height: 40.h,
-                    width: 40.w,
-                    urlImage: widget.item.avatarUrl,
+                child: InkWell(
+                  onTap: () {
+                    context.push(
+                      '/home/${RouterContants.profilePersonPage}/${widget.item.uid}',
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    child: GlCachedNetworImage(
+                      height: 40.h,
+                      width: 40.w,
+                      urlImage: widget.item.avatarUrl,
+                    ),
                   ),
                 ),
               ),
@@ -95,7 +108,7 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
                     CommentItemText(
                       username: widget.item.username.toString(),
                       comment: widget.item.comment.toString(),
-                      data: 'сегодня в 15:53',
+                      data: formattedDate,
                       like: likeCount.toString(),
                       id: widget.parentCommentId,
                     ),

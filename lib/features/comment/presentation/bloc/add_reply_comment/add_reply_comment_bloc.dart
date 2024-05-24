@@ -9,7 +9,6 @@ import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'add_reply_comment_event.dart';
 part 'add_reply_comment_state.dart';
@@ -20,7 +19,6 @@ class AddReplyCommentBloc
     extends Bloc<AddReplyCommentEvent, AddReplyCommentState> {
   AddReplyCommentBloc(
     this._commentRepository,
-    this._iProfileInfoRepository,
     this._authFacade,
     this._listBloc,
     this._replyCommentListBlocl,
@@ -41,7 +39,7 @@ class AddReplyCommentBloc
             },
             (user) async {
               final userData =
-                  await _iProfileInfoRepository.getMeInfo(user.uid);
+                  await _authFacade.getMeInfo(user.uid);
               await userData.fold((l) {
                 emit(
                   const AddReplyCommentState.error(
@@ -90,7 +88,6 @@ class AddReplyCommentBloc
     });
   }
   final ICommentRepository _commentRepository;
-  final IProfileInfoRepository _iProfileInfoRepository;
   final IAuthFacade _authFacade;
   final PostListBloc _listBloc;
   final ReplyCommentListBloc _replyCommentListBlocl;

@@ -7,7 +7,6 @@ import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_comment_repository.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_list_bloc/community_comment_list_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart';
 
 part 'community_comment_create_event.dart';
 part 'community_comment_create_state.dart';
@@ -19,7 +18,6 @@ class CommunityCommentCreateBloc
   CommunityCommentCreateBloc(
     this._repository,
     this._authFacade,
-    this._iProfileInfoRepository,
     this._listBloc,
   ) : super(
           const CommunityCommentCreateState.initial(),
@@ -34,8 +32,7 @@ class CommunityCommentCreateBloc
               emit(const CommunityCommentCreateState.error());
             },
             (user) async {
-              final userData =
-                  await _iProfileInfoRepository.getMeInfo(user.uid);
+              final userData = await _authFacade.getMeInfo(user.uid);
               await userData.fold((l) async {
                 emit(const CommunityCommentCreateState.error());
               }, (data) async {
@@ -76,6 +73,5 @@ class CommunityCommentCreateBloc
 
   final ICommunityCommentRepository _repository;
   final IAuthFacade _authFacade;
-  final IProfileInfoRepository _iProfileInfoRepository;
   final CommunityCommentListBloc _listBloc;
 }

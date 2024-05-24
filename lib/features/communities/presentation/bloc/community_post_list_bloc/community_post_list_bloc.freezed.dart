@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CommunityPostListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPosts,
+    required TResult Function(String communityId) getPosts,
     required TResult Function(Post post) addPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPosts,
+    TResult? Function(String communityId)? getPosts,
     TResult? Function(Post post)? addPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPosts,
+    TResult Function(String communityId)? getPosts,
     TResult Function(Post post)? addPost,
     required TResult orElse(),
   }) =>
@@ -80,6 +80,8 @@ abstract class _$$GetPostsImplCopyWith<$Res> {
   factory _$$GetPostsImplCopyWith(
           _$GetPostsImpl value, $Res Function(_$GetPostsImpl) then) =
       __$$GetPostsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String communityId});
 }
 
 /// @nodoc
@@ -89,54 +91,79 @@ class __$$GetPostsImplCopyWithImpl<$Res>
   __$$GetPostsImplCopyWithImpl(
       _$GetPostsImpl _value, $Res Function(_$GetPostsImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? communityId = null,
+  }) {
+    return _then(_$GetPostsImpl(
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetPostsImpl implements _GetPosts {
-  const _$GetPostsImpl();
+  const _$GetPostsImpl({required this.communityId});
+
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'CommunityPostListEvent.getPosts()';
+    return 'CommunityPostListEvent.getPosts(communityId: $communityId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetPostsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetPostsImpl &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, communityId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetPostsImplCopyWith<_$GetPostsImpl> get copyWith =>
+      __$$GetPostsImplCopyWithImpl<_$GetPostsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPosts,
+    required TResult Function(String communityId) getPosts,
     required TResult Function(Post post) addPost,
   }) {
-    return getPosts();
+    return getPosts(communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPosts,
+    TResult? Function(String communityId)? getPosts,
     TResult? Function(Post post)? addPost,
   }) {
-    return getPosts?.call();
+    return getPosts?.call(communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPosts,
+    TResult Function(String communityId)? getPosts,
     TResult Function(Post post)? addPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
-      return getPosts();
+      return getPosts(communityId);
     }
     return orElse();
   }
@@ -174,7 +201,12 @@ class _$GetPostsImpl implements _GetPosts {
 }
 
 abstract class _GetPosts implements CommunityPostListEvent {
-  const factory _GetPosts() = _$GetPostsImpl;
+  const factory _GetPosts({required final String communityId}) = _$GetPostsImpl;
+
+  String get communityId;
+  @JsonKey(ignore: true)
+  _$$GetPostsImplCopyWith<_$GetPostsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -251,7 +283,7 @@ class _$AddPostImpl implements _AddPost {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getPosts,
+    required TResult Function(String communityId) getPosts,
     required TResult Function(Post post) addPost,
   }) {
     return addPost(post);
@@ -260,7 +292,7 @@ class _$AddPostImpl implements _AddPost {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getPosts,
+    TResult? Function(String communityId)? getPosts,
     TResult? Function(Post post)? addPost,
   }) {
     return addPost?.call(post);
@@ -269,7 +301,7 @@ class _$AddPostImpl implements _AddPost {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getPosts,
+    TResult Function(String communityId)? getPosts,
     TResult Function(Post post)? addPost,
     required TResult orElse(),
   }) {
