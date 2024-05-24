@@ -7,9 +7,10 @@ import 'package:w_sharme_beauty/gen/assets.gen.dart';
 class SearchWidget extends StatelessWidget {
   const SearchWidget({
     super.key,
-    this.hintText = 'Поиск',
+    this.hintText = 'Поиск', this.onChanged,
   });
   final String hintText;
+  final ValueChanged<String>? onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,6 +20,7 @@ class SearchWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
+        onChanged: onChanged,
         decoration: InputDecoration(
           icon: SvgPicture.asset(Assets.svgs.search.path),
           contentPadding: const EdgeInsets.symmetric(vertical: 9),

@@ -91,7 +91,8 @@ class _CommunitiesPageState extends State<CommunitiesPage>
       ),
       body: Column(
         children: [
-          const SearchWidget(
+          SearchWidget(
+            onChanged: (value) {},
             hintText: "Поиск сообществ",
           ),
           const SizedBox(
