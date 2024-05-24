@@ -353,6 +353,22 @@ mixin AppRouter on State<App> {
                         communityId: communityId.toString(),
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path:
+                            '${RouterContants.chatGroupMessages}/:groupId/:communityId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final groupId = state.pathParameters['groupId'];
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          return ChatGroupMessagesPage(
+                            groupId: groupId.toString(),
+                            communityId: communityId.toString(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
@@ -444,12 +460,15 @@ mixin AppRouter on State<App> {
                     ],
                   ),
                   GoRoute(
-                      parentNavigatorKey: RouterKeys.rootKey,
-                      path: "${RouterContants.communityMembers}/:communityId",
-                      builder: (BuildContext context, GoRouterState state) {
-                        final communityId = state.pathParameters['communityId'];
-                        return CommunityMembersPage(communityId: communityId.toString());
-                      },),
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: "${RouterContants.communityMembers}/:communityId",
+                    builder: (BuildContext context, GoRouterState state) {
+                      final communityId = state.pathParameters['communityId'];
+                      return CommunityMembersPage(
+                        communityId: communityId.toString(),
+                      );
+                    },
+                  ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.communitySubscribers,

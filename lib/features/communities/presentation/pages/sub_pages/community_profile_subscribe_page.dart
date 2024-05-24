@@ -5,6 +5,10 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
@@ -87,6 +91,17 @@ class _CommunityProfileSubscribePageState
             listener: (context, state) {
               state.maybeWhen(
                 success: (community) {
+                  context.read<GetAllChatGroupBloc>().add(
+                        GetAllChatGroupEvent.getAllChatGroups(
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
+                  context.read<GetGroupBloc>().add(
+                        GetGroupEvent.getGroup(
+                          groupId: community.chatGroupId.toString(),
+                          communityId: community.communityId.toString(),
+                        ),
+                      );
                   isSubscribe = community.participants!.contains(currentUid);
                   setState(() {});
                 },
@@ -111,7 +126,36 @@ class _CommunityProfileSubscribePageState
                     ),
                     child: Column(
                       children: [
-                        _buildTop(community, currentUid),
+                        BlocListener<GetGroupBloc, GetGroupState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              success: (group, userProfiles) {
+                                if (group.editors != null &&
+                                    group.administrator != null &&
+                                    group.groupId != null) {
+                                  context.read<ChatGroupCheckManagerBloc>().add(
+                                        ChatGroupCheckManagerEvent
+                                            .getAllAdministrator(
+                                          administrator: group.administrator!,
+                                          editors: group.editors!,
+                                          groupId: group.groupId!,
+                                        ),
+                                      );
+                                  context.read<GetAllGroupMessagesBloc>().add(
+                                        GetAllGroupMessagesEvent
+                                            .getAllGroupMessages(
+                                          groupId: group.groupId.toString(),
+                                          communityId:
+                                              group.communityId.toString(),
+                                        ),
+                                      );
+                                }
+                              },
+                              orElse: () {},
+                            );
+                          },
+                          child: _buildTop(community, currentUid),
+                        ),
                         BlocBuilder<CommunityPostListBloc,
                             CommunityPostListState>(
                           builder: (context, state) {
@@ -197,7 +241,11 @@ class _CommunityProfileSubscribePageState
             community.chatGroupId.toString(),
             currentUid,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.push(
+              '/communities/community-profile-subscribe/${widget.communityId}/chatGroupMessages/${community.chatGroupId}/${widget.communityId}',
+            );
+          },
         ),
       ],
     );

@@ -32,6 +32,11 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
   final TextEditingController sendMessageCtrl = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     sendMessageCtrl.dispose();
     super.dispose();
