@@ -47,7 +47,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_b
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
-import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
@@ -77,7 +77,9 @@ class BlocProviders extends StatelessWidget {
           create: (context) => getIt<PostCreateBloc>(),
         ),
         BlocProvider<PostLikeBloc>(create: (context) => getIt<PostLikeBloc>()),
-        BlocProvider<QuestionBloc>(create: (context) => getIt<QuestionBloc>()),
+        BlocProvider<AddQuestionBloc>(
+          create: (context) => getIt<AddQuestionBloc>(),
+        ),
         BlocProvider<CommunityListBloc>(
           create: (context) => getIt<CommunityListBloc>(),
         ),
@@ -130,6 +132,9 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommunityProfileInfoBloc>(
           create: (context) => getIt<CommunityProfileInfoBloc>(),
+        ),
+        BlocProvider<AddQuestionBloc>(
+          create: (context) => getIt<AddQuestionBloc>(),
         ),
         BlocProvider<UserDetailBloc>(
           create: (context) => getIt<UserDetailBloc>(),
@@ -202,9 +207,6 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<SubscribeBloc>(
           create: (context) => getIt<SubscribeBloc>(),
-        ),
-        BlocProvider<QuestionBloc>(
-          create: (context) => getIt<QuestionBloc>(),
         ),
         BlocProvider<GetAllQuestionBloc>(
           create: (context) => getIt<GetAllQuestionBloc>(),

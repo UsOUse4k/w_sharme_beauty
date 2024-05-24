@@ -4,32 +4,38 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
+
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
 import 'package:w_sharme_beauty/features/question/domain/repositories/add_question_repository.dart';
-part 'question_bloc.freezed.dart';
-part 'question_event.dart';
-part 'question_state.dart';
+
+part 'add_question_bloc.freezed.dart';
+part 'add_question_event.dart';
+part 'add_question_state.dart';
 
 @injectable
-class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
-  QuestionBloc(
+class AddQuestionBloc extends Bloc<AddQuestionEvent, AddQuestionState> {
+  AddQuestionBloc(
     this._questionRepository,
     this._authFacade,
   ) : super(
-          const QuestionState.initial(),
+          const AddQuestionState.initial(),
         ) {
-    on<QuestionEvent>((event, emit) async {
+    on<AddQuestionEvent>((event, emit) async {
       await event.maybeWhen(
         orElse: () => null,
         addedQuestion: (question, isAnonymous) async {
-          emit(const QuestionState.loading());
+          emit(const AddQuestionState.loading());
           final userOption = await _authFacade.getSignedInUser();
           await userOption.fold(() {
-            emit(const QuestionState.error(message: 'not user authentication'));
+            emit(
+              const AddQuestionState.error(
+                message: 'not user authentication',
+              ),
+            );
           }, (user) async {
             final username = await _authFacade.getMeInfo(user.uid);
             await username.fold((l) {
-              emit(const QuestionState.error(message: 'not username'));
+              emit(const AddQuestionState.error(message: 'not username'));
             }, (profile) async {
               final updateQuestion = question.copyWith(
                 username: isAnonymous ? 'Анонимный' : profile.username,
@@ -43,9 +49,9 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
                 isAnonymous: isAnonymous,
               );
               result.fold((l) {
-                emit(QuestionState.error(message: l.messasge));
+                emit(AddQuestionState.error(message: l.messasge));
               }, (r) {
-                emit(QuestionState.success(question));
+                emit(AddQuestionState.success(question));
               });
             });
           });

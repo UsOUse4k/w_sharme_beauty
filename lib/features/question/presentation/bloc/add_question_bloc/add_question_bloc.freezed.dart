@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'question_bloc.dart';
+part of 'add_question_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$QuestionEvent {
+mixin _$AddQuestionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Question question, bool isAnonymous)
@@ -58,16 +58,16 @@ mixin _$QuestionEvent {
 }
 
 /// @nodoc
-abstract class $QuestionEventCopyWith<$Res> {
-  factory $QuestionEventCopyWith(
-          QuestionEvent value, $Res Function(QuestionEvent) then) =
-      _$QuestionEventCopyWithImpl<$Res, QuestionEvent>;
+abstract class $AddQuestionEventCopyWith<$Res> {
+  factory $AddQuestionEventCopyWith(
+          AddQuestionEvent value, $Res Function(AddQuestionEvent) then) =
+      _$AddQuestionEventCopyWithImpl<$Res, AddQuestionEvent>;
 }
 
 /// @nodoc
-class _$QuestionEventCopyWithImpl<$Res, $Val extends QuestionEvent>
-    implements $QuestionEventCopyWith<$Res> {
-  _$QuestionEventCopyWithImpl(this._value, this._then);
+class _$AddQuestionEventCopyWithImpl<$Res, $Val extends AddQuestionEvent>
+    implements $AddQuestionEventCopyWith<$Res> {
+  _$AddQuestionEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -88,7 +88,7 @@ abstract class _$$AddedQuestionEventImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$AddedQuestionEventImplCopyWithImpl<$Res>
-    extends _$QuestionEventCopyWithImpl<$Res, _$AddedQuestionEventImpl>
+    extends _$AddQuestionEventCopyWithImpl<$Res, _$AddedQuestionEventImpl>
     implements _$$AddedQuestionEventImplCopyWith<$Res> {
   __$$AddedQuestionEventImplCopyWithImpl(_$AddedQuestionEventImpl _value,
       $Res Function(_$AddedQuestionEventImpl) _then)
@@ -134,7 +134,7 @@ class _$AddedQuestionEventImpl implements _AddedQuestionEvent {
 
   @override
   String toString() {
-    return 'QuestionEvent.addedQuestion(question: $question, isAnonymous: $isAnonymous)';
+    return 'AddQuestionEvent.addedQuestion(question: $question, isAnonymous: $isAnonymous)';
   }
 
   @override
@@ -222,7 +222,7 @@ class _$AddedQuestionEventImpl implements _AddedQuestionEvent {
   }
 }
 
-abstract class _AddedQuestionEvent implements QuestionEvent {
+abstract class _AddedQuestionEvent implements AddQuestionEvent {
   const factory _AddedQuestionEvent(
       {required final Question question,
       required final bool isAnonymous}) = _$AddedQuestionEventImpl;
@@ -243,7 +243,7 @@ abstract class _$$GetQuestionsImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$GetQuestionsImplCopyWithImpl<$Res>
-    extends _$QuestionEventCopyWithImpl<$Res, _$GetQuestionsImpl>
+    extends _$AddQuestionEventCopyWithImpl<$Res, _$GetQuestionsImpl>
     implements _$$GetQuestionsImplCopyWith<$Res> {
   __$$GetQuestionsImplCopyWithImpl(
       _$GetQuestionsImpl _value, $Res Function(_$GetQuestionsImpl) _then)
@@ -257,7 +257,7 @@ class _$GetQuestionsImpl implements _GetQuestions {
 
   @override
   String toString() {
-    return 'QuestionEvent.getQuestions()';
+    return 'AddQuestionEvent.getQuestions()';
   }
 
   @override
@@ -333,12 +333,12 @@ class _$GetQuestionsImpl implements _GetQuestions {
   }
 }
 
-abstract class _GetQuestions implements QuestionEvent {
+abstract class _GetQuestions implements AddQuestionEvent {
   const factory _GetQuestions() = _$GetQuestionsImpl;
 }
 
 /// @nodoc
-mixin _$QuestionState {
+mixin _$AddQuestionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -392,16 +392,16 @@ mixin _$QuestionState {
 }
 
 /// @nodoc
-abstract class $QuestionStateCopyWith<$Res> {
-  factory $QuestionStateCopyWith(
-          QuestionState value, $Res Function(QuestionState) then) =
-      _$QuestionStateCopyWithImpl<$Res, QuestionState>;
+abstract class $AddQuestionStateCopyWith<$Res> {
+  factory $AddQuestionStateCopyWith(
+          AddQuestionState value, $Res Function(AddQuestionState) then) =
+      _$AddQuestionStateCopyWithImpl<$Res, AddQuestionState>;
 }
 
 /// @nodoc
-class _$QuestionStateCopyWithImpl<$Res, $Val extends QuestionState>
-    implements $QuestionStateCopyWith<$Res> {
-  _$QuestionStateCopyWithImpl(this._value, this._then);
+class _$AddQuestionStateCopyWithImpl<$Res, $Val extends AddQuestionState>
+    implements $AddQuestionStateCopyWith<$Res> {
+  _$AddQuestionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -418,7 +418,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$QuestionStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$AddQuestionStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -432,7 +432,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'QuestionState.initial()';
+    return 'AddQuestionState.initial()';
   }
 
   @override
@@ -519,7 +519,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements QuestionState {
+abstract class _Initial implements AddQuestionState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -532,7 +532,7 @@ abstract class _$$LoadingQuestionImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingQuestionImplCopyWithImpl<$Res>
-    extends _$QuestionStateCopyWithImpl<$Res, _$LoadingQuestionImpl>
+    extends _$AddQuestionStateCopyWithImpl<$Res, _$LoadingQuestionImpl>
     implements _$$LoadingQuestionImplCopyWith<$Res> {
   __$$LoadingQuestionImplCopyWithImpl(
       _$LoadingQuestionImpl _value, $Res Function(_$LoadingQuestionImpl) _then)
@@ -546,7 +546,7 @@ class _$LoadingQuestionImpl implements _LoadingQuestion {
 
   @override
   String toString() {
-    return 'QuestionState.loading()';
+    return 'AddQuestionState.loading()';
   }
 
   @override
@@ -633,7 +633,7 @@ class _$LoadingQuestionImpl implements _LoadingQuestion {
   }
 }
 
-abstract class _LoadingQuestion implements QuestionState {
+abstract class _LoadingQuestion implements AddQuestionState {
   const factory _LoadingQuestion() = _$LoadingQuestionImpl;
 }
 
@@ -650,7 +650,7 @@ abstract class _$$SuccessQuestionImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessQuestionImplCopyWithImpl<$Res>
-    extends _$QuestionStateCopyWithImpl<$Res, _$SuccessQuestionImpl>
+    extends _$AddQuestionStateCopyWithImpl<$Res, _$SuccessQuestionImpl>
     implements _$$SuccessQuestionImplCopyWith<$Res> {
   __$$SuccessQuestionImplCopyWithImpl(
       _$SuccessQuestionImpl _value, $Res Function(_$SuccessQuestionImpl) _then)
@@ -688,7 +688,7 @@ class _$SuccessQuestionImpl implements _SuccessQuestion {
 
   @override
   String toString() {
-    return 'QuestionState.success(question: $question)';
+    return 'AddQuestionState.success(question: $question)';
   }
 
   @override
@@ -785,7 +785,7 @@ class _$SuccessQuestionImpl implements _SuccessQuestion {
   }
 }
 
-abstract class _SuccessQuestion implements QuestionState {
+abstract class _SuccessQuestion implements AddQuestionState {
   const factory _SuccessQuestion(final Question question) =
       _$SuccessQuestionImpl;
 
@@ -806,7 +806,7 @@ abstract class _$$ErrorQuestionImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorQuestionImplCopyWithImpl<$Res>
-    extends _$QuestionStateCopyWithImpl<$Res, _$ErrorQuestionImpl>
+    extends _$AddQuestionStateCopyWithImpl<$Res, _$ErrorQuestionImpl>
     implements _$$ErrorQuestionImplCopyWith<$Res> {
   __$$ErrorQuestionImplCopyWithImpl(
       _$ErrorQuestionImpl _value, $Res Function(_$ErrorQuestionImpl) _then)
@@ -836,7 +836,7 @@ class _$ErrorQuestionImpl implements _ErrorQuestion {
 
   @override
   String toString() {
-    return 'QuestionState.error(message: $message)';
+    return 'AddQuestionState.error(message: $message)';
   }
 
   @override
@@ -931,7 +931,7 @@ class _$ErrorQuestionImpl implements _ErrorQuestion {
   }
 }
 
-abstract class _ErrorQuestion implements QuestionState {
+abstract class _ErrorQuestion implements AddQuestionState {
   const factory _ErrorQuestion({required final String message}) =
       _$ErrorQuestionImpl;
 

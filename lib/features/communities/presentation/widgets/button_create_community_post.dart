@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
-import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 

@@ -11,7 +11,7 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/addi
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
-import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
 
 class AddQuestion extends StatefulWidget {
   const AddQuestion({super.key});
@@ -74,7 +74,7 @@ class _AddQuestionState extends State<AddQuestion> {
         ),
       ),
       body: SingleChildScrollView(
-        child: BlocListener<QuestionBloc, QuestionState>(
+        child: BlocListener<AddQuestionBloc, AddQuestionState>(
           listener: (context, state) {
             state.maybeMap(
               loading: (value) {
@@ -224,13 +224,12 @@ class _AddQuestionState extends State<AddQuestion> {
                   if (_themeCtrl.text.isNotEmpty &&
                       _categoryCtrl.text.isNotEmpty &&
                       _questionCtrl.text.isNotEmpty) {
-                    context.read<QuestionBloc>().add(
-                          QuestionEvent.addedQuestion(
+                    context.read<AddQuestionBloc>().add(
+                          AddQuestionEvent.addedQuestion(
                             question: Question(
                               theme: _themeCtrl.text,
                               category: _categoryCtrl.text,
                               questionText: _questionCtrl.text,
-                              //imageUrl: 'https://example.com/',
                             ),
                             isAnonymous: agreedToTerms,
                           ),

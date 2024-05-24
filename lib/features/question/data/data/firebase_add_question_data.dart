@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
-import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
+import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
 import 'package:w_sharme_beauty/features/question/domain/repositories/add_question_repository.dart';
 
@@ -24,6 +24,7 @@ class FirestoreAddQuestionRepository implements AddQuestionRepository {
   }) async {
     try {
       Question quest = question;
+
       final res = await profileInfoRepository.getMeInfo(auth.currentUser!.uid);
       res.fold((l) {
         return left(PostError(l.messasge));

@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart';
 
 part 'my_post_list_bloc_event.dart';
+
 part 'my_post_list_bloc_state.dart';
 part 'my_post_list_bloc.freezed.dart';
 

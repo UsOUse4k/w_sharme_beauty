@@ -7,9 +7,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
+
 import 'package:w_sharme_beauty/core/utils/firebase_storage_url/storage_methods.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/date_formatter.dart';
-import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community/entities.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_repository.dart';
 
 @LazySingleton(as: ICommunityRepository)

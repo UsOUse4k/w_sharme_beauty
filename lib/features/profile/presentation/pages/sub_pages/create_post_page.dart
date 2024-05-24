@@ -53,6 +53,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    // final route = GoRouter.of(context);
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(

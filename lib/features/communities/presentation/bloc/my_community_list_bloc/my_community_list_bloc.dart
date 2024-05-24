@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
-import 'package:w_sharme_beauty/features/communities/domain/entities/community.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community/community.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_repository.dart';
 
 part 'my_community_list_event.dart';
