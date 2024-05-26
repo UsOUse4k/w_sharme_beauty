@@ -2,17 +2,22 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_post_bloc/community_create_post_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+
 
 class CommunityAddPublicPage extends StatefulWidget {
   const CommunityAddPublicPage({super.key, required this.communityId});
@@ -25,7 +30,8 @@ class CommunityAddPublicPage extends StatefulWidget {
 
 class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
   List<Uint8List> selectedImageBytes = [];
-
+  String filterText = 'Категория';
+  String? selectedCategory;
   bool isLoading = false;
   final TextEditingController desc = TextEditingController();
 
@@ -83,9 +89,9 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
                   content: Text("Загрузка успешно завершена!"),
                 ),
               );
-              context
-                  .read<CommunityPostListBloc>()
-                  .add( CommunityPostListEvent.getPosts(communityId: widget.communityId));
+              context.read<CommunityPostListBloc>().add(
+                  CommunityPostListEvent.getPosts(
+                      communityId: widget.communityId,),);
               setState(() {
                 selectedImageBytes = [];
                 desc.clear();
@@ -142,6 +148,36 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
               onPressed: () => pickImage(context),
             ),
             const SizedBox(height: 20),
+            Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  'Выберите категорию',
+                  style: AppStyles.w500f16.copyWith(
+                    color: AppColors.darkGrey,
+                  ),
+                ),
+              ),
+            FilterButtonWidget(
+              width: 394.w,
+              onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                context,
+                CustomBottomSheet(
+                  maxHeight: 0.5,
+                  navbarTitle: 'Категория',
+                  widget: RadioFilterWidget(
+                    list: categoryList,
+                    onSelect: (String text) {
+                      filterText = text;
+                      selectedCategory = text;
+                      setState(() {});
+                    },
+                    selectedValue: selectedCategory ?? '',
+                  ),
+                ),
+              ),
+              title: filterText,
+            ),
+            const SizedBox(height: 20),
             TextFieldWidgetWithTitle(
               controller: desc,
               contentPadding:
@@ -154,10 +190,15 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
             GlButton(
               text: isLoading ? "Загрузка.." : "Опубликовать",
               onPressed: () {
-                if (desc.text.isNotEmpty && selectedImageBytes.isNotEmpty) {
+                if (desc.text.isNotEmpty &&
+                    selectedImageBytes.isNotEmpty &&
+                    selectedCategory != null) {
                   context.read<CommunityCreatePostBloc>().add(
                         CommunityCreatePostEvent.createPost(
-                          Post(text: desc.text),
+                          Post(
+                            text: desc.text,
+                            category: selectedCategory,
+                          ),
                           selectedImageBytes,
                           communityId: widget.communityId,
                         ),

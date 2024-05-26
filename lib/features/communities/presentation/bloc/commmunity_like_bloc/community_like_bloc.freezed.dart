@@ -18,22 +18,29 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CommunityLikeEvent {
   String get communityId => throw _privateConstructorUsedError;
   String get authorId => throw _privateConstructorUsedError;
+  String get postId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String communityId, String authorId) like,
-    required TResult Function(String communityId, String authorId) dislike,
+    required TResult Function(
+            String communityId, String authorId, String postId)
+        like,
+    required TResult Function(
+            String communityId, String authorId, String postId)
+        dislike,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String communityId, String authorId)? like,
-    TResult? Function(String communityId, String authorId)? dislike,
+    TResult? Function(String communityId, String authorId, String postId)? like,
+    TResult? Function(String communityId, String authorId, String postId)?
+        dislike,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String communityId, String authorId)? like,
-    TResult Function(String communityId, String authorId)? dislike,
+    TResult Function(String communityId, String authorId, String postId)? like,
+    TResult Function(String communityId, String authorId, String postId)?
+        dislike,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,7 +75,7 @@ abstract class $CommunityLikeEventCopyWith<$Res> {
           CommunityLikeEvent value, $Res Function(CommunityLikeEvent) then) =
       _$CommunityLikeEventCopyWithImpl<$Res, CommunityLikeEvent>;
   @useResult
-  $Res call({String communityId, String authorId});
+  $Res call({String communityId, String authorId, String postId});
 }
 
 /// @nodoc
@@ -86,6 +93,7 @@ class _$CommunityLikeEventCopyWithImpl<$Res, $Val extends CommunityLikeEvent>
   $Res call({
     Object? communityId = null,
     Object? authorId = null,
+    Object? postId = null,
   }) {
     return _then(_value.copyWith(
       communityId: null == communityId
@@ -95,6 +103,10 @@ class _$CommunityLikeEventCopyWithImpl<$Res, $Val extends CommunityLikeEvent>
       authorId: null == authorId
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      postId: null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -108,7 +120,7 @@ abstract class _$$LikeImplCopyWith<$Res>
       __$$LikeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String communityId, String authorId});
+  $Res call({String communityId, String authorId, String postId});
 }
 
 /// @nodoc
@@ -123,6 +135,7 @@ class __$$LikeImplCopyWithImpl<$Res>
   $Res call({
     Object? communityId = null,
     Object? authorId = null,
+    Object? postId = null,
   }) {
     return _then(_$LikeImpl(
       null == communityId
@@ -133,6 +146,10 @@ class __$$LikeImplCopyWithImpl<$Res>
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
               as String,
+      null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -140,16 +157,18 @@ class __$$LikeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LikeImpl implements _Like {
-  const _$LikeImpl(this.communityId, this.authorId);
+  const _$LikeImpl(this.communityId, this.authorId, this.postId);
 
   @override
   final String communityId;
   @override
   final String authorId;
+  @override
+  final String postId;
 
   @override
   String toString() {
-    return 'CommunityLikeEvent.like(communityId: $communityId, authorId: $authorId)';
+    return 'CommunityLikeEvent.like(communityId: $communityId, authorId: $authorId, postId: $postId)';
   }
 
   @override
@@ -160,11 +179,12 @@ class _$LikeImpl implements _Like {
             (identical(other.communityId, communityId) ||
                 other.communityId == communityId) &&
             (identical(other.authorId, authorId) ||
-                other.authorId == authorId));
+                other.authorId == authorId) &&
+            (identical(other.postId, postId) || other.postId == postId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, communityId, authorId);
+  int get hashCode => Object.hash(runtimeType, communityId, authorId, postId);
 
   @JsonKey(ignore: true)
   @override
@@ -175,30 +195,36 @@ class _$LikeImpl implements _Like {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String communityId, String authorId) like,
-    required TResult Function(String communityId, String authorId) dislike,
+    required TResult Function(
+            String communityId, String authorId, String postId)
+        like,
+    required TResult Function(
+            String communityId, String authorId, String postId)
+        dislike,
   }) {
-    return like(communityId, authorId);
+    return like(communityId, authorId, postId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String communityId, String authorId)? like,
-    TResult? Function(String communityId, String authorId)? dislike,
+    TResult? Function(String communityId, String authorId, String postId)? like,
+    TResult? Function(String communityId, String authorId, String postId)?
+        dislike,
   }) {
-    return like?.call(communityId, authorId);
+    return like?.call(communityId, authorId, postId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String communityId, String authorId)? like,
-    TResult Function(String communityId, String authorId)? dislike,
+    TResult Function(String communityId, String authorId, String postId)? like,
+    TResult Function(String communityId, String authorId, String postId)?
+        dislike,
     required TResult orElse(),
   }) {
     if (like != null) {
-      return like(communityId, authorId);
+      return like(communityId, authorId, postId);
     }
     return orElse();
   }
@@ -236,13 +262,15 @@ class _$LikeImpl implements _Like {
 }
 
 abstract class _Like implements CommunityLikeEvent {
-  const factory _Like(final String communityId, final String authorId) =
-      _$LikeImpl;
+  const factory _Like(final String communityId, final String authorId,
+      final String postId) = _$LikeImpl;
 
   @override
   String get communityId;
   @override
   String get authorId;
+  @override
+  String get postId;
   @override
   @JsonKey(ignore: true)
   _$$LikeImplCopyWith<_$LikeImpl> get copyWith =>
@@ -257,7 +285,7 @@ abstract class _$$DislikeImplCopyWith<$Res>
       __$$DislikeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String communityId, String authorId});
+  $Res call({String communityId, String authorId, String postId});
 }
 
 /// @nodoc
@@ -273,6 +301,7 @@ class __$$DislikeImplCopyWithImpl<$Res>
   $Res call({
     Object? communityId = null,
     Object? authorId = null,
+    Object? postId = null,
   }) {
     return _then(_$DislikeImpl(
       null == communityId
@@ -283,6 +312,10 @@ class __$$DislikeImplCopyWithImpl<$Res>
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
               as String,
+      null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -290,16 +323,18 @@ class __$$DislikeImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DislikeImpl implements _Dislike {
-  const _$DislikeImpl(this.communityId, this.authorId);
+  const _$DislikeImpl(this.communityId, this.authorId, this.postId);
 
   @override
   final String communityId;
   @override
   final String authorId;
+  @override
+  final String postId;
 
   @override
   String toString() {
-    return 'CommunityLikeEvent.dislike(communityId: $communityId, authorId: $authorId)';
+    return 'CommunityLikeEvent.dislike(communityId: $communityId, authorId: $authorId, postId: $postId)';
   }
 
   @override
@@ -310,11 +345,12 @@ class _$DislikeImpl implements _Dislike {
             (identical(other.communityId, communityId) ||
                 other.communityId == communityId) &&
             (identical(other.authorId, authorId) ||
-                other.authorId == authorId));
+                other.authorId == authorId) &&
+            (identical(other.postId, postId) || other.postId == postId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, communityId, authorId);
+  int get hashCode => Object.hash(runtimeType, communityId, authorId, postId);
 
   @JsonKey(ignore: true)
   @override
@@ -325,30 +361,36 @@ class _$DislikeImpl implements _Dislike {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String communityId, String authorId) like,
-    required TResult Function(String communityId, String authorId) dislike,
+    required TResult Function(
+            String communityId, String authorId, String postId)
+        like,
+    required TResult Function(
+            String communityId, String authorId, String postId)
+        dislike,
   }) {
-    return dislike(communityId, authorId);
+    return dislike(communityId, authorId, postId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String communityId, String authorId)? like,
-    TResult? Function(String communityId, String authorId)? dislike,
+    TResult? Function(String communityId, String authorId, String postId)? like,
+    TResult? Function(String communityId, String authorId, String postId)?
+        dislike,
   }) {
-    return dislike?.call(communityId, authorId);
+    return dislike?.call(communityId, authorId, postId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String communityId, String authorId)? like,
-    TResult Function(String communityId, String authorId)? dislike,
+    TResult Function(String communityId, String authorId, String postId)? like,
+    TResult Function(String communityId, String authorId, String postId)?
+        dislike,
     required TResult orElse(),
   }) {
     if (dislike != null) {
-      return dislike(communityId, authorId);
+      return dislike(communityId, authorId, postId);
     }
     return orElse();
   }
@@ -386,13 +428,15 @@ class _$DislikeImpl implements _Dislike {
 }
 
 abstract class _Dislike implements CommunityLikeEvent {
-  const factory _Dislike(final String communityId, final String authorId) =
-      _$DislikeImpl;
+  const factory _Dislike(final String communityId, final String authorId,
+      final String postId) = _$DislikeImpl;
 
   @override
   String get communityId;
   @override
   String get authorId;
+  @override
+  String get postId;
   @override
   @JsonKey(ignore: true)
   _$$DislikeImplCopyWith<_$DislikeImpl> get copyWith =>
@@ -406,8 +450,7 @@ mixin _$CommunityLikeState {
     required TResult Function() initial,
     required TResult Function() loadingCmmunityLike,
     required TResult Function(String message) errorCmmunityLike,
-    required TResult Function() likedCommunity,
-    required TResult Function() unlikedCommunity,
+    required TResult Function() success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -415,8 +458,7 @@ mixin _$CommunityLikeState {
     TResult? Function()? initial,
     TResult? Function()? loadingCmmunityLike,
     TResult? Function(String message)? errorCmmunityLike,
-    TResult? Function()? likedCommunity,
-    TResult? Function()? unlikedCommunity,
+    TResult? Function()? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -424,8 +466,7 @@ mixin _$CommunityLikeState {
     TResult Function()? initial,
     TResult Function()? loadingCmmunityLike,
     TResult Function(String message)? errorCmmunityLike,
-    TResult Function()? likedCommunity,
-    TResult Function()? unlikedCommunity,
+    TResult Function()? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -434,8 +475,7 @@ mixin _$CommunityLikeState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_LoadingCmmunityLike value) loadingCmmunityLike,
     required TResult Function(_ErrorCmmunityLike value) errorCmmunityLike,
-    required TResult Function(_LikedCmmunity value) likedCommunity,
-    required TResult Function(_UnLikedCmmunity value) unlikedCommunity,
+    required TResult Function(_Success value) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -443,8 +483,7 @@ mixin _$CommunityLikeState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult? Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult? Function(_LikedCmmunity value)? likedCommunity,
-    TResult? Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult? Function(_Success value)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -452,8 +491,7 @@ mixin _$CommunityLikeState {
     TResult Function(_Initial value)? initial,
     TResult Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult Function(_LikedCmmunity value)? likedCommunity,
-    TResult Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult Function(_Success value)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -518,8 +556,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loadingCmmunityLike,
     required TResult Function(String message) errorCmmunityLike,
-    required TResult Function() likedCommunity,
-    required TResult Function() unlikedCommunity,
+    required TResult Function() success,
   }) {
     return initial();
   }
@@ -530,8 +567,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loadingCmmunityLike,
     TResult? Function(String message)? errorCmmunityLike,
-    TResult? Function()? likedCommunity,
-    TResult? Function()? unlikedCommunity,
+    TResult? Function()? success,
   }) {
     return initial?.call();
   }
@@ -542,8 +578,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loadingCmmunityLike,
     TResult Function(String message)? errorCmmunityLike,
-    TResult Function()? likedCommunity,
-    TResult Function()? unlikedCommunity,
+    TResult Function()? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -558,8 +593,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_LoadingCmmunityLike value) loadingCmmunityLike,
     required TResult Function(_ErrorCmmunityLike value) errorCmmunityLike,
-    required TResult Function(_LikedCmmunity value) likedCommunity,
-    required TResult Function(_UnLikedCmmunity value) unlikedCommunity,
+    required TResult Function(_Success value) success,
   }) {
     return initial(this);
   }
@@ -570,8 +604,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult? Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult? Function(_LikedCmmunity value)? likedCommunity,
-    TResult? Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult? Function(_Success value)? success,
   }) {
     return initial?.call(this);
   }
@@ -582,8 +615,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult Function(_LikedCmmunity value)? likedCommunity,
-    TResult Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -639,8 +671,7 @@ class _$LoadingCmmunityLikeImpl implements _LoadingCmmunityLike {
     required TResult Function() initial,
     required TResult Function() loadingCmmunityLike,
     required TResult Function(String message) errorCmmunityLike,
-    required TResult Function() likedCommunity,
-    required TResult Function() unlikedCommunity,
+    required TResult Function() success,
   }) {
     return loadingCmmunityLike();
   }
@@ -651,8 +682,7 @@ class _$LoadingCmmunityLikeImpl implements _LoadingCmmunityLike {
     TResult? Function()? initial,
     TResult? Function()? loadingCmmunityLike,
     TResult? Function(String message)? errorCmmunityLike,
-    TResult? Function()? likedCommunity,
-    TResult? Function()? unlikedCommunity,
+    TResult? Function()? success,
   }) {
     return loadingCmmunityLike?.call();
   }
@@ -663,8 +693,7 @@ class _$LoadingCmmunityLikeImpl implements _LoadingCmmunityLike {
     TResult Function()? initial,
     TResult Function()? loadingCmmunityLike,
     TResult Function(String message)? errorCmmunityLike,
-    TResult Function()? likedCommunity,
-    TResult Function()? unlikedCommunity,
+    TResult Function()? success,
     required TResult orElse(),
   }) {
     if (loadingCmmunityLike != null) {
@@ -679,8 +708,7 @@ class _$LoadingCmmunityLikeImpl implements _LoadingCmmunityLike {
     required TResult Function(_Initial value) initial,
     required TResult Function(_LoadingCmmunityLike value) loadingCmmunityLike,
     required TResult Function(_ErrorCmmunityLike value) errorCmmunityLike,
-    required TResult Function(_LikedCmmunity value) likedCommunity,
-    required TResult Function(_UnLikedCmmunity value) unlikedCommunity,
+    required TResult Function(_Success value) success,
   }) {
     return loadingCmmunityLike(this);
   }
@@ -691,8 +719,7 @@ class _$LoadingCmmunityLikeImpl implements _LoadingCmmunityLike {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult? Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult? Function(_LikedCmmunity value)? likedCommunity,
-    TResult? Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult? Function(_Success value)? success,
   }) {
     return loadingCmmunityLike?.call(this);
   }
@@ -703,8 +730,7 @@ class _$LoadingCmmunityLikeImpl implements _LoadingCmmunityLike {
     TResult Function(_Initial value)? initial,
     TResult Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult Function(_LikedCmmunity value)? likedCommunity,
-    TResult Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
     if (loadingCmmunityLike != null) {
@@ -786,8 +812,7 @@ class _$ErrorCmmunityLikeImpl implements _ErrorCmmunityLike {
     required TResult Function() initial,
     required TResult Function() loadingCmmunityLike,
     required TResult Function(String message) errorCmmunityLike,
-    required TResult Function() likedCommunity,
-    required TResult Function() unlikedCommunity,
+    required TResult Function() success,
   }) {
     return errorCmmunityLike(message);
   }
@@ -798,8 +823,7 @@ class _$ErrorCmmunityLikeImpl implements _ErrorCmmunityLike {
     TResult? Function()? initial,
     TResult? Function()? loadingCmmunityLike,
     TResult? Function(String message)? errorCmmunityLike,
-    TResult? Function()? likedCommunity,
-    TResult? Function()? unlikedCommunity,
+    TResult? Function()? success,
   }) {
     return errorCmmunityLike?.call(message);
   }
@@ -810,8 +834,7 @@ class _$ErrorCmmunityLikeImpl implements _ErrorCmmunityLike {
     TResult Function()? initial,
     TResult Function()? loadingCmmunityLike,
     TResult Function(String message)? errorCmmunityLike,
-    TResult Function()? likedCommunity,
-    TResult Function()? unlikedCommunity,
+    TResult Function()? success,
     required TResult orElse(),
   }) {
     if (errorCmmunityLike != null) {
@@ -826,8 +849,7 @@ class _$ErrorCmmunityLikeImpl implements _ErrorCmmunityLike {
     required TResult Function(_Initial value) initial,
     required TResult Function(_LoadingCmmunityLike value) loadingCmmunityLike,
     required TResult Function(_ErrorCmmunityLike value) errorCmmunityLike,
-    required TResult Function(_LikedCmmunity value) likedCommunity,
-    required TResult Function(_UnLikedCmmunity value) unlikedCommunity,
+    required TResult Function(_Success value) success,
   }) {
     return errorCmmunityLike(this);
   }
@@ -838,8 +860,7 @@ class _$ErrorCmmunityLikeImpl implements _ErrorCmmunityLike {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult? Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult? Function(_LikedCmmunity value)? likedCommunity,
-    TResult? Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult? Function(_Success value)? success,
   }) {
     return errorCmmunityLike?.call(this);
   }
@@ -850,8 +871,7 @@ class _$ErrorCmmunityLikeImpl implements _ErrorCmmunityLike {
     TResult Function(_Initial value)? initial,
     TResult Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult Function(_LikedCmmunity value)? likedCommunity,
-    TResult Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
     if (errorCmmunityLike != null) {
@@ -872,35 +892,35 @@ abstract class _ErrorCmmunityLike implements CommunityLikeState {
 }
 
 /// @nodoc
-abstract class _$$LikedCmmunityImplCopyWith<$Res> {
-  factory _$$LikedCmmunityImplCopyWith(
-          _$LikedCmmunityImpl value, $Res Function(_$LikedCmmunityImpl) then) =
-      __$$LikedCmmunityImplCopyWithImpl<$Res>;
+abstract class _$$SuccessImplCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LikedCmmunityImplCopyWithImpl<$Res>
-    extends _$CommunityLikeStateCopyWithImpl<$Res, _$LikedCmmunityImpl>
-    implements _$$LikedCmmunityImplCopyWith<$Res> {
-  __$$LikedCmmunityImplCopyWithImpl(
-      _$LikedCmmunityImpl _value, $Res Function(_$LikedCmmunityImpl) _then)
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$CommunityLikeStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LikedCmmunityImpl implements _LikedCmmunity {
-  const _$LikedCmmunityImpl();
+class _$SuccessImpl implements _Success {
+  const _$SuccessImpl();
 
   @override
   String toString() {
-    return 'CommunityLikeState.likedCommunity()';
+    return 'CommunityLikeState.success()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LikedCmmunityImpl);
+        (other.runtimeType == runtimeType && other is _$SuccessImpl);
   }
 
   @override
@@ -912,10 +932,9 @@ class _$LikedCmmunityImpl implements _LikedCmmunity {
     required TResult Function() initial,
     required TResult Function() loadingCmmunityLike,
     required TResult Function(String message) errorCmmunityLike,
-    required TResult Function() likedCommunity,
-    required TResult Function() unlikedCommunity,
+    required TResult Function() success,
   }) {
-    return likedCommunity();
+    return success();
   }
 
   @override
@@ -924,10 +943,9 @@ class _$LikedCmmunityImpl implements _LikedCmmunity {
     TResult? Function()? initial,
     TResult? Function()? loadingCmmunityLike,
     TResult? Function(String message)? errorCmmunityLike,
-    TResult? Function()? likedCommunity,
-    TResult? Function()? unlikedCommunity,
+    TResult? Function()? success,
   }) {
-    return likedCommunity?.call();
+    return success?.call();
   }
 
   @override
@@ -936,12 +954,11 @@ class _$LikedCmmunityImpl implements _LikedCmmunity {
     TResult Function()? initial,
     TResult Function()? loadingCmmunityLike,
     TResult Function(String message)? errorCmmunityLike,
-    TResult Function()? likedCommunity,
-    TResult Function()? unlikedCommunity,
+    TResult Function()? success,
     required TResult orElse(),
   }) {
-    if (likedCommunity != null) {
-      return likedCommunity();
+    if (success != null) {
+      return success();
     }
     return orElse();
   }
@@ -952,10 +969,9 @@ class _$LikedCmmunityImpl implements _LikedCmmunity {
     required TResult Function(_Initial value) initial,
     required TResult Function(_LoadingCmmunityLike value) loadingCmmunityLike,
     required TResult Function(_ErrorCmmunityLike value) errorCmmunityLike,
-    required TResult Function(_LikedCmmunity value) likedCommunity,
-    required TResult Function(_UnLikedCmmunity value) unlikedCommunity,
+    required TResult Function(_Success value) success,
   }) {
-    return likedCommunity(this);
+    return success(this);
   }
 
   @override
@@ -964,10 +980,9 @@ class _$LikedCmmunityImpl implements _LikedCmmunity {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult? Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult? Function(_LikedCmmunity value)? likedCommunity,
-    TResult? Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult? Function(_Success value)? success,
   }) {
-    return likedCommunity?.call(this);
+    return success?.call(this);
   }
 
   @override
@@ -976,137 +991,16 @@ class _$LikedCmmunityImpl implements _LikedCmmunity {
     TResult Function(_Initial value)? initial,
     TResult Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
     TResult Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult Function(_LikedCmmunity value)? likedCommunity,
-    TResult Function(_UnLikedCmmunity value)? unlikedCommunity,
+    TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
-    if (likedCommunity != null) {
-      return likedCommunity(this);
+    if (success != null) {
+      return success(this);
     }
     return orElse();
   }
 }
 
-abstract class _LikedCmmunity implements CommunityLikeState {
-  const factory _LikedCmmunity() = _$LikedCmmunityImpl;
-}
-
-/// @nodoc
-abstract class _$$UnLikedCmmunityImplCopyWith<$Res> {
-  factory _$$UnLikedCmmunityImplCopyWith(_$UnLikedCmmunityImpl value,
-          $Res Function(_$UnLikedCmmunityImpl) then) =
-      __$$UnLikedCmmunityImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$UnLikedCmmunityImplCopyWithImpl<$Res>
-    extends _$CommunityLikeStateCopyWithImpl<$Res, _$UnLikedCmmunityImpl>
-    implements _$$UnLikedCmmunityImplCopyWith<$Res> {
-  __$$UnLikedCmmunityImplCopyWithImpl(
-      _$UnLikedCmmunityImpl _value, $Res Function(_$UnLikedCmmunityImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$UnLikedCmmunityImpl implements _UnLikedCmmunity {
-  const _$UnLikedCmmunityImpl();
-
-  @override
-  String toString() {
-    return 'CommunityLikeState.unlikedCommunity()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UnLikedCmmunityImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadingCmmunityLike,
-    required TResult Function(String message) errorCmmunityLike,
-    required TResult Function() likedCommunity,
-    required TResult Function() unlikedCommunity,
-  }) {
-    return unlikedCommunity();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loadingCmmunityLike,
-    TResult? Function(String message)? errorCmmunityLike,
-    TResult? Function()? likedCommunity,
-    TResult? Function()? unlikedCommunity,
-  }) {
-    return unlikedCommunity?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadingCmmunityLike,
-    TResult Function(String message)? errorCmmunityLike,
-    TResult Function()? likedCommunity,
-    TResult Function()? unlikedCommunity,
-    required TResult orElse(),
-  }) {
-    if (unlikedCommunity != null) {
-      return unlikedCommunity();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadingCmmunityLike value) loadingCmmunityLike,
-    required TResult Function(_ErrorCmmunityLike value) errorCmmunityLike,
-    required TResult Function(_LikedCmmunity value) likedCommunity,
-    required TResult Function(_UnLikedCmmunity value) unlikedCommunity,
-  }) {
-    return unlikedCommunity(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
-    TResult? Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult? Function(_LikedCmmunity value)? likedCommunity,
-    TResult? Function(_UnLikedCmmunity value)? unlikedCommunity,
-  }) {
-    return unlikedCommunity?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadingCmmunityLike value)? loadingCmmunityLike,
-    TResult Function(_ErrorCmmunityLike value)? errorCmmunityLike,
-    TResult Function(_LikedCmmunity value)? likedCommunity,
-    TResult Function(_UnLikedCmmunity value)? unlikedCommunity,
-    required TResult orElse(),
-  }) {
-    if (unlikedCommunity != null) {
-      return unlikedCommunity(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UnLikedCmmunity implements CommunityLikeState {
-  const factory _UnLikedCmmunity() = _$UnLikedCmmunityImpl;
+abstract class _Success implements CommunityLikeState {
+  const factory _Success() = _$SuccessImpl;
 }

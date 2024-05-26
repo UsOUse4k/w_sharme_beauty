@@ -23,12 +23,12 @@ class CommunityCommentCreateBloc
           const CommunityCommentCreateState.initial(),
         ) {
     on<CommunityCommentCreateEvent>((event, emit) async {
-      event.maybeMap(
+      await event.maybeMap(
         addComment: (event) async {
           emit(const CommunityCommentCreateState.loading());
           final userOption = await _authFacade.getSignedInUser();
           await userOption.fold(
-            () {
+            () async {
               emit(const CommunityCommentCreateState.error());
             },
             (user) async {
@@ -47,19 +47,28 @@ class CommunityCommentCreateBloc
                 final result = await _repository.createComment(
                   comment: updateComment,
                   postId: event.postId,
+                  communityId: event.communityId,
                 );
-                result.fold(
-                  (l) => {
-                    emit(const CommunityCommentCreateState.error()),
+                await result.fold(
+                  (l) async {
+                    emit(const CommunityCommentCreateState.error());
                   },
                   (comment) async {
-                    _listBloc.add(
-                      CommunityCommentListEvent.getCommunityComments(
-                        postId: event.postId,
-                      ),
+                    emit(CommunityCommentCreateState.success(comment));
+                    await _repository.updateCountsComment(
+                      postId: event.postId,
+                      communityId: event.communityId,
                     );
-                    emit(CommunityCommentCreateState.success(updateComment));
-                    await _repository.updateCountsComment(postId: event.postId);
+                    _listBloc.state.maybeWhen(
+                      success: (comments) {
+                        _listBloc.add(
+                          CommunityCommentListEvent.addCommunityNewComments(
+                            updateComment,
+                          ),
+                        );
+                      },
+                      orElse: () {},
+                    );
                   },
                 );
               });

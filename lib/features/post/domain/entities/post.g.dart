@@ -10,6 +10,7 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       authorId: json['authorId'] as String?,
       postId: json['postId'] as String?,
       username: json['username'] as String?,
+      category: json['category'] as String?,
       text: json['text'] as String,
       imageUrls: (json['imageUrls'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -25,6 +26,14 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      followers: (json['followers'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      subscriptions: (json['subscriptions'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       isFavorite: json['isFavorite'] as bool? ?? false,
       createdAt: json['createdAt'] as String? ?? '',
     );
@@ -34,6 +43,7 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'authorId': instance.authorId,
       'postId': instance.postId,
       'username': instance.username,
+      'category': instance.category,
       'text': instance.text,
       'imageUrls': instance.imageUrls,
       'avatarUrl': instance.avatarUrl,
@@ -41,6 +51,8 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'commentsCount': instance.commentsCount,
       'likes': instance.likes,
       'reposts': instance.reposts,
+      'followers': instance.followers,
+      'subscriptions': instance.subscriptions,
       'isFavorite': instance.isFavorite,
       'createdAt': instance.createdAt,
     };

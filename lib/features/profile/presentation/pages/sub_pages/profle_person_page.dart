@@ -31,9 +31,11 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
   void initState() {
     super.initState();
     if (widget.authorId != null) {
-      context
-          .read<PostUserListBloc>()
-          .add(PostUserListEvent.getUserPosts(userId: widget.authorId));
+      context.read<UserDetailBloc>().add(
+            UserDetailEvent.getUserDetail(
+              userId: widget.authorId!,
+            ),
+          );
     }
   }
 
@@ -86,6 +88,9 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
           listener: (context, state) {
             state.maybeWhen(
               success: (userData) {
+                context.read<PostUserListBloc>().add(
+                      PostUserListEvent.getUserPosts(userId: widget.authorId),
+                    );
                 setState(() {
                   isSubscribe = userData.followers!.contains(uid);
                 });
@@ -103,19 +108,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                 ),
               ),
               success: (userData) {
-                return BlocConsumer<PostUserListBloc, PostUserListState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      success: (posts) {
-                        context.read<UserDetailBloc>().add(
-                              UserDetailEvent.getUserDetail(
-                                userId: widget.authorId!,
-                              ),
-                            );
-                      },
-                      orElse: () {},
-                    );
-                  },
+                return BlocBuilder<PostUserListBloc, PostUserListState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       success: (posts) {

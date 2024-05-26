@@ -29,7 +29,11 @@ class ReplyCommentListBloc
         addNewComments: (comment) {
           state.maybeWhen(
             success: (comments) {
-              emit(ReplyCommentListState.success(comments));
+              if (!comments.any((x) => x.commentId == comment.commentId)) {
+                final updatedComments = List<Comment>.from(comments);
+                updatedComments.insert(0, comment);
+                emit(ReplyCommentListState.success(updatedComments));
+              }
             },
             orElse: () {},
           );

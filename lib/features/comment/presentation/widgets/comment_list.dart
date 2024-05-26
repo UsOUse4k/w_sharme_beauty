@@ -43,7 +43,7 @@ class _CommentListState extends State<CommentList> {
               success: (comment) {
                 context
                     .read<CommentListBloc>()
-                    .add(CommentListEvent.getComments(postId: widget.postId));
+                    .add(CommentListEvent.addNewComments(comment));
                 context
                     .read<PostListBloc>()
                     .add(const PostListEvent.getPosts());

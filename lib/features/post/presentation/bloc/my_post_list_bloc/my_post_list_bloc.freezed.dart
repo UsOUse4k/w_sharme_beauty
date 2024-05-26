@@ -20,18 +20,21 @@ mixin _$MyPostListEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getPosts,
     required TResult Function(Post post) addNewPost,
+    required TResult Function(String value) filterPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getPosts,
     TResult? Function(Post post)? addNewPost,
+    TResult? Function(String value)? filterPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getPosts,
     TResult Function(Post post)? addNewPost,
+    TResult Function(String value)? filterPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$MyPostListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
     required TResult Function(_AddNewPost value) addNewPost,
+    required TResult Function(_FilterPost value) filterPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
     TResult? Function(_AddNewPost value)? addNewPost,
+    TResult? Function(_FilterPost value)? filterPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
     TResult Function(_AddNewPost value)? addNewPost,
+    TResult Function(_FilterPost value)? filterPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult when<TResult extends Object?>({
     required TResult Function() getPosts,
     required TResult Function(Post post) addNewPost,
+    required TResult Function(String value) filterPost,
   }) {
     return getPosts();
   }
@@ -123,6 +130,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getPosts,
     TResult? Function(Post post)? addNewPost,
+    TResult? Function(String value)? filterPost,
   }) {
     return getPosts?.call();
   }
@@ -132,6 +140,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getPosts,
     TResult Function(Post post)? addNewPost,
+    TResult Function(String value)? filterPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -145,6 +154,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
     required TResult Function(_AddNewPost value) addNewPost,
+    required TResult Function(_FilterPost value) filterPost,
   }) {
     return getPosts(this);
   }
@@ -154,6 +164,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
     TResult? Function(_AddNewPost value)? addNewPost,
+    TResult? Function(_FilterPost value)? filterPost,
   }) {
     return getPosts?.call(this);
   }
@@ -163,6 +174,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
     TResult Function(_AddNewPost value)? addNewPost,
+    TResult Function(_FilterPost value)? filterPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -252,6 +264,7 @@ class _$AddNewPostImpl implements _AddNewPost {
   TResult when<TResult extends Object?>({
     required TResult Function() getPosts,
     required TResult Function(Post post) addNewPost,
+    required TResult Function(String value) filterPost,
   }) {
     return addNewPost(post);
   }
@@ -261,6 +274,7 @@ class _$AddNewPostImpl implements _AddNewPost {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getPosts,
     TResult? Function(Post post)? addNewPost,
+    TResult? Function(String value)? filterPost,
   }) {
     return addNewPost?.call(post);
   }
@@ -270,6 +284,7 @@ class _$AddNewPostImpl implements _AddNewPost {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getPosts,
     TResult Function(Post post)? addNewPost,
+    TResult Function(String value)? filterPost,
     required TResult orElse(),
   }) {
     if (addNewPost != null) {
@@ -283,6 +298,7 @@ class _$AddNewPostImpl implements _AddNewPost {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
     required TResult Function(_AddNewPost value) addNewPost,
+    required TResult Function(_FilterPost value) filterPost,
   }) {
     return addNewPost(this);
   }
@@ -292,6 +308,7 @@ class _$AddNewPostImpl implements _AddNewPost {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
     TResult? Function(_AddNewPost value)? addNewPost,
+    TResult? Function(_FilterPost value)? filterPost,
   }) {
     return addNewPost?.call(this);
   }
@@ -301,6 +318,7 @@ class _$AddNewPostImpl implements _AddNewPost {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
     TResult Function(_AddNewPost value)? addNewPost,
+    TResult Function(_FilterPost value)? filterPost,
     required TResult orElse(),
   }) {
     if (addNewPost != null) {
@@ -316,6 +334,145 @@ abstract class _AddNewPost implements MyPostListEvent {
   Post get post;
   @JsonKey(ignore: true)
   _$$AddNewPostImplCopyWith<_$AddNewPostImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterPostImplCopyWith<$Res> {
+  factory _$$FilterPostImplCopyWith(
+          _$FilterPostImpl value, $Res Function(_$FilterPostImpl) then) =
+      __$$FilterPostImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$FilterPostImplCopyWithImpl<$Res>
+    extends _$MyPostListEventCopyWithImpl<$Res, _$FilterPostImpl>
+    implements _$$FilterPostImplCopyWith<$Res> {
+  __$$FilterPostImplCopyWithImpl(
+      _$FilterPostImpl _value, $Res Function(_$FilterPostImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$FilterPostImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterPostImpl implements _FilterPost {
+  const _$FilterPostImpl({required this.value});
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'MyPostListEvent.filterPost(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterPostImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterPostImplCopyWith<_$FilterPostImpl> get copyWith =>
+      __$$FilterPostImplCopyWithImpl<_$FilterPostImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getPosts,
+    required TResult Function(Post post) addNewPost,
+    required TResult Function(String value) filterPost,
+  }) {
+    return filterPost(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getPosts,
+    TResult? Function(Post post)? addNewPost,
+    TResult? Function(String value)? filterPost,
+  }) {
+    return filterPost?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getPosts,
+    TResult Function(Post post)? addNewPost,
+    TResult Function(String value)? filterPost,
+    required TResult orElse(),
+  }) {
+    if (filterPost != null) {
+      return filterPost(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddNewPost value) addNewPost,
+    required TResult Function(_FilterPost value) filterPost,
+  }) {
+    return filterPost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddNewPost value)? addNewPost,
+    TResult? Function(_FilterPost value)? filterPost,
+  }) {
+    return filterPost?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddNewPost value)? addNewPost,
+    TResult Function(_FilterPost value)? filterPost,
+    required TResult orElse(),
+  }) {
+    if (filterPost != null) {
+      return filterPost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FilterPost implements MyPostListEvent {
+  const factory _FilterPost({required final String value}) = _$FilterPostImpl;
+
+  String get value;
+  @JsonKey(ignore: true)
+  _$$FilterPostImplCopyWith<_$FilterPostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -2,15 +2,19 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
@@ -23,10 +27,11 @@ class CreatePostPage extends StatefulWidget {
 }
 
 class _CreatePostPageState extends State<CreatePostPage> {
-  List<Uint8List> selectedImageBytes = [];
-
-  bool isLoading = false;
   final TextEditingController desc = TextEditingController();
+  List<Uint8List> selectedImageBytes = [];
+  bool isLoading = false;
+  String filterText = 'Категория';
+  String? selectedCategory;
 
   Future pickImage(BuildContext context) async {
     final ImagePicker picker = ImagePicker();
@@ -53,7 +58,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final route = GoRouter.of(context);
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(
@@ -144,6 +148,35 @@ class _CreatePostPageState extends State<CreatePostPage> {
               onPressed: () => pickImage(context),
             ),
             const SizedBox(height: 20),
+            Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  'Выберите категорию',
+                  style: AppStyles.w500f16.copyWith(
+                    color: AppColors.darkGrey,
+                  ),
+                ),
+              ),
+            FilterButtonWidget(
+              width: 394.w,
+              onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                context,
+                CustomBottomSheet(
+                  maxHeight: 0.5,
+                  navbarTitle: 'Категория',
+                  widget: RadioFilterWidget(
+                    list: categoryList,
+                    onSelect: (String text) {
+                      filterText = text;
+                      selectedCategory = text;
+                      setState(() {});
+                    },
+                    selectedValue: selectedCategory ?? '',
+                  ),
+                ),
+              ),
+              title: filterText,
+            ),
             TextFieldWidgetWithTitle(
               controller: desc,
               contentPadding:
@@ -156,10 +189,15 @@ class _CreatePostPageState extends State<CreatePostPage> {
             GlButton(
               text: isLoading ? "Загрузка.." : "Опубликовать",
               onPressed: () {
-                if (desc.text.isNotEmpty && selectedImageBytes.isNotEmpty) {
+                if (desc.text.isNotEmpty &&
+                    selectedImageBytes.isNotEmpty &&
+                    selectedCategory != null) {
                   context.read<PostCreateBloc>().add(
                         PostCreateEvent.createPost(
-                          Post(text: desc.text),
+                          Post(
+                            text: desc.text,
+                            category: selectedCategory,
+                          ),
                           selectedImageBytes,
                         ),
                       );

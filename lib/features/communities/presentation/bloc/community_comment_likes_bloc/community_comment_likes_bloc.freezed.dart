@@ -20,24 +20,25 @@ mixin _$CommunityCommentLikesEvent {
   String? get subCommentId => throw _privateConstructorUsedError;
   String? get postId => throw _privateConstructorUsedError;
   bool get isLiked => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? commentId, String? subCommentId,
-            String? postId, bool isLiked)
+            String? postId, bool isLiked, String communityId)
         likesOfComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? commentId, String? subCommentId, String? postId,
-            bool isLiked)?
+            bool isLiked, String communityId)?
         likesOfComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? commentId, String? subCommentId, String? postId,
-            bool isLiked)?
+            bool isLiked, String communityId)?
         likesOfComment,
     required TResult orElse(),
   }) =>
@@ -72,7 +73,11 @@ abstract class $CommunityCommentLikesEventCopyWith<$Res> {
           CommunityCommentLikesEvent>;
   @useResult
   $Res call(
-      {String? commentId, String? subCommentId, String? postId, bool isLiked});
+      {String? commentId,
+      String? subCommentId,
+      String? postId,
+      bool isLiked,
+      String communityId});
 }
 
 /// @nodoc
@@ -93,6 +98,7 @@ class _$CommunityCommentLikesEventCopyWithImpl<$Res,
     Object? subCommentId = freezed,
     Object? postId = freezed,
     Object? isLiked = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       commentId: freezed == commentId
@@ -111,6 +117,10 @@ class _$CommunityCommentLikesEventCopyWithImpl<$Res,
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -124,7 +134,11 @@ abstract class _$$LikesOfCommentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? commentId, String? subCommentId, String? postId, bool isLiked});
+      {String? commentId,
+      String? subCommentId,
+      String? postId,
+      bool isLiked,
+      String communityId});
 }
 
 /// @nodoc
@@ -142,6 +156,7 @@ class __$$LikesOfCommentImplCopyWithImpl<$Res>
     Object? subCommentId = freezed,
     Object? postId = freezed,
     Object? isLiked = null,
+    Object? communityId = null,
   }) {
     return _then(_$LikesOfCommentImpl(
       commentId: freezed == commentId
@@ -160,6 +175,10 @@ class __$$LikesOfCommentImplCopyWithImpl<$Res>
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -168,7 +187,11 @@ class __$$LikesOfCommentImplCopyWithImpl<$Res>
 
 class _$LikesOfCommentImpl implements _LikesOfComment {
   const _$LikesOfCommentImpl(
-      {this.commentId, this.subCommentId, this.postId, required this.isLiked});
+      {this.commentId,
+      this.subCommentId,
+      this.postId,
+      required this.isLiked,
+      required this.communityId});
 
   @override
   final String? commentId;
@@ -178,10 +201,12 @@ class _$LikesOfCommentImpl implements _LikesOfComment {
   final String? postId;
   @override
   final bool isLiked;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'CommunityCommentLikesEvent.likesOfComment(commentId: $commentId, subCommentId: $subCommentId, postId: $postId, isLiked: $isLiked)';
+    return 'CommunityCommentLikesEvent.likesOfComment(commentId: $commentId, subCommentId: $subCommentId, postId: $postId, isLiked: $isLiked, communityId: $communityId)';
   }
 
   @override
@@ -194,12 +219,14 @@ class _$LikesOfCommentImpl implements _LikesOfComment {
             (identical(other.subCommentId, subCommentId) ||
                 other.subCommentId == subCommentId) &&
             (identical(other.postId, postId) || other.postId == postId) &&
-            (identical(other.isLiked, isLiked) || other.isLiked == isLiked));
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, commentId, subCommentId, postId, isLiked);
+  int get hashCode => Object.hash(
+      runtimeType, commentId, subCommentId, postId, isLiked, communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -212,32 +239,35 @@ class _$LikesOfCommentImpl implements _LikesOfComment {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? commentId, String? subCommentId,
-            String? postId, bool isLiked)
+            String? postId, bool isLiked, String communityId)
         likesOfComment,
   }) {
-    return likesOfComment(commentId, subCommentId, postId, isLiked);
+    return likesOfComment(
+        commentId, subCommentId, postId, isLiked, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? commentId, String? subCommentId, String? postId,
-            bool isLiked)?
+            bool isLiked, String communityId)?
         likesOfComment,
   }) {
-    return likesOfComment?.call(commentId, subCommentId, postId, isLiked);
+    return likesOfComment?.call(
+        commentId, subCommentId, postId, isLiked, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? commentId, String? subCommentId, String? postId,
-            bool isLiked)?
+            bool isLiked, String communityId)?
         likesOfComment,
     required TResult orElse(),
   }) {
     if (likesOfComment != null) {
-      return likesOfComment(commentId, subCommentId, postId, isLiked);
+      return likesOfComment(
+          commentId, subCommentId, postId, isLiked, communityId);
     }
     return orElse();
   }
@@ -276,7 +306,8 @@ abstract class _LikesOfComment implements CommunityCommentLikesEvent {
       {final String? commentId,
       final String? subCommentId,
       final String? postId,
-      required final bool isLiked}) = _$LikesOfCommentImpl;
+      required final bool isLiked,
+      required final String communityId}) = _$LikesOfCommentImpl;
 
   @override
   String? get commentId;
@@ -286,6 +317,8 @@ abstract class _LikesOfComment implements CommunityCommentLikesEvent {
   String? get postId;
   @override
   bool get isLiked;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$LikesOfCommentImplCopyWith<_$LikesOfCommentImpl> get copyWith =>

@@ -21,7 +21,7 @@ class Comment with _$Comment {
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
 
-  factory Comment.fromFirestore(DocumentSnapshot firestoreData) {
+  factory Comment.fromStoreData(Map<String, dynamic> firestoreData) {
     return Comment(
       commentId: firestoreData['commentId'] as String? ?? '',
       uid: firestoreData['uid'] as String? ?? '',

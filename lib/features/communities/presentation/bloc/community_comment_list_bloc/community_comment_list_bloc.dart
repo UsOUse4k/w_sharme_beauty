@@ -15,14 +15,30 @@ class CommunityCommentListBloc
       : super(const CommunityCommentListState.initial()) {
     on<CommunityCommentListEvent>((event, emit) async {
       await event.maybeWhen(
-        getCommunityComments: (postId) async {
+        getCommunityComments: (postId, communityId) async {
           emit(const CommunityCommentListState.loading());
-          final result = await _commentRepository.getComments(postId: postId);
-          result.fold((error) {
-            emit(CommunityCommentListState.error(error: error.messasge));
-          }, (comments) {
-            emit(CommunityCommentListState.success(comments));
-          });
+          try {
+            final result = await _commentRepository.getComments(
+              postId: postId,
+              communityId: communityId,
+            );
+            await result.fold((error) async {
+              emit(CommunityCommentListState.error(error: error.messasge));
+            }, (comments) async {
+              emit(CommunityCommentListState.success(comments));
+            });
+          } catch (e) {
+            emit(CommunityCommentListState.error(error: e.toString()));
+          }
+        },
+        addCommunityNewComments: (comment) {
+          state.maybeWhen(
+            success: (comments) {
+              final data = [comment, ...comments];
+              emit(CommunityCommentListState.success(data));
+            },
+            orElse: () {},
+          );
         },
         orElse: () {},
       );

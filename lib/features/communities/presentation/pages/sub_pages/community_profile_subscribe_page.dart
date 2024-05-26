@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
@@ -180,6 +184,8 @@ class _CommunityProfileSubscribePageState
                                     communityName:
                                         community.communityName.toString(),
                                     avatarUrl: community.avatarUrls.toString(),
+                                    communityId:
+                                        community.communityId.toString(),
                                   ),
                                 );
                               },
@@ -233,6 +239,36 @@ class _CommunityProfileSubscribePageState
         StoriesWidget(storiesModel: storiesModel),
         const SizedBox(
           height: 10,
+        ),
+        BlocBuilder<CategoryBloc, CategoryState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              loading: () {
+                return SizedBox(
+                  height: 100.h,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => const CategoryShimmer(),
+                    itemCount: 5,
+                  ),
+                );
+              },
+              success: (categories) {
+                return CategoryList(
+                  category: categories,
+                  onFilterCategories: (category) {
+                    //context.read<CommunityPostListBloc>().add(
+                    //      CommunityPostListEvent.filterCommunityPost(
+                    //        title: category.title.toString(),
+                    //      ),
+                    //    );
+                  },
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
         ),
         ForTheUserButtonsWidget(
           isSubscribe: isSubscribe,

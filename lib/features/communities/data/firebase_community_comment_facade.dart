@@ -13,10 +13,11 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
   FirebaseCommunityCommentFacade(this.firestore, this.auth);
 
   @override
-  Future<Either<PostError, Unit>> createComment({
+  Future<Either<PostError, Comment>> createComment({
     required Comment comment,
     required String postId,
     String? parentCommentId,
+    String? communityId,
   }) async {
     try {
       final updatedComment = comment.copyWith(
@@ -24,7 +25,9 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
       );
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
         await firestore
-            .collection('communities_posts')
+            .collection('communities')
+            .doc(communityId)
+            .collection('posts')
             .doc(postId)
             .collection('comments')
             .doc(parentCommentId)
@@ -33,13 +36,15 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
             .set(updatedComment.toJson());
       } else {
         await firestore
-            .collection('communities_posts')
+            .collection('communities')
+            .doc(communityId)
+            .collection('posts')
             .doc(postId)
             .collection('comments')
             .doc(updatedComment.commentId)
             .set(updatedComment.toJson());
       }
-      return right(unit);
+      return right(updatedComment);
     } catch (e) {
       return left(PostError(e.toString()));
     }
@@ -49,10 +54,15 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
   Future<Either<PostError, Unit>> updateCountsComment({
     required String postId,
     String? commentId,
+    required String communityId,
   }) async {
     try {
       DocumentReference reference;
-      reference = firestore.collection('communities_posts').doc(postId);
+      reference = firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('posts')
+          .doc(postId);
       await reference.update({'commentsCount': FieldValue.increment(1)});
       if (commentId != null && commentId.isNotEmpty) {
         await reference
@@ -72,26 +82,30 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
     int limit = 10,
     DocumentSnapshot? lastDocSnapshot,
     String? parentCommentId,
+    String? communityId,
   }) async {
     try {
       Query<Map<String, dynamic>> query;
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
         query = firestore
-            .collection('communities_posts')
+            .collection('communities')
+            .doc(communityId)
+            .collection('posts')
             .doc(postId)
             .collection('comments')
             .doc(parentCommentId)
             .collection('reply_comments');
       } else {
         query = firestore
-            .collection('communities_posts')
+            .collection('communities')
+            .doc(communityId)
+            .collection('posts')
             .doc(postId)
             .collection('comments');
       }
       if (lastDocSnapshot != null) {
         query = query.startAfterDocument(lastDocSnapshot);
       }
-      query = query.limit(limit);
       final querySnapshot = await query.get();
       final comments = querySnapshot.docs
           .map((doc) => Comment.fromJson(doc.data()))
@@ -108,10 +122,13 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
     required String commentId,
     String? subCommentId,
     required bool isLike,
+    required String communityId,
   }) async {
     final userId = auth.currentUser!.uid;
     final DocumentReference reference = firestore
-        .collection('communities_posts')
+        .collection('communities')
+        .doc(communityId)
+        .collection('posts')
         .doc(postId)
         .collection('comments')
         .doc(commentId);
@@ -134,6 +151,27 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
         );
       }
       return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Comment>> getComment({
+    required String postId,
+    required String commentId,
+    required String communityId,
+  }) async {
+    try {
+      final DocumentSnapshot documentSnapshot = await firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('posts')
+          .doc(postId)
+          .get();
+      final Comment comment = Comment.fromStoreData(
+          documentSnapshot.data()! as Map<String, dynamic>,);
+      return right(comment);
     } catch (e) {
       return left(PostError(e.toString()));
     }

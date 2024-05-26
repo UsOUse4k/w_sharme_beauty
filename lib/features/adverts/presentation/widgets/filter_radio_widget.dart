@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/features/adverts/data/data/data.dart';
 
@@ -51,18 +52,26 @@ class _RadioFilterWidgetState extends State<RadioFilterWidget> {
                   widget.list == ratingList
                       ? 'Не ниже ★ ${widget.list[index]}'
                       : widget.list[index],
+                  style: AppStyles.w400f14,
                 ),
-                leading: Radio<String>(
-                  value: widget.list[index],
-                  groupValue: localSelectedValue,
-                  onChanged: (String? value) {
-                    if (value != null) {
-                      setState(() {
-                        localSelectedValue = value;
-                      });
-                      widget.onSelect(value);
-                    }
-                  },
+                leading: RadioTheme(
+                  data: RadioThemeData(
+                    fillColor: MaterialStateProperty.all(
+                      AppColors.purple,
+                    ),
+                  ),
+                  child: Radio<String>(
+                    value: widget.list[index],
+                    groupValue: localSelectedValue,
+                    onChanged: (String? value) {
+                      if (value != null) {
+                        setState(() {
+                          localSelectedValue = value;
+                        });
+                        widget.onSelect(value);
+                      }
+                    },
+                  ),
                 ),
               ),
             );

@@ -5,6 +5,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bloc/get_all_chats_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
@@ -38,6 +39,16 @@ class _ChatPageState extends State<ChatPage>
     _tabController.dispose();
   }
 
+  void _handleSearch(String value) {
+    if (_tabController.index == 0) {
+      // Поиск в чатах пользователей
+      context.read<GetAllChatsBloc>().add(GetAllChatsEvent.searchChat(query: value));
+    } else if (_tabController.index == 1) {
+      // Поиск в чатах сообществ
+      context.read<CommunityListBloc>().add(CommunityListEvent.searchCommunityChatGroup(query: value));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GlScaffold(
@@ -61,7 +72,7 @@ class _ChatPageState extends State<ChatPage>
             padding: const EdgeInsets.only(left: 18, right: 18, bottom: 15),
             child: Column(
               children: [
-                const SearchWidget(),
+                SearchWidget(onChanged: (value) => _handleSearch(value)),
                 const SizedBox(
                   height: 15,
                 ),

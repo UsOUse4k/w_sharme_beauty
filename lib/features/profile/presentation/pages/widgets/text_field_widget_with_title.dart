@@ -6,7 +6,7 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
     super.key,
     required this.title,
     this.titleStyle = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       color: AppColors.darkGrey,
       fontWeight: FontWeight.w500,
     ),

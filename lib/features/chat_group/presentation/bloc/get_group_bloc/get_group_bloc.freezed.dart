@@ -16,43 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetGroupEvent {
-  String get groupId => throw _privateConstructorUsedError;
-  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String groupId, String communityId) getGroup,
+    required TResult Function(String query) searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String groupId, String communityId)? getGroup,
+    TResult? Function(String query)? searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String groupId, String communityId)? getGroup,
+    TResult Function(String query)? searchUsers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetGroup value) getGroup,
+    required TResult Function(_SearchUsers value) searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetGroup value)? getGroup,
+    TResult? Function(_SearchUsers value)? searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetGroup value)? getGroup,
+    TResult Function(_SearchUsers value)? searchUsers,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $GetGroupEventCopyWith<GetGroupEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -61,8 +61,6 @@ abstract class $GetGroupEventCopyWith<$Res> {
   factory $GetGroupEventCopyWith(
           GetGroupEvent value, $Res Function(GetGroupEvent) then) =
       _$GetGroupEventCopyWithImpl<$Res, GetGroupEvent>;
-  @useResult
-  $Res call({String groupId, String communityId});
 }
 
 /// @nodoc
@@ -74,33 +72,13 @@ class _$GetGroupEventCopyWithImpl<$Res, $Val extends GetGroupEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? groupId = null,
-    Object? communityId = null,
-  }) {
-    return _then(_value.copyWith(
-      groupId: null == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
-              as String,
-      communityId: null == communityId
-          ? _value.communityId
-          : communityId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$GetGroupImplCopyWith<$Res>
-    implements $GetGroupEventCopyWith<$Res> {
+abstract class _$$GetGroupImplCopyWith<$Res> {
   factory _$$GetGroupImplCopyWith(
           _$GetGroupImpl value, $Res Function(_$GetGroupImpl) then) =
       __$$GetGroupImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String groupId, String communityId});
 }
@@ -170,6 +148,7 @@ class _$GetGroupImpl implements _GetGroup {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String groupId, String communityId) getGroup,
+    required TResult Function(String query) searchUsers,
   }) {
     return getGroup(groupId, communityId);
   }
@@ -178,6 +157,7 @@ class _$GetGroupImpl implements _GetGroup {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String groupId, String communityId)? getGroup,
+    TResult? Function(String query)? searchUsers,
   }) {
     return getGroup?.call(groupId, communityId);
   }
@@ -186,6 +166,7 @@ class _$GetGroupImpl implements _GetGroup {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String groupId, String communityId)? getGroup,
+    TResult Function(String query)? searchUsers,
     required TResult orElse(),
   }) {
     if (getGroup != null) {
@@ -198,6 +179,7 @@ class _$GetGroupImpl implements _GetGroup {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetGroup value) getGroup,
+    required TResult Function(_SearchUsers value) searchUsers,
   }) {
     return getGroup(this);
   }
@@ -206,6 +188,7 @@ class _$GetGroupImpl implements _GetGroup {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetGroup value)? getGroup,
+    TResult? Function(_SearchUsers value)? searchUsers,
   }) {
     return getGroup?.call(this);
   }
@@ -214,6 +197,7 @@ class _$GetGroupImpl implements _GetGroup {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetGroup value)? getGroup,
+    TResult Function(_SearchUsers value)? searchUsers,
     required TResult orElse(),
   }) {
     if (getGroup != null) {
@@ -228,13 +212,143 @@ abstract class _GetGroup implements GetGroupEvent {
       {required final String groupId,
       required final String communityId}) = _$GetGroupImpl;
 
-  @override
   String get groupId;
-  @override
   String get communityId;
-  @override
   @JsonKey(ignore: true)
   _$$GetGroupImplCopyWith<_$GetGroupImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SearchUsersImplCopyWith<$Res> {
+  factory _$$SearchUsersImplCopyWith(
+          _$SearchUsersImpl value, $Res Function(_$SearchUsersImpl) then) =
+      __$$SearchUsersImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
+}
+
+/// @nodoc
+class __$$SearchUsersImplCopyWithImpl<$Res>
+    extends _$GetGroupEventCopyWithImpl<$Res, _$SearchUsersImpl>
+    implements _$$SearchUsersImplCopyWith<$Res> {
+  __$$SearchUsersImplCopyWithImpl(
+      _$SearchUsersImpl _value, $Res Function(_$SearchUsersImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$SearchUsersImpl(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchUsersImpl implements _SearchUsers {
+  const _$SearchUsersImpl({required this.query});
+
+  @override
+  final String query;
+
+  @override
+  String toString() {
+    return 'GetGroupEvent.searchUsers(query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchUsersImpl &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchUsersImplCopyWith<_$SearchUsersImpl> get copyWith =>
+      __$$SearchUsersImplCopyWithImpl<_$SearchUsersImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String groupId, String communityId) getGroup,
+    required TResult Function(String query) searchUsers,
+  }) {
+    return searchUsers(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String groupId, String communityId)? getGroup,
+    TResult? Function(String query)? searchUsers,
+  }) {
+    return searchUsers?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String groupId, String communityId)? getGroup,
+    TResult Function(String query)? searchUsers,
+    required TResult orElse(),
+  }) {
+    if (searchUsers != null) {
+      return searchUsers(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetGroup value) getGroup,
+    required TResult Function(_SearchUsers value) searchUsers,
+  }) {
+    return searchUsers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetGroup value)? getGroup,
+    TResult? Function(_SearchUsers value)? searchUsers,
+  }) {
+    return searchUsers?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetGroup value)? getGroup,
+    TResult Function(_SearchUsers value)? searchUsers,
+    required TResult orElse(),
+  }) {
+    if (searchUsers != null) {
+      return searchUsers(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchUsers implements GetGroupEvent {
+  const factory _SearchUsers({required final String query}) = _$SearchUsersImpl;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$SearchUsersImplCopyWith<_$SearchUsersImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

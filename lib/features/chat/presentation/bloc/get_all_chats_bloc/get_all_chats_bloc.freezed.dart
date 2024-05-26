@@ -19,32 +19,38 @@ mixin _$GetAllChatsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllChatRoom,
+    required TResult Function(String query) searchChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllChatRoom,
+    TResult? Function(String query)? searchChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllChatRoom,
+    TResult Function(String query)? searchChat,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllChatsRoom value) getAllChatRoom,
+    required TResult Function(_SearchChat value) searchChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllChatsRoom value)? getAllChatRoom,
+    TResult? Function(_SearchChat value)? searchChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllChatsRoom value)? getAllChatRoom,
+    TResult Function(_SearchChat value)? searchChat,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllChatRoom,
+    required TResult Function(String query) searchChat,
   }) {
     return getAllChatRoom();
   }
@@ -115,6 +122,7 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllChatRoom,
+    TResult? Function(String query)? searchChat,
   }) {
     return getAllChatRoom?.call();
   }
@@ -123,6 +131,7 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllChatRoom,
+    TResult Function(String query)? searchChat,
     required TResult orElse(),
   }) {
     if (getAllChatRoom != null) {
@@ -135,6 +144,7 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllChatsRoom value) getAllChatRoom,
+    required TResult Function(_SearchChat value) searchChat,
   }) {
     return getAllChatRoom(this);
   }
@@ -143,6 +153,7 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllChatsRoom value)? getAllChatRoom,
+    TResult? Function(_SearchChat value)? searchChat,
   }) {
     return getAllChatRoom?.call(this);
   }
@@ -151,6 +162,7 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllChatsRoom value)? getAllChatRoom,
+    TResult Function(_SearchChat value)? searchChat,
     required TResult orElse(),
   }) {
     if (getAllChatRoom != null) {
@@ -162,6 +174,139 @@ class _$GetAllChatsRoomImpl implements _GetAllChatsRoom {
 
 abstract class _GetAllChatsRoom implements GetAllChatsEvent {
   const factory _GetAllChatsRoom() = _$GetAllChatsRoomImpl;
+}
+
+/// @nodoc
+abstract class _$$SearchChatImplCopyWith<$Res> {
+  factory _$$SearchChatImplCopyWith(
+          _$SearchChatImpl value, $Res Function(_$SearchChatImpl) then) =
+      __$$SearchChatImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
+}
+
+/// @nodoc
+class __$$SearchChatImplCopyWithImpl<$Res>
+    extends _$GetAllChatsEventCopyWithImpl<$Res, _$SearchChatImpl>
+    implements _$$SearchChatImplCopyWith<$Res> {
+  __$$SearchChatImplCopyWithImpl(
+      _$SearchChatImpl _value, $Res Function(_$SearchChatImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$SearchChatImpl(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchChatImpl implements _SearchChat {
+  const _$SearchChatImpl({required this.query});
+
+  @override
+  final String query;
+
+  @override
+  String toString() {
+    return 'GetAllChatsEvent.searchChat(query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchChatImpl &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchChatImplCopyWith<_$SearchChatImpl> get copyWith =>
+      __$$SearchChatImplCopyWithImpl<_$SearchChatImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllChatRoom,
+    required TResult Function(String query) searchChat,
+  }) {
+    return searchChat(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllChatRoom,
+    TResult? Function(String query)? searchChat,
+  }) {
+    return searchChat?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllChatRoom,
+    TResult Function(String query)? searchChat,
+    required TResult orElse(),
+  }) {
+    if (searchChat != null) {
+      return searchChat(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllChatsRoom value) getAllChatRoom,
+    required TResult Function(_SearchChat value) searchChat,
+  }) {
+    return searchChat(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllChatsRoom value)? getAllChatRoom,
+    TResult? Function(_SearchChat value)? searchChat,
+  }) {
+    return searchChat?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllChatsRoom value)? getAllChatRoom,
+    TResult Function(_SearchChat value)? searchChat,
+    required TResult orElse(),
+  }) {
+    if (searchChat != null) {
+      return searchChat(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchChat implements GetAllChatsEvent {
+  const factory _SearchChat({required final String query}) = _$SearchChatImpl;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$SearchChatImplCopyWith<_$SearchChatImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

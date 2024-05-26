@@ -10,7 +10,9 @@ part 'get_all_chats_bloc.freezed.dart';
 
 @injectable
 class GetAllChatsBloc extends Bloc<GetAllChatsEvent, GetAllChatsState> {
-  GetAllChatsBloc(this._chatRepository) : super(const _Initial()) {
+  List<ChatRoom>? allChatRoom;
+  GetAllChatsBloc(this._chatRepository)
+      : super(const _Initial()) {
     on<GetAllChatsEvent>(
       (event, emit) async {
         await event.maybeWhen(
@@ -18,7 +20,24 @@ class GetAllChatsBloc extends Bloc<GetAllChatsEvent, GetAllChatsState> {
             emit(const GetAllChatsState.loading());
             final streamResponse = _chatRepository.getAllChats();
             await for (final chats in streamResponse) {
+              allChatRoom = chats;              
               emit(GetAllChatsState.success(chats));
+            }
+          },
+          searchChat: (query) {
+            if (state is _Success && allChatRoom != null) {
+              if (query.isEmpty) {
+                emit(GetAllChatsState.success(allChatRoom!));
+              } else {
+                final filteredChatRoom = allChatRoom!
+                  .where(
+                    (room) => room.receiverUsername!
+                        .toLowerCase()
+                        .contains(query.toLowerCase()),
+                  )
+                  .toList();
+              emit(GetAllChatsState.success(filteredChatRoom));
+              }
             }
           },
           orElse: () {},

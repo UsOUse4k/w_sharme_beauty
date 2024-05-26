@@ -18,19 +18,24 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CommunityCommentCreateEvent {
   Comment get comment => throw _privateConstructorUsedError;
   String get postId => throw _privateConstructorUsedError;
+  String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Comment comment, String postId) addComment,
+    required TResult Function(
+            Comment comment, String postId, String communityId)
+        addComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Comment comment, String postId)? addComment,
+    TResult? Function(Comment comment, String postId, String communityId)?
+        addComment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Comment comment, String postId)? addComment,
+    TResult Function(Comment comment, String postId, String communityId)?
+        addComment,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +69,7 @@ abstract class $CommunityCommentCreateEventCopyWith<$Res> {
       _$CommunityCommentCreateEventCopyWithImpl<$Res,
           CommunityCommentCreateEvent>;
   @useResult
-  $Res call({Comment comment, String postId});
+  $Res call({Comment comment, String postId, String communityId});
 
   $CommentCopyWith<$Res> get comment;
 }
@@ -85,6 +90,7 @@ class _$CommunityCommentCreateEventCopyWithImpl<$Res,
   $Res call({
     Object? comment = null,
     Object? postId = null,
+    Object? communityId = null,
   }) {
     return _then(_value.copyWith(
       comment: null == comment
@@ -94,6 +100,10 @@ class _$CommunityCommentCreateEventCopyWithImpl<$Res,
       postId: null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
+              as String,
+      communityId: null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -115,7 +125,7 @@ abstract class _$$AddCommentImplCopyWith<$Res>
       __$$AddCommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Comment comment, String postId});
+  $Res call({Comment comment, String postId, String communityId});
 
   @override
   $CommentCopyWith<$Res> get comment;
@@ -134,6 +144,7 @@ class __$$AddCommentImplCopyWithImpl<$Res>
   $Res call({
     Object? comment = null,
     Object? postId = null,
+    Object? communityId = null,
   }) {
     return _then(_$AddCommentImpl(
       null == comment
@@ -144,6 +155,10 @@ class __$$AddCommentImplCopyWithImpl<$Res>
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as String,
+      null == communityId
+          ? _value.communityId
+          : communityId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -151,16 +166,18 @@ class __$$AddCommentImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddCommentImpl implements _AddComment {
-  const _$AddCommentImpl(this.comment, this.postId);
+  const _$AddCommentImpl(this.comment, this.postId, this.communityId);
 
   @override
   final Comment comment;
   @override
   final String postId;
+  @override
+  final String communityId;
 
   @override
   String toString() {
-    return 'CommunityCommentCreateEvent.addComment(comment: $comment, postId: $postId)';
+    return 'CommunityCommentCreateEvent.addComment(comment: $comment, postId: $postId, communityId: $communityId)';
   }
 
   @override
@@ -169,11 +186,13 @@ class _$AddCommentImpl implements _AddComment {
         (other.runtimeType == runtimeType &&
             other is _$AddCommentImpl &&
             (identical(other.comment, comment) || other.comment == comment) &&
-            (identical(other.postId, postId) || other.postId == postId));
+            (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.communityId, communityId) ||
+                other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, comment, postId);
+  int get hashCode => Object.hash(runtimeType, comment, postId, communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -184,27 +203,31 @@ class _$AddCommentImpl implements _AddComment {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Comment comment, String postId) addComment,
+    required TResult Function(
+            Comment comment, String postId, String communityId)
+        addComment,
   }) {
-    return addComment(comment, postId);
+    return addComment(comment, postId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Comment comment, String postId)? addComment,
+    TResult? Function(Comment comment, String postId, String communityId)?
+        addComment,
   }) {
-    return addComment?.call(comment, postId);
+    return addComment?.call(comment, postId, communityId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Comment comment, String postId)? addComment,
+    TResult Function(Comment comment, String postId, String communityId)?
+        addComment,
     required TResult orElse(),
   }) {
     if (addComment != null) {
-      return addComment(comment, postId);
+      return addComment(comment, postId, communityId);
     }
     return orElse();
   }
@@ -239,13 +262,15 @@ class _$AddCommentImpl implements _AddComment {
 }
 
 abstract class _AddComment implements CommunityCommentCreateEvent {
-  const factory _AddComment(final Comment comment, final String postId) =
-      _$AddCommentImpl;
+  const factory _AddComment(final Comment comment, final String postId,
+      final String communityId) = _$AddCommentImpl;
 
   @override
   Comment get comment;
   @override
   String get postId;
+  @override
+  String get communityId;
   @override
   @JsonKey(ignore: true)
   _$$AddCommentImplCopyWith<_$AddCommentImpl> get copyWith =>

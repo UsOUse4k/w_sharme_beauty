@@ -86,8 +86,8 @@ class FirestorePostRepository implements ICommunityPostRepository {
     try {
       await firestore
           .collection('communities')
-          .doc()
-          .collection('new_posts')
+          .doc(communityId)
+          .collection('posts')
           .doc(postId)
           .update({
         'likes': add
@@ -99,30 +99,4 @@ class FirestorePostRepository implements ICommunityPostRepository {
       return left(PostError(e.toString()));
     }
   }
-
-  //@override
-  //Future<Either<PostError, Post>> getPost(
-  //  String? postId,
-  //  String? userId,
-  //) async {
-  //  try {
-  //    if (postId == null) {
-  //      return left(PostError('no Post id'));
-  //    }
-  //    final DocumentSnapshot post = await firestore
-  //        .collection('communities')
-  //        .doc()
-  //        .collection('new_posts')
-  //        .doc(postId)
-  //        .get();
-  //    if (!post.exists) {
-  //      return left(PostError('Post not found.'));
-  //    }
-  //    final Post userProfile =
-  //        Post.fromStoreData(post.data()! as Map<String, dynamic>);
-  //    return right(userProfile);
-  //  } catch (e) {
-  //    return left(PostError(e.toString()));
-  //  }
-  //}
 }

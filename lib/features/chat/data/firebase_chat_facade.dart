@@ -23,6 +23,8 @@ class FirebaseChatFacade implements IChatRepository {
   @override
   Future<Either<PostError, String>> createChatRoom({
     required String uid,
+    required String receiverUsername,
+
   }) async {
     try {
       final String myUid = auth.currentUser!.uid;
@@ -46,6 +48,8 @@ class FirebaseChatFacade implements IChatRepository {
           members: sortedMembers,
           createdAt: now,
           lastSenderId: '',
+          receiverId: uid,
+          receiverUsername: receiverUsername,
         );
         await firestore
             .collection('chatrooms')

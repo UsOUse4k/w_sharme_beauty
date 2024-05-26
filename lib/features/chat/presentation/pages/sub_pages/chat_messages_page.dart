@@ -18,9 +18,10 @@ import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart'
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 
 class ChatMessagesPage extends StatefulWidget {
-  const ChatMessagesPage({super.key, this.userId});
+  const ChatMessagesPage({super.key, this.userId,});
 
   final String? userId;
+
 
   @override
   State<ChatMessagesPage> createState() => _ChatMessagesPageState();

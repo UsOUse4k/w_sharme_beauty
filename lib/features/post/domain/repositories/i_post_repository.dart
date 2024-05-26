@@ -17,5 +17,11 @@ abstract class IPostRepository {
     String authorId,
     bool add,
   );
+  Future<Either<PostError, Unit>> updatePost(
+    String postId,
+    String authorId,
+    String targetUid,
+    bool type,
+  );
   Future<Either<PostError, Post>> getPost(String postId, String? userId);
 }

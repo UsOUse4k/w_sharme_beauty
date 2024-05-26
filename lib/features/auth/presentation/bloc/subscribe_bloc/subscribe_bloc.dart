@@ -9,7 +9,8 @@ part 'subscribe_bloc.freezed.dart';
 
 @injectable
 class SubscribeBloc extends Bloc<SubscribeEvent, SubscribeState> {
-  SubscribeBloc(this._authFacade) : super(const _Initial()) {
+  SubscribeBloc(this._authFacade)
+      : super(const _Initial()) {
     on<SubscribeEvent>((event, emit) async {
       await event.maybeWhen(
         subscribe: (targetUserId) async {
@@ -18,11 +19,10 @@ class SubscribeBloc extends Bloc<SubscribeEvent, SubscribeState> {
             final result = await _authFacade.subscribe(
               targetUserUid: targetUserId,
             );
-            result.fold(
-              (l) => emit(SubscribeState.error(message: l.messasge)),
-              (r) =>
-                  emit(SubscribeState.success(r.isSubscribed)),
-            );
+            result.fold((l) => emit(SubscribeState.error(message: l.messasge)),
+                (r) {
+              emit(SubscribeState.success(r.isSubscribed));
+            });
           } catch (e) {
             emit(SubscribeState.error(message: e.toString()));
           }
@@ -33,11 +33,10 @@ class SubscribeBloc extends Bloc<SubscribeEvent, SubscribeState> {
             final result = await _authFacade.unsubscribe(
               targetUserUid: targetUserId,
             );
-            result.fold(
-              (l) => emit(SubscribeState.error(message: l.messasge)),
-              (r) =>
-                  emit(SubscribeState.success(r.isSubscribed)),
-            );
+            result.fold((l) => emit(SubscribeState.error(message: l.messasge)),
+                (r) {
+              emit(SubscribeState.success(r.isSubscribed));
+            });
           } catch (e) {
             emit(SubscribeState.error(message: e.toString()));
           }

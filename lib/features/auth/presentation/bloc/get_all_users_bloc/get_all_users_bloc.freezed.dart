@@ -19,32 +19,38 @@ mixin _$GetAllUsersEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllUsers,
+    required TResult Function(String query) searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllUsers,
+    TResult? Function(String query)? searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllUsers,
+    TResult Function(String query)? searchUsers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllUsers value) getAllUsers,
+    required TResult Function(_SearchUsers value) searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllUsers value)? getAllUsers,
+    TResult? Function(_SearchUsers value)? searchUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllUsers value)? getAllUsers,
+    TResult Function(_SearchUsers value)? searchUsers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$GetAllUsersImpl implements _GetAllUsers {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllUsers,
+    required TResult Function(String query) searchUsers,
   }) {
     return getAllUsers();
   }
@@ -115,6 +122,7 @@ class _$GetAllUsersImpl implements _GetAllUsers {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllUsers,
+    TResult? Function(String query)? searchUsers,
   }) {
     return getAllUsers?.call();
   }
@@ -123,6 +131,7 @@ class _$GetAllUsersImpl implements _GetAllUsers {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllUsers,
+    TResult Function(String query)? searchUsers,
     required TResult orElse(),
   }) {
     if (getAllUsers != null) {
@@ -135,6 +144,7 @@ class _$GetAllUsersImpl implements _GetAllUsers {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllUsers value) getAllUsers,
+    required TResult Function(_SearchUsers value) searchUsers,
   }) {
     return getAllUsers(this);
   }
@@ -143,6 +153,7 @@ class _$GetAllUsersImpl implements _GetAllUsers {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllUsers value)? getAllUsers,
+    TResult? Function(_SearchUsers value)? searchUsers,
   }) {
     return getAllUsers?.call(this);
   }
@@ -151,6 +162,7 @@ class _$GetAllUsersImpl implements _GetAllUsers {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllUsers value)? getAllUsers,
+    TResult Function(_SearchUsers value)? searchUsers,
     required TResult orElse(),
   }) {
     if (getAllUsers != null) {
@@ -162,6 +174,139 @@ class _$GetAllUsersImpl implements _GetAllUsers {
 
 abstract class _GetAllUsers implements GetAllUsersEvent {
   const factory _GetAllUsers() = _$GetAllUsersImpl;
+}
+
+/// @nodoc
+abstract class _$$SearchUsersImplCopyWith<$Res> {
+  factory _$$SearchUsersImplCopyWith(
+          _$SearchUsersImpl value, $Res Function(_$SearchUsersImpl) then) =
+      __$$SearchUsersImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String query});
+}
+
+/// @nodoc
+class __$$SearchUsersImplCopyWithImpl<$Res>
+    extends _$GetAllUsersEventCopyWithImpl<$Res, _$SearchUsersImpl>
+    implements _$$SearchUsersImplCopyWith<$Res> {
+  __$$SearchUsersImplCopyWithImpl(
+      _$SearchUsersImpl _value, $Res Function(_$SearchUsersImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$SearchUsersImpl(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchUsersImpl implements _SearchUsers {
+  const _$SearchUsersImpl({required this.query});
+
+  @override
+  final String query;
+
+  @override
+  String toString() {
+    return 'GetAllUsersEvent.searchUsers(query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchUsersImpl &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchUsersImplCopyWith<_$SearchUsersImpl> get copyWith =>
+      __$$SearchUsersImplCopyWithImpl<_$SearchUsersImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllUsers,
+    required TResult Function(String query) searchUsers,
+  }) {
+    return searchUsers(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllUsers,
+    TResult? Function(String query)? searchUsers,
+  }) {
+    return searchUsers?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllUsers,
+    TResult Function(String query)? searchUsers,
+    required TResult orElse(),
+  }) {
+    if (searchUsers != null) {
+      return searchUsers(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllUsers value) getAllUsers,
+    required TResult Function(_SearchUsers value) searchUsers,
+  }) {
+    return searchUsers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllUsers value)? getAllUsers,
+    TResult? Function(_SearchUsers value)? searchUsers,
+  }) {
+    return searchUsers?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllUsers value)? getAllUsers,
+    TResult Function(_SearchUsers value)? searchUsers,
+    required TResult orElse(),
+  }) {
+    if (searchUsers != null) {
+      return searchUsers(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchUsers implements GetAllUsersEvent {
+  const factory _SearchUsers({required final String query}) = _$SearchUsersImpl;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$$SearchUsersImplCopyWith<_$SearchUsersImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -8,6 +8,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/text_auth_widget.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/widgets/title_auth_widget.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 
 final _formKey = GlobalKey<FormState>();
@@ -39,6 +40,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                   context
                       .read<MyProfileInfoBloc>()
                       .add(const MyProfileInfoEvent.getMe());
+                  context.read<PostListBloc>().add(const PostListEvent.getPosts());
                 }
                 if (state is AuthError) {
                   ScaffoldMessenger.of(context).showSnackBar(

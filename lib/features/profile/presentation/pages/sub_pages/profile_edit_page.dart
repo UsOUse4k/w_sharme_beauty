@@ -230,6 +230,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                     aboutYourself: aboutYourself.text,
                                     city: location.text,
                                     username: username.text,
+                                    profilePictureUrl: avatarUrl,
                                   ),
                                 ),
                               );

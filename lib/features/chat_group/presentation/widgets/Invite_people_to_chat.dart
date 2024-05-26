@@ -11,10 +11,10 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/search_widget.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/filter_users_invite/filter_users_invite_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_people_chat_bloc/invite_people_chat_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_users_chat_group_bloc/invite_users_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class InvitePeopleToChat extends StatelessWidget {
@@ -31,8 +31,6 @@ class InvitePeopleToChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filterUsers =
-        users.where((e) => e.uid != firebaseAuth.currentUser!.uid).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: BlocBuilder<InvitePeopleChatBloc, InvitePeopleChatState>(
@@ -50,7 +48,13 @@ class InvitePeopleToChat extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SearchWidget(),
+                SearchWidget(
+                  onChanged: (value) {
+                    context
+                        .read<FilterUsersInviteBloc>()
+                        .add(FilterUsersInviteEvent.searchUsers(query: value));
+                  },
+                ),
                 const SizedBox(height: 10),
                 SizedBox(
                   height: 90,
@@ -72,18 +76,19 @@ class InvitePeopleToChat extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
-                  height: 240,
+                  height: 260.h,
                   child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) => _buildCheckboxUserCard(
                       index,
                       state.selectedUsers,
                       context,
-                      filterUsers,
                     ),
                     separatorBuilder: (buildContext, y) {
                       return const SizedBox(height: 10);
                     },
-                    itemCount: filterUsers.length,
+                    itemCount: users.length,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -117,9 +122,9 @@ class InvitePeopleToChat extends StatelessWidget {
     int index,
     List<UserProfile> selectedUsers,
     BuildContext context,
-    List<UserProfile> filterUsers,
+    //List<UserProfile> filterUsers,
   ) {
-    final user = filterUsers[index];
+    final user = users[index];
     final bool isSelected = selectedUsers.contains(user);
     return Row(
       key: ValueKey(user.uid),

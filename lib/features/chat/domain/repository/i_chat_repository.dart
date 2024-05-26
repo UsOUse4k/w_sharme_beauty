@@ -6,7 +6,10 @@ import 'package:w_sharme_beauty/features/chat/domain/entities/chat_room.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
 
 abstract class IChatRepository {
-  Future<Either<PostError, String>> createChatRoom({required String uid});
+  Future<Either<PostError, String>> createChatRoom({
+    required String uid,
+    required String receiverUsername,
+  });
   Future<Either<PostError, String?>> sendMessage({
     required String message,
     required String chatRoomId,
@@ -28,6 +31,6 @@ abstract class IChatRepository {
   Stream<List<Message>> getMessages({
     required String chatRoomId,
   });
-  
+
   Stream<List<ChatRoom>> getAllChats();
 }

@@ -5,5 +5,6 @@ class CommunityCommentCreateEvent with _$CommunityCommentCreateEvent {
   const factory CommunityCommentCreateEvent.addComment(
     Comment comment,
     String postId,
+    String communityId,
   ) = _AddComment;
 }

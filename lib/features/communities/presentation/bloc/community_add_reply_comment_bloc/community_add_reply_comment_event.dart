@@ -6,5 +6,6 @@ class CommunityAddReplyCommentEvent with _$CommunityAddReplyCommentEvent {
     Comment comment,
     String parentCommentId,
     String postId,
+    String communityId,
   ) = _AddReplyComment;
 }

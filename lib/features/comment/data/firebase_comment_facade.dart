@@ -13,7 +13,7 @@ class FirebaseCommentFacade implements ICommentRepository {
   FirebaseCommentFacade(this.firestore, this.auth);
 
   @override
-  Future<Either<PostError, Unit>> createComment({
+  Future<Either<PostError, Comment>> createComment({
     required Comment comment,
     required String postId,
     String? parentCommentId,
@@ -39,7 +39,7 @@ class FirebaseCommentFacade implements ICommentRepository {
             .doc(updatedComment.commentId)
             .set(updatedComment.toJson());
       }
-      return right(unit);
+      return right(updatedComment);
     } catch (e) {
       return left(PostError(e.toString()));
     }

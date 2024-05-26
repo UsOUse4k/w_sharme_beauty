@@ -11,6 +11,7 @@ part 'community_post_list_bloc.freezed.dart';
 @injectable
 class CommunityPostListBloc
     extends Bloc<CommunityPostListEvent, CommunityPostListState> {
+  List<Post>? allCommunityPost;
   CommunityPostListBloc(this._communityPostRepository)
       : super(const CommunityPostListState.initial()) {
     on<CommunityPostListEvent>((event, emit) async {
@@ -25,8 +26,24 @@ class CommunityPostListBloc
               emit(CommunityPostListState.error(message: error.messasge));
             },
             (posts) {
+              allCommunityPost = posts;
               emit(CommunityPostListState.success(posts));
             },
+          );
+        },
+        filterCommunityPost: (value) {
+          state.maybeWhen(
+            success: (posts) {
+              if (value.title.isEmpty) {
+                emit(CommunityPostListState.success(allCommunityPost!));
+              } else {
+                final filteredPost = allCommunityPost!
+                    .where((element) => element.category!.contains(value.title))
+                    .toList();
+                emit(CommunityPostListState.success(filteredPost));
+              }
+            },
+            orElse: () {},
           );
         },
         addPost: (event) async {

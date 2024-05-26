@@ -6,18 +6,18 @@ class FilterButtonWidget extends StatelessWidget {
   const FilterButtonWidget({
     super.key,
     required this.title,
-    required this.onPressed,
+    required this.onPressed, this.width,
   });
   final String title;
   final Function() onPressed;
-
+  final double? width;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: size.width * 0.28,
+        width: width ?? size.width * 0.28,
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColors.lightGrey,

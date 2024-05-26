@@ -10,7 +10,6 @@ import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_shimer.dart';
@@ -41,13 +40,11 @@ class _CommentItemCardState extends State<CommentItemCard> {
   @override
   void initState() {
     super.initState();
-    _isRepliesVisible = widget.item.replies == 1;
-    if (_isRepliesVisible) {
-      getRepliesComment();
-    }
+    
     setState(() {
       isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
+      _isRepliesVisible = widget.item.replies == 1;
     });
   }
 
@@ -105,19 +102,13 @@ class _CommentItemCardState extends State<CommentItemCard> {
       listener: (context, state) {
         state.maybeWhen(
           success: (comment) {
-            context.read<ReplyCommentListBloc>().add(
-                  ReplyCommentListEvent.getReplyComments(
-                    postId: widget.postId,
-                    parentCommentId: widget.item.commentId.toString(),
-                  ),
-                );
+            context
+                .read<ReplyCommentListBloc>()
+                .add(ReplyCommentListEvent.addNewComments(comment));
             context
                 .read<ParentCommentIdBloc>()
                 .add(const ParentCommentIdEvent.addParentCommentId('', ''));
             context.read<PostListBloc>().add(const PostListEvent.getPosts());
-            context
-                .read<CommentListBloc>()
-                .add(CommentListEvent.getComments(postId: widget.postId));
           },
           orElse: () {},
         );
@@ -131,7 +122,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
               Flexible(
                 child: InkWell(
                   onTap: () {
-                    context.push('/home/${RouterContants.profilePersonPage}/${widget.item.uid}');
+                    context.push(
+                        '/home/${RouterContants.profilePersonPage}/${widget.item.uid}');
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
@@ -188,6 +180,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
                 return state.maybeWhen(
                   loading: () {
                     return ListView.separated(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => const CommentShimer(),
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 6,
@@ -195,19 +189,20 @@ class _CommentItemCardState extends State<CommentItemCard> {
                       itemCount: 8,
                     );
                   },
-                  success: (replies) {
-                    return Column(
-                      children: replies.map((reply) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 6),
-                          child: CommentItemReplyCard(
-                            onPressed: () {},
-                            item: reply,
-                            postId: widget.postId,
-                            parentCommentId: widget.item.commentId.toString(),
-                          ),
-                        );
-                      }).toList(),
+                  success: (comments) {
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => CommentItemReplyCard(
+                        onPressed: () {},
+                        item: comments[index],
+                        postId: widget.postId,
+                        parentCommentId: widget.item.commentId.toString(),
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 6,
+                      ),
+                      itemCount: comments.length,
                     );
                   },
                   orElse: () => Container(),

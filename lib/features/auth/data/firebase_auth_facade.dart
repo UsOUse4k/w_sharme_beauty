@@ -247,6 +247,18 @@ class FirebaseAuthFacade implements IAuthFacade {
               {'followers': targetUserFollowers},
             );
           }
+          final querySnapshot = await _firestore
+              .collection('posts')
+              .where('authorId', isEqualTo: targetUserUid)
+              .get();
+          for (final doc in querySnapshot.docs) {
+            final List<dynamic> postFollowers =
+                doc.data()['followers'] as List<dynamic>? ?? [];
+            if (!postFollowers.contains(currentUid)) {
+              postFollowers.add(currentUid);
+              transaction.update(doc.reference, {'followers': postFollowers});
+            }
+          }
         },
       );
       return right(SubscriptionResult(isSubscribed: true));
@@ -300,6 +312,18 @@ class FirebaseAuthFacade implements IAuthFacade {
             targetUserDoc,
             {'followers': targetUserFollowers},
           );
+          final querySnapshot = await _firestore
+              .collection('posts')
+              .where('authorId', isEqualTo: targetUserUid)
+              .get();
+          for (final doc in querySnapshot.docs) {
+            final List<dynamic> postFollowers =
+                doc.data()['followers'] as List<dynamic>? ?? [];
+            if (postFollowers.contains(currentUid)) {
+              postFollowers.remove(currentUid);
+              transaction.update(doc.reference, {'followers': postFollowers});
+            }
+          }
         },
       );
       return right(SubscriptionResult(isSubscribed: false));

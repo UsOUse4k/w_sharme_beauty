@@ -23,6 +23,7 @@ mixin _$Community {
   String? get communityId => throw _privateConstructorUsedError;
   String? get uid => throw _privateConstructorUsedError;
   String? get chatGroupId => throw _privateConstructorUsedError;
+  String? get chatGroupName => throw _privateConstructorUsedError;
   String? get communityName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $CommunityCopyWith<$Res> {
       {String? communityId,
       String? uid,
       String? chatGroupId,
+      String? chatGroupName,
       String? communityName,
       String? description,
       String? category,
@@ -77,6 +79,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? communityId = freezed,
     Object? uid = freezed,
     Object? chatGroupId = freezed,
+    Object? chatGroupName = freezed,
     Object? communityName = freezed,
     Object? description = freezed,
     Object? category = freezed,
@@ -100,6 +103,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
       chatGroupId: freezed == chatGroupId
           ? _value.chatGroupId
           : chatGroupId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chatGroupName: freezed == chatGroupName
+          ? _value.chatGroupName
+          : chatGroupName // ignore: cast_nullable_to_non_nullable
               as String?,
       communityName: freezed == communityName
           ? _value.communityName
@@ -157,6 +164,7 @@ abstract class _$$CommunityImplCopyWith<$Res>
       {String? communityId,
       String? uid,
       String? chatGroupId,
+      String? chatGroupName,
       String? communityName,
       String? description,
       String? category,
@@ -183,6 +191,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? communityId = freezed,
     Object? uid = freezed,
     Object? chatGroupId = freezed,
+    Object? chatGroupName = freezed,
     Object? communityName = freezed,
     Object? description = freezed,
     Object? category = freezed,
@@ -206,6 +215,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
       chatGroupId: freezed == chatGroupId
           ? _value.chatGroupId
           : chatGroupId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      chatGroupName: freezed == chatGroupName
+          ? _value.chatGroupName
+          : chatGroupName // ignore: cast_nullable_to_non_nullable
               as String?,
       communityName: freezed == communityName
           ? _value.communityName
@@ -258,6 +271,7 @@ class _$CommunityImpl implements _Community {
       {this.communityId,
       this.uid,
       this.chatGroupId,
+      this.chatGroupName,
       this.communityName,
       this.description,
       this.category,
@@ -281,6 +295,8 @@ class _$CommunityImpl implements _Community {
   final String? uid;
   @override
   final String? chatGroupId;
+  @override
+  final String? chatGroupName;
   @override
   final String? communityName;
   @override
@@ -335,7 +351,7 @@ class _$CommunityImpl implements _Community {
 
   @override
   String toString() {
-    return 'Community(communityId: $communityId, uid: $uid, chatGroupId: $chatGroupId, communityName: $communityName, description: $description, category: $category, administrator: $administrator, editors: $editors, avatarUrls: $avatarUrls, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Community(communityId: $communityId, uid: $uid, chatGroupId: $chatGroupId, chatGroupName: $chatGroupName, communityName: $communityName, description: $description, category: $category, administrator: $administrator, editors: $editors, avatarUrls: $avatarUrls, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -348,6 +364,8 @@ class _$CommunityImpl implements _Community {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.chatGroupId, chatGroupId) ||
                 other.chatGroupId == chatGroupId) &&
+            (identical(other.chatGroupName, chatGroupName) ||
+                other.chatGroupName == chatGroupName) &&
             (identical(other.communityName, communityName) ||
                 other.communityName == communityName) &&
             (identical(other.description, description) ||
@@ -375,6 +393,7 @@ class _$CommunityImpl implements _Community {
       communityId,
       uid,
       chatGroupId,
+      chatGroupName,
       communityName,
       description,
       category,
@@ -405,6 +424,7 @@ abstract class _Community implements Community {
       {final String? communityId,
       final String? uid,
       final String? chatGroupId,
+      final String? chatGroupName,
       final String? communityName,
       final String? description,
       final String? category,
@@ -425,6 +445,8 @@ abstract class _Community implements Community {
   String? get uid;
   @override
   String? get chatGroupId;
+  @override
+  String? get chatGroupName;
   @override
   String? get communityName;
   @override

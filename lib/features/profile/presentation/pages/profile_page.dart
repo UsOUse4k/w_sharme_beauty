@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -35,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
+    context.read<CategoryBloc>().add(const CategoryEvent.loadCategories());
   }
 
   @override
@@ -75,15 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: BlocConsumer<MyProfileInfoBloc, MyProfileInfoState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                succes: (user) {
-                  context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
-                },
-                orElse: () {},
-              );
-            },
+          child: BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
             builder: (context, state) {
               return state.maybeWhen(
                 error: () => const Center(
@@ -160,9 +155,36 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: StoriesWidget(storiesModel: storiesModel),
+                      BlocBuilder<CategoryBloc, CategoryState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            loading: () {
+                              return SizedBox(
+                                height: 100.h,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) =>
+                                      const CategoryShimmer(),
+                                  itemCount: 5,
+                                ),
+                              );
+                            },
+                            success: (categories) {
+                              return CategoryList(
+                                category: categories,
+                                onFilterCategories: (value) {
+                                  context.read<MyPostListBloc>().add(
+                                        MyPostListEvent.filterPost(
+                                          value: value.title.toString(),
+                                        ),
+                                      );
+                                },
+                              );
+                            },
+                            orElse: () => Container(),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 10,

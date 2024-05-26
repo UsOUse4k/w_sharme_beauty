@@ -1,15 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
     super.key,
     this.navbarTitle,
-
     required this.widget,
     this.maxHeight,
   });
@@ -51,15 +47,27 @@ class CustomBottomSheet extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if(navbarTitle != null) Text(
-                        navbarTitle!,
-                        style: AppStyles.w500f18.copyWith(
-                          fontWeight: FontWeight.w700,
+                      if (navbarTitle != null)
+                        Text(
+                          navbarTitle!,
+                          style: AppStyles.w500f18.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: Assets.svgs.close.svg(),
+                        child: Container(
+                          width: 16,
+                          height: 16,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: AppColors.lightGrey,
+                          ),
+                          child: const Icon(
+                            Icons.close_sharp,
+                            size: 10,
+                          ),
+                        ),
                       ),
                     ],
                   ),
