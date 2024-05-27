@@ -33,18 +33,18 @@ class CommentItemCard extends StatefulWidget {
 }
 
 class _CommentItemCardState extends State<CommentItemCard> {
-  bool _isRepliesVisible = false;
   int likeCount = 0;
   bool isLiked = false;
+  Map<String, bool> repliesVisibility = {};
 
   @override
   void initState() {
     super.initState();
-    
+
     setState(() {
       isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
-      _isRepliesVisible = widget.item.replies == 1;
+      repliesVisibility[widget.item.commentId.toString()] = false;
     });
   }
 
@@ -73,25 +73,22 @@ class _CommentItemCardState extends State<CommentItemCard> {
     });
   }
 
-  void getRepliesComment() => {
-        if (widget.item.commentId != null)
-          {
-            context.read<ReplyCommentListBloc>().add(
-                  ReplyCommentListEvent.getReplyComments(
-                    postId: widget.postId,
-                    parentCommentId: widget.item.commentId.toString(),
-                  ),
-                ),
-          },
+  void getRepliesComment(String commentId) => {
+        context.read<ReplyCommentListBloc>().add(
+              ReplyCommentListEvent.getReplyComments(
+                postId: widget.postId,
+                parentCommentId: commentId,
+              ),
+            ),
       };
 
-  void _toggleReplies() {
+  void toggleRepliesVisibility(String commentId) {
     setState(() {
-      _isRepliesVisible = !_isRepliesVisible;
+      repliesVisibility[commentId] = !repliesVisibility[commentId]!;
+      if (repliesVisibility[commentId] ?? false) {
+        getRepliesComment(commentId);
+      }
     });
-    if (_isRepliesVisible) {
-      getRepliesComment();
-    }
   }
 
   @override
@@ -123,7 +120,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
                 child: InkWell(
                   onTap: () {
                     context.push(
-                        '/home/${RouterContants.profilePersonPage}/${widget.item.uid}');
+                      '/home/${RouterContants.profilePersonPage}/${widget.item.uid}',
+                    );
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
@@ -161,21 +159,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
               ),
             ],
           ),
-          if (_isRepliesVisible)
-            BlocConsumer<ReplyCommentListBloc, ReplyCommentListState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  success: (comments) {
-                    _isRepliesVisible = true;
-                    setState(() {});
-                  },
-                  error: (error) {
-                    _isRepliesVisible = false;
-                    setState(() {});
-                  },
-                  orElse: () {},
-                );
-              },
+          if (repliesVisibility[widget.item.commentId.toString()] ?? false)
+            BlocBuilder<ReplyCommentListBloc, ReplyCommentListState>(
               builder: (context, state) {
                 return state.maybeWhen(
                   loading: () {
@@ -214,7 +199,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
             Padding(
               padding: const EdgeInsets.only(left: 50, top: 25),
               child: InkWell(
-                onTap: _toggleReplies,
+                onTap: () =>
+                    toggleRepliesVisibility(widget.item.commentId.toString()),
                 child: Row(
                   children: [
                     Container(
@@ -226,7 +212,8 @@ class _CommentItemCardState extends State<CommentItemCard> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      _isRepliesVisible
+                      repliesVisibility[widget.item.commentId.toString()] ??
+                              false
                           ? 'Скрыть ответы'
                           : 'Смотреть  ${widget.item.replies} ответов',
                     ),

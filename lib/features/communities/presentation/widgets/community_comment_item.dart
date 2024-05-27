@@ -7,7 +7,6 @@ import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_shimer.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_likes_bloc/community_comment_likes_bloc.dart';
@@ -37,18 +36,14 @@ class CommunityCommentItemCard extends StatefulWidget {
 }
 
 class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
-  bool _isRepliesVisible = false;
   int likeCount = 0;
   bool isLiked = false;
-  Map<String, bool> repliesVisibility = {};
   @override
   void initState() {
     super.initState();
-
     setState(() {
       isLiked = widget.item.likes.contains(widget.currentUid);
       likeCount = widget.item.likes.length;
-      _isRepliesVisible = widget.item.replies > 0;
     });
   }
 
@@ -78,28 +73,6 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
     setState(() {
       isLiked = !isLiked;
     });
-  }
-
-  void getRepliesComment(String id) => {
-        if (widget.item.commentId != null)
-          {
-            context.read<CommunityReplyCommentListBloc>().add(
-                  CommunityReplyCommentListEvent.getCommunityReplyComments(
-                    postId: widget.postId,
-                    parentCommentId: id,
-                    communityId: widget.communityId,
-                  ),
-                ),
-          },
-      };
-
-  void _toggleReplies(String id) {
-    setState(() {
-      _isRepliesVisible = !_isRepliesVisible;
-    });
-    if (_isRepliesVisible) {
-      getRepliesComment(id);
-    }
   }
 
   @override
@@ -176,83 +149,12 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
               ),
             ],
           ),
-          if (_isRepliesVisible)
-            BlocConsumer<CommunityReplyCommentListBloc,
-                CommunityReplyCommentListState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  success: (comments) {
-                    _isRepliesVisible = true;
-                    setState(() {});
-                  },
-                  error: (error) {
-                    _isRepliesVisible = false;
-                    setState(() {});
-                  },
-                  orElse: () {},
-                );
-              },
-              builder: (context, state) {
-                return state.maybeWhen(
-                  loading: () {
-                    return ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const CommentShimer(),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 6,
-                      ),
-                      itemCount: 8,
-                    );
-                  },
-                  success: (comments) {
-                    return ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) =>
-                          CommunityCommentItemReplyCard(
-                        item: comments[index],
-                        key: ValueKey(comments[index].commentId),
-                        onPressed: () {},
-                        parentCommentId: widget.item.commentId.toString(),
-                        postId: widget.postId,
-                        communityId: widget.communityId,
-                      ),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 6,
-                      ),
-                      itemCount: comments.length,
-                    );
-                  },
-                  orElse: () => Container(),
-                );
-              },
-            ),
-          //if (widget.item)
-          if (widget.item.replies != 0)
-            Padding(
-              padding: const EdgeInsets.only(left: 50, top: 25),
-              child: InkWell(
-                onTap: () => _toggleReplies(widget.item.commentId.toString()),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 2,
-                      decoration: const BoxDecoration(
-                        color: AppColors.lightGrey,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      _isRepliesVisible
-                          ? 'Скрыть ответы'
-                          : 'Смотреть  ${widget.item.replies} ответов',
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          CommunityCommentReplyList(
+            key: ValueKey(widget.item.commentId),
+            postId: widget.postId,
+            communityId: widget.communityId,
+            item: widget.item,
+          ),
           const SizedBox(height: 8),
         ],
       ),

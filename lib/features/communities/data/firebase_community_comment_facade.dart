@@ -103,9 +103,9 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
             .doc(postId)
             .collection('comments');
       }
-      if (lastDocSnapshot != null) {
-        query = query.startAfterDocument(lastDocSnapshot);
-      }
+      //if (lastDocSnapshot != null) {
+      //  query = query.startAfterDocument(lastDocSnapshot);
+      //}
       final querySnapshot = await query.get();
       final comments = querySnapshot.docs
           .map((doc) => Comment.fromJson(doc.data()))
