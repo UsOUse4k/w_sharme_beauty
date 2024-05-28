@@ -21,7 +21,6 @@ class CommentListBloc extends Bloc<CommentListEvent, CommentListState> {
           result.fold((error) {
             emit(CommentListState.error(error: error.messasge));
           }, (comments) {
-            //print('comments $comments');
             emit(CommentListState.success(comments));
           });
         },

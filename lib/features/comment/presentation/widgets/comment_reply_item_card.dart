@@ -106,6 +106,7 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
                 child: Column(
                   children: [
                     CommentItemText(
+                      key: ValueKey(widget.item.commentId),
                       username: widget.item.username.toString(),
                       comment: widget.item.comment.toString(),
                       data: formattedDate,

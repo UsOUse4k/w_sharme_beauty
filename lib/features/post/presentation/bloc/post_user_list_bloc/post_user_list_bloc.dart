@@ -10,6 +10,7 @@ part 'post_user_list_bloc.freezed.dart';
 
 @injectable
 class PostUserListBloc extends Bloc<PostUserListEvent, PostUserListState> {
+  List<Post>? allPosts;
   PostUserListBloc(this._postRepository) : super(const _Initial()) {
     on<PostUserListEvent>((event, emit) async {
       await event.maybeWhen(
@@ -20,10 +21,21 @@ class PostUserListBloc extends Bloc<PostUserListEvent, PostUserListState> {
             await result.fold((error) async {
               emit(PostUserListState.error(message: error.messasge));
             }, (posts) {
+              allPosts = posts;
               emit(PostUserListState.success(posts));
             });
           } catch (e) {
             emit(PostUserListState.error(message: e.toString()));
+          }
+        },
+        filterPost: (event) {
+          if (event.isEmpty) {
+            emit(PostUserListState.success(allPosts!));
+          } else {
+            final filterPosts = allPosts!
+                .where((element) => element.category!.contains(event))
+                .toList();
+            emit(PostUserListState.success(filterPosts));
           }
         },
         addNewPosts: (post) {

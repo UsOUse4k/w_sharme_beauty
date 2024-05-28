@@ -64,4 +64,20 @@ class FirebaseProfileFacade implements IProfileInfoRepository {
   final FirebaseFirestore firestore;
   final FirebaseAuth auth;
   final FirebaseStorage storage;
+
+  @override
+  Future<Either<PostError, Unit>> updateNewEmail({
+    required String email,
+  }) async {
+    try {
+     final User? user = auth.currentUser;
+      if(user != null) {
+        // ignore: deprecated_member_use
+        await user.updateEmail(email);
+      }
+      return right(unit);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

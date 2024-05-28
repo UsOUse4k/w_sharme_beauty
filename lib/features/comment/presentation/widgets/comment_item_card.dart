@@ -40,7 +40,7 @@ class _CommentItemCardState extends State<CommentItemCard> {
   @override
   void initState() {
     super.initState();
-
+    //getRepliesComment(widget.item.commentId.toString());
     setState(() {
       isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
@@ -74,6 +74,7 @@ class _CommentItemCardState extends State<CommentItemCard> {
   }
 
   void getRepliesComment(String commentId) => {
+    //print(commentId)
         context.read<ReplyCommentListBloc>().add(
               ReplyCommentListEvent.getReplyComments(
                 postId: widget.postId,
@@ -140,6 +141,7 @@ class _CommentItemCardState extends State<CommentItemCard> {
                 child: Column(
                   children: [
                     CommentItemText(
+                      key: ValueKey(widget.item.commentId),
                       username: widget.item.username ?? '',
                       comment: widget.item.comment ?? '',
                       data: formattedDate,
@@ -171,19 +173,26 @@ class _CommentItemCardState extends State<CommentItemCard> {
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 6,
                       ),
-                      itemCount: 8,
+                      itemCount: state.maybeWhen(
+                        orElse: () => 0,
+                        success: (comments) => comments.length,
+                      ),
                     );
                   },
                   success: (comments) {
                     return ListView.separated(
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => CommentItemReplyCard(
-                        onPressed: () {},
-                        item: comments[index],
-                        postId: widget.postId,
-                        parentCommentId: widget.item.commentId.toString(),
-                      ),
+                      itemBuilder: (context, index) {
+                        final item = comments[index];
+                        return CommentItemReplyCard(
+                          onPressed: () {},
+                          item: item,
+                          postId: widget.postId,
+                          key: ValueKey(item.commentId),
+                          parentCommentId: widget.item.commentId.toString(),
+                        );
+                      },
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 6,
                       ),

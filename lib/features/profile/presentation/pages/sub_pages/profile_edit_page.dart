@@ -7,8 +7,10 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/%D1%81ategory_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
@@ -62,6 +64,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               listener: (context, state) {
                 state.maybeWhen(
                   succes: (user) {
+                    if (user.category != null && user.category!.isNotEmpty) {
+                      context
+                          .read<CategoryListBloc>()
+                          .add(CategoryListEvent.loaded(user.category!));
+                    }
                     themeText.text = user.theme ?? '';
                     username.text = user.username ?? '';
                     location.text = user.city ?? '';
@@ -173,17 +180,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFieldWidgetWithTitle(
-                      title: 'Чем вы занимаетесь?',
-                      hintText: 'Выберите категорию',
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.expand_more,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ),
+                    const CategoryBottomSheet(),
                     const SizedBox(
                       height: 10,
                     ),
@@ -207,34 +204,42 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    GlButton(
-                      text: isLoading ? 'Сохранение...' : 'Сохранить изменения',
-                      onPressed: () {
-                        if (avatar != null && avatar!.isNotEmpty) {
-                          context.read<ProfileInfoUpdateBloc>().add(
-                                ProfileInfoUpdateEvent.update(
-                                  UserProfile(
-                                    theme: themeText.text,
-                                    aboutYourself: aboutYourself.text,
-                                    city: location.text,
-                                    username: username.text,
-                                  ),
-                                  avatar: avatar,
-                                ),
-                              );
-                        } else {
-                          context.read<ProfileInfoUpdateBloc>().add(
-                                ProfileInfoUpdateEvent.update(
-                                  UserProfile(
-                                    theme: themeText.text,
-                                    aboutYourself: aboutYourself.text,
-                                    city: location.text,
-                                    username: username.text,
-                                    profilePictureUrl: avatarUrl,
-                                  ),
-                                ),
-                              );
-                        }
+                    BlocBuilder<CategoryListBloc, CategoryListState>(
+                      builder: (context, state) {
+                        return GlButton(
+                          text: isLoading
+                              ? 'Сохранение...'
+                              : 'Сохранить изменения',
+                          onPressed: () {
+                            if (avatar != null && avatar!.isNotEmpty) {
+                              context.read<ProfileInfoUpdateBloc>().add(
+                                    ProfileInfoUpdateEvent.update(
+                                      UserProfile(
+                                        theme: themeText.text,
+                                        aboutYourself: aboutYourself.text,
+                                        city: location.text,
+                                        username: username.text,
+                                        category: state.selectedTitle,
+                                      ),
+                                      avatar: avatar,
+                                    ),
+                                  );
+                            } else {
+                              context.read<ProfileInfoUpdateBloc>().add(
+                                    ProfileInfoUpdateEvent.update(
+                                      UserProfile(
+                                        theme: themeText.text,
+                                        aboutYourself: aboutYourself.text,
+                                        city: location.text,
+                                        username: username.text,
+                                        profilePictureUrl: avatarUrl,
+                                        category: state.selectedTitle,
+                                      ),
+                                    ),
+                                  );
+                            }
+                          },
+                        );
                       },
                     ),
                     const SizedBox(

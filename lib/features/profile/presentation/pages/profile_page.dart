@@ -157,6 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       BlocBuilder<CategoryBloc, CategoryState>(
                         builder: (context, state) {
+                          
                           return state.maybeWhen(
                             loading: () {
                               return SizedBox(
@@ -171,8 +172,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               );
                             },
                             success: (categories) {
+                              final filterCategories = categories.where((element) => user.category!.contains(element.title),).toList();
                               return CategoryList(
-                                category: categories,
+                                category: filterCategories,
                                 onFilterCategories: (value) {
                                   context.read<MyPostListBloc>().add(
                                         MyPostListEvent.filterPost(

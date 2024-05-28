@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 
 part 'comment_create_event.dart';
 part 'comment_create_state.dart';
@@ -17,7 +16,6 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
   CommentCreateBloc(
     this._repository,
     this._authFacade,
-    this._listBloc,
   ) : super(const _Initial()) {
     on<CommentCreateEvent>((event, emit) async {
       await event.maybeMap(
@@ -29,8 +27,7 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
               emit(const CommentCreateState.error());
             },
             (user) async {
-              final userData =
-                  await _authFacade.getMeInfo(user.uid);
+              final userData = await _authFacade.getMeInfo(user.uid);
               await userData.fold((l) async {
                 emit(const CommentCreateState.error());
               }, (data) async {
@@ -51,10 +48,7 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
                     emit(const CommentCreateState.error()),
                   },
                   (comment) async {
-                    _listBloc.add(
-                      CommentListEvent.getComments(postId: event.postId),
-                    );
-                    emit(CommentCreateState.success(updateComment));
+                    emit(CommentCreateState.success(comment));
                     await _repository.updateCountsComment(postId: event.postId);
                   },
                 );
@@ -69,5 +63,4 @@ class CommentCreateBloc extends Bloc<CommentCreateEvent, CommentCreateState> {
 
   final ICommentRepository _repository;
   final IAuthFacade _authFacade;
-  final CommentListBloc _listBloc;
 }

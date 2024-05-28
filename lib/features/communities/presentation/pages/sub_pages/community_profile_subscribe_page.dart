@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
@@ -245,11 +246,11 @@ class _CommunityProfileSubscribePageState
                   return CategoryList(
                     category: categories,
                     onFilterCategories: (category) {
-                      //context.read<CommunityPostListBloc>().add(
-                      //      CommunityPostListEvent.filterCommunityPost(
-                      //        title: category.title.toString(),
-                      //      ),
-                      //    );
+                      context.read<CommunityPostListBloc>().add(
+                            CommunityPostListEvent.filterCommunityPost(
+                              title: category.title.toString(),
+                            ),
+                          );
                     },
                   );
                 },
@@ -259,15 +260,25 @@ class _CommunityProfileSubscribePageState
           ),
           ForTheUserButtonsWidget(
             isSubscribe: isSubscribe,
-            onPressedSubscribe: () => toggleSubscribe(
-              community.communityId.toString(),
-              community.chatGroupId.toString(),
-              currentUid,
-            ),
+            onPressedSubscribe: () {
+              if (community.chatGroupId != null) {
+                toggleSubscribe(
+                  community.communityId.toString(),
+                  community.chatGroupId.toString(),
+                  currentUid,
+                );
+              } else {
+                showMyDialog(context, "Чат группы не создан!");
+              }
+            },
             onPressed: () {
-              context.push(
-                '/communities/community-profile-subscribe/${widget.communityId}/chatGroupMessages/${community.chatGroupId}/${widget.communityId}',
-              );
+              if (community.chatGroupId != null) {
+                context.push(
+                  '/communities/community-profile-subscribe/${widget.communityId}/chatGroupMessages/${community.chatGroupId}/${widget.communityId}',
+                );
+              } else {
+                showMyDialog(context, "Чат группы не создан!");
+              }
             },
           ),
         ],

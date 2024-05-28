@@ -13,6 +13,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/beauty_list_widget.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/my_beauty_list_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 const List<String> communityList = ['Мои сообщества', 'Все сообщества'];
@@ -56,19 +57,33 @@ class _CommunitiesPageState extends State<CommunitiesPage>
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(
-        leading: Row(
-          children: [
-            GlCircleAvatar(
-              avatar: Assets.images.avatar.path,
-              width: 26,
-              height: 26,
-            ),
-            const SizedBox(width: 16),
-            Text(
-              'Сообщество',
-              style: AppStyles.w500f18,
-            ),
-          ],
+        leading: BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              succes: (user) {
+                return Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(13),
+                      ),
+                      child: GlCachedNetworImage(
+                        height: 26.h,
+                        width: 26.w,
+                        urlImage: user.profilePictureUrl,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      'Сообщество',
+                      style: AppStyles.w500f18,
+                    ),
+                  ],
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
         ),
         action: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -119,10 +134,10 @@ class _CommunitiesPageState extends State<CommunitiesPage>
                       return state.maybeWhen(
                         success: (categories) {
                           final categoyList = categories
-                          .map((e) => e.title)
-                          .where((element) => element != null)
-                          .map((element) => element!)
-                          .toList();
+                              .map((e) => e.title)
+                              .where((element) => element != null)
+                              .map((element) => element!)
+                              .toList();
                           return Row(
                             children: [
                               FilterButtonWidget(

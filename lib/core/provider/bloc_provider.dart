@@ -54,8 +54,10 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/p
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/update_new_email_bloc/update_new_email_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
@@ -227,6 +229,9 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<CategoryBloc>(
           create: (context) => getIt<CategoryBloc>(),
         ),
+        BlocProvider<CategoryListBloc>(
+          create: (context) => getIt<CategoryListBloc>(),
+        ),
         BlocProvider<GetAdminsSortedBloc>(
           create: (context) => getIt<GetAdminsSortedBloc>(),
         ),
@@ -253,6 +258,9 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommunityReplyCommentListBloc>(
           create: (context) => getIt<CommunityReplyCommentListBloc>(),
+        ),
+        BlocProvider<UpdateNewEmailBloc>(
+          create: (context) => getIt<UpdateNewEmailBloc>(),
         ),
       ],
       child: child,
