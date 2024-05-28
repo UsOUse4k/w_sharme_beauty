@@ -16,21 +16,38 @@ class ReplyCommentListBloc
       await event.maybeWhen(
         getReplyComments: (postId, parentCommentId) async {
           emit(const ReplyCommentListState.loading());
-          final result = await _commentRepository.getComments(
-            postId: postId,
-            parentCommentId: parentCommentId,
-          );
-          await result.fold((error) {
-            emit(ReplyCommentListState.error(error: error.messasge));
-          }, (comments) async {
-            emit(ReplyCommentListState.success(comments));
-          });
+          try {
+            final result = await _commentRepository.getComments(
+              postId: postId,
+              parentCommentId: parentCommentId,
+            );
+            await result.fold((error) {
+              emit(ReplyCommentListState.error(error: error.messasge));
+            }, (comments) async {
+              final currentReplies = state.maybeMap(
+                success: (s) => Map<String, List<Comment>>.from(s.comments),
+                orElse: () => <String, List<Comment>>{},
+              );
+              currentReplies[parentCommentId] = comments;
+              emit(ReplyCommentListState.success(currentReplies));
+            });
+          } catch (e) {
+            emit(ReplyCommentListState.error(error: e.toString()));
+          }
         },
         addNewComments: (comment) {
           state.maybeWhen(
-            success: (comments) {
-              final data = [comment, ...comments];
-              emit(ReplyCommentListState.success(data));
+            success: (commentsMap) {
+              final parentId =
+                  comment.parentCommentId; // ID родительского комментария
+              final List<Comment> updatedComments = [
+                comment,
+                ...commentsMap[parentId] ?? [],
+              ];
+              commentsMap[parentId!] = updatedComments;
+              emit(
+                ReplyCommentListState.success(commentsMap),
+              );
             },
             orElse: () {},
           );

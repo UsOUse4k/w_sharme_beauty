@@ -41,7 +41,6 @@ class _CommentListState extends State<CommentList> {
           listener: (context, state) {
             state.maybeWhen(
               success: (comment) {
-                print(comment);
                 context
                     .read<CommentListBloc>()
                     .add(CommentListEvent.addNewComments(comment));

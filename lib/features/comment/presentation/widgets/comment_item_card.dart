@@ -40,12 +40,15 @@ class _CommentItemCardState extends State<CommentItemCard> {
   @override
   void initState() {
     super.initState();
-    //getRepliesComment(widget.item.commentId.toString());
     setState(() {
       isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
-      repliesVisibility[widget.item.commentId.toString()] = false;
+      repliesVisibility[widget.item.commentId.toString()] =
+          widget.item.replies > 0;
     });
+    if (widget.item.replies > 0) {
+      toggleRepliesVisibility(widget.item.commentId.toString());
+    }
   }
 
   void toggleIsLiked() {
@@ -74,7 +77,6 @@ class _CommentItemCardState extends State<CommentItemCard> {
   }
 
   void getRepliesComment(String commentId) => {
-    //print(commentId)
         context.read<ReplyCommentListBloc>().add(
               ReplyCommentListEvent.getReplyComments(
                 postId: widget.postId,
@@ -106,7 +108,6 @@ class _CommentItemCardState extends State<CommentItemCard> {
             context
                 .read<ParentCommentIdBloc>()
                 .add(const ParentCommentIdEvent.addParentCommentId('', ''));
-            context.read<PostListBloc>().add(const PostListEvent.getPosts());
           },
           orElse: () {},
         );
@@ -180,11 +181,13 @@ class _CommentItemCardState extends State<CommentItemCard> {
                     );
                   },
                   success: (comments) {
+                    final replies = comments[widget.item.commentId] ?? [];
                     return ListView.separated(
+                      key: ValueKey(widget.item.commentId),
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        final item = comments[index];
+                        final item = replies[index];
                         return CommentItemReplyCard(
                           onPressed: () {},
                           item: item,
@@ -196,7 +199,7 @@ class _CommentItemCardState extends State<CommentItemCard> {
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 6,
                       ),
-                      itemCount: comments.length,
+                      itemCount: replies.length,
                     );
                   },
                   orElse: () => Container(),
