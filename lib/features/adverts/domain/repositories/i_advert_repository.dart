@@ -4,14 +4,14 @@ import 'package:dartz/dartz.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/entities/entities.dart';
 
-abstract class ICreateAdvartRepository {
+abstract class IAdvartRepository {
   Future<Either<PostError, Unit>> createAdvert(
-    CreateAdvert createAdvert,
+    Advert createAdvert,
     List<Uint8List> imageFiles,
     String saloonName,
     String? avatarUrl,
   );
-  Future<Either<PostError, List<CreateAdvert>>> getCreateAdverts({
+  Future<Either<PostError, List<Advert>>> getCreateAdverts({
     String? userId,
   });
   Future<Either<PostError, Unit>> updateLikes(
@@ -19,7 +19,7 @@ abstract class ICreateAdvartRepository {
     String authorId,
     bool add,
   );
-  Future<Either<PostError, CreateAdvert>> getCreateAdvert(
+  Future<Either<PostError, Advert>> getCreateAdvert(
     String advertId,
     String? userId,
   );

@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_advert.dart';
+part of 'advert.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CreateAdvertImpl _$$CreateAdvertImplFromJson(Map<String, dynamic> json) =>
-    _$CreateAdvertImpl(
+_$AdvertImpl _$$AdvertImplFromJson(Map<String, dynamic> json) => _$AdvertImpl(
       authorId: json['authorId'] as String?,
       advertId: json['advertId'] as String?,
       sloonName: json['sloonName'] as String?,
@@ -35,7 +34,7 @@ _$CreateAdvertImpl _$$CreateAdvertImplFromJson(Map<String, dynamic> json) =>
       createdAt: json['createdAt'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$CreateAdvertImplToJson(_$CreateAdvertImpl instance) =>
+Map<String, dynamic> _$$AdvertImplToJson(_$AdvertImpl instance) =>
     <String, dynamic>{
       'authorId': instance.authorId,
       'advertId': instance.advertId,

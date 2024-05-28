@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'create_advert.freezed.dart';
-part 'create_advert.g.dart';
+part 'advert.freezed.dart';
+part 'advert.g.dart';
 
 @freezed
-class CreateAdvert with _$CreateAdvert {
-  const factory CreateAdvert({
+class Advert with _$Advert {
+  const factory Advert({
     String? authorId,
     String? advertId,
     String? sloonName,
@@ -23,13 +23,12 @@ class CreateAdvert with _$CreateAdvert {
     @Default([]) List<String> reposts,
     @Default(false) bool isFavorite,
     @Default('') String? createdAt,
-  }) = _CreateAdvert;
+  }) = _Advert;
 
-  factory CreateAdvert.fromJson(Map<String, dynamic> json) =>
-      _$CreateAdvertFromJson(json);
+  factory Advert.fromJson(Map<String, dynamic> json) => _$AdvertFromJson(json);
 
-  factory CreateAdvert.fromStoreData(Map<String, dynamic> firestoreData) {
-    return CreateAdvert(
+  factory Advert.fromStoreData(Map<String, dynamic> firestoreData) {
+    return Advert(
       authorId: firestoreData['authorId'] as String?,
       avatarUrl: firestoreData['avatarUrl'] as String?,
       sloonName: firestoreData['username'] as String?,
