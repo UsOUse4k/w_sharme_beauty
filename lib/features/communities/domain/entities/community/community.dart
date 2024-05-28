@@ -9,6 +9,7 @@ class Community with _$Community {
     String? communityId,
     String? uid,
     String? chatGroupId,
+    String? chatGroupName,
     String? communityName,
     String? description,
     String? category,
@@ -43,6 +44,7 @@ class Community with _$Community {
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
       createdAt: firestoreData['createdAt'] as String?,
       chatGroupId: firestoreData['chatGroupId'] as String?,
+      chatGroupName: firestoreData['chatGroupName'] as String?,
       public: firestoreData['public'] as int?,
     );
   }

@@ -4,14 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/domain/entities/community/community.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 class MyBeutyList extends StatelessWidget {
   const MyBeutyList.beautyList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyCommunityListBloc, MyCommunityListState>(
+    final currentUid = firebaseAuth.currentUser!.uid;
+    return BlocBuilder<CommunityListBloc, CommunityListState>(
       builder: (context, state) {
         return state.maybeWhen(
           orElse: () => const Center(
@@ -26,11 +29,15 @@ class MyBeutyList extends StatelessWidget {
             child: Text(error),
           ),
           success: (data) {
+            final filteredtEditors = data.where((element) => element.editors!.contains(currentUid)).toList();
+            final filteredAdministrator = data.where((element) => element.administrator!.contains(currentUid)).toList();
+            final filteredOwner = data.where((element) => element.uid == currentUid).toList();
+            final List<Community> updatesData = [...filteredtEditors, ...filteredAdministrator, ...filteredOwner];
             return ListView.builder(
-              itemCount: data.length,
+              itemCount: updatesData.length,
               itemExtent: 55,
               itemBuilder: (BuildContext context, int index) {
-                final item = data[index];
+                final item = updatesData[index];
                 return GestureDetector(
                   onTap: () {
                     context.push(

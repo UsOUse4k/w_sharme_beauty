@@ -48,7 +48,11 @@ class _CommunityMembersPageState extends State<CommunityMembersPage> {
           child: Column(
             children: [
               const SizedBox(height: 15),
-              const SearchWidget(),
+              SearchWidget(
+                onChanged: (value) {
+                  context.read<GetAllUsersBloc>().add(GetAllUsersEvent.searchUsers(query: value));
+                },
+              ),
               CustomContainer(
                 child: BlocBuilder<GetAllUsersBloc, GetAllUsersState>(
                   builder: (context, state) {
@@ -65,7 +69,8 @@ class _CommunityMembersPageState extends State<CommunityMembersPage> {
                                           .contains(element.uid),
                                     )
                                     .toList();
-                                filterUsers.sort((a, b) => a.username!.compareTo(b.username!));
+                                filterUsers.sort((a, b) =>
+                                    a.username!.compareTo(b.username!),);
                                 return ListView.separated(
                                   physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,

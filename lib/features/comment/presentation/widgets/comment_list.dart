@@ -41,9 +41,10 @@ class _CommentListState extends State<CommentList> {
           listener: (context, state) {
             state.maybeWhen(
               success: (comment) {
+                print(comment);
                 context
                     .read<CommentListBloc>()
-                    .add(CommentListEvent.getComments(postId: widget.postId));
+                    .add(CommentListEvent.addNewComments(comment));
                 context
                     .read<PostListBloc>()
                     .add(const PostListEvent.getPosts());
@@ -57,11 +58,16 @@ class _CommentListState extends State<CommentList> {
                 error: (error) => Container(),
                 loading: () {
                   return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const  BouncingScrollPhysics(),
                     itemBuilder: (context, index) => const CommentShimer(),
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 6,
                     ),
-                    itemCount: 5,
+                    itemCount: state.maybeWhen(
+                      orElse: () => 0,
+                      success: (comments) => comments.length,
+                    ),
                   );
                 },
                 success: (comments) {
@@ -70,6 +76,7 @@ class _CommentListState extends State<CommentList> {
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return CommentItemCard(
+                        key: ValueKey(comments[index].commentId),
                         avatar: comments[index].avatarUrl.toString(),
                         item: comments[index],
                         postId: widget.postId,

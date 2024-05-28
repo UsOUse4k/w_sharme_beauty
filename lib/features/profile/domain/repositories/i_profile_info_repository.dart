@@ -9,4 +9,7 @@ abstract class IProfileInfoRepository {
     required UserProfile user,
     Uint8List? avatar,
   });
+  Future<Either<PostError, Unit>> updateNewEmail({
+    required String email,
+  });
 }

@@ -5,18 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityProfilePage extends StatefulWidget {
@@ -30,11 +32,9 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
   @override
   void initState() {
     super.initState();
-    if (mounted) {
-      context.read<CommunityDetailBloc>().add(
-            CommunityDetailEvent.loaded(widget.communityId),
-          );
-    }
+    context.read<CommunityDetailBloc>().add(
+          CommunityDetailEvent.loaded(widget.communityId),
+        );
   }
 
   @override
@@ -92,12 +92,20 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                           communityId: community.communityId.toString(),
                         ),
                       );
+                  context
+                      .read<CategoryBloc>()
+                      .add(const CategoryEvent.loadCategories());
                 },
                 orElse: () {},
               );
             },
             builder: (context, state) {
               return state.maybeWhen(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.purple,
+                  ),
+                ),
                 error: (error) => Container(),
                 success: (community) {
                   return Column(
@@ -143,11 +151,37 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: StoriesWidget(
-                          storiesModel: storiesModel,
-                        ),
+                      BlocBuilder<CategoryBloc, CategoryState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            loading: () {
+                              return SizedBox(
+                                height: 100.h,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, index) =>
+                                      const CategoryShimmer(),
+                                  itemCount: 5,
+                                ),
+                              );
+                            },
+                            success: (categories) {
+                              return CategoryList(
+                                category: categories,
+                                onFilterCategories: (category) {
+                                  context.read<CommunityPostListBloc>().add(
+                                        CommunityPostListEvent
+                                            .filterCommunityPost(
+                                          title: category.title.toString(),
+                                        ),
+                                      );
+                                },
+                              );
+                            },
+                            orElse: () => Container(),
+                          );
+                        },
                       ),
                       const SizedBox(
                         height: 10,
@@ -210,6 +244,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                                   communityName:
                                       community.communityName.toString(),
                                   post: posts[index],
+                                  communityId: community.communityId.toString(),
                                   avatarUrl: community.avatarUrls.toString(),
                                 ),
                               );

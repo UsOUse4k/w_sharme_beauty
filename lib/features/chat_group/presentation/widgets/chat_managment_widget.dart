@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/domain/entities/chat_group_room.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/filter_users_invite/filter_users_invite_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/Invite_people_to_chat.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
@@ -43,7 +44,17 @@ class _ChatManagmentWidgetState extends State<ChatManagmentWidget> {
     final currentUser = firebaseAuth.currentUser;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: BlocBuilder<GetAllUsersBloc, GetAllUsersState>(
+      child: BlocConsumer<GetAllUsersBloc, GetAllUsersState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            success: (users) {
+              context
+                  .read<FilterUsersInviteBloc>()
+                  .add(FilterUsersInviteEvent.loaded(users, currentUser!.uid));
+            },
+            orElse: () {},
+          );
+        },
         builder: (context, state) {
           return state.maybeWhen(
             success: (users) {
@@ -99,11 +110,21 @@ class _ChatManagmentWidgetState extends State<ChatManagmentWidget> {
                                   CustomBottomSheetLeading(
                                     maxHeight: 0.7,
                                     navbarTitle: 'Пригласить людей в чат',
-                                    widget: InvitePeopleToChat(
-                                      communityId: widget.communityId,
-                                      users: users,
-                                      groupId:
-                                          widget.groupRoom.groupId.toString(),
+                                    widget: BlocBuilder<FilterUsersInviteBloc,
+                                        FilterUsersInviteState>(
+                                      builder: (context, state) {
+                                        return state.maybeWhen(
+                                          filterUsers: (filterUsers) {
+                                            return InvitePeopleToChat(
+                                              communityId: widget.communityId,
+                                              users: filterUsers,
+                                              groupId: widget.groupRoom.groupId
+                                                  .toString(),
+                                            );
+                                          },
+                                          orElse: () => Container(),
+                                        );
+                                      },
                                     ),
                                   ),
                                   closeCurrent: true,

@@ -14,10 +14,14 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String? ?? '',
       profilePictureUrl: json['profilePictureUrl'] as String? ?? '',
       aboutYourself: json['aboutYourself'] as String? ?? '',
-      category: json['category'] as String? ?? '',
+      category: (json['category'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       theme: json['theme'] as String? ?? '',
       city: json['city'] as String? ?? '',
       date: json['date'] as String? ?? '',
+      phone: json['phone'] as String? ?? '',
       publics: json['publics'] as int? ?? 0,
       followers: (json['followers'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -47,6 +51,7 @@ Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
       'theme': instance.theme,
       'city': instance.city,
       'date': instance.date,
+      'phone': instance.phone,
       'publics': instance.publics,
       'followers': instance.followers,
       'subscriptions': instance.subscriptions,

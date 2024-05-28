@@ -7,8 +7,6 @@ import 'package:w_sharme_beauty/features/auth/domain/repositories/repositories.d
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 
 part 'add_reply_comment_event.dart';
 part 'add_reply_comment_state.dart';
@@ -20,8 +18,6 @@ class AddReplyCommentBloc
   AddReplyCommentBloc(
     this._commentRepository,
     this._authFacade,
-    this._listBloc,
-    this._replyCommentListBlocl,
     this._parentCommentIdBloc,
   ) : super(const _Initial()) {
     on<AddReplyCommentEvent>((event, emit) async {
@@ -63,16 +59,9 @@ class AddReplyCommentBloc
                 result.fold(
                   (l) => emit(AddReplyCommentState.error(error: l.toString())),
                   (comment) async {
-                    emit(AddReplyCommentState.success(updateComment));
+                    emit(AddReplyCommentState.success(comment));
                     _parentCommentIdBloc.add(
                       const ParentCommentIdEvent.addParentCommentId('', ''),
-                    );
-                    _listBloc.add(const PostListEvent.getPosts());
-                    _replyCommentListBlocl.add(
-                      ReplyCommentListEvent.getReplyComments(
-                        postId: value.postId,
-                        parentCommentId: value.parentCommentId,
-                      ),
                     );
                     await _commentRepository.updateCountsComment(
                       postId: value.postId,
@@ -89,7 +78,5 @@ class AddReplyCommentBloc
   }
   final ICommentRepository _commentRepository;
   final IAuthFacade _authFacade;
-  final PostListBloc _listBloc;
-  final ReplyCommentListBloc _replyCommentListBlocl;
   final ParentCommentIdBloc _parentCommentIdBloc;
 }

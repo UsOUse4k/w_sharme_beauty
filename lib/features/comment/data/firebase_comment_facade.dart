@@ -13,7 +13,7 @@ class FirebaseCommentFacade implements ICommentRepository {
   FirebaseCommentFacade(this.firestore, this.auth);
 
   @override
-  Future<Either<PostError, Unit>> createComment({
+  Future<Either<PostError, Comment>> createComment({
     required Comment comment,
     required String postId,
     String? parentCommentId,
@@ -23,13 +23,16 @@ class FirebaseCommentFacade implements ICommentRepository {
         uid: auth.currentUser!.uid,
       );
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
+        final updateReplyComment = updatedComment.copyWith(
+          parentCommentId: parentCommentId,
+        );
         await firestore
             .collection('posts')
             .doc(postId)
             .collection('comments')
             .doc(parentCommentId)
             .collection('reply_comments')
-            .doc(updatedComment.commentId)
+            .doc(updateReplyComment.commentId)
             .set(updatedComment.toJson());
       } else {
         await firestore
@@ -39,7 +42,7 @@ class FirebaseCommentFacade implements ICommentRepository {
             .doc(updatedComment.commentId)
             .set(updatedComment.toJson());
       }
-      return right(unit);
+      return right(updatedComment);
     } catch (e) {
       return left(PostError(e.toString()));
     }
@@ -80,16 +83,11 @@ class FirebaseCommentFacade implements ICommentRepository {
             .collection('posts')
             .doc(postId)
             .collection('comments')
-            .doc(parentCommentId)
-            .collection('reply_comments');
+            .where('parentCommentId', isEqualTo: parentCommentId);
       } else {
         query =
             firestore.collection('posts').doc(postId).collection('comments');
       }
-      if (lastDocSnapshot != null) {
-        query = query.startAfterDocument(lastDocSnapshot);
-      }
-      query = query.limit(limit);
       final querySnapshot = await query.get();
       final comments = querySnapshot.docs
           .map((doc) => Comment.fromJson(doc.data()))

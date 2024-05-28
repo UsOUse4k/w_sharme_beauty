@@ -23,6 +23,8 @@ mixin _$ChatRoom {
   String? get chatRoomId => throw _privateConstructorUsedError;
   String? get lastMessage => throw _privateConstructorUsedError;
   String? get lastSenderId => throw _privateConstructorUsedError;
+  String? get receiverId => throw _privateConstructorUsedError;
+  String? get receiverUsername => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get lastMessageTs => throw _privateConstructorUsedError;
   List<String>? get members => throw _privateConstructorUsedError;
@@ -46,6 +48,8 @@ abstract class $ChatRoomCopyWith<$Res> {
       {String? chatRoomId,
       String? lastMessage,
       String? lastSenderId,
+      String? receiverId,
+      String? receiverUsername,
       @TimestampConverter() Timestamp? lastMessageTs,
       List<String>? members,
       @TimestampConverter() Timestamp? createdAt,
@@ -69,6 +73,8 @@ class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
     Object? chatRoomId = freezed,
     Object? lastMessage = freezed,
     Object? lastSenderId = freezed,
+    Object? receiverId = freezed,
+    Object? receiverUsername = freezed,
     Object? lastMessageTs = freezed,
     Object? members = freezed,
     Object? createdAt = freezed,
@@ -87,6 +93,14 @@ class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
       lastSenderId: freezed == lastSenderId
           ? _value.lastSenderId
           : lastSenderId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverId: freezed == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverUsername: freezed == receiverUsername
+          ? _value.receiverUsername
+          : receiverUsername // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessageTs: freezed == lastMessageTs
           ? _value.lastMessageTs
@@ -124,6 +138,8 @@ abstract class _$$ChatRoomImplCopyWith<$Res>
       {String? chatRoomId,
       String? lastMessage,
       String? lastSenderId,
+      String? receiverId,
+      String? receiverUsername,
       @TimestampConverter() Timestamp? lastMessageTs,
       List<String>? members,
       @TimestampConverter() Timestamp? createdAt,
@@ -145,6 +161,8 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
     Object? chatRoomId = freezed,
     Object? lastMessage = freezed,
     Object? lastSenderId = freezed,
+    Object? receiverId = freezed,
+    Object? receiverUsername = freezed,
     Object? lastMessageTs = freezed,
     Object? members = freezed,
     Object? createdAt = freezed,
@@ -163,6 +181,14 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
       lastSenderId: freezed == lastSenderId
           ? _value.lastSenderId
           : lastSenderId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverId: freezed == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverUsername: freezed == receiverUsername
+          ? _value.receiverUsername
+          : receiverUsername // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessageTs: freezed == lastMessageTs
           ? _value.lastMessageTs
@@ -195,6 +221,8 @@ class _$ChatRoomImpl implements _ChatRoom {
       {this.chatRoomId,
       this.lastMessage,
       this.lastSenderId,
+      this.receiverId,
+      this.receiverUsername,
       @TimestampConverter() this.lastMessageTs,
       final List<String>? members,
       @TimestampConverter() this.createdAt,
@@ -211,6 +239,10 @@ class _$ChatRoomImpl implements _ChatRoom {
   final String? lastMessage;
   @override
   final String? lastSenderId;
+  @override
+  final String? receiverId;
+  @override
+  final String? receiverUsername;
   @override
   @TimestampConverter()
   final Timestamp? lastMessageTs;
@@ -234,7 +266,7 @@ class _$ChatRoomImpl implements _ChatRoom {
 
   @override
   String toString() {
-    return 'ChatRoom(chatRoomId: $chatRoomId, lastMessage: $lastMessage, lastSenderId: $lastSenderId, lastMessageTs: $lastMessageTs, members: $members, createdAt: $createdAt, seen: $seen, messageCount: $messageCount)';
+    return 'ChatRoom(chatRoomId: $chatRoomId, lastMessage: $lastMessage, lastSenderId: $lastSenderId, receiverId: $receiverId, receiverUsername: $receiverUsername, lastMessageTs: $lastMessageTs, members: $members, createdAt: $createdAt, seen: $seen, messageCount: $messageCount)';
   }
 
   @override
@@ -248,6 +280,10 @@ class _$ChatRoomImpl implements _ChatRoom {
                 other.lastMessage == lastMessage) &&
             (identical(other.lastSenderId, lastSenderId) ||
                 other.lastSenderId == lastSenderId) &&
+            (identical(other.receiverId, receiverId) ||
+                other.receiverId == receiverId) &&
+            (identical(other.receiverUsername, receiverUsername) ||
+                other.receiverUsername == receiverUsername) &&
             (identical(other.lastMessageTs, lastMessageTs) ||
                 other.lastMessageTs == lastMessageTs) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
@@ -265,6 +301,8 @@ class _$ChatRoomImpl implements _ChatRoom {
       chatRoomId,
       lastMessage,
       lastSenderId,
+      receiverId,
+      receiverUsername,
       lastMessageTs,
       const DeepCollectionEquality().hash(_members),
       createdAt,
@@ -290,6 +328,8 @@ abstract class _ChatRoom implements ChatRoom {
       {final String? chatRoomId,
       final String? lastMessage,
       final String? lastSenderId,
+      final String? receiverId,
+      final String? receiverUsername,
       @TimestampConverter() final Timestamp? lastMessageTs,
       final List<String>? members,
       @TimestampConverter() final Timestamp? createdAt,
@@ -305,6 +345,10 @@ abstract class _ChatRoom implements ChatRoom {
   String? get lastMessage;
   @override
   String? get lastSenderId;
+  @override
+  String? get receiverId;
+  @override
+  String? get receiverUsername;
   @override
   @TimestampConverter()
   Timestamp? get lastMessageTs;

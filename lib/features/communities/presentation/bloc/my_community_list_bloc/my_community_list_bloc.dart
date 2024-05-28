@@ -26,11 +26,11 @@ class MyCommunityListBloc
             (uid) async {
               final result =
                   await _communityRepository.communitiesList(userId: uid.uid);
-              result.fold(
+              await result.fold(
                 (l) {
                   emit(MyCommunityListState.error(message: l.toString()));
                 },
-                (communities) {
+                (communities) async {
                   emit(MyCommunityListState.success(communities));
                 },
               );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
@@ -7,12 +8,13 @@ import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/subscribe_bloc/subscribe_bloc.dart';
+import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/button_write_down.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePersonPage extends StatefulWidget {
@@ -31,9 +33,11 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
   void initState() {
     super.initState();
     if (widget.authorId != null) {
-      context
-          .read<PostUserListBloc>()
-          .add(PostUserListEvent.getUserPosts(userId: widget.authorId));
+      context.read<UserDetailBloc>().add(
+            UserDetailEvent.getUserDetail(
+              userId: widget.authorId!,
+            ),
+          );
     }
   }
 
@@ -86,6 +90,9 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
           listener: (context, state) {
             state.maybeWhen(
               success: (userData) {
+                context.read<PostUserListBloc>().add(
+                      PostUserListEvent.getUserPosts(userId: widget.authorId),
+                    );
                 setState(() {
                   isSubscribe = userData.followers!.contains(uid);
                 });
@@ -103,19 +110,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                 ),
               ),
               success: (userData) {
-                return BlocConsumer<PostUserListBloc, PostUserListState>(
-                  listener: (context, state) {
-                    state.maybeWhen(
-                      success: (posts) {
-                        context.read<UserDetailBloc>().add(
-                              UserDetailEvent.getUserDetail(
-                                userId: widget.authorId!,
-                              ),
-                            );
-                      },
-                      orElse: () {},
-                    );
-                  },
+                return BlocBuilder<PostUserListBloc, PostUserListState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       success: (posts) {
@@ -175,7 +170,42 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                     style: AppStyles.w400f14,
                                   ),
                                   const SizedBox(height: 16),
-                                  StoriesWidget(storiesModel: storiesModel),
+                                  BlocBuilder<CategoryBloc, CategoryState>(
+                                    builder: (context, state) {
+                                      return state.maybeWhen(
+                                        loading: () {
+                                          return SizedBox(
+                                            height: 100.h,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              itemBuilder: (context, index) =>
+                                                  const CategoryShimmer(),
+                                              itemCount: 5,
+                                            ),
+                                          );
+                                        },
+                                        success: (categories) {
+                                          final filterCategories = categories
+                                              .where(
+                                                (element) => userData.category!
+                                                    .contains(element.title),
+                                              )
+                                              .toList();
+                                          return CategoryList(
+                                            category: filterCategories,
+                                            onFilterCategories: (value) {
+                                              context
+                                                  .read<PostUserListBloc>()
+                                                  .add(PostUserListEvent.filterPost(value: value.toString()));
+                                            },
+                                          );
+                                        },
+                                        orElse: () => Container(),
+                                      );
+                                    },
+                                  ),
                                   const SizedBox(height: 16),
                                   Row(
                                     mainAxisAlignment:

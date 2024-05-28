@@ -11,6 +11,7 @@ part 'get_all_users_bloc.freezed.dart';
 @injectable
 class GetAllUsersBloc extends Bloc<GetAllUsersEvent, GetAllUsersState> {
   GetAllUsersBloc(this._authFacade) : super(const _Initial()) {
+    List<UserProfile>? allUsers;
     on<GetAllUsersEvent>((event, emit) async {
       await event.maybeWhen(
         getAllUsers: () async {
@@ -19,10 +20,27 @@ class GetAllUsersBloc extends Bloc<GetAllUsersEvent, GetAllUsersState> {
             result.fold((error) async {
               emit(GetAllUsersState.error(error: error.messasge));
             }, (users) async {
+              allUsers = users;
               emit(GetAllUsersState.success(users));
             });
           } catch (e) {
             emit(GetAllUsersState.error(error: e.toString()));
+          }
+        },
+        searchUsers: (query) {
+          if (state is _Success && allUsers != null) {
+            if (query.isEmpty) {
+              emit(GetAllUsersState.success(allUsers!));
+            } else {
+              final filteredUsers = allUsers!
+                  .where(
+                    (user) => user.username!
+                        .toLowerCase()
+                        .contains(query.toLowerCase()),
+                  )
+                  .toList();
+              emit(GetAllUsersState.success(filteredUsers));
+            }
           }
         },
         orElse: () {},

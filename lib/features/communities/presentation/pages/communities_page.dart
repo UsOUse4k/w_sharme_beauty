@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
-import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/beauty_list_widget.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/my_beauty_list_widget.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/widgets/selection_form_field_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
+
+const List<String> communityList = ['Мои сообщества', 'Все сообщества'];
 
 class CommunitiesPage extends StatefulWidget {
   const CommunitiesPage({super.key});
@@ -23,7 +28,10 @@ class CommunitiesPage extends StatefulWidget {
 class _CommunitiesPageState extends State<CommunitiesPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
+  String filterCommynity = 'Все сообщества';
+  String selectedCommunity = 'Все сообщества';
+  String filterCategory = 'Категория';
+  String? selectedCategory;
   @override
   void initState() {
     super.initState();
@@ -34,6 +42,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
     context
         .read<MyCommunityListBloc>()
         .add(const MyCommunityListEvent.getMyCommunity());
+    context.read<CategoryBloc>().add(const CategoryEvent.loadCategories());
   }
 
   @override
@@ -48,19 +57,33 @@ class _CommunitiesPageState extends State<CommunitiesPage>
     return GlScaffold(
       horizontalPadding: 16,
       appBar: GlAppBar(
-        leading: Row(
-          children: [
-            GlCircleAvatar(
-              avatar: Assets.images.avatar.path,
-              width: 26,
-              height: 26,
-            ),
-            const SizedBox(width: 16),
-            Text(
-              'Сообщество',
-              style: AppStyles.w500f18,
-            ),
-          ],
+        leading: BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              succes: (user) {
+                return Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(13),
+                      ),
+                      child: GlCachedNetworImage(
+                        height: 26.h,
+                        width: 26.w,
+                        urlImage: user.profilePictureUrl,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      'Сообщество',
+                      style: AppStyles.w500f18,
+                    ),
+                  ],
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
         ),
         action: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -92,37 +115,99 @@ class _CommunitiesPageState extends State<CommunitiesPage>
       body: Column(
         children: [
           SearchWidget(
-            onChanged: (value) {},
+            onChanged: (value) {
+              context
+                  .read<CommunityListBloc>()
+                  .add(CommunityListEvent.searchCommunities(query: value));
+            },
             hintText: "Поиск сообществ",
           ),
           const SizedBox(
             height: 15,
           ),
-          const Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: SelectionFormFieldWidget(
-                    hintText: "Мои сообществa",
-                    text: "Мои сообществa",
-                    text1: "Все сообществa",
-                    hinttextStyle: TextStyle(color: AppColors.darkGrey),
-                  ),
-                ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: SizedBox(
-                  child: SelectionFormFieldWidget(
-                    hintText: "Категория",
-                    text: "Маникюр",
-                    text1: "Педикюр",
-                    hinttextStyle: TextStyle(color: AppColors.darkGrey),
-                  ),
-                ),
-              ),
-            ],
+          BlocBuilder<CommunityListBloc, CommunityListState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                success: (communities) {
+                  return BlocBuilder<CategoryBloc, CategoryState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        success: (categories) {
+                          final categoyList = categories
+                              .map((e) => e.title)
+                              .where((element) => element != null)
+                              .map((element) => element!)
+                              .toList();
+                          return Row(
+                            children: [
+                              FilterButtonWidget(
+                                width: 200.w,
+                                onPressed: () =>
+                                    BottomSheetUtil.showAppBottomSheet(
+                                  context,
+                                  CustomBottomSheet(
+                                    maxHeight: 0.33,
+                                    navbarTitle: 'Сообщества',
+                                    widget: RadioFilterWidget(
+                                      list: communityList,
+                                      onSelect: (String text) {
+                                        filterCommynity = text;
+                                        selectedCommunity = text;
+                                        context.read<CommunityListBloc>().add(
+                                              CommunityListEvent
+                                                  .filterCommunity(
+                                                filterCommunity:
+                                                    selectedCommunity,
+                                              ),
+                                            );
+                                        setState(() {});
+                                      },
+                                      selectedValue: selectedCommunity,
+                                    ),
+                                  ),
+                                ),
+                                title: filterCommynity,
+                              ),
+                              const SizedBox(width: 10),
+                              FilterButtonWidget(
+                                width: 150.w,
+                                onPressed: () =>
+                                    BottomSheetUtil.showAppBottomSheet(
+                                  context,
+                                  CustomBottomSheet(
+                                    maxHeight: 0.55,
+                                    navbarTitle: 'Категория',
+                                    widget: RadioFilterWidget(
+                                      list: categoyList,
+                                      onSelect: (String text) {
+                                        filterCategory = text;
+                                        selectedCategory = text;
+                                        context.read<CommunityListBloc>().add(
+                                              CommunityListEvent
+                                                  .filterCommunity(
+                                                filterCommunity:
+                                                    selectedCategory!,
+                                              ),
+                                            );
+                                        setState(() {});
+                                      },
+                                      selectedValue: selectedCategory ?? '',
+                                    ),
+                                  ),
+                                ),
+                                title: filterCategory,
+                              ),
+                            ],
+                          );
+                        },
+                        orElse: () => Container(),
+                      );
+                    },
+                  );
+                },
+                orElse: () => Container(),
+              );
+            },
           ),
           const SizedBox(
             height: 15,

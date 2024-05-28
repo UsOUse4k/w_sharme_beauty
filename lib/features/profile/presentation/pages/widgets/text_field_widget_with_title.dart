@@ -6,7 +6,7 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
     super.key,
     required this.title,
     this.titleStyle = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       color: AppColors.darkGrey,
       fontWeight: FontWeight.w500,
     ),
@@ -21,7 +21,8 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
         const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
     this.maxLines = 1,
     this.controller,
-    this.readOnly = false,
+    this.readOnly = false, 
+    this.onPressed,
   });
 
   final int? maxLines;
@@ -35,6 +36,8 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? controller;
   final bool? readOnly;
+  final Function()? onPressed;
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,23 +51,26 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
             style: titleStyle,
           ),
         ),
-        TextField(
-          controller: controller,
-          maxLines: maxLines,
-          readOnly: readOnly ?? false,
-          decoration: InputDecoration(
-            contentPadding: contentPadding,
-            constraints: const BoxConstraints(),
-            isDense: true,
-            filled: filled,
-            fillColor: AppColors.lightGrey,
-            hintText: hintText,
-            hintStyle: hintStyle,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(16),
+        GestureDetector(
+          onTap: onPressed,
+          child: TextField(
+            controller: controller,
+            maxLines: maxLines,
+            readOnly: readOnly ?? false,
+            decoration: InputDecoration(
+              contentPadding: contentPadding,
+              constraints: const BoxConstraints(),
+              isDense: true,
+              filled: filled,
+              fillColor: AppColors.lightGrey,
+              hintText: hintText,
+              hintStyle: hintStyle,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
           ),
         ),

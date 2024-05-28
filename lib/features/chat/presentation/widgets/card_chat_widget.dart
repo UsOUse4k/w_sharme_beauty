@@ -61,7 +61,7 @@ class _CardChatWidgetState extends State<CardChatWidget> {
                       height: 60.h,
                       raduis: 30,
                       avatar: userData.profilePictureUrl,
-                      name: '${userData.username}',
+                      name: userData.username.toString(),
                       subTitle: widget.chatRooms.lastMessage ?? "пусто",
                     ),
                     MessageCheckTimeTextWidget(

@@ -20,18 +20,21 @@ mixin _$CommunityPostListEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String communityId) getPosts,
     required TResult Function(Post post) addPost,
+    required TResult Function(String title) filterCommunityPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String communityId)? getPosts,
     TResult? Function(Post post)? addPost,
+    TResult? Function(String title)? filterCommunityPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String communityId)? getPosts,
     TResult Function(Post post)? addPost,
+    TResult Function(String title)? filterCommunityPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$CommunityPostListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
     required TResult Function(_AddPost value) addPost,
+    required TResult Function(_FilterCommunityPost value) filterCommunityPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
     TResult? Function(_AddPost value)? addPost,
+    TResult? Function(_FilterCommunityPost value)? filterCommunityPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
     TResult Function(_AddPost value)? addPost,
+    TResult Function(_FilterCommunityPost value)? filterCommunityPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +148,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult when<TResult extends Object?>({
     required TResult Function(String communityId) getPosts,
     required TResult Function(Post post) addPost,
+    required TResult Function(String title) filterCommunityPost,
   }) {
     return getPosts(communityId);
   }
@@ -151,6 +158,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String communityId)? getPosts,
     TResult? Function(Post post)? addPost,
+    TResult? Function(String title)? filterCommunityPost,
   }) {
     return getPosts?.call(communityId);
   }
@@ -160,6 +168,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String communityId)? getPosts,
     TResult Function(Post post)? addPost,
+    TResult Function(String title)? filterCommunityPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -173,6 +182,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
     required TResult Function(_AddPost value) addPost,
+    required TResult Function(_FilterCommunityPost value) filterCommunityPost,
   }) {
     return getPosts(this);
   }
@@ -182,6 +192,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
     TResult? Function(_AddPost value)? addPost,
+    TResult? Function(_FilterCommunityPost value)? filterCommunityPost,
   }) {
     return getPosts?.call(this);
   }
@@ -191,6 +202,7 @@ class _$GetPostsImpl implements _GetPosts {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
     TResult Function(_AddPost value)? addPost,
+    TResult Function(_FilterCommunityPost value)? filterCommunityPost,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -285,6 +297,7 @@ class _$AddPostImpl implements _AddPost {
   TResult when<TResult extends Object?>({
     required TResult Function(String communityId) getPosts,
     required TResult Function(Post post) addPost,
+    required TResult Function(String title) filterCommunityPost,
   }) {
     return addPost(post);
   }
@@ -294,6 +307,7 @@ class _$AddPostImpl implements _AddPost {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String communityId)? getPosts,
     TResult? Function(Post post)? addPost,
+    TResult? Function(String title)? filterCommunityPost,
   }) {
     return addPost?.call(post);
   }
@@ -303,6 +317,7 @@ class _$AddPostImpl implements _AddPost {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String communityId)? getPosts,
     TResult Function(Post post)? addPost,
+    TResult Function(String title)? filterCommunityPost,
     required TResult orElse(),
   }) {
     if (addPost != null) {
@@ -316,6 +331,7 @@ class _$AddPostImpl implements _AddPost {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetPosts value) getPosts,
     required TResult Function(_AddPost value) addPost,
+    required TResult Function(_FilterCommunityPost value) filterCommunityPost,
   }) {
     return addPost(this);
   }
@@ -325,6 +341,7 @@ class _$AddPostImpl implements _AddPost {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetPosts value)? getPosts,
     TResult? Function(_AddPost value)? addPost,
+    TResult? Function(_FilterCommunityPost value)? filterCommunityPost,
   }) {
     return addPost?.call(this);
   }
@@ -334,6 +351,7 @@ class _$AddPostImpl implements _AddPost {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetPosts value)? getPosts,
     TResult Function(_AddPost value)? addPost,
+    TResult Function(_FilterCommunityPost value)? filterCommunityPost,
     required TResult orElse(),
   }) {
     if (addPost != null) {
@@ -349,6 +367,148 @@ abstract class _AddPost implements CommunityPostListEvent {
   Post get post;
   @JsonKey(ignore: true)
   _$$AddPostImplCopyWith<_$AddPostImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterCommunityPostImplCopyWith<$Res> {
+  factory _$$FilterCommunityPostImplCopyWith(_$FilterCommunityPostImpl value,
+          $Res Function(_$FilterCommunityPostImpl) then) =
+      __$$FilterCommunityPostImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String title});
+}
+
+/// @nodoc
+class __$$FilterCommunityPostImplCopyWithImpl<$Res>
+    extends _$CommunityPostListEventCopyWithImpl<$Res,
+        _$FilterCommunityPostImpl>
+    implements _$$FilterCommunityPostImplCopyWith<$Res> {
+  __$$FilterCommunityPostImplCopyWithImpl(_$FilterCommunityPostImpl _value,
+      $Res Function(_$FilterCommunityPostImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+  }) {
+    return _then(_$FilterCommunityPostImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterCommunityPostImpl implements _FilterCommunityPost {
+  const _$FilterCommunityPostImpl({required this.title});
+
+  @override
+  final String title;
+
+  @override
+  String toString() {
+    return 'CommunityPostListEvent.filterCommunityPost(title: $title)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterCommunityPostImpl &&
+            (identical(other.title, title) || other.title == title));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, title);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterCommunityPostImplCopyWith<_$FilterCommunityPostImpl> get copyWith =>
+      __$$FilterCommunityPostImplCopyWithImpl<_$FilterCommunityPostImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String communityId) getPosts,
+    required TResult Function(Post post) addPost,
+    required TResult Function(String title) filterCommunityPost,
+  }) {
+    return filterCommunityPost(title);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String communityId)? getPosts,
+    TResult? Function(Post post)? addPost,
+    TResult? Function(String title)? filterCommunityPost,
+  }) {
+    return filterCommunityPost?.call(title);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String communityId)? getPosts,
+    TResult Function(Post post)? addPost,
+    TResult Function(String title)? filterCommunityPost,
+    required TResult orElse(),
+  }) {
+    if (filterCommunityPost != null) {
+      return filterCommunityPost(title);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetPosts value) getPosts,
+    required TResult Function(_AddPost value) addPost,
+    required TResult Function(_FilterCommunityPost value) filterCommunityPost,
+  }) {
+    return filterCommunityPost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetPosts value)? getPosts,
+    TResult? Function(_AddPost value)? addPost,
+    TResult? Function(_FilterCommunityPost value)? filterCommunityPost,
+  }) {
+    return filterCommunityPost?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetPosts value)? getPosts,
+    TResult Function(_AddPost value)? addPost,
+    TResult Function(_FilterCommunityPost value)? filterCommunityPost,
+    required TResult orElse(),
+  }) {
+    if (filterCommunityPost != null) {
+      return filterCommunityPost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FilterCommunityPost implements CommunityPostListEvent {
+  const factory _FilterCommunityPost({required final String title}) =
+      _$FilterCommunityPostImpl;
+
+  String get title;
+  @JsonKey(ignore: true)
+  _$$FilterCommunityPostImplCopyWith<_$FilterCommunityPostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

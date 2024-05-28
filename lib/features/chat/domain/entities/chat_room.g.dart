@@ -11,6 +11,8 @@ _$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
       chatRoomId: json['chatRoomId'] as String?,
       lastMessage: json['lastMessage'] as String?,
       lastSenderId: json['lastSenderId'] as String?,
+      receiverId: json['receiverId'] as String?,
+      receiverUsername: json['receiverUsername'] as String?,
       lastMessageTs: const TimestampConverter().fromJson(json['lastMessageTs']),
       members:
           (json['members'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -24,6 +26,8 @@ Map<String, dynamic> _$$ChatRoomImplToJson(_$ChatRoomImpl instance) =>
       'chatRoomId': instance.chatRoomId,
       'lastMessage': instance.lastMessage,
       'lastSenderId': instance.lastSenderId,
+      'receiverId': instance.receiverId,
+      'receiverUsername': instance.receiverUsername,
       'lastMessageTs':
           const TimestampConverter().toJson(instance.lastMessageTs),
       'members': instance.members,

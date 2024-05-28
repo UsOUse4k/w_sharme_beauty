@@ -5,6 +5,7 @@ class CommunityReplyCommentListEvent with _$CommunityReplyCommentListEvent {
   const factory CommunityReplyCommentListEvent.getCommunityReplyComments({
     required String postId,
     required String parentCommentId,
+    required String communityId,
   }) = _GetCommunityReplyComments;
   const factory CommunityReplyCommentListEvent.addNewCommunityComments(
     Comment comment,

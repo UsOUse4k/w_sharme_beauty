@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
+    //preloadUserDetails();
   }
 
   void preloadUserDetails() {
@@ -101,16 +102,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        child: BlocConsumer<PostListBloc, PostListState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              success: (posts) {
-                preloadUserDetails();
-                //print(posts);
-              },
-              orElse: () {},
-            );
-          },
+        child: BlocBuilder<PostListBloc, PostListState>(
           builder: (context, state) {
             return state.maybeWhen(
               loading: () => ListView.separated(
@@ -129,6 +121,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: posts.length,
                   itemBuilder: (context, index) {
                     return PostCard(
+                      key: ValueKey(posts[index].authorId),
                       showButton: true,
                       onPressed: () {
                         if (posts[index].authorId != currentUid) {

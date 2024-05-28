@@ -5,8 +5,8 @@ import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_comment_repository.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_parent_comment_id_bloc/community_parent_commet_id_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_reply_comment_lidt_bloc/community_reply_comment_list_bloc.dart';
 
 part 'community_add_reply_comment_event.dart';
@@ -58,6 +58,7 @@ class CommunityAddReplyCommentBloc
                   comment: updateComment,
                   parentCommentId: value.parentCommentId,
                   postId: value.postId,
+                  communityId: value.communityId,
                 );
                 await result.fold(
                   (l) {
@@ -69,25 +70,22 @@ class CommunityAddReplyCommentBloc
                   },
                   (comment) async {
                     emit(
-                      CommunityAddReplyCommentState.success(updateComment),
+                      CommunityAddReplyCommentState.success(comment),
                     );
                     _parentCommentIdBloc.add(
-                      const CommunityParentCommetIdEvent
-                          .addCommunityParentCommetId(
-                        '',
-                        '',
-                      ),
+                      const ParentCommentIdEvent.addParentCommentId('', ''),
                     );
-
                     _replyCommentListBloc.add(
                       CommunityReplyCommentListEvent.getCommunityReplyComments(
                         postId: value.postId,
                         parentCommentId: value.parentCommentId,
+                        communityId: event.communityId,
                       ),
                     );
                     await _commentRepository.updateCountsComment(
                       postId: value.postId,
                       commentId: value.parentCommentId,
+                      communityId: value.communityId,
                     );
                   },
                 );
@@ -101,5 +99,5 @@ class CommunityAddReplyCommentBloc
   final ICommunityCommentRepository _commentRepository;
   final IAuthFacade _authFacade;
   final CommunityReplyCommentListBloc _replyCommentListBloc;
-  final CommunityParentCommetIdBloc _parentCommentIdBloc;
+  final ParentCommentIdBloc _parentCommentIdBloc;
 }

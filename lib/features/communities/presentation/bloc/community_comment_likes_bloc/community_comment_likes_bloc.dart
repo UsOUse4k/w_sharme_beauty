@@ -16,7 +16,7 @@ class CommunityCommentLikesBloc
         ) {
     on<CommunityCommentLikesEvent>((event, emit) async {
       await event.maybeWhen(
-        likesOfComment: (commentId, subCommentId, postId, isLiked) async {
+        likesOfComment: (commentId, subCommentId, postId, isLiked, communityId,) async {
           emit(const CommunityCommentLikesState.loading());
           try {
             if (subCommentId != null && subCommentId.isNotEmpty) {
@@ -25,6 +25,7 @@ class CommunityCommentLikesBloc
                 commentId: commentId.toString(),
                 isLike: isLiked,
                 subCommentId: subCommentId,
+                communityId: communityId,
               );
               emit(const CommunityCommentLikesState.success());
             } else {
@@ -32,6 +33,7 @@ class CommunityCommentLikesBloc
                 postId: postId.toString(),
                 commentId: commentId.toString(),
                 isLike: isLiked,
+                communityId: communityId,
               );
               emit(const CommunityCommentLikesState.success());
             }

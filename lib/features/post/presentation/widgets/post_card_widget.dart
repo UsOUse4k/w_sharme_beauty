@@ -7,13 +7,12 @@ import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/auth/presentation/bloc/subscribe_bloc/subscribe_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
@@ -49,6 +48,7 @@ class _PostCardState extends State<PostCard> {
     setState(() {
       isLike = widget.post!.likes.contains(currentUid);
       countLike = widget.post!.likes.length;
+      isSubscribe = widget.post!.followers!.contains(currentUid);
     });
   }
 
@@ -72,15 +72,19 @@ class _PostCardState extends State<PostCard> {
   void toggleSubscribe() {
     final bool newIsSubscribe = !isSubscribe;
     if (isSubscribe) {
-      context.read<SubscribeBloc>().add(
-            SubscribeEvent.unsubscribe(
-              targetUserId: widget.post!.authorId.toString(),
+      context.read<SubscibePostBloc>().add(
+            SubscibePostEvent.unsubscibe(
+              postId: widget.post!.postId,
+              targetUid: widget.post!.authorId,
+              authorId: widget.post!.authorId,
             ),
           );
     } else {
-      context.read<SubscribeBloc>().add(
-            SubscribeEvent.subscribe(
-              targetUserId: widget.post!.authorId.toString(),
+      context.read<SubscibePostBloc>().add(
+            SubscibePostEvent.subscibe(
+              postId: widget.post!.postId,
+              targetUid: widget.post!.authorId,
+              authorId: widget.post!.authorId,
             ),
           );
     }
@@ -103,52 +107,31 @@ class _PostCardState extends State<PostCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocConsumer<UserDetailBloc, UserDetailState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                success: (userData) {
-                  setState(() {
-                    isSubscribe =
-                        userData.followers!.contains(currentUid);
-                  });
-                },
-                orElse: () {},
-              );
-            },
-            builder: (context, state) {
-              return state.maybeWhen(
-                success: (userData) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: UserAvatarWithName(
-                          onPressed: widget.onPressed,
-                          avatar: userData.profilePictureUrl,
-                          width: 40.w,
-                          height: 40.h,
-                          name: userData.username ?? '',
-                          subTitle: widget.post!.createdAt.toString(),
-                        ),
-                      ),
-                      if (currentUid ==
-                          widget.post!.authorId)
-                        const Icon(Icons.more_horiz)
-                      else
-                        Flexible(
-                          child: widget.showButton!
-                              ? GlSubscribeButton(
-                                  isSubscribe: isSubscribe,
-                                  onPressed: toggleSubscribe,
-                                )
-                              : const SizedBox(),
-                        ),
-                    ],
-                  );
-                },
-                orElse: () => Container(),
-              );
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: UserAvatarWithName(
+                  onPressed: widget.onPressed,
+                  avatar: widget.post!.avatarUrl,
+                  width: 40.w,
+                  height: 40.h,
+                  name: widget.post!.username.toString(),
+                  subTitle: widget.post!.createdAt.toString(),
+                ),
+              ),
+              if (currentUid == widget.post!.authorId)
+                const Icon(Icons.more_horiz)
+              else
+                Flexible(
+                  child: widget.showButton!
+                      ? GlSubscribeButton(
+                          isSubscribe: isSubscribe,
+                          onPressed: toggleSubscribe,
+                        )
+                      : const SizedBox(),
+                ),
+            ],
           ),
           const SizedBox(height: 6),
           Text(

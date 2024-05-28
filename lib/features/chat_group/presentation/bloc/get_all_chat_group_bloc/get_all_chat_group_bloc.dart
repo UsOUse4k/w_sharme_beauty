@@ -29,6 +29,7 @@ class GetAllChatGroupBloc
             emit(GetAllChatGroupState.error(message: e.toString()));
           }
         },
+        
         orElse: () {},
       );
     });

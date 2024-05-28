@@ -7,5 +7,6 @@ class CommunityCommentLikesEvent with _$CommunityCommentLikesEvent {
     String? subCommentId,
     String? postId,
     required bool isLiked,
+    required String communityId,
   }) = _LikesOfComment;
 }

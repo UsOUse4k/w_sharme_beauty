@@ -10,14 +10,20 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_com
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_create_bloc/community_comment_create_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 
 class CommentBottomSheet extends StatefulWidget {
   const CommentBottomSheet({
     super.key,
     required this.postId,
+    this.communityId,
   });
 
   final String postId;
+  final String? communityId;
+
   @override
   State<CommentBottomSheet> createState() => _CommentBottomSheetState();
 }
@@ -82,9 +88,15 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   ),
                 ),
               ),
-              CommentList(
-                postId: widget.postId,
-              ),
+              if (widget.communityId == null)
+                CommentList(
+                  postId: widget.postId,
+                )
+              else
+                CommunityCommentList(
+                  postId: widget.postId,
+                  communityId: widget.communityId.toString(),
+                ),
               BlocBuilder<ParentCommentIdBloc, ParentIdUsername?>(
                 builder: (context, state) {
                   if (state != null && state.username != '') {
@@ -134,24 +146,54 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                           onPressed: () {
                             if (commentController.text.isNotEmpty) {
                               if (state != null && state.id != '') {
-                                context.read<AddReplyCommentBloc>().add(
-                                      AddReplyCommentEvent.addReplyComment(
-                                        Comment(
-                                          comment: commentController.text,
+                                if (widget.communityId != null) {
+                                  context
+                                      .read<CommunityAddReplyCommentBloc>()
+                                      .add(
+                                        CommunityAddReplyCommentEvent
+                                            .addReplyComment(
+                                          Comment(
+                                            comment: commentController.text,
+                                          ),
+                                          state.id.toString(),
+                                          widget.postId,
+                                          widget.communityId!,
                                         ),
-                                        state.id.toString(),
-                                        widget.postId,
-                                      ),
-                                    );
+                                      );
+                                } else {
+                                  context.read<AddReplyCommentBloc>().add(
+                                        AddReplyCommentEvent.addReplyComment(
+                                          Comment(
+                                            comment: commentController.text,
+                                          ),
+                                          state.id.toString(),
+                                          widget.postId,
+                                        ),
+                                      );
+                                }
                               } else {
-                                context.read<CommentCreateBloc>().add(
-                                      CommentCreateEvent.addComment(
-                                        Comment(
-                                          comment: commentController.text,
+                                if (widget.communityId != null) {
+                                  context
+                                      .read<CommunityCommentCreateBloc>()
+                                      .add(
+                                        CommunityCommentCreateEvent.addComment(
+                                          Comment(
+                                            comment: commentController.text,
+                                          ),
+                                          widget.postId,
+                                          widget.communityId!,
                                         ),
-                                        widget.postId,
-                                      ),
-                                    );
+                                      );
+                                } else {
+                                  context.read<CommentCreateBloc>().add(
+                                        CommentCreateEvent.addComment(
+                                          Comment(
+                                            comment: commentController.text,
+                                          ),
+                                          widget.postId,
+                                        ),
+                                      );
+                                }
                               }
                             }
                             commentController.clear();

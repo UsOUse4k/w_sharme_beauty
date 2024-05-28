@@ -12,6 +12,7 @@ import 'package:w_sharme_beauty/core/utils/firebase_storage_url/firebase_storage
 import 'package:w_sharme_beauty/core/utils/format_date/date_formatter.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/domain/repositories/i_post_repository.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 @LazySingleton(as: IPostRepository)
 class FirestorePostRepository implements IPostRepository {
@@ -107,14 +108,53 @@ class FirestorePostRepository implements IPostRepository {
       if (postId == null) {
         return left(PostError('no Post id'));
       }
-      final DocumentSnapshot post =
+      final DocumentSnapshot postSnapshot =
           await firestore.collection('posts').doc(postId).get();
-      if (!post.exists) {
+      if (!postSnapshot.exists) {
         return left(PostError('Post not found.'));
       }
-      final Post userProfile =
-          Post.fromStoreData(post.data()! as Map<String, dynamic>);
-      return right(userProfile);
+      final Post postData =
+          Post.fromStoreData(postSnapshot.data()! as Map<String, dynamic>);
+      return right(postData);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Unit>> updatePost(
+    String postId,
+    String authorId,
+    String targetUid,
+    bool type,
+  ) async {
+    final currentUid = firebaseAuth.currentUser!.uid;
+    try {
+      await firestore.runTransaction(
+        (transaction) async {
+          final querySnapshot = await firestore
+              .collection('posts')
+              .where('authorId', isEqualTo: authorId)
+              .get();
+          for (final doc in querySnapshot.docs) {
+            final List<dynamic> postFollowers =
+                doc.data()['followers'] as List<dynamic>? ?? [];
+            if (type) {
+              if (!postFollowers.contains(currentUid)) {
+                postFollowers.add(currentUid);
+                transaction.update(doc.reference, {'followers': postFollowers});
+              }
+            } else {
+              if (postFollowers.contains(currentUid)) {
+                postFollowers.remove(currentUid);
+                transaction.update(doc.reference, {'followers': postFollowers});
+              }
+            }
+          }
+        },
+      );
+
+      return right(unit);
     } catch (e) {
       return left(PostError(e.toString()));
     }

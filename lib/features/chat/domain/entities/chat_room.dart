@@ -11,6 +11,8 @@ class ChatRoom with _$ChatRoom {
     String? chatRoomId,
     String? lastMessage,
     String? lastSenderId,
+    String? receiverId,
+    String? receiverUsername,
     @TimestampConverter() Timestamp? lastMessageTs,
     List<String>? members,
     @TimestampConverter() Timestamp? createdAt,
@@ -24,6 +26,8 @@ class ChatRoom with _$ChatRoom {
   factory ChatRoom.fromStoreData(Map<String, dynamic> firestoreData) {
     return ChatRoom(
       chatRoomId: firestoreData['chatRoomId'] as String?,
+      receiverId: firestoreData['receiverId'] as String?,
+      receiverUsername: firestoreData['receiverUsername'] as String?,
       lastMessage: firestoreData['lastMessage'] as String?,
       lastSenderId: firestoreData['lastSenderId'] as String?,
       lastMessageTs: firestoreData['lastMessageTs'] as Timestamp?,

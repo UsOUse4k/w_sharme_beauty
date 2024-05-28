@@ -23,6 +23,7 @@ mixin _$Post {
   String? get authorId => throw _privateConstructorUsedError;
   String? get postId => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   List<String> get imageUrls => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
@@ -30,6 +31,8 @@ mixin _$Post {
   int get commentsCount => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
   List<String> get reposts => throw _privateConstructorUsedError;
+  List<String>? get followers => throw _privateConstructorUsedError;
+  List<String>? get subscriptions => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
 
@@ -47,6 +50,7 @@ abstract class $PostCopyWith<$Res> {
       {String? authorId,
       String? postId,
       String? username,
+      String? category,
       String text,
       List<String> imageUrls,
       String? avatarUrl,
@@ -54,6 +58,8 @@ abstract class $PostCopyWith<$Res> {
       int commentsCount,
       List<String> likes,
       List<String> reposts,
+      List<String>? followers,
+      List<String>? subscriptions,
       bool isFavorite,
       String? createdAt});
 }
@@ -74,6 +80,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? authorId = freezed,
     Object? postId = freezed,
     Object? username = freezed,
+    Object? category = freezed,
     Object? text = null,
     Object? imageUrls = null,
     Object? avatarUrl = freezed,
@@ -81,6 +88,8 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? commentsCount = null,
     Object? likes = null,
     Object? reposts = null,
+    Object? followers = freezed,
+    Object? subscriptions = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
@@ -96,6 +105,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -125,6 +138,14 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.reposts
           : reposts // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      followers: freezed == followers
+          ? _value.followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      subscriptions: freezed == subscriptions
+          ? _value.subscriptions
+          : subscriptions // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -148,6 +169,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       {String? authorId,
       String? postId,
       String? username,
+      String? category,
       String text,
       List<String> imageUrls,
       String? avatarUrl,
@@ -155,6 +177,8 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       int commentsCount,
       List<String> likes,
       List<String> reposts,
+      List<String>? followers,
+      List<String>? subscriptions,
       bool isFavorite,
       String? createdAt});
 }
@@ -172,6 +196,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? authorId = freezed,
     Object? postId = freezed,
     Object? username = freezed,
+    Object? category = freezed,
     Object? text = null,
     Object? imageUrls = null,
     Object? avatarUrl = freezed,
@@ -179,6 +204,8 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? commentsCount = null,
     Object? likes = null,
     Object? reposts = null,
+    Object? followers = freezed,
+    Object? subscriptions = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
@@ -194,6 +221,10 @@ class __$$PostImplCopyWithImpl<$Res>
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -223,6 +254,14 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value._reposts
           : reposts // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      followers: freezed == followers
+          ? _value._followers
+          : followers // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      subscriptions: freezed == subscriptions
+          ? _value._subscriptions
+          : subscriptions // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -242,6 +281,7 @@ class _$PostImpl implements _Post {
       {this.authorId,
       this.postId,
       this.username,
+      this.category,
       required this.text,
       final List<String> imageUrls = const [],
       this.avatarUrl = '',
@@ -249,11 +289,15 @@ class _$PostImpl implements _Post {
       this.commentsCount = 0,
       final List<String> likes = const [],
       final List<String> reposts = const [],
+      final List<String>? followers = const [],
+      final List<String>? subscriptions = const [],
       this.isFavorite = false,
       this.createdAt = ''})
       : _imageUrls = imageUrls,
         _likes = likes,
-        _reposts = reposts;
+        _reposts = reposts,
+        _followers = followers,
+        _subscriptions = subscriptions;
 
   factory _$PostImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostImplFromJson(json);
@@ -264,6 +308,8 @@ class _$PostImpl implements _Post {
   final String? postId;
   @override
   final String? username;
+  @override
+  final String? category;
   @override
   final String text;
   final List<String> _imageUrls;
@@ -301,6 +347,28 @@ class _$PostImpl implements _Post {
     return EqualUnmodifiableListView(_reposts);
   }
 
+  final List<String>? _followers;
+  @override
+  @JsonKey()
+  List<String>? get followers {
+    final value = _followers;
+    if (value == null) return null;
+    if (_followers is EqualUnmodifiableListView) return _followers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _subscriptions;
+  @override
+  @JsonKey()
+  List<String>? get subscriptions {
+    final value = _subscriptions;
+    if (value == null) return null;
+    if (_subscriptions is EqualUnmodifiableListView) return _subscriptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey()
   final bool isFavorite;
@@ -310,7 +378,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(authorId: $authorId, postId: $postId, username: $username, text: $text, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, likes: $likes, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(authorId: $authorId, postId: $postId, username: $username, category: $category, text: $text, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, likes: $likes, reposts: $reposts, followers: $followers, subscriptions: $subscriptions, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -323,6 +391,8 @@ class _$PostImpl implements _Post {
             (identical(other.postId, postId) || other.postId == postId) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.text, text) || other.text == text) &&
             const DeepCollectionEquality()
                 .equals(other._imageUrls, _imageUrls) &&
@@ -334,6 +404,10 @@ class _$PostImpl implements _Post {
                 other.commentsCount == commentsCount) &&
             const DeepCollectionEquality().equals(other._likes, _likes) &&
             const DeepCollectionEquality().equals(other._reposts, _reposts) &&
+            const DeepCollectionEquality()
+                .equals(other._followers, _followers) &&
+            const DeepCollectionEquality()
+                .equals(other._subscriptions, _subscriptions) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
             (identical(other.createdAt, createdAt) ||
@@ -347,6 +421,7 @@ class _$PostImpl implements _Post {
       authorId,
       postId,
       username,
+      category,
       text,
       const DeepCollectionEquality().hash(_imageUrls),
       avatarUrl,
@@ -354,6 +429,8 @@ class _$PostImpl implements _Post {
       commentsCount,
       const DeepCollectionEquality().hash(_likes),
       const DeepCollectionEquality().hash(_reposts),
+      const DeepCollectionEquality().hash(_followers),
+      const DeepCollectionEquality().hash(_subscriptions),
       isFavorite,
       createdAt);
 
@@ -376,6 +453,7 @@ abstract class _Post implements Post {
       {final String? authorId,
       final String? postId,
       final String? username,
+      final String? category,
       required final String text,
       final List<String> imageUrls,
       final String? avatarUrl,
@@ -383,6 +461,8 @@ abstract class _Post implements Post {
       final int commentsCount,
       final List<String> likes,
       final List<String> reposts,
+      final List<String>? followers,
+      final List<String>? subscriptions,
       final bool isFavorite,
       final String? createdAt}) = _$PostImpl;
 
@@ -394,6 +474,8 @@ abstract class _Post implements Post {
   String? get postId;
   @override
   String? get username;
+  @override
+  String? get category;
   @override
   String get text;
   @override
@@ -408,6 +490,10 @@ abstract class _Post implements Post {
   List<String> get likes;
   @override
   List<String> get reposts;
+  @override
+  List<String>? get followers;
+  @override
+  List<String>? get subscriptions;
   @override
   bool get isFavorite;
   @override

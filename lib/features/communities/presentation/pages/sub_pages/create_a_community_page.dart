@@ -1,19 +1,23 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/domain/entities/community/entities.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+
 
 class CommunityCreatePage extends StatefulWidget {
   const CommunityCreatePage({super.key});
@@ -25,15 +29,19 @@ class CommunityCreatePage extends StatefulWidget {
 class _CommunityCreatePageState extends State<CommunityCreatePage> {
   Uint8List? avatar;
   bool isLoading = false;
-
+  String filterText = 'Выберите категорию';
+  String? selectedCategory;
   final TextEditingController communityName = TextEditingController();
-  final TextEditingController category = TextEditingController();
   final TextEditingController description = TextEditingController();
+
+  Future selectedPickImage(BuildContext context) async {
+    avatar = await pickImage(context);
+    setState(() {});
+  }
 
   @override
   void dispose() {
     communityName.dispose();
-    category.dispose();
     description.dispose();
     super.dispose();
   }
@@ -86,7 +94,6 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
               error: (message) {
                 isLoading = false;
                 setState(() {});
-
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
@@ -108,11 +115,34 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                 controller: communityName,
               ),
               const SizedBox(height: 14),
-              TextFieldWidgetWithTitle(
-                title: "Выберите категорию",
-                hintText: "Выберите категорию",
-                controller: category,
-                suffixIcon: const Icon(Icons.expand_more_outlined),
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  'Выберите категорию',
+                  style: AppStyles.w500f16.copyWith(
+                    color: AppColors.darkGrey,
+                  ),
+                ),
+              ),
+              FilterButtonWidget(
+                width: 394.w,
+                onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                  context,
+                  CustomBottomSheet(
+                    maxHeight: 0.5,
+                    navbarTitle: 'Выберите категорию',
+                    widget: RadioFilterWidget(
+                      list: categoryList,
+                      onSelect: (String text) {
+                        filterText = text;
+                        selectedCategory = text;
+                        setState(() {});
+                      },
+                      selectedValue: selectedCategory ?? '',
+                    ),
+                  ),
+                ),
+                title: filterText,
               ),
               const SizedBox(height: 14),
               const Text(
@@ -139,7 +169,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
               AddingButton(
                 text: '+ Выбрать фото',
                 onPressed: () {
-                  pickImage(context);
+                  selectedPickImage(context);
                 },
               ),
               const SizedBox(
@@ -165,14 +195,14 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                 text: isLoading ? 'Создание...' : 'Создать сообщество',
                 onPressed: () {
                   if (communityName.text.isNotEmpty &&
-                      category.text.isNotEmpty &&
                       description.text.isNotEmpty &&
-                      avatar != null) {
+                      avatar != null &&
+                      selectedCategory != null) {
                     context.read<CommunityCreateBloc>().add(
                           CommunityCreateEvent.createCommunity(
                             Community(
                               communityName: communityName.text,
-                              category: category.text,
+                              category: selectedCategory,
                               description: description.text,
                             ),
                             avatar!,
@@ -194,18 +224,5 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
         ),
       ),
     );
-  }
-
-  Future pickImage(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-    if (image != null) {
-      final Uint8List imageData = await image.readAsBytes();
-      setState(() {
-        avatar = imageData;
-      });
-    }
   }
 }

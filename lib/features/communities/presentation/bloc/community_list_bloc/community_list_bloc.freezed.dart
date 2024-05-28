@@ -19,32 +19,52 @@ mixin _$CommunityListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCommunities,
+    required TResult Function(String? query) searchCommunities,
+    required TResult Function(String? query) searchCommunityChatGroup,
+    required TResult Function(String filterCommunity) filterCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCommunities,
+    TResult? Function(String? query)? searchCommunities,
+    TResult? Function(String? query)? searchCommunityChatGroup,
+    TResult? Function(String filterCommunity)? filterCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCommunities,
+    TResult Function(String? query)? searchCommunities,
+    TResult Function(String? query)? searchCommunityChatGroup,
+    TResult Function(String filterCommunity)? filterCommunity,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCommunities value) getCommunities,
+    required TResult Function(_SearchCommunities value) searchCommunities,
+    required TResult Function(_SearchCommunityChatGroup value)
+        searchCommunityChatGroup,
+    required TResult Function(_FilterCommunity value) filterCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCommunities value)? getCommunities,
+    TResult? Function(_SearchCommunities value)? searchCommunities,
+    TResult? Function(_SearchCommunityChatGroup value)?
+        searchCommunityChatGroup,
+    TResult? Function(_FilterCommunity value)? filterCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCommunities value)? getCommunities,
+    TResult Function(_SearchCommunities value)? searchCommunities,
+    TResult Function(_SearchCommunityChatGroup value)? searchCommunityChatGroup,
+    TResult Function(_FilterCommunity value)? filterCommunity,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +127,9 @@ class _$GetCommunitiesImpl implements _GetCommunities {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getCommunities,
+    required TResult Function(String? query) searchCommunities,
+    required TResult Function(String? query) searchCommunityChatGroup,
+    required TResult Function(String filterCommunity) filterCommunity,
   }) {
     return getCommunities();
   }
@@ -115,6 +138,9 @@ class _$GetCommunitiesImpl implements _GetCommunities {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getCommunities,
+    TResult? Function(String? query)? searchCommunities,
+    TResult? Function(String? query)? searchCommunityChatGroup,
+    TResult? Function(String filterCommunity)? filterCommunity,
   }) {
     return getCommunities?.call();
   }
@@ -123,6 +149,9 @@ class _$GetCommunitiesImpl implements _GetCommunities {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getCommunities,
+    TResult Function(String? query)? searchCommunities,
+    TResult Function(String? query)? searchCommunityChatGroup,
+    TResult Function(String filterCommunity)? filterCommunity,
     required TResult orElse(),
   }) {
     if (getCommunities != null) {
@@ -135,6 +164,10 @@ class _$GetCommunitiesImpl implements _GetCommunities {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetCommunities value) getCommunities,
+    required TResult Function(_SearchCommunities value) searchCommunities,
+    required TResult Function(_SearchCommunityChatGroup value)
+        searchCommunityChatGroup,
+    required TResult Function(_FilterCommunity value) filterCommunity,
   }) {
     return getCommunities(this);
   }
@@ -143,6 +176,10 @@ class _$GetCommunitiesImpl implements _GetCommunities {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetCommunities value)? getCommunities,
+    TResult? Function(_SearchCommunities value)? searchCommunities,
+    TResult? Function(_SearchCommunityChatGroup value)?
+        searchCommunityChatGroup,
+    TResult? Function(_FilterCommunity value)? filterCommunity,
   }) {
     return getCommunities?.call(this);
   }
@@ -151,6 +188,9 @@ class _$GetCommunitiesImpl implements _GetCommunities {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetCommunities value)? getCommunities,
+    TResult Function(_SearchCommunities value)? searchCommunities,
+    TResult Function(_SearchCommunityChatGroup value)? searchCommunityChatGroup,
+    TResult Function(_FilterCommunity value)? filterCommunity,
     required TResult orElse(),
   }) {
     if (getCommunities != null) {
@@ -162,6 +202,457 @@ class _$GetCommunitiesImpl implements _GetCommunities {
 
 abstract class _GetCommunities implements CommunityListEvent {
   const factory _GetCommunities() = _$GetCommunitiesImpl;
+}
+
+/// @nodoc
+abstract class _$$SearchCommunitiesImplCopyWith<$Res> {
+  factory _$$SearchCommunitiesImplCopyWith(_$SearchCommunitiesImpl value,
+          $Res Function(_$SearchCommunitiesImpl) then) =
+      __$$SearchCommunitiesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? query});
+}
+
+/// @nodoc
+class __$$SearchCommunitiesImplCopyWithImpl<$Res>
+    extends _$CommunityListEventCopyWithImpl<$Res, _$SearchCommunitiesImpl>
+    implements _$$SearchCommunitiesImplCopyWith<$Res> {
+  __$$SearchCommunitiesImplCopyWithImpl(_$SearchCommunitiesImpl _value,
+      $Res Function(_$SearchCommunitiesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = freezed,
+  }) {
+    return _then(_$SearchCommunitiesImpl(
+      query: freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchCommunitiesImpl implements _SearchCommunities {
+  const _$SearchCommunitiesImpl({this.query});
+
+  @override
+  final String? query;
+
+  @override
+  String toString() {
+    return 'CommunityListEvent.searchCommunities(query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchCommunitiesImpl &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchCommunitiesImplCopyWith<_$SearchCommunitiesImpl> get copyWith =>
+      __$$SearchCommunitiesImplCopyWithImpl<_$SearchCommunitiesImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCommunities,
+    required TResult Function(String? query) searchCommunities,
+    required TResult Function(String? query) searchCommunityChatGroup,
+    required TResult Function(String filterCommunity) filterCommunity,
+  }) {
+    return searchCommunities(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCommunities,
+    TResult? Function(String? query)? searchCommunities,
+    TResult? Function(String? query)? searchCommunityChatGroup,
+    TResult? Function(String filterCommunity)? filterCommunity,
+  }) {
+    return searchCommunities?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCommunities,
+    TResult Function(String? query)? searchCommunities,
+    TResult Function(String? query)? searchCommunityChatGroup,
+    TResult Function(String filterCommunity)? filterCommunity,
+    required TResult orElse(),
+  }) {
+    if (searchCommunities != null) {
+      return searchCommunities(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCommunities value) getCommunities,
+    required TResult Function(_SearchCommunities value) searchCommunities,
+    required TResult Function(_SearchCommunityChatGroup value)
+        searchCommunityChatGroup,
+    required TResult Function(_FilterCommunity value) filterCommunity,
+  }) {
+    return searchCommunities(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCommunities value)? getCommunities,
+    TResult? Function(_SearchCommunities value)? searchCommunities,
+    TResult? Function(_SearchCommunityChatGroup value)?
+        searchCommunityChatGroup,
+    TResult? Function(_FilterCommunity value)? filterCommunity,
+  }) {
+    return searchCommunities?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCommunities value)? getCommunities,
+    TResult Function(_SearchCommunities value)? searchCommunities,
+    TResult Function(_SearchCommunityChatGroup value)? searchCommunityChatGroup,
+    TResult Function(_FilterCommunity value)? filterCommunity,
+    required TResult orElse(),
+  }) {
+    if (searchCommunities != null) {
+      return searchCommunities(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchCommunities implements CommunityListEvent {
+  const factory _SearchCommunities({final String? query}) =
+      _$SearchCommunitiesImpl;
+
+  String? get query;
+  @JsonKey(ignore: true)
+  _$$SearchCommunitiesImplCopyWith<_$SearchCommunitiesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SearchCommunityChatGroupImplCopyWith<$Res> {
+  factory _$$SearchCommunityChatGroupImplCopyWith(
+          _$SearchCommunityChatGroupImpl value,
+          $Res Function(_$SearchCommunityChatGroupImpl) then) =
+      __$$SearchCommunityChatGroupImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? query});
+}
+
+/// @nodoc
+class __$$SearchCommunityChatGroupImplCopyWithImpl<$Res>
+    extends _$CommunityListEventCopyWithImpl<$Res,
+        _$SearchCommunityChatGroupImpl>
+    implements _$$SearchCommunityChatGroupImplCopyWith<$Res> {
+  __$$SearchCommunityChatGroupImplCopyWithImpl(
+      _$SearchCommunityChatGroupImpl _value,
+      $Res Function(_$SearchCommunityChatGroupImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = freezed,
+  }) {
+    return _then(_$SearchCommunityChatGroupImpl(
+      query: freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchCommunityChatGroupImpl implements _SearchCommunityChatGroup {
+  const _$SearchCommunityChatGroupImpl({this.query});
+
+  @override
+  final String? query;
+
+  @override
+  String toString() {
+    return 'CommunityListEvent.searchCommunityChatGroup(query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchCommunityChatGroupImpl &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchCommunityChatGroupImplCopyWith<_$SearchCommunityChatGroupImpl>
+      get copyWith => __$$SearchCommunityChatGroupImplCopyWithImpl<
+          _$SearchCommunityChatGroupImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCommunities,
+    required TResult Function(String? query) searchCommunities,
+    required TResult Function(String? query) searchCommunityChatGroup,
+    required TResult Function(String filterCommunity) filterCommunity,
+  }) {
+    return searchCommunityChatGroup(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCommunities,
+    TResult? Function(String? query)? searchCommunities,
+    TResult? Function(String? query)? searchCommunityChatGroup,
+    TResult? Function(String filterCommunity)? filterCommunity,
+  }) {
+    return searchCommunityChatGroup?.call(query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCommunities,
+    TResult Function(String? query)? searchCommunities,
+    TResult Function(String? query)? searchCommunityChatGroup,
+    TResult Function(String filterCommunity)? filterCommunity,
+    required TResult orElse(),
+  }) {
+    if (searchCommunityChatGroup != null) {
+      return searchCommunityChatGroup(query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCommunities value) getCommunities,
+    required TResult Function(_SearchCommunities value) searchCommunities,
+    required TResult Function(_SearchCommunityChatGroup value)
+        searchCommunityChatGroup,
+    required TResult Function(_FilterCommunity value) filterCommunity,
+  }) {
+    return searchCommunityChatGroup(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCommunities value)? getCommunities,
+    TResult? Function(_SearchCommunities value)? searchCommunities,
+    TResult? Function(_SearchCommunityChatGroup value)?
+        searchCommunityChatGroup,
+    TResult? Function(_FilterCommunity value)? filterCommunity,
+  }) {
+    return searchCommunityChatGroup?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCommunities value)? getCommunities,
+    TResult Function(_SearchCommunities value)? searchCommunities,
+    TResult Function(_SearchCommunityChatGroup value)? searchCommunityChatGroup,
+    TResult Function(_FilterCommunity value)? filterCommunity,
+    required TResult orElse(),
+  }) {
+    if (searchCommunityChatGroup != null) {
+      return searchCommunityChatGroup(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchCommunityChatGroup implements CommunityListEvent {
+  const factory _SearchCommunityChatGroup({final String? query}) =
+      _$SearchCommunityChatGroupImpl;
+
+  String? get query;
+  @JsonKey(ignore: true)
+  _$$SearchCommunityChatGroupImplCopyWith<_$SearchCommunityChatGroupImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterCommunityImplCopyWith<$Res> {
+  factory _$$FilterCommunityImplCopyWith(_$FilterCommunityImpl value,
+          $Res Function(_$FilterCommunityImpl) then) =
+      __$$FilterCommunityImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String filterCommunity});
+}
+
+/// @nodoc
+class __$$FilterCommunityImplCopyWithImpl<$Res>
+    extends _$CommunityListEventCopyWithImpl<$Res, _$FilterCommunityImpl>
+    implements _$$FilterCommunityImplCopyWith<$Res> {
+  __$$FilterCommunityImplCopyWithImpl(
+      _$FilterCommunityImpl _value, $Res Function(_$FilterCommunityImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? filterCommunity = null,
+  }) {
+    return _then(_$FilterCommunityImpl(
+      filterCommunity: null == filterCommunity
+          ? _value.filterCommunity
+          : filterCommunity // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterCommunityImpl implements _FilterCommunity {
+  const _$FilterCommunityImpl({required this.filterCommunity});
+
+  @override
+  final String filterCommunity;
+
+  @override
+  String toString() {
+    return 'CommunityListEvent.filterCommunity(filterCommunity: $filterCommunity)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterCommunityImpl &&
+            (identical(other.filterCommunity, filterCommunity) ||
+                other.filterCommunity == filterCommunity));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, filterCommunity);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterCommunityImplCopyWith<_$FilterCommunityImpl> get copyWith =>
+      __$$FilterCommunityImplCopyWithImpl<_$FilterCommunityImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCommunities,
+    required TResult Function(String? query) searchCommunities,
+    required TResult Function(String? query) searchCommunityChatGroup,
+    required TResult Function(String filterCommunity) filterCommunity,
+  }) {
+    return filterCommunity(this.filterCommunity);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCommunities,
+    TResult? Function(String? query)? searchCommunities,
+    TResult? Function(String? query)? searchCommunityChatGroup,
+    TResult? Function(String filterCommunity)? filterCommunity,
+  }) {
+    return filterCommunity?.call(this.filterCommunity);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCommunities,
+    TResult Function(String? query)? searchCommunities,
+    TResult Function(String? query)? searchCommunityChatGroup,
+    TResult Function(String filterCommunity)? filterCommunity,
+    required TResult orElse(),
+  }) {
+    if (filterCommunity != null) {
+      return filterCommunity(this.filterCommunity);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCommunities value) getCommunities,
+    required TResult Function(_SearchCommunities value) searchCommunities,
+    required TResult Function(_SearchCommunityChatGroup value)
+        searchCommunityChatGroup,
+    required TResult Function(_FilterCommunity value) filterCommunity,
+  }) {
+    return filterCommunity(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCommunities value)? getCommunities,
+    TResult? Function(_SearchCommunities value)? searchCommunities,
+    TResult? Function(_SearchCommunityChatGroup value)?
+        searchCommunityChatGroup,
+    TResult? Function(_FilterCommunity value)? filterCommunity,
+  }) {
+    return filterCommunity?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCommunities value)? getCommunities,
+    TResult Function(_SearchCommunities value)? searchCommunities,
+    TResult Function(_SearchCommunityChatGroup value)? searchCommunityChatGroup,
+    TResult Function(_FilterCommunity value)? filterCommunity,
+    required TResult orElse(),
+  }) {
+    if (filterCommunity != null) {
+      return filterCommunity(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FilterCommunity implements CommunityListEvent {
+  const factory _FilterCommunity({required final String filterCommunity}) =
+      _$FilterCommunityImpl;
+
+  String get filterCommunity;
+  @JsonKey(ignore: true)
+  _$$FilterCommunityImplCopyWith<_$FilterCommunityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

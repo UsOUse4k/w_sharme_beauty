@@ -18,5 +18,4 @@ abstract class ICommunityPostRepository {
     bool add, {
     required String communityId,
   });
-  //Future<Either<PostError, Post>> getPost(String postId, String? userId);
 }

@@ -11,6 +11,7 @@ part 'my_post_list_bloc.freezed.dart';
 
 @injectable
 class MyPostListBloc extends Bloc<MyPostListEvent, MyPostListState> {
+  List<Post>? allPosts;
   MyPostListBloc(this._postRepository, this._authFacade)
       : super(const MyPostListState.initial()) {
     on<MyPostListEvent>(
@@ -32,6 +33,7 @@ class MyPostListBloc extends Bloc<MyPostListEvent, MyPostListState> {
                       emit(MyPostListState.error(message: error.messasge));
                     },
                     (posts) {
+                      allPosts = posts;
                       emit(MyPostListState.success(posts));
                     },
                   );
@@ -39,6 +41,16 @@ class MyPostListBloc extends Bloc<MyPostListEvent, MyPostListState> {
               );
             } catch (e) {
               emit(MyPostListState.error(message: e.toString()));
+            }
+          },
+          filterPost: (event) {
+            if (event.value.isEmpty) {
+              emit(MyPostListState.success(allPosts!));
+            } else {
+              final filterPosts = allPosts!
+                  .where((element) => element.category!.contains(event.value))
+                  .toList();
+              emit(MyPostListState.success(filterPosts));
             }
           },
           addNewPost: (event) async {

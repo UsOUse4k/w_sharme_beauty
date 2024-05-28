@@ -9,7 +9,6 @@ import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_wid
 
 class BeutyList extends StatelessWidget {
   const BeutyList.beautyList({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CommunityListBloc, CommunityListState>(

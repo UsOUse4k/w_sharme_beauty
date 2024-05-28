@@ -12,6 +12,9 @@ part 'get_group_bloc.freezed.dart';
 
 @injectable
 class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
+  List<UserProfile>? allProfiles;
+  ChatGroupRoom? selectedGroup;
+
   GetGroupBloc(
     this._chatGroupRepository,
     this._authFacade,
@@ -30,6 +33,8 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
               final userProfiles = await _authFacade.getUserProfiles(
                 userIds: group.joinedUserIds!,
               );
+              allProfiles = userProfiles;
+              selectedGroup = group;
               emit(
                 GetGroupState.success(
                   group: group,
@@ -43,6 +48,32 @@ class GetGroupBloc extends Bloc<GetGroupEvent, GetGroupState> {
                 message: e.toString(),
               ),
             );
+          }
+        },
+        searchUsers: (query) {
+          if (state is _Success && allProfiles != null) {
+            if (query.isEmpty) {
+              emit(
+                GetGroupState.success(
+                  userProfiles: allProfiles!,
+                  group: selectedGroup!,
+                ),
+              );
+            } else {
+              final filteredUsers = allProfiles!
+                  .where(
+                    (user) => user.username!
+                        .toLowerCase()
+                        .contains(query.toLowerCase()),
+                  )
+                  .toList();
+              emit(
+                GetGroupState.success(
+                  userProfiles: filteredUsers,
+                  group: selectedGroup!,
+                ),
+              );
+            }
           }
         },
         orElse: () {},

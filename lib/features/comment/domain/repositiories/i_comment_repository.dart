@@ -4,7 +4,7 @@ import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 
 abstract class ICommentRepository {
-  Future<Either<PostError, Unit>> createComment({
+  Future<Either<PostError, Comment>> createComment({
     required Comment comment,
     required String postId,
     String? parentCommentId,

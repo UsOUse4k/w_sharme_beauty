@@ -1,10 +1,14 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
@@ -17,19 +21,21 @@ class CommunityPostCard extends StatefulWidget {
     super.key,
     this.onPressed,
     this.index,
-    this.post,
+    required this.post,
     this.show = 'hide',
     this.showButton = false,
     required this.communityName,
     required this.avatarUrl,
+    required this.communityId,
   });
-  final Post? post;
+  final Post post;
   final Function()? onPressed;
   final int? index;
   final String? show;
   final bool? showButton;
   final String communityName;
   final String avatarUrl;
+  final String communityId;
 
   @override
   State<CommunityPostCard> createState() => _CommunityPostCardState();
@@ -43,20 +49,26 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
   void initState() {
     super.initState();
     setState(() {
-      isLike = widget.post!.likes.contains(firebaseAuth.currentUser!.uid);
-      countLike = widget.post!.likes.length;
+      isLike = widget.post.likes.contains(firebaseAuth.currentUser!.uid);
+      countLike = widget.post.likes.length;
     });
   }
 
   void toggleLike() {
     final bool newLikeStatus = !isLike;
-    //final postId = widget.post!.postId.toString();
+    final postId = widget.post.postId.toString();
+    final authorId = widget.post.authorId.toString();
+    final communityId = widget.communityId;
 
     if (isLike) {
-      //context.read<PostLikeBloc>().add(PostLikeEvent.dislike(postId));
+      context
+          .read<CommunityLikeBloc>()
+          .add(CommunityLikeEvent.dislike(communityId, authorId, postId));
       countLike = countLike - 1;
     } else {
-      //context.read<PostLikeBloc>().add(PostLikeEvent.like(postId));
+      context
+          .read<CommunityLikeBloc>()
+          .add(CommunityLikeEvent.like(communityId, authorId, postId));
       countLike = countLike + 1;
     }
     if (mounted) {
@@ -87,25 +99,25 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
                   width: 40.w,
                   height: 40.h,
                   name: widget.communityName,
-                  subTitle: widget.post!.createdAt.toString(),
+                  subTitle: widget.post.createdAt.toString(),
                 ),
               ),
-              if (firebaseAuth.currentUser!.uid == widget.post!.authorId)
+              if (firebaseAuth.currentUser!.uid == widget.post.authorId)
                 const Icon(Icons.more_horiz),
             ],
           ),
           const SizedBox(height: 6),
           Text(
-            widget.post!.text,
+            widget.post.text,
             style: AppStyles.w400f16,
           ),
-          if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
+          if ( widget.post.imageUrls.isNotEmpty)
             const SizedBox(height: 6),
-          if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
+          if ( widget.post.imageUrls.isNotEmpty)
             SizedBox(
               height: 394.h,
               child: PostImage(
-                imageUrls: widget.post!.imageUrls,
+                imageUrls: widget.post.imageUrls,
               ),
             ),
           const SizedBox(height: 6),
@@ -121,21 +133,22 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: () {
-                  //BottomSheetUtil.showAppBottomSheet(
-                  //  context,
-                  //  CommentBottomSheet(
-                  //    postId: postId!,
-                  //  ),
-                  //);
+                  BottomSheetUtil.showAppBottomSheet(
+                    context,
+                    CommentBottomSheet(
+                      postId:  widget.post.postId.toString(),
+                      communityId: widget.communityId,
+                    ),
+                  );
                 },
                 icon: Assets.svgs.comment.svg(),
-                text: widget.post!.commentsCount.toString(),
+                text: widget.post.commentsCount.toString(),
               ),
               const SizedBox(width: 6),
               PostIconsWidget(
                 onPessed: () {},
                 icon: Assets.svgs.share.svg(),
-                text: widget.post!.reposts.length.toString(),
+                text: widget.post.reposts.length.toString(),
               ),
             ],
           ),
