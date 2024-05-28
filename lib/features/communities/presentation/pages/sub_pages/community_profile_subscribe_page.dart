@@ -238,13 +238,14 @@ class _CommunityProfileSubscribePageState
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => const CategoryShimmer(),
-                      itemCount: 5,
+                      itemCount: community.category!.length,
                     ),
                   );
                 },
                 success: (categories) {
+                  final filterCategories = categories.where((e) => community.category!.contains(e.title)).toList();
                   return CategoryList(
-                    category: categories,
+                    category: filterCategories,
                     onFilterCategories: (category) {
                       context.read<CommunityPostListBloc>().add(
                             CommunityPostListEvent.filterCommunityPost(

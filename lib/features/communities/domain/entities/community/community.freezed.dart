@@ -26,7 +26,7 @@ mixin _$Community {
   String? get chatGroupName => throw _privateConstructorUsedError;
   String? get communityName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String? get category => throw _privateConstructorUsedError;
+  List<String>? get category => throw _privateConstructorUsedError;
   List<String>? get administrator => throw _privateConstructorUsedError;
   List<String>? get editors => throw _privateConstructorUsedError;
   String? get avatarUrls => throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ abstract class $CommunityCopyWith<$Res> {
       String? chatGroupName,
       String? communityName,
       String? description,
-      String? category,
+      List<String>? category,
       List<String>? administrator,
       List<String>? editors,
       String? avatarUrls,
@@ -119,7 +119,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       administrator: freezed == administrator
           ? _value.administrator
           : administrator // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ abstract class _$$CommunityImplCopyWith<$Res>
       String? chatGroupName,
       String? communityName,
       String? description,
-      String? category,
+      List<String>? category,
       List<String>? administrator,
       List<String>? editors,
       String? avatarUrls,
@@ -229,9 +229,9 @@ class __$$CommunityImplCopyWithImpl<$Res>
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
       category: freezed == category
-          ? _value.category
+          ? _value._category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       administrator: freezed == administrator
           ? _value._administrator
           : administrator // ignore: cast_nullable_to_non_nullable
@@ -274,7 +274,7 @@ class _$CommunityImpl implements _Community {
       this.chatGroupName,
       this.communityName,
       this.description,
-      this.category,
+      final List<String>? category = const [],
       final List<String>? administrator = const [],
       final List<String>? editors = const [],
       this.avatarUrls = "",
@@ -282,7 +282,8 @@ class _$CommunityImpl implements _Community {
       this.public = 0,
       this.isFavorite = false,
       this.createdAt = ""})
-      : _administrator = administrator,
+      : _category = category,
+        _administrator = administrator,
         _editors = editors,
         _participants = participants;
 
@@ -301,8 +302,17 @@ class _$CommunityImpl implements _Community {
   final String? communityName;
   @override
   final String? description;
+  final List<String>? _category;
   @override
-  final String? category;
+  @JsonKey()
+  List<String>? get category {
+    final value = _category;
+    if (value == null) return null;
+    if (_category is EqualUnmodifiableListView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _administrator;
   @override
   @JsonKey()
@@ -370,8 +380,7 @@ class _$CommunityImpl implements _Community {
                 other.communityName == communityName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
             const DeepCollectionEquality()
                 .equals(other._administrator, _administrator) &&
             const DeepCollectionEquality().equals(other._editors, _editors) &&
@@ -396,7 +405,7 @@ class _$CommunityImpl implements _Community {
       chatGroupName,
       communityName,
       description,
-      category,
+      const DeepCollectionEquality().hash(_category),
       const DeepCollectionEquality().hash(_administrator),
       const DeepCollectionEquality().hash(_editors),
       avatarUrls,
@@ -427,7 +436,7 @@ abstract class _Community implements Community {
       final String? chatGroupName,
       final String? communityName,
       final String? description,
-      final String? category,
+      final List<String>? category,
       final List<String>? administrator,
       final List<String>? editors,
       final String? avatarUrls,
@@ -452,7 +461,7 @@ abstract class _Community implements Community {
   @override
   String? get description;
   @override
-  String? get category;
+  List<String>? get category;
   @override
   List<String>? get administrator;
   @override

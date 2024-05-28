@@ -11,15 +11,15 @@ part 'community_post_detail_bloc.freezed.dart';
 @injectable
 class CommunityPostDetailBloc
     extends Bloc<CommunityPostDetailEvent, CommunityPostDetailState> {
-  CommunityPostDetailBloc(this._communityPostRepository) : super(_Initial()) {
+  CommunityPostDetailBloc(this._communityPostRepository) : super(const _Initial()) {
     on<_GetPost>((event, emit) async {
       emit(const CommunityPostDetailState.loading());
       try {
         final result = await _communityPostRepository.getPost(
-            communityId: event.communityId, postId: event.postId);
+            communityId: event.communityId, postId: event.postId,);
         result.fold(
             (l) => emit(CommunityPostDetailState.error(error: l.messasge)),
-            (r) => emit(CommunityPostDetailState.success(post: r)));
+            (r) => emit(CommunityPostDetailState.success(post: r)),);
       } catch (e) {
         emit(CommunityPostDetailState.error(error: e.toString()));
       }

@@ -34,6 +34,7 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_commen
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_category_bloc/community_category_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_create_bloc/community_comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_likes_bloc/community_comment_likes_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_list_bloc/community_comment_list_bloc.dart';
@@ -265,6 +266,9 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommunityPostDetailBloc>(
           create: (context) => getIt<CommunityPostDetailBloc>(),
+        ),
+        BlocProvider<CommunityCategoryBloc>(
+          create: (context) => getIt<CommunityCategoryBloc>(),
         ),
       ],
       child: child,

@@ -5,7 +5,7 @@ class UpdateCommunityEvent with _$UpdateCommunityEvent {
   const factory UpdateCommunityEvent.updateCommunity({
     required String communityName,
     String? desc,
-    String? category,
+    List<String>? category,
     Uint8List? file,
     required String communityId,
   }) = _UpdateCommunity;

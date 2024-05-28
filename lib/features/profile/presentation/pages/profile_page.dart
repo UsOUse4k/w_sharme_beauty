@@ -155,38 +155,41 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      BlocBuilder<CategoryBloc, CategoryState>(
-                        builder: (context, state) {
-                          
-                          return state.maybeWhen(
-                            loading: () {
-                              return SizedBox(
-                                height: 100.h,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) =>
-                                      const CategoryShimmer(),
-                                  itemCount: 5,
-                                ),
-                              );
-                            },
-                            success: (categories) {
-                              final filterCategories = categories.where((element) => user.category!.contains(element.title),).toList();
-                              return CategoryList(
-                                category: filterCategories,
-                                onFilterCategories: (value) {
-                                  context.read<MyPostListBloc>().add(
-                                        MyPostListEvent.filterPost(
-                                          value: value.title.toString(),
-                                        ),
-                                      );
-                                },
-                              );
-                            },
-                            orElse: () => Container(),
-                          );
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: BlocBuilder<CategoryBloc, CategoryState>(
+                          builder: (context, state) {
+                            
+                            return state.maybeWhen(
+                              loading: () {
+                                return SizedBox(
+                                  height: 100.h,
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) =>
+                                        const CategoryShimmer(),
+                                    itemCount: 5,
+                                  ),
+                                );
+                              },
+                              success: (categories) {
+                                final filterCategories = categories.where((element) => user.category!.contains(element.title),).toList();
+                                return CategoryList(
+                                  category: filterCategories,
+                                  onFilterCategories: (value) {
+                                    context.read<MyPostListBloc>().add(
+                                          MyPostListEvent.filterPost(
+                                            value: value.title.toString(),
+                                          ),
+                                        );
+                                  },
+                                );
+                              },
+                              orElse: () => Container(),
+                            );
+                          },
+                        ),
                       ),
                       const SizedBox(
                         height: 10,

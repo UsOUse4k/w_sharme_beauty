@@ -19,31 +19,28 @@ class _CategoryListState extends State<CategoryList> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100.h,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.category.length,
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            final item = widget.category[index];
-            return CategoryItem(
-              imageUrl: item.image.toString(),
-              title: item.title.toString(),
-              onPressed: () {
-                widget.onFilterCategories!(item);
-                setState(() {
-                  selectedActiveIndex = index;
-                });
-              },
-              color: selectedActiveIndex == index
-                  ? AppColors.purple
-                  : AppColors.black,
-            );
-          },
-          separatorBuilder: (context, index) => SizedBox(width: 15.w,),
-        ),
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.category.length,
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          final item = widget.category[index];
+          return CategoryItem(
+            imageUrl: item.image.toString(),
+            title: item.title.toString(),
+            onPressed: () {
+              widget.onFilterCategories!(item);
+              setState(() {
+                selectedActiveIndex = index;
+              });
+            },
+            color: selectedActiveIndex == index
+                ? AppColors.purple
+                : AppColors.black,
+          );
+        },
+        separatorBuilder: (context, index) => SizedBox(width: 15.w,),
       ),
     );
   }

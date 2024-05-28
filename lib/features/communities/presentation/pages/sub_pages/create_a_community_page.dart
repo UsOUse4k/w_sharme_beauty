@@ -18,7 +18,6 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/addi
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 
-
 class CommunityCreatePage extends StatefulWidget {
   const CommunityCreatePage({super.key});
 
@@ -198,11 +197,13 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                       description.text.isNotEmpty &&
                       avatar != null &&
                       selectedCategory != null) {
+                    final List<String> category = [];
+                    category.add(selectedCategory!);
                     context.read<CommunityCreateBloc>().add(
                           CommunityCreateEvent.createCommunity(
                             Community(
                               communityName: communityName.text,
-                              category: selectedCategory,
+                              category: category,
                               description: description.text,
                             ),
                             avatar!,
