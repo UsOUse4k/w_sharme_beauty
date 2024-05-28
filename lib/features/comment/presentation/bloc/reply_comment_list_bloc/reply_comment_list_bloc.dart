@@ -12,45 +12,39 @@ part 'reply_comment_list_bloc.freezed.dart';
 class ReplyCommentListBloc
     extends Bloc<ReplyCommentListEvent, ReplyCommentListState> {
   ReplyCommentListBloc(this._commentRepository) : super(const _Initial()) {
-    on<ReplyCommentListEvent>((event, emit) async {
-      await event.maybeWhen(
-        getReplyComments: (postId, parentCommentId) async {
-          emit(const ReplyCommentListState.loading());
-          try {
-            final result = await _commentRepository.getComments(
-              postId: postId,
-              parentCommentId: parentCommentId,
-            );
-            await result.fold((error) {
-              emit(ReplyCommentListState.error(error: error.messasge));
-            }, (comments) async {
-              final currentReplies = state.maybeMap(
-                success: (s) => Map<String, List<Comment>>.from(s.comments),
-                orElse: () => <String, List<Comment>>{},
-              );
-              currentReplies[parentCommentId] = comments;
-              emit(ReplyCommentListState.success(currentReplies));
-            });
-          } catch (e) {
-            emit(ReplyCommentListState.error(error: e.toString()));
-          }
-        },
-        addNewComments: (comment) {
-          state.maybeWhen(
-            success: (commentsMap) {
-              final parentId =
-                  comment.parentCommentId; // ID родительского комментария
-              final List<Comment> updatedComments = [
-                comment,
-                ...commentsMap[parentId] ?? [],
-              ];
-              commentsMap[parentId!] = updatedComments;
-              emit(
-                ReplyCommentListState.success(commentsMap),
-              );
-            },
-            orElse: () {},
+    on<_GetReplyComments>((event, emit) async {
+      emit(const ReplyCommentListState.loading());
+      try {
+        final result = await _commentRepository.getComments(
+          postId: event.postId,
+          parentCommentId: event.parentCommentId,
+        );
+        result.fold(
+            (error) => emit(ReplyCommentListState.error(error: error.messasge)),
+            (comments) {
+          final currentReplies = state.maybeMap(
+            success: (s) => Map<String, List<Comment>>.from(s.comments),
+            orElse: () => <String, List<Comment>>{},
           );
+          currentReplies[event.parentCommentId] = comments;
+          emit(ReplyCommentListState.success(currentReplies));
+        });
+      } catch (e) {
+        emit(ReplyCommentListState.error(error: e.toString()));
+      }
+    });
+
+    on<_AddNewComments>((event, emit) {
+      state.maybeWhen(
+        success: (commentsMap) {
+          final parentId = event.comment.parentCommentId;
+          if (parentId != null) {
+            final List<Comment> updatedComments =
+                List.from(commentsMap[parentId] ?? []);
+            updatedComments.add(event.comment);
+            commentsMap[parentId] = updatedComments;
+            emit(ReplyCommentListState.success(commentsMap));
+          }
         },
         orElse: () {},
       );

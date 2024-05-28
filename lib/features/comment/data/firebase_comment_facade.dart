@@ -22,25 +22,24 @@ class FirebaseCommentFacade implements ICommentRepository {
       final updatedComment = comment.copyWith(
         uid: auth.currentUser!.uid,
       );
+      final reference =
+          firestore.collection('posts').doc(postId).collection('comments');
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
-        await firestore
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
+        final updatedReplyComments = updatedComment.copyWith(
+          parentCommentId: parentCommentId,
+        );
+        await reference
             .doc(parentCommentId)
             .collection('replies')
-            .doc(updatedComment.commentId)
-            .set(updatedComment.toJson());
+            .doc(updatedReplyComments.commentId)
+            .set(updatedReplyComments.toJson());
+        return right(updatedReplyComments);
       } else {
-        await firestore
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
+        await reference
             .doc(updatedComment.commentId)
             .set(updatedComment.toJson());
+        return right(updatedComment);
       }
-
-      return right(updatedComment);
     } catch (e) {
       return left(PostError(e.toString()));
     }
@@ -76,16 +75,12 @@ class FirebaseCommentFacade implements ICommentRepository {
   }) async {
     try {
       Query<Map<String, dynamic>> query;
+      final data =
+          firestore.collection('posts').doc(postId).collection('comments');
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
-        query = firestore
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
-            .doc(parentCommentId)
-            .collection('replies');
+        query = data.doc(parentCommentId).collection('replies');
       } else {
-        query =
-            firestore.collection('posts').doc(postId).collection('comments');
+        query = data;
       }
       final querySnapshot = await query.get();
       final comments = querySnapshot.docs
@@ -112,7 +107,7 @@ class FirebaseCommentFacade implements ICommentRepository {
         .doc(commentId);
     try {
       if (subCommentId != null) {
-        await reference.collection('reply_comments').doc(subCommentId).update(
+        await reference.collection('replies').doc(subCommentId).update(
           {
             'likes': isLike
                 ? FieldValue.arrayRemove([userId])

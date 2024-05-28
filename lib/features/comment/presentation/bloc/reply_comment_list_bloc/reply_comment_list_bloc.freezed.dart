@@ -21,21 +21,18 @@ mixin _$ReplyCommentListEvent {
     required TResult Function(String postId, String parentCommentId)
         getReplyComments,
     required TResult Function(Comment comment) addNewComments,
-    required TResult Function(String commentId) clearReplyComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String postId, String parentCommentId)? getReplyComments,
     TResult? Function(Comment comment)? addNewComments,
-    TResult? Function(String commentId)? clearReplyComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String postId, String parentCommentId)? getReplyComments,
     TResult Function(Comment comment)? addNewComments,
-    TResult Function(String commentId)? clearReplyComments,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,21 +40,18 @@ mixin _$ReplyCommentListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetReplyComments value) getReplyComments,
     required TResult Function(_AddNewComments value) addNewComments,
-    required TResult Function(_ClearReplyComments value) clearReplyComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetReplyComments value)? getReplyComments,
     TResult? Function(_AddNewComments value)? addNewComments,
-    TResult? Function(_ClearReplyComments value)? clearReplyComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetReplyComments value)? getReplyComments,
     TResult Function(_AddNewComments value)? addNewComments,
-    TResult Function(_ClearReplyComments value)? clearReplyComments,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -160,7 +154,6 @@ class _$GetReplyCommentsImpl implements _GetReplyComments {
     required TResult Function(String postId, String parentCommentId)
         getReplyComments,
     required TResult Function(Comment comment) addNewComments,
-    required TResult Function(String commentId) clearReplyComments,
   }) {
     return getReplyComments(postId, parentCommentId);
   }
@@ -170,7 +163,6 @@ class _$GetReplyCommentsImpl implements _GetReplyComments {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String postId, String parentCommentId)? getReplyComments,
     TResult? Function(Comment comment)? addNewComments,
-    TResult? Function(String commentId)? clearReplyComments,
   }) {
     return getReplyComments?.call(postId, parentCommentId);
   }
@@ -180,7 +172,6 @@ class _$GetReplyCommentsImpl implements _GetReplyComments {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String postId, String parentCommentId)? getReplyComments,
     TResult Function(Comment comment)? addNewComments,
-    TResult Function(String commentId)? clearReplyComments,
     required TResult orElse(),
   }) {
     if (getReplyComments != null) {
@@ -194,7 +185,6 @@ class _$GetReplyCommentsImpl implements _GetReplyComments {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetReplyComments value) getReplyComments,
     required TResult Function(_AddNewComments value) addNewComments,
-    required TResult Function(_ClearReplyComments value) clearReplyComments,
   }) {
     return getReplyComments(this);
   }
@@ -204,7 +194,6 @@ class _$GetReplyCommentsImpl implements _GetReplyComments {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetReplyComments value)? getReplyComments,
     TResult? Function(_AddNewComments value)? addNewComments,
-    TResult? Function(_ClearReplyComments value)? clearReplyComments,
   }) {
     return getReplyComments?.call(this);
   }
@@ -214,7 +203,6 @@ class _$GetReplyCommentsImpl implements _GetReplyComments {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetReplyComments value)? getReplyComments,
     TResult Function(_AddNewComments value)? addNewComments,
-    TResult Function(_ClearReplyComments value)? clearReplyComments,
     required TResult orElse(),
   }) {
     if (getReplyComments != null) {
@@ -314,7 +302,6 @@ class _$AddNewCommentsImpl implements _AddNewComments {
     required TResult Function(String postId, String parentCommentId)
         getReplyComments,
     required TResult Function(Comment comment) addNewComments,
-    required TResult Function(String commentId) clearReplyComments,
   }) {
     return addNewComments(comment);
   }
@@ -324,7 +311,6 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String postId, String parentCommentId)? getReplyComments,
     TResult? Function(Comment comment)? addNewComments,
-    TResult? Function(String commentId)? clearReplyComments,
   }) {
     return addNewComments?.call(comment);
   }
@@ -334,7 +320,6 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String postId, String parentCommentId)? getReplyComments,
     TResult Function(Comment comment)? addNewComments,
-    TResult Function(String commentId)? clearReplyComments,
     required TResult orElse(),
   }) {
     if (addNewComments != null) {
@@ -348,7 +333,6 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetReplyComments value) getReplyComments,
     required TResult Function(_AddNewComments value) addNewComments,
-    required TResult Function(_ClearReplyComments value) clearReplyComments,
   }) {
     return addNewComments(this);
   }
@@ -358,7 +342,6 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetReplyComments value)? getReplyComments,
     TResult? Function(_AddNewComments value)? addNewComments,
-    TResult? Function(_ClearReplyComments value)? clearReplyComments,
   }) {
     return addNewComments?.call(this);
   }
@@ -368,7 +351,6 @@ class _$AddNewCommentsImpl implements _AddNewComments {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetReplyComments value)? getReplyComments,
     TResult Function(_AddNewComments value)? addNewComments,
-    TResult Function(_ClearReplyComments value)? clearReplyComments,
     required TResult orElse(),
   }) {
     if (addNewComments != null) {
@@ -384,149 +366,6 @@ abstract class _AddNewComments implements ReplyCommentListEvent {
   Comment get comment;
   @JsonKey(ignore: true)
   _$$AddNewCommentsImplCopyWith<_$AddNewCommentsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ClearReplyCommentsImplCopyWith<$Res> {
-  factory _$$ClearReplyCommentsImplCopyWith(_$ClearReplyCommentsImpl value,
-          $Res Function(_$ClearReplyCommentsImpl) then) =
-      __$$ClearReplyCommentsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String commentId});
-}
-
-/// @nodoc
-class __$$ClearReplyCommentsImplCopyWithImpl<$Res>
-    extends _$ReplyCommentListEventCopyWithImpl<$Res, _$ClearReplyCommentsImpl>
-    implements _$$ClearReplyCommentsImplCopyWith<$Res> {
-  __$$ClearReplyCommentsImplCopyWithImpl(_$ClearReplyCommentsImpl _value,
-      $Res Function(_$ClearReplyCommentsImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? commentId = null,
-  }) {
-    return _then(_$ClearReplyCommentsImpl(
-      null == commentId
-          ? _value.commentId
-          : commentId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ClearReplyCommentsImpl implements _ClearReplyComments {
-  const _$ClearReplyCommentsImpl(this.commentId);
-
-  @override
-  final String commentId;
-
-  @override
-  String toString() {
-    return 'ReplyCommentListEvent.clearReplyComments(commentId: $commentId)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ClearReplyCommentsImpl &&
-            (identical(other.commentId, commentId) ||
-                other.commentId == commentId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, commentId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ClearReplyCommentsImplCopyWith<_$ClearReplyCommentsImpl> get copyWith =>
-      __$$ClearReplyCommentsImplCopyWithImpl<_$ClearReplyCommentsImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String postId, String parentCommentId)
-        getReplyComments,
-    required TResult Function(Comment comment) addNewComments,
-    required TResult Function(String commentId) clearReplyComments,
-  }) {
-    return clearReplyComments(commentId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String postId, String parentCommentId)? getReplyComments,
-    TResult? Function(Comment comment)? addNewComments,
-    TResult? Function(String commentId)? clearReplyComments,
-  }) {
-    return clearReplyComments?.call(commentId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String postId, String parentCommentId)? getReplyComments,
-    TResult Function(Comment comment)? addNewComments,
-    TResult Function(String commentId)? clearReplyComments,
-    required TResult orElse(),
-  }) {
-    if (clearReplyComments != null) {
-      return clearReplyComments(commentId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_GetReplyComments value) getReplyComments,
-    required TResult Function(_AddNewComments value) addNewComments,
-    required TResult Function(_ClearReplyComments value) clearReplyComments,
-  }) {
-    return clearReplyComments(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetReplyComments value)? getReplyComments,
-    TResult? Function(_AddNewComments value)? addNewComments,
-    TResult? Function(_ClearReplyComments value)? clearReplyComments,
-  }) {
-    return clearReplyComments?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetReplyComments value)? getReplyComments,
-    TResult Function(_AddNewComments value)? addNewComments,
-    TResult Function(_ClearReplyComments value)? clearReplyComments,
-    required TResult orElse(),
-  }) {
-    if (clearReplyComments != null) {
-      return clearReplyComments(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ClearReplyComments implements ReplyCommentListEvent {
-  const factory _ClearReplyComments(final String commentId) =
-      _$ClearReplyCommentsImpl;
-
-  String get commentId;
-  @JsonKey(ignore: true)
-  _$$ClearReplyCommentsImplCopyWith<_$ClearReplyCommentsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

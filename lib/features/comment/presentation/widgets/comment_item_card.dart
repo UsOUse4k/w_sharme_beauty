@@ -14,7 +14,7 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_commen
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_shimer.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 class CommentItemCard extends StatefulWidget {
@@ -43,12 +43,7 @@ class _CommentItemCardState extends State<CommentItemCard> {
     setState(() {
       isLiked = widget.item.likes.contains(firebaseAuth.currentUser!.uid);
       likeCount = widget.item.likes.length;
-      repliesVisibility[widget.item.commentId.toString()] =
-          widget.item.replies > 0;
     });
-    if (widget.item.replies > 0) {
-      toggleRepliesVisibility(widget.item.commentId.toString());
-    }
   }
 
   void toggleIsLiked() {
@@ -86,12 +81,12 @@ class _CommentItemCardState extends State<CommentItemCard> {
       };
 
   void toggleRepliesVisibility(String commentId) {
-    setState(() {
-      repliesVisibility[commentId] = !repliesVisibility[commentId]!;
-      if (repliesVisibility[commentId] ?? false) {
-        getRepliesComment(commentId);
-      }
-    });
+    final bool isVisible = repliesVisibility[commentId] ?? false;
+    repliesVisibility[commentId] = !isVisible;
+    if (!isVisible) {
+      getRepliesComment(commentId);
+    }
+    setState(() {});
   }
 
   @override
@@ -102,12 +97,21 @@ class _CommentItemCardState extends State<CommentItemCard> {
       listener: (context, state) {
         state.maybeWhen(
           success: (comment) {
-            context
-                .read<ReplyCommentListBloc>()
-                .add(ReplyCommentListEvent.addNewComments(comment));
+            if (!(repliesVisibility[comment.parentCommentId] ?? false)) {
+              setState(() {
+                repliesVisibility[comment.parentCommentId!] = true;
+              });
+              getRepliesComment(comment.parentCommentId!);
+            }
+            context.read<ReplyCommentListBloc>().add(
+                  ReplyCommentListEvent.addNewComments(comment),
+                );
             context
                 .read<ParentCommentIdBloc>()
                 .add(const ParentCommentIdEvent.addParentCommentId('', ''));
+            context
+                .read<PostDetailBloc>()
+                .add(PostDetailEvent.getPost(widget.postId));
           },
           orElse: () {},
         );
@@ -164,6 +168,7 @@ class _CommentItemCardState extends State<CommentItemCard> {
           ),
           if (repliesVisibility[widget.item.commentId.toString()] ?? false)
             BlocBuilder<ReplyCommentListBloc, ReplyCommentListState>(
+              key: ValueKey(DateTime.now()),
               builder: (context, state) {
                 return state.maybeWhen(
                   loading: () {

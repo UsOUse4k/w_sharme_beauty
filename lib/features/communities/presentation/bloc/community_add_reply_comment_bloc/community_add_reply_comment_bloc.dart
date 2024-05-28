@@ -7,7 +7,6 @@ import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_comment_repository.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_reply_comment_lidt_bloc/community_reply_comment_list_bloc.dart';
 
 part 'community_add_reply_comment_event.dart';
 part 'community_add_reply_comment_state.dart';
@@ -19,7 +18,6 @@ class CommunityAddReplyCommentBloc
   CommunityAddReplyCommentBloc(
     this._commentRepository,
     this._authFacade,
-    this._replyCommentListBloc,
     this._parentCommentIdBloc,
   ) : super(
           const CommunityAddReplyCommentState.initial(),
@@ -75,13 +73,6 @@ class CommunityAddReplyCommentBloc
                     _parentCommentIdBloc.add(
                       const ParentCommentIdEvent.addParentCommentId('', ''),
                     );
-                    _replyCommentListBloc.add(
-                      CommunityReplyCommentListEvent.getCommunityReplyComments(
-                        postId: value.postId,
-                        parentCommentId: value.parentCommentId,
-                        communityId: event.communityId,
-                      ),
-                    );
                     await _commentRepository.updateCountsComment(
                       postId: value.postId,
                       commentId: value.parentCommentId,
@@ -98,6 +89,5 @@ class CommunityAddReplyCommentBloc
   }
   final ICommunityCommentRepository _commentRepository;
   final IAuthFacade _authFacade;
-  final CommunityReplyCommentListBloc _replyCommentListBloc;
   final ParentCommentIdBloc _parentCommentIdBloc;
 }

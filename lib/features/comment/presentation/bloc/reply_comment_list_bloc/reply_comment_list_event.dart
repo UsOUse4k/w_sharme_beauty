@@ -8,6 +8,4 @@ class ReplyCommentListEvent with _$ReplyCommentListEvent {
   }) = _GetReplyComments;
   const factory ReplyCommentListEvent.addNewComments(Comment comment) =
       _AddNewComments;
-  const factory ReplyCommentListEvent.clearReplyComments(String commentId) =
-      _ClearReplyComments;
 }

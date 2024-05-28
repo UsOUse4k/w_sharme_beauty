@@ -50,17 +50,17 @@ import 'package:w_sharme_beauty/features/chat/data/firebase_chat_facade.dart'
 import 'package:w_sharme_beauty/features/chat/domain/repository/i_chat_repository.dart'
     as _i32;
 import 'package:w_sharme_beauty/features/chat/domain/use_cases/get_all_chats_use_cases.dart'
-    as _i76;
+    as _i75;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart'
-    as _i99;
+    as _i101;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bloc/get_all_chats_bloc.dart'
-    as _i78;
-import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_bloc/get_messages_bloc.dart'
     as _i77;
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_bloc/get_messages_bloc.dart'
+    as _i76;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/seen_message_bloc/seen_message_bloc.dart'
-    as _i79;
+    as _i78;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart'
-    as _i98;
+    as _i100;
 import 'package:w_sharme_beauty/features/chat_group/data/firebase_chat_group_facade.dart'
     as _i31;
 import 'package:w_sharme_beauty/features/chat_group/domain/repositories/i_chat_group_repository.dart'
@@ -100,7 +100,7 @@ import 'package:w_sharme_beauty/features/comment/data/firebase_comment_facade.da
 import 'package:w_sharme_beauty/features/comment/domain/repositiories/i_comment_repository.dart'
     as _i51;
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart'
-    as _i91;
+    as _i92;
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart'
     as _i60;
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_likes_bloc/comment_likes_bloc.dart'
@@ -123,36 +123,40 @@ import 'package:w_sharme_beauty/features/communities/domain/repositories/i_commu
     as _i39;
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_repository.dart'
     as _i63;
+import 'package:w_sharme_beauty/features/communities/domain/repositories/repositories.dart'
+    as _i82;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart'
     as _i53;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart'
-    as _i92;
+    as _i97;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_create_bloc/community_comment_create_bloc.dart'
-    as _i100;
+    as _i102;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_likes_bloc/community_comment_likes_bloc.dart'
-    as _i90;
+    as _i91;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_list_bloc/community_comment_list_bloc.dart'
-    as _i89;
+    as _i90;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_bloc/community_create_bloc.dart'
-    as _i84;
+    as _i85;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_post_bloc/community_create_post_bloc.dart'
     as _i57;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart'
     as _i70;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart'
-    as _i75;
+    as _i98;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_parent_comment_id_bloc/community_parent_commet_id_bloc.dart'
     as _i11;
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_detail_bloc/community_post_detail_bloc.dart'
+    as _i81;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart'
     as _i73;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart'
-    as _i80;
+    as _i79;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_reply_comment_lidt_bloc/community_reply_comment_list_bloc.dart'
-    as _i88;
+    as _i89;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/like_community_post_bloc/like_community_post_bloc.dart'
     as _i6;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart'
-    as _i82;
+    as _i83;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/subscribe_community_bloc/subscribe_community_bloc.dart'
     as _i72;
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/update_community_bloc/update_community_bloc.dart'
@@ -164,17 +168,17 @@ import 'package:w_sharme_beauty/features/post/domain/repositories/i_post_reposit
 import 'package:w_sharme_beauty/features/post/domain/repositories/repositories.dart'
     as _i50;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart'
-    as _i86;
+    as _i87;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart'
     as _i56;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart'
-    as _i85;
+    as _i86;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart'
-    as _i81;
+    as _i80;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart'
-    as _i97;
+    as _i99;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart'
-    as _i83;
+    as _i84;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart'
     as _i49;
 import 'package:w_sharme_beauty/features/profile/data/firebase_profile_facade.dart'
@@ -188,7 +192,7 @@ import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_in
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart'
     as _i74;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/update_new_email_bloc/update_new_email_bloc.dart'
-    as _i87;
+    as _i88;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart'
     as _i28;
 import 'package:w_sharme_beauty/features/question/data/data/firebase_add_question_data.dart'
@@ -203,7 +207,7 @@ import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question
     as _i65;
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart'
     as _i96;
-import 'package:w_sharme_beauty/firebase_module.dart' as _i101;
+import 'package:w_sharme_beauty/firebase_module.dart' as _i103;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -383,64 +387,57 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i68.IProfileInfoRepository>(),
           gh<_i15.IAuthFacade>(),
         ));
-    gh.factory<_i75.CommunityListBloc>(
-        () => _i75.CommunityListBloc(gh<_i63.ICommunityRepository>()));
-    gh.factory<_i76.GetAllChatsUseCase>(
-        () => _i76.GetAllChatsUseCase(gh<_i32.IChatRepository>()));
-    gh.factory<_i77.GetMessagesBloc>(
-        () => _i77.GetMessagesBloc(gh<_i32.IChatRepository>()));
-    gh.factory<_i78.GetAllChatsBloc>(
-        () => _i78.GetAllChatsBloc(gh<_i32.IChatRepository>()));
-    gh.factory<_i79.SeenMessageBloc>(
-        () => _i79.SeenMessageBloc(gh<_i32.IChatRepository>()));
-    gh.factory<_i80.CommunityProfileInfoBloc>(
-        () => _i80.CommunityProfileInfoBloc(
+    gh.factory<_i75.GetAllChatsUseCase>(
+        () => _i75.GetAllChatsUseCase(gh<_i32.IChatRepository>()));
+    gh.factory<_i76.GetMessagesBloc>(
+        () => _i76.GetMessagesBloc(gh<_i32.IChatRepository>()));
+    gh.factory<_i77.GetAllChatsBloc>(
+        () => _i77.GetAllChatsBloc(gh<_i32.IChatRepository>()));
+    gh.factory<_i78.SeenMessageBloc>(
+        () => _i78.SeenMessageBloc(gh<_i32.IChatRepository>()));
+    gh.factory<_i79.CommunityProfileInfoBloc>(
+        () => _i79.CommunityProfileInfoBloc(
               gh<_i18.IAuthFacade>(),
               gh<_i68.IProfileInfoRepository>(),
             ));
-    gh.factory<_i81.PostLikeBloc>(() => _i81.PostLikeBloc(
+    gh.factory<_i80.PostLikeBloc>(() => _i80.PostLikeBloc(
           gh<_i50.IPostRepository>(),
           gh<_i15.IAuthFacade>(),
         ));
-    gh.factory<_i82.MyCommunityListBloc>(() => _i82.MyCommunityListBloc(
+    gh.factory<_i81.CommunityPostDetailBloc>(() =>
+        _i81.CommunityPostDetailBloc(gh<_i82.ICommunityPostRepository>()));
+    gh.factory<_i83.MyCommunityListBloc>(() => _i83.MyCommunityListBloc(
           gh<_i63.ICommunityRepository>(),
           gh<_i18.IAuthFacade>(),
         ));
-    gh.factory<_i83.PostUserListBloc>(
-        () => _i83.PostUserListBloc(gh<_i37.IPostRepository>()));
-    gh.factory<_i84.CommunityCreateBloc>(() => _i84.CommunityCreateBloc(
+    gh.factory<_i84.PostUserListBloc>(
+        () => _i84.PostUserListBloc(gh<_i37.IPostRepository>()));
+    gh.factory<_i85.CommunityCreateBloc>(() => _i85.CommunityCreateBloc(
           gh<_i63.ICommunityRepository>(),
           gh<_i18.IAuthFacade>(),
         ));
-    gh.factory<_i85.PostDetailBloc>(() => _i85.PostDetailBloc(
+    gh.factory<_i86.PostDetailBloc>(() => _i86.PostDetailBloc(
           gh<_i50.IPostRepository>(),
           gh<_i18.IAuthFacade>(),
         ));
-    gh.factory<_i86.MyPostListBloc>(() => _i86.MyPostListBloc(
+    gh.factory<_i87.MyPostListBloc>(() => _i87.MyPostListBloc(
           gh<_i50.IPostRepository>(),
           gh<_i18.IAuthFacade>(),
         ));
-    gh.factory<_i87.UpdateNewEmailBloc>(
-        () => _i87.UpdateNewEmailBloc(gh<_i68.IProfileInfoRepository>()));
-    gh.factory<_i88.CommunityReplyCommentListBloc>(() =>
-        _i88.CommunityReplyCommentListBloc(
+    gh.factory<_i88.UpdateNewEmailBloc>(
+        () => _i88.UpdateNewEmailBloc(gh<_i68.IProfileInfoRepository>()));
+    gh.factory<_i89.CommunityReplyCommentListBloc>(() =>
+        _i89.CommunityReplyCommentListBloc(
             gh<_i58.ICommunityCommentRepository>()));
-    gh.factory<_i89.CommunityCommentListBloc>(() =>
-        _i89.CommunityCommentListBloc(gh<_i58.ICommunityCommentRepository>()));
-    gh.factory<_i90.CommunityCommentLikesBloc>(() =>
-        _i90.CommunityCommentLikesBloc(gh<_i58.ICommunityCommentRepository>()));
-    gh.factory<_i91.AddReplyCommentBloc>(() => _i91.AddReplyCommentBloc(
+    gh.factory<_i90.CommunityCommentListBloc>(() =>
+        _i90.CommunityCommentListBloc(gh<_i58.ICommunityCommentRepository>()));
+    gh.factory<_i91.CommunityCommentLikesBloc>(() =>
+        _i91.CommunityCommentLikesBloc(gh<_i58.ICommunityCommentRepository>()));
+    gh.factory<_i92.AddReplyCommentBloc>(() => _i92.AddReplyCommentBloc(
           gh<_i51.ICommentRepository>(),
           gh<_i15.IAuthFacade>(),
           gh<_i7.ParentCommentIdBloc>(),
         ));
-    gh.factory<_i92.CommunityAddReplyCommentBloc>(
-        () => _i92.CommunityAddReplyCommentBloc(
-              gh<_i58.ICommunityCommentRepository>(),
-              gh<_i18.IAuthFacade>(),
-              gh<_i88.CommunityReplyCommentListBloc>(),
-              gh<_i7.ParentCommentIdBloc>(),
-            ));
     gh.factory<_i93.ReplyCommentListBloc>(
         () => _i93.ReplyCommentListBloc(gh<_i51.ICommentRepository>()));
     gh.factory<_i94.CommentLikesBloc>(
@@ -449,28 +446,36 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i95.CommentListBloc(gh<_i51.ICommentRepository>()));
     gh.factory<_i96.GetAllQuestionBloc>(
         () => _i96.GetAllQuestionBloc(gh<_i54.IQuestionRepository>()));
-    gh.factory<_i97.PostListBloc>(() => _i97.PostListBloc(
-          gh<_i50.IPostRepository>(),
-          gh<_i86.MyPostListBloc>(),
-        ));
-    gh.factory<_i98.SendMessageBloc>(() => _i98.SendMessageBloc(
-          gh<_i32.IChatRepository>(),
-          gh<_i77.GetMessagesBloc>(),
-          gh<_i18.IAuthFacade>(),
-        ));
-    gh.factory<_i99.CreateChatroomBloc>(() => _i99.CreateChatroomBloc(
-          gh<_i32.IChatRepository>(),
-          gh<_i77.GetMessagesBloc>(),
-          gh<_i18.IAuthFacade>(),
-        ));
-    gh.factory<_i100.CommunityCommentCreateBloc>(
-        () => _i100.CommunityCommentCreateBloc(
+    gh.factory<_i97.CommunityAddReplyCommentBloc>(
+        () => _i97.CommunityAddReplyCommentBloc(
               gh<_i58.ICommunityCommentRepository>(),
               gh<_i18.IAuthFacade>(),
-              gh<_i89.CommunityCommentListBloc>(),
+              gh<_i7.ParentCommentIdBloc>(),
+            ));
+    gh.factory<_i98.CommunityListBloc>(
+        () => _i98.CommunityListBloc(gh<_i63.ICommunityRepository>()));
+    gh.factory<_i99.PostListBloc>(() => _i99.PostListBloc(
+          gh<_i50.IPostRepository>(),
+          gh<_i87.MyPostListBloc>(),
+        ));
+    gh.factory<_i100.SendMessageBloc>(() => _i100.SendMessageBloc(
+          gh<_i32.IChatRepository>(),
+          gh<_i76.GetMessagesBloc>(),
+          gh<_i18.IAuthFacade>(),
+        ));
+    gh.factory<_i101.CreateChatroomBloc>(() => _i101.CreateChatroomBloc(
+          gh<_i32.IChatRepository>(),
+          gh<_i76.GetMessagesBloc>(),
+          gh<_i18.IAuthFacade>(),
+        ));
+    gh.factory<_i102.CommunityCommentCreateBloc>(
+        () => _i102.CommunityCommentCreateBloc(
+              gh<_i58.ICommunityCommentRepository>(),
+              gh<_i18.IAuthFacade>(),
+              gh<_i90.CommunityCommentListBloc>(),
             ));
     return this;
   }
 }
 
-class _$FirebaseModule extends _i101.FirebaseModule {}
+class _$FirebaseModule extends _i103.FirebaseModule {}
