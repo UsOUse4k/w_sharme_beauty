@@ -26,6 +26,7 @@ mixin _$Question {
   String? get uid => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   String? get questionId => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   List<String> get answers => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -49,6 +50,7 @@ abstract class $QuestionCopyWith<$Res> {
       String? uid,
       String? username,
       String? questionId,
+      String? avatarUrl,
       String? imageUrl,
       List<String> answers,
       @TimestampConverter() Timestamp? createdAt});
@@ -73,6 +75,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? uid = freezed,
     Object? username = freezed,
     Object? questionId = freezed,
+    Object? avatarUrl = freezed,
     Object? imageUrl = freezed,
     Object? answers = null,
     Object? createdAt = freezed,
@@ -101,6 +104,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
       questionId: freezed == questionId
           ? _value.questionId
           : questionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
@@ -133,6 +140,7 @@ abstract class _$$QuestionImplCopyWith<$Res>
       String? uid,
       String? username,
       String? questionId,
+      String? avatarUrl,
       String? imageUrl,
       List<String> answers,
       @TimestampConverter() Timestamp? createdAt});
@@ -155,6 +163,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? username = freezed,
     Object? questionId = freezed,
+    Object? avatarUrl = freezed,
     Object? imageUrl = freezed,
     Object? answers = null,
     Object? createdAt = freezed,
@@ -184,6 +193,10 @@ class __$$QuestionImplCopyWithImpl<$Res>
           ? _value.questionId
           : questionId // ignore: cast_nullable_to_non_nullable
               as String?,
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -210,6 +223,7 @@ class _$QuestionImpl implements _Question {
       this.uid,
       this.username,
       this.questionId,
+      this.avatarUrl,
       this.imageUrl,
       final List<String> answers = const [],
       @TimestampConverter() this.createdAt})
@@ -231,6 +245,8 @@ class _$QuestionImpl implements _Question {
   @override
   final String? questionId;
   @override
+  final String? avatarUrl;
+  @override
   final String? imageUrl;
   final List<String> _answers;
   @override
@@ -247,7 +263,7 @@ class _$QuestionImpl implements _Question {
 
   @override
   String toString() {
-    return 'Question(questionText: $questionText, category: $category, theme: $theme, uid: $uid, username: $username, questionId: $questionId, imageUrl: $imageUrl, answers: $answers, createdAt: $createdAt)';
+    return 'Question(questionText: $questionText, category: $category, theme: $theme, uid: $uid, username: $username, questionId: $questionId, avatarUrl: $avatarUrl, imageUrl: $imageUrl, answers: $answers, createdAt: $createdAt)';
   }
 
   @override
@@ -265,6 +281,8 @@ class _$QuestionImpl implements _Question {
                 other.username == username) &&
             (identical(other.questionId, questionId) ||
                 other.questionId == questionId) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
@@ -282,6 +300,7 @@ class _$QuestionImpl implements _Question {
       uid,
       username,
       questionId,
+      avatarUrl,
       imageUrl,
       const DeepCollectionEquality().hash(_answers),
       createdAt);
@@ -308,6 +327,7 @@ abstract class _Question implements Question {
       final String? uid,
       final String? username,
       final String? questionId,
+      final String? avatarUrl,
       final String? imageUrl,
       final List<String> answers,
       @TimestampConverter() final Timestamp? createdAt}) = _$QuestionImpl;
@@ -327,6 +347,8 @@ abstract class _Question implements Question {
   String? get username;
   @override
   String? get questionId;
+  @override
+  String? get avatarUrl;
   @override
   String? get imageUrl;
   @override

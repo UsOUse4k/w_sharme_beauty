@@ -7,12 +7,11 @@ import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 
-class CommunityMembersPage extends StatelessWidget {
-  const CommunityMembersPage({super.key, required this.communityId});
-  final String communityId;
+class SubscriptionsUsersPage extends StatelessWidget {
+  const SubscriptionsUsersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +45,14 @@ class CommunityMembersPage extends StatelessWidget {
                   builder: (context, userState) {
                     return userState.maybeWhen(
                       success: (users) {
-                        return BlocBuilder<CommunityDetailBloc,
-                            CommunityDetailState>(
+                        return BlocBuilder<MyProfileInfoBloc,
+                            MyProfileInfoState>(
                           builder: (context, state) {
                             return state.maybeWhen(
-                              success: (community) {
+                              succes: (data) {
                                 final filterUsers = users
                                     .where(
-                                      (element) => community.participants!
+                                      (element) => data.subscriptions!
                                           .contains(element.uid),
                                     )
                                     .toList();

@@ -12,7 +12,7 @@ class Community with _$Community {
     String? chatGroupName,
     String? communityName,
     String? description,
-    String? category,
+    @Default([]) List<String>? category,
     @Default([]) List<String>? administrator,
     @Default([]) List<String>? editors,
     @Default("") String? avatarUrls,
@@ -31,7 +31,9 @@ class Community with _$Community {
       avatarUrls: firestoreData['avatarUrls'] as String?,
       communityName: firestoreData['communityName'] as String?,
       description: firestoreData['description'] as String?,
-      category: firestoreData['category'] as String?,
+      category: List<String>.from(
+        firestoreData['category'] as List<dynamic>? ?? [],
+      ),
       participants: List<String>.from(
         firestoreData['participants'] as List<dynamic>? ?? [],
       ),

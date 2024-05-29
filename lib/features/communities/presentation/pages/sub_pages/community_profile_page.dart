@@ -11,6 +11,7 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
@@ -93,6 +94,9 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                         ),
                       );
                   context
+                      .read<GetAllUsersBloc>()
+                      .add(const GetAllUsersEvent.getAllUsers());
+                  context
                       .read<CategoryBloc>()
                       .add(const CategoryEvent.loadCategories());
                 },
@@ -151,37 +155,48 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      BlocBuilder<CategoryBloc, CategoryState>(
-                        builder: (context, state) {
-                          return state.maybeWhen(
-                            loading: () {
-                              return SizedBox(
-                                height: 100.h,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) =>
-                                      const CategoryShimmer(),
-                                  itemCount: 5,
-                                ),
-                              );
-                            },
-                            success: (categories) {
-                              return CategoryList(
-                                category: categories,
-                                onFilterCategories: (category) {
-                                  context.read<CommunityPostListBloc>().add(
-                                        CommunityPostListEvent
-                                            .filterCommunityPost(
-                                          title: category.title.toString(),
-                                        ),
-                                      );
-                                },
-                              );
-                            },
-                            orElse: () => Container(),
-                          );
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: BlocBuilder<CategoryBloc, CategoryState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loading: () {
+                                return SizedBox(
+                                  height: 100.h,
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) =>
+                                        const CategoryShimmer(),
+                                    itemCount: state.maybeWhen(
+                                      orElse: () => 0,
+                                      success: (categories) =>
+                                          categories.length,
+                                    ),
+                                  ),
+                                );
+                              },
+                              success: (categories) {
+                                final filterCategories = categories
+                                    .where((e) =>
+                                        community.category!.contains(e.title),)
+                                    .toList();
+                                return CategoryList(
+                                  category: filterCategories,
+                                  onFilterCategories: (category) {
+                                    context.read<CommunityPostListBloc>().add(
+                                          CommunityPostListEvent
+                                              .filterCommunityPost(
+                                            title: category.title.toString(),
+                                          ),
+                                        );
+                                  },
+                                );
+                              },
+                              orElse: () => Container(),
+                            );
+                          },
+                        ),
                       ),
                       const SizedBox(
                         height: 10,

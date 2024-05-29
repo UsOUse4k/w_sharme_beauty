@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_detail_bloc/community_post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
@@ -111,9 +112,8 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
             widget.post.text,
             style: AppStyles.w400f16,
           ),
-          if ( widget.post.imageUrls.isNotEmpty)
-            const SizedBox(height: 6),
-          if ( widget.post.imageUrls.isNotEmpty)
+          if (widget.post.imageUrls.isNotEmpty) const SizedBox(height: 6),
+          if (widget.post.imageUrls.isNotEmpty)
             SizedBox(
               height: 394.h,
               child: PostImage(
@@ -131,18 +131,25 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
                 text: countLike.toString(),
               ),
               const SizedBox(width: 6),
-              PostIconsWidget(
-                onPessed: () {
-                  BottomSheetUtil.showAppBottomSheet(
-                    context,
-                    CommentBottomSheet(
-                      postId:  widget.post.postId.toString(),
-                      communityId: widget.communityId,
+              BlocBuilder<CommunityPostDetailBloc, CommunityPostDetailState>(
+                builder: (context, state) {
+                  return PostIconsWidget(
+                    onPessed: () {
+                      BottomSheetUtil.showAppBottomSheet(
+                        context,
+                        CommentBottomSheet(
+                          postId: widget.post.postId.toString(),
+                          communityId: widget.communityId,
+                        ),
+                      );
+                    },
+                    icon: Assets.svgs.comment.svg(),
+                    text: state.maybeWhen(
+                      orElse: () => widget.post.commentsCount.toString(),
+                      success: (post) => post.commentsCount.toString(),
                     ),
                   );
                 },
-                icon: Assets.svgs.comment.svg(),
-                text: widget.post.commentsCount.toString(),
               ),
               const SizedBox(width: 6),
               PostIconsWidget(

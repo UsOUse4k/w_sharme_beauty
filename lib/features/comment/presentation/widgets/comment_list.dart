@@ -5,7 +5,8 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_creat
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_list_bloc/comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_item_card.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_shimer.dart';
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
+
 
 class CommentList extends StatefulWidget {
   const CommentList({
@@ -45,8 +46,8 @@ class _CommentListState extends State<CommentList> {
                     .read<CommentListBloc>()
                     .add(CommentListEvent.addNewComments(comment));
                 context
-                    .read<PostListBloc>()
-                    .add(const PostListEvent.getPosts());
+                    .read<PostDetailBloc>()
+                    .add(PostDetailEvent.getPost(widget.postId));
               },
               orElse: () {},
             );

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,10 +7,10 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_category_bloc/community_category_bloc.dart';
 
-class CategoryBottomSheet extends StatelessWidget {
-  const CategoryBottomSheet({
+class CommunityCategoryBottomSheet extends StatelessWidget {
+  const CommunityCategoryBottomSheet({
     super.key,
   });
 
@@ -43,7 +41,8 @@ class CategoryBottomSheet extends StatelessWidget {
                     CustomBottomSheetLeading(
                       maxHeight: 0.5,
                       navbarTitle: 'Чем вы занимаетесь?',
-                      widget: BlocBuilder<CategoryListBloc, CategoryListState>(
+                      widget: BlocBuilder<CommunityCategoryBloc,
+                          CommunityCategoryState>(
                         builder: (context, state) {
                           return ListView.separated(
                             separatorBuilder: (context, index) =>
@@ -64,10 +63,13 @@ class CategoryBottomSheet extends StatelessWidget {
                                       isChecked: isSelected,
                                       onChanged: (bool? value) {
                                         if (value != null) {
-                                          context.read<CategoryListBloc>().add(
-                                                CategoryListEvent
+                                          context
+                                              .read<CommunityCategoryBloc>()
+                                              .add(
+                                                CommunityCategoryEvent
                                                     .toggleUserSelection(
-                                                  categoryTitle[index]!,
+                                                  categoryTitle[index]
+                                                      .toString(),
                                                 ),
                                               );
                                         }
@@ -100,7 +102,7 @@ class CategoryBottomSheet extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BlocBuilder<CategoryListBloc, CategoryListState>(
+                      BlocBuilder<CommunityCategoryBloc, CommunityCategoryState>(
                         builder: (context, listState) {
                           return Flexible(
                             child: Text(

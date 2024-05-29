@@ -18,26 +18,26 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UpdateCommunityEvent {
   String get communityName => throw _privateConstructorUsedError;
   String? get desc => throw _privateConstructorUsedError;
-  String? get category => throw _privateConstructorUsedError;
+  List<String>? get category => throw _privateConstructorUsedError;
   Uint8List? get file => throw _privateConstructorUsedError;
   String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String communityName, String? desc,
-            String? category, Uint8List? file, String communityId)
+            List<String>? category, Uint8List? file, String communityId)
         updateCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String communityName, String? desc, String? category,
-            Uint8List? file, String communityId)?
+    TResult? Function(String communityName, String? desc,
+            List<String>? category, Uint8List? file, String communityId)?
         updateCommunity,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String communityName, String? desc, String? category,
+    TResult Function(String communityName, String? desc, List<String>? category,
             Uint8List? file, String communityId)?
         updateCommunity,
     required TResult orElse(),
@@ -74,7 +74,7 @@ abstract class $UpdateCommunityEventCopyWith<$Res> {
   $Res call(
       {String communityName,
       String? desc,
-      String? category,
+      List<String>? category,
       Uint8List? file,
       String communityId});
 }
@@ -111,7 +111,7 @@ class _$UpdateCommunityEventCopyWithImpl<$Res,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -135,7 +135,7 @@ abstract class _$$UpdateCommunityImplCopyWith<$Res>
   $Res call(
       {String communityName,
       String? desc,
-      String? category,
+      List<String>? category,
       Uint8List? file,
       String communityId});
 }
@@ -167,9 +167,9 @@ class __$$UpdateCommunityImplCopyWithImpl<$Res>
           : desc // ignore: cast_nullable_to_non_nullable
               as String?,
       category: freezed == category
-          ? _value.category
+          ? _value._category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<String>?,
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -190,16 +190,25 @@ class _$UpdateCommunityImpl
   const _$UpdateCommunityImpl(
       {required this.communityName,
       this.desc,
-      this.category,
+      final List<String>? category,
       this.file,
-      required this.communityId});
+      required this.communityId})
+      : _category = category;
 
   @override
   final String communityName;
   @override
   final String? desc;
+  final List<String>? _category;
   @override
-  final String? category;
+  List<String>? get category {
+    final value = _category;
+    if (value == null) return null;
+    if (_category is EqualUnmodifiableListView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Uint8List? file;
   @override
@@ -230,16 +239,20 @@ class _$UpdateCommunityImpl
             (identical(other.communityName, communityName) ||
                 other.communityName == communityName) &&
             (identical(other.desc, desc) || other.desc == desc) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
             const DeepCollectionEquality().equals(other.file, file) &&
             (identical(other.communityId, communityId) ||
                 other.communityId == communityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, communityName, desc, category,
-      const DeepCollectionEquality().hash(file), communityId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      communityName,
+      desc,
+      const DeepCollectionEquality().hash(_category),
+      const DeepCollectionEquality().hash(file),
+      communityId);
 
   @JsonKey(ignore: true)
   @override
@@ -252,7 +265,7 @@ class _$UpdateCommunityImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String communityName, String? desc,
-            String? category, Uint8List? file, String communityId)
+            List<String>? category, Uint8List? file, String communityId)
         updateCommunity,
   }) {
     return updateCommunity(communityName, desc, category, file, communityId);
@@ -261,8 +274,8 @@ class _$UpdateCommunityImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String communityName, String? desc, String? category,
-            Uint8List? file, String communityId)?
+    TResult? Function(String communityName, String? desc,
+            List<String>? category, Uint8List? file, String communityId)?
         updateCommunity,
   }) {
     return updateCommunity?.call(
@@ -272,7 +285,7 @@ class _$UpdateCommunityImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String communityName, String? desc, String? category,
+    TResult Function(String communityName, String? desc, List<String>? category,
             Uint8List? file, String communityId)?
         updateCommunity,
     required TResult orElse(),
@@ -316,7 +329,7 @@ abstract class _UpdateCommunity implements UpdateCommunityEvent {
   const factory _UpdateCommunity(
       {required final String communityName,
       final String? desc,
-      final String? category,
+      final List<String>? category,
       final Uint8List? file,
       required final String communityId}) = _$UpdateCommunityImpl;
 
@@ -325,7 +338,7 @@ abstract class _UpdateCommunity implements UpdateCommunityEvent {
   @override
   String? get desc;
   @override
-  String? get category;
+  List<String>? get category;
   @override
   Uint8List? get file;
   @override

@@ -55,7 +55,7 @@ class _NotificationBookingCardState extends State<NotificationBookingCard> {
 
   @override
   Widget build(BuildContext context) {
-    final statusUser = getUserStatus(widget.user.lastSeen!);
+    final statusUser = widget.user.lastSeen != null ? getUserStatus(widget.user.lastSeen!) : 'Неизвестно';
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

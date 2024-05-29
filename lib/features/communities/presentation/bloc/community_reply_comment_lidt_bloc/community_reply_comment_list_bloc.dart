@@ -13,44 +13,43 @@ class CommunityReplyCommentListBloc extends Bloc<CommunityReplyCommentListEvent,
     CommunityReplyCommentListState> {
   CommunityReplyCommentListBloc(this._commentRepository)
       : super(const CommunityReplyCommentListState.initial()) {
-    on<CommunityReplyCommentListEvent>((event, emit) async {
-      await event.maybeWhen(
-        getCommunityReplyComments: (
-          postId,
-          parentCommentId,
-          communityId,
-        ) async {
-          emit(const CommunityReplyCommentListState.loading());
-          final result = await _commentRepository.getComments(
-            postId: postId,
-            parentCommentId: parentCommentId,
-            communityId: communityId,
+    on<_GetCommunityReplyComments>((event, emit) async {
+      emit(const CommunityReplyCommentListState.loading());
+      try {
+        final result = await _commentRepository.getComments(
+          postId: event.postId,
+          parentCommentId: event.parentCommentId,
+          communityId: event.communityId,
+        );
+        result.fold(
+            (error) => emit(CommunityReplyCommentListState.error(error: error.messasge)),
+            (comments) {
+          final currentReplies = state.maybeMap(
+            success: (s) => Map<String, List<Comment>>.from(s.comments),
+            orElse: () => <String, List<Comment>>{},
           );
-          await result.fold((error) {
-            emit(CommunityReplyCommentListState.error(error: error.messasge));
-          }, (comments) async {
-            emit(CommunityReplyCommentListState.success(comments: comments));
-          });
-        },
-        addNewCommunityComments: (comment) {
-          state.maybeWhen(
-            success: (comments) {
-              if (!comments.any((x) => x.commentId == comment.commentId)) {
-                final updatedComments = List<Comment>.from(comments);
-                updatedComments.insert(0, comment);
-                emit(
-                  CommunityReplyCommentListState.success(
-                    comments: updatedComments,
-                  ),
-                );
-              }
-            },
-            orElse: () {},
-          );
+          currentReplies[event.parentCommentId] = comments;
+          emit(CommunityReplyCommentListState.success(currentReplies));
+        });
+      } catch (e) {
+        emit(CommunityReplyCommentListState.error(error: e.toString()));
+      }
+    },);
+    on<_AddNewCommunityComments>((event, emit) {
+      state.maybeWhen(
+        success: (commentsMap) {
+          final parentId = event.comment.parentCommentId;
+          if (parentId != null) {
+            final List<Comment> updatedComments =
+                List.from(commentsMap[parentId] ?? []);
+            updatedComments.add(event.comment);
+            commentsMap[parentId] = updatedComments;
+            emit(CommunityReplyCommentListState.success(commentsMap));
+          }
         },
         orElse: () {},
       );
-    });
+    },);
   }
   final ICommunityCommentRepository _commentRepository;
 }

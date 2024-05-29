@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
@@ -210,6 +211,11 @@ class _CommunityProfileSubscribePageState
             publications: community.public.toString(),
             followers: '${community.participants!.length}',
             subscribeText: "Участники",
+            onPressedFollowers: () {
+              context.push(
+                '/communities/${RouterContants.communityMembers}/${community.communityId}',
+              );
+            },
           ),
           const SizedBox(
             height: 15,
@@ -238,13 +244,16 @@ class _CommunityProfileSubscribePageState
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) => const CategoryShimmer(),
-                      itemCount: 5,
+                      itemCount: community.category!.length,
                     ),
                   );
                 },
                 success: (categories) {
+                  final filterCategories = categories
+                      .where((e) => community.category!.contains(e.title))
+                      .toList();
                   return CategoryList(
-                    category: categories,
+                    category: filterCategories,
                     onFilterCategories: (category) {
                       context.read<CommunityPostListBloc>().add(
                             CommunityPostListEvent.filterCommunityPost(

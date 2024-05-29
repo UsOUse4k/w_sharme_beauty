@@ -21,7 +21,7 @@ class _AppState extends State<App> with AppRouter {
       child: BlocProviders(
         child: MaterialApp.router(
           theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.white,
+            scaffoldBackgroundColor: AppColors.bgColors,
           ),
           routerConfig: routerConfig,
           debugShowCheckedModeBanner: false,

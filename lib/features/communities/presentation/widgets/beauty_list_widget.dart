@@ -20,15 +20,18 @@ class BeutyList extends StatelessWidget {
               color: AppColors.purple,
             ),
           ),
-          error: (error) => Center(
+          error: (error) {
+            return  Center(
             child: Text(error),
-          ),
+          );
+          },
           success: (data) {
             return ListView.builder(
               itemCount: data.length,
               itemExtent: 55,
               itemBuilder: (BuildContext context, int index) {
                 final item = data[index];
+
                 final currentUid = firebaseAuth.currentUser!.uid;
                 return GestureDetector(
                   onTap: () {
@@ -66,7 +69,8 @@ class BeutyList extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "${item.category}, ${item.participants!.length} участников",
+                      "${item.category !=null && item.category!.isNotEmpty ? item.category!.join(', ') : ''} ${item.participants!.length} участников",
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.darkGrey,

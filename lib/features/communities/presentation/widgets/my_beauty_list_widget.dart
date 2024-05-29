@@ -64,7 +64,7 @@ class MyBeutyList extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "${item.category}, ${item.participants!.length} участников",
+                      "${item.category !=null && item.category!.isNotEmpty ? item.category!.join(', ') : ''}, ${item.participants!.length} участников",
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.darkGrey,

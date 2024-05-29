@@ -14,7 +14,10 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
       chatGroupName: json['chatGroupName'] as String?,
       communityName: json['communityName'] as String?,
       description: json['description'] as String?,
-      category: json['category'] as String?,
+      category: (json['category'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       administrator: (json['administrator'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??

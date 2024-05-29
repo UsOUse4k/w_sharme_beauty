@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
-import 'package:w_sharme_beauty/features/question/domain/repositories/add_question_repository.dart';
+import 'package:w_sharme_beauty/features/question/domain/repositories/i_question_repository.dart';
 
 part 'add_question_bloc.freezed.dart';
 part 'add_question_event.dart';
@@ -38,9 +38,8 @@ class AddQuestionBloc extends Bloc<AddQuestionEvent, AddQuestionState> {
               emit(const AddQuestionState.error(message: 'not username'));
             }, (profile) async {
               final updateQuestion = question.copyWith(
-                username: isAnonymous ? 'Анонимный' : profile.username,
-                uid: isAnonymous ? '' : user.uid,
-                imageUrl: isAnonymous ? null : profile.profilePictureUrl,
+                username: isAnonymous ? 'Анонимно' : profile.username,
+                avatarUrl: isAnonymous ? null : profile.profilePictureUrl,
                 questionId: const Uuid().v1(),
                 createdAt: Timestamp.now(),
               );
@@ -50,8 +49,8 @@ class AddQuestionBloc extends Bloc<AddQuestionEvent, AddQuestionState> {
               );
               result.fold((l) {
                 emit(AddQuestionState.error(message: l.messasge));
-              }, (r) {
-                emit(AddQuestionState.success(question));
+              }, (data) {
+                emit(AddQuestionState.success(data));
               });
             });
           });
@@ -59,6 +58,6 @@ class AddQuestionBloc extends Bloc<AddQuestionEvent, AddQuestionState> {
       );
     });
   }
-  final AddQuestionRepository _questionRepository;
+  final IQuestionRepository _questionRepository;
   final IAuthFacade _authFacade;
 }

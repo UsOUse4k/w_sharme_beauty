@@ -1,14 +1,14 @@
-import 'dart:typed_data';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
@@ -17,36 +17,18 @@ class AddQuestionPage extends StatefulWidget {
   const AddQuestionPage({super.key});
 
   @override
-  State<AddQuestionPage> createState() => _AddQuestionPageState();
+  State<AddQuestionPage> createState() => _AddQuestionState();
 }
 
-class _AddQuestionPageState extends State<AddQuestionPage> {
-  List<Uint8List> selectedImageBytes = [];
-
+class _AddQuestionState extends State<AddQuestionPage> {
   final TextEditingController _themeCtrl = TextEditingController();
   final TextEditingController _categoryCtrl = TextEditingController();
   final TextEditingController _questionCtrl = TextEditingController();
 
   bool agreedToTerms = false;
   bool isLoading = false;
-  Uint8List? avatar;
-
-  Future pickImage(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final Uint8List imageData = await image.readAsBytes();
-      setState(() {
-        selectedImageBytes.add(imageData);
-      });
-    }
-  }
-
-  void clearImage(Uint8List bytes) {
-    setState(() {
-      selectedImageBytes.removeWhere((element) => element == bytes);
-    });
-  }
+  String filterText = 'Категория';
+  String? selectedCategory;
 
   @override
   void dispose() {
@@ -62,7 +44,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
       horizontalPadding: 16,
       appBar: GlAppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios, size: 16),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -89,7 +71,6 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                   ),
                 );
                 setState(() {
-                  selectedImageBytes = [];
                   _questionCtrl.clear();
                   _themeCtrl.clear();
                   _categoryCtrl.clear();
@@ -123,48 +104,37 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
               const SizedBox(
                 height: 10,
               ),
-              TextFieldWidgetWithTitle(
-                title: "Выберите категорию",
-                hintText: "Выберите категорию",
-                controller: _categoryCtrl,
-                suffixIcon: const Icon(
-                  Icons.expand_more_outlined,
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  'Выберите категорию',
+                  style: AppStyles.w500f16.copyWith(
+                    color: AppColors.darkGrey,
+                  ),
                 ),
+              ),
+              FilterButtonWidget(
+                width: 394.w,
+                onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                  context,
+                  CustomBottomSheet(
+                    maxHeight: 0.55,
+                    navbarTitle: 'Категория',
+                    widget: RadioFilterWidget(
+                      list: categoryList,
+                      onSelect: (String text) {
+                        filterText = text;
+                        selectedCategory = text;
+                        setState(() {});
+                      },
+                      selectedValue: selectedCategory ?? '',
+                    ),
+                  ),
+                ),
+                title: filterText,
               ),
               const SizedBox(
                 height: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Прикрипеть фото",
-                    style: AppStyles.w400f14.copyWith(
-                      color: AppColors.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  if (avatar != null)
-                    CardImageProfileAdd(
-                      radius: 50,
-                      image: MemoryImage(avatar!),
-                      onPressed: () {
-                        avatar = null;
-                        setState(() {});
-                      },
-                    ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  AddingButton(
-                    text: '+ Выбрать фото',
-                    onPressed: () {
-                      pickImage(context);
-                    },
-                  ),
-                ],
               ),
               const SizedBox(
                 height: 20,
@@ -222,18 +192,20 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                 ),
                 onPressed: () {
                   if (_themeCtrl.text.isNotEmpty &&
-                      _categoryCtrl.text.isNotEmpty &&
+                      selectedCategory != null &&
                       _questionCtrl.text.isNotEmpty) {
                     context.read<AddQuestionBloc>().add(
                           AddQuestionEvent.addedQuestion(
                             question: Question(
                               theme: _themeCtrl.text,
-                              category: _categoryCtrl.text,
+                              category: selectedCategory,
                               questionText: _questionCtrl.text,
                             ),
                             isAnonymous: agreedToTerms,
                           ),
                         );
+                  } else {
+                    showMyDialog(context, 'Пополните все поля');
                   }
                 },
                 child: Text(

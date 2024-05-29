@@ -23,28 +23,28 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
       final updatedComment = comment.copyWith(
         uid: auth.currentUser!.uid,
       );
+      final reference = firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('posts')
+          .doc(postId)
+          .collection('comments');
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
-        await firestore
-            .collection('communities')
-            .doc(communityId)
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
+        final updateCommentReply = updatedComment.copyWith(
+          parentCommentId: parentCommentId,
+        );
+        await reference
             .doc(parentCommentId)
             .collection('reply_comments')
-            .doc(updatedComment.commentId)
-            .set(updatedComment.toJson());
+            .doc(updateCommentReply.commentId)
+            .set(updateCommentReply.toJson());
+        return right(updateCommentReply);
       } else {
-        await firestore
-            .collection('communities')
-            .doc(communityId)
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
+        await reference
             .doc(updatedComment.commentId)
             .set(updatedComment.toJson());
+        return right(updatedComment);
       }
-      return right(updatedComment);
     } catch (e) {
       return left(PostError(e.toString()));
     }
@@ -86,26 +86,17 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
   }) async {
     try {
       Query<Map<String, dynamic>> query;
+      final refernce = firestore
+          .collection('communities')
+          .doc(communityId)
+          .collection('posts')
+          .doc(postId)
+          .collection('comments');
       if (parentCommentId != null && parentCommentId.isNotEmpty) {
-        query = firestore
-            .collection('communities')
-            .doc(communityId)
-            .collection('posts')
-            .doc(postId)
-            .collection('comments')
-            .doc(parentCommentId)
-            .collection('reply_comments');
+        query = refernce.doc(parentCommentId).collection('reply_comments');
       } else {
-        query = firestore
-            .collection('communities')
-            .doc(communityId)
-            .collection('posts')
-            .doc(postId)
-            .collection('comments');
+        query = refernce;
       }
-      //if (lastDocSnapshot != null) {
-      //  query = query.startAfterDocument(lastDocSnapshot);
-      //}
       final querySnapshot = await query.get();
       final comments = querySnapshot.docs
           .map((doc) => Comment.fromJson(doc.data()))
@@ -170,7 +161,8 @@ class FirebaseCommunityCommentFacade implements ICommunityCommentRepository {
           .doc(postId)
           .get();
       final Comment comment = Comment.fromStoreData(
-          documentSnapshot.data()! as Map<String, dynamic>,);
+        documentSnapshot.data()! as Map<String, dynamic>,
+      );
       return right(comment);
     } catch (e) {
       return left(PostError(e.toString()));

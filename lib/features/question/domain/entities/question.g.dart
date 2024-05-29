@@ -14,6 +14,7 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
       uid: json['uid'] as String?,
       username: json['username'] as String?,
       questionId: json['questionId'] as String?,
+      avatarUrl: json['avatarUrl'] as String?,
       imageUrl: json['imageUrl'] as String?,
       answers: (json['answers'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$QuestionImplToJson(_$QuestionImpl instance) =>
       'uid': instance.uid,
       'username': instance.username,
       'questionId': instance.questionId,
+      'avatarUrl': instance.avatarUrl,
       'imageUrl': instance.imageUrl,
       'answers': instance.answers,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),

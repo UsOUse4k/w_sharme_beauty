@@ -374,7 +374,7 @@ mixin _$ReplyCommentListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Comment> comments) success,
+    required TResult Function(Map<String, List<Comment>> comments) success,
     required TResult Function() loading,
     required TResult Function(String error) error,
   }) =>
@@ -382,7 +382,7 @@ mixin _$ReplyCommentListState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Comment> comments)? success,
+    TResult? Function(Map<String, List<Comment>> comments)? success,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
   }) =>
@@ -390,7 +390,7 @@ mixin _$ReplyCommentListState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Comment> comments)? success,
+    TResult Function(Map<String, List<Comment>> comments)? success,
     TResult Function()? loading,
     TResult Function(String error)? error,
     required TResult orElse(),
@@ -481,7 +481,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Comment> comments) success,
+    required TResult Function(Map<String, List<Comment>> comments) success,
     required TResult Function() loading,
     required TResult Function(String error) error,
   }) {
@@ -492,7 +492,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Comment> comments)? success,
+    TResult? Function(Map<String, List<Comment>> comments)? success,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
   }) {
@@ -503,7 +503,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Comment> comments)? success,
+    TResult Function(Map<String, List<Comment>> comments)? success,
     TResult Function()? loading,
     TResult Function(String error)? error,
     required TResult orElse(),
@@ -562,7 +562,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Comment> comments});
+  $Res call({Map<String, List<Comment>> comments});
 }
 
 /// @nodoc
@@ -582,7 +582,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       null == comments
           ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
+              as Map<String, List<Comment>>,
     ));
   }
 }
@@ -590,14 +590,15 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(final List<Comment> comments) : _comments = comments;
+  const _$SuccessImpl(final Map<String, List<Comment>> comments)
+      : _comments = comments;
 
-  final List<Comment> _comments;
+  final Map<String, List<Comment>> _comments;
   @override
-  List<Comment> get comments {
-    if (_comments is EqualUnmodifiableListView) return _comments;
+  Map<String, List<Comment>> get comments {
+    if (_comments is EqualUnmodifiableMapView) return _comments;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_comments);
+    return EqualUnmodifiableMapView(_comments);
   }
 
   @override
@@ -627,7 +628,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Comment> comments) success,
+    required TResult Function(Map<String, List<Comment>> comments) success,
     required TResult Function() loading,
     required TResult Function(String error) error,
   }) {
@@ -638,7 +639,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Comment> comments)? success,
+    TResult? Function(Map<String, List<Comment>> comments)? success,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
   }) {
@@ -649,7 +650,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Comment> comments)? success,
+    TResult Function(Map<String, List<Comment>> comments)? success,
     TResult Function()? loading,
     TResult Function(String error)? error,
     required TResult orElse(),
@@ -699,9 +700,10 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements ReplyCommentListState {
-  const factory _Success(final List<Comment> comments) = _$SuccessImpl;
+  const factory _Success(final Map<String, List<Comment>> comments) =
+      _$SuccessImpl;
 
-  List<Comment> get comments;
+  Map<String, List<Comment>> get comments;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -746,7 +748,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Comment> comments) success,
+    required TResult Function(Map<String, List<Comment>> comments) success,
     required TResult Function() loading,
     required TResult Function(String error) error,
   }) {
@@ -757,7 +759,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Comment> comments)? success,
+    TResult? Function(Map<String, List<Comment>> comments)? success,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
   }) {
@@ -768,7 +770,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Comment> comments)? success,
+    TResult Function(Map<String, List<Comment>> comments)? success,
     TResult Function()? loading,
     TResult Function(String error)? error,
     required TResult orElse(),
@@ -886,7 +888,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Comment> comments) success,
+    required TResult Function(Map<String, List<Comment>> comments) success,
     required TResult Function() loading,
     required TResult Function(String error) error,
   }) {
@@ -897,7 +899,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<Comment> comments)? success,
+    TResult? Function(Map<String, List<Comment>> comments)? success,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
   }) {
@@ -908,7 +910,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Comment> comments)? success,
+    TResult Function(Map<String, List<Comment>> comments)? success,
     TResult Function()? loading,
     TResult Function(String error)? error,
     required TResult orElse(),

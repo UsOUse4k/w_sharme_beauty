@@ -12,6 +12,10 @@ abstract class ICommunityPostRepository {
   Future<Either<PostError, List<Post>>> getPosts({
     required String communityId,
   });
+   Future<Either<PostError, Post>> getPost({
+    required String communityId,
+    required String postId,
+  });
   Future<Either<PostError, Unit>> updateLikes(
     String postId,
     String authorId,

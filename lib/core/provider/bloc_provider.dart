@@ -34,6 +34,7 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_commen
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_category_bloc/community_category_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_create_bloc/community_comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_likes_bloc/community_comment_likes_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_list_bloc/community_comment_list_bloc.dart';
@@ -41,6 +42,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_create_post_bloc/community_create_post_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_detail_bloc/community_post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_profile_info_bloc/community_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_reply_comment_lidt_bloc/community_reply_comment_list_bloc.dart';
@@ -261,6 +263,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<UpdateNewEmailBloc>(
           create: (context) => getIt<UpdateNewEmailBloc>(),
+        ),
+        BlocProvider<CommunityPostDetailBloc>(
+          create: (context) => getIt<CommunityPostDetailBloc>(),
+        ),
+        BlocProvider<CommunityCategoryBloc>(
+          create: (context) => getIt<CommunityCategoryBloc>(),
         ),
       ],
       child: child,

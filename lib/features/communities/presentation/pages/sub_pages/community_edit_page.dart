@@ -9,8 +9,10 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_category_bloc/community_category_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/update_community_bloc/update_community_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/community_category_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 
@@ -28,7 +30,6 @@ class CommunityEditPage extends StatefulWidget {
 
 class _CommunityEditPageState extends State<CommunityEditPage> {
   final TextEditingController _communityNameCtrl = TextEditingController();
-  final TextEditingController _categoryCtrl = TextEditingController();
   final TextEditingController _descNameCtrl = TextEditingController();
 
   Uint8List? file;
@@ -40,17 +41,14 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
 
   @override
   void initState() {
-    if (mounted) {
-      context
-          .read<CommunityDetailBloc>()
-          .add(CommunityDetailEvent.loaded(widget.communityId));
-    }
+    context
+        .read<CommunityDetailBloc>()
+        .add(CommunityDetailEvent.loaded(widget.communityId));
     super.initState();
   }
 
   @override
   void dispose() {
-    _categoryCtrl.dispose();
     _communityNameCtrl.dispose();
     _descNameCtrl.dispose();
     super.dispose();
@@ -83,7 +81,13 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
           listener: (context, state) {
             state.maybeWhen(
               success: (community) {
-                _categoryCtrl.text = community.category ?? '';
+                if (community.category != null &&
+                    community.category!.isNotEmpty) {
+                  context
+                      .read<CommunityCategoryBloc>()
+                      .add(CommunityCategoryEvent.loaded(community.category!));
+                }
+
                 _communityNameCtrl.text = community.communityName ?? '';
                 _descNameCtrl.text = community.description ?? '';
               },
@@ -121,17 +125,7 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                         hintStyle: AppStyles.w400f16,
                       ),
                       const SizedBox(height: 14),
-                      TextFieldWidgetWithTitle(
-                        controller: _categoryCtrl,
-                        title: "Категория сообщества",
-                        titleStyle: AppStyles.w500f14
-                            .copyWith(color: AppColors.darkGrey),
-                        hintStyle: AppStyles.w400f16,
-                        suffixIcon: const Icon(
-                          Icons.expand_more_outlined,
-                          color: AppColors.black,
-                        ),
-                      ),
+                      const CommunityCategoryBottomSheet(),
                       const SizedBox(height: 14),
                       Text(
                         "Аватар сообщества",
@@ -191,43 +185,50 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                       const SizedBox(
                         height: 80,
                       ),
-                      GlButton(
-                        text: 'Сохранить',
-                        onPressed: () {
-                          if (currentUser!.uid == community.uid) {
-                            if (file != null) {
-                              context.read<UpdateCommunityBloc>().add(
-                                    UpdateCommunityEvent.updateCommunity(
-                                      communityName: _communityNameCtrl.text,
-                                      desc: _descNameCtrl.text,
-                                      category: _categoryCtrl.text,
-                                      file: file,
-                                      communityId: widget.communityId,
-                                    ),
-                                  );
-                            } else {
-                              context.read<UpdateCommunityBloc>().add(
-                                    UpdateCommunityEvent.updateCommunity(
-                                      communityName: _communityNameCtrl.text,
-                                      desc: _descNameCtrl.text,
-                                      category: _categoryCtrl.text,
-                                      communityId: widget.communityId,
-                                    ),
-                                  );
-                            }
-                          } else if (community.administrator != null &&
-                              community.administrator!
-                                      .contains(currentUser.uid) ==
-                                  true) {
-                            context.read<UpdateCommunityBloc>().add(
-                                  UpdateCommunityEvent.updateCommunity(
-                                    communityName: _communityNameCtrl.text,
-                                    communityId: widget.communityId,
-                                  ),
-                                );
-                          } else {
-                            showMyDialog(context, 'У вас нет права!');
-                          }
+                      BlocBuilder<CommunityCategoryBloc,
+                          CommunityCategoryState>(
+                        builder: (context, state) {
+                          return GlButton(
+                            text: 'Сохранить',
+                            onPressed: () {
+                              if (currentUser!.uid == community.uid) {
+                                if (file != null) {
+                                  context.read<UpdateCommunityBloc>().add(
+                                        UpdateCommunityEvent.updateCommunity(
+                                          communityName:
+                                              _communityNameCtrl.text,
+                                          desc: _descNameCtrl.text,
+                                          category: state.selectedTitle,
+                                          file: file,
+                                          communityId: widget.communityId,
+                                        ),
+                                      );
+                                } else {
+                                  context.read<UpdateCommunityBloc>().add(
+                                        UpdateCommunityEvent.updateCommunity(
+                                          communityName:
+                                              _communityNameCtrl.text,
+                                          desc: _descNameCtrl.text,
+                                          category: state.selectedTitle,
+                                          communityId: widget.communityId,
+                                        ),
+                                      );
+                                }
+                              } else if (community.administrator != null &&
+                                  community.administrator!
+                                          .contains(currentUser.uid) ==
+                                      true) {
+                                context.read<UpdateCommunityBloc>().add(
+                                      UpdateCommunityEvent.updateCommunity(
+                                        communityName: _communityNameCtrl.text,
+                                        communityId: widget.communityId,
+                                      ),
+                                    );
+                              } else {
+                                showMyDialog(context, 'У вас нет права!');
+                              }
+                            },
+                          );
                         },
                       ),
                       const SizedBox(

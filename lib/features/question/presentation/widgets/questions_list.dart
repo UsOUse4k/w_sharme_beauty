@@ -9,17 +9,17 @@ class QuestionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return QuestionWidgetWithColumnAndListTile(
-            question: questions[index],
-            onPressed: () {},
-          );
-        },
-        separatorBuilder: (context, index) => const SizedBox(height: 10),
-        itemCount: questions.length,
-      ),
+    return ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        final item = questions[index];
+        return QuestionWidgetWithColumnAndListTile(
+          question: item,
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(height: 10),
+      itemCount: questions.length,
     );
   }
 }

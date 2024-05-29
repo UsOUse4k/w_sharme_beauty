@@ -17,7 +17,7 @@ abstract class ICommunityRepository {
   Future<Either<PostError, Unit>> updateCommunity({
     required String communityName,
     required String desc,
-    required String category,
+    required List<String> category,
     Uint8List? file,
     required String communityId,
   });
