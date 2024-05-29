@@ -13,14 +13,14 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
 
-class AddQuestion extends StatefulWidget {
-  const AddQuestion({super.key});
+class AddQuestionPage extends StatefulWidget {
+  const AddQuestionPage({super.key});
 
   @override
-  State<AddQuestion> createState() => _AddQuestionState();
+  State<AddQuestionPage> createState() => _AddQuestionPageState();
 }
 
-class _AddQuestionState extends State<AddQuestion> {
+class _AddQuestionPageState extends State<AddQuestionPage> {
   List<Uint8List> selectedImageBytes = [];
 
   final TextEditingController _themeCtrl = TextEditingController();

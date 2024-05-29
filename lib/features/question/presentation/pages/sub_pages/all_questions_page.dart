@@ -7,14 +7,14 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 //import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class MyQuestions extends StatefulWidget {
-  const MyQuestions({super.key});
+class AllQuestionsPage extends StatefulWidget {
+  const AllQuestionsPage({super.key});
 
   @override
-  State<MyQuestions> createState() => _MyQuestionsState();
+  State<AllQuestionsPage> createState() => _AllQuestionsPageState();
 }
 
-class _MyQuestionsState extends State<MyQuestions> {
+class _AllQuestionsPageState extends State<AllQuestionsPage> {
   @override
   Widget build(BuildContext context) {
     return GlScaffold(

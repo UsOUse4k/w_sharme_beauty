@@ -41,7 +41,6 @@ class _CommentListState extends State<CommentList> {
           listener: (context, state) {
             state.maybeWhen(
               success: (comment) {
-                print(comment);
                 context
                     .read<CommentListBloc>()
                     .add(CommentListEvent.addNewComments(comment));
@@ -59,7 +58,7 @@ class _CommentListState extends State<CommentList> {
                 loading: () {
                   return ListView.separated(
                     shrinkWrap: true,
-                    physics: const  BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) => const CommentShimer(),
                     separatorBuilder: (context, index) => const SizedBox(
                       height: 6,

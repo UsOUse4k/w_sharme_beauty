@@ -16,6 +16,7 @@ abstract class RouterContants {
   static const String question = '/question';
 
   // bottom sub pages
+
   static const String profileEdit = 'profile-edit';
   static const String chat = 'chat';
   static const String post = 'post';

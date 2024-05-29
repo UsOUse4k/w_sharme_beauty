@@ -46,6 +46,7 @@ class _QuestionWidgetWithColumnAndListTileState
   Widget build(BuildContext context) {
     final Timestamp timestamp = widget.question.createdAt!;
     final String formattedDate = formatDateTime(timestamp);
+    final Function()? onTap = widget.onPressed;
     return Column(
       children: [
         ListTile(
@@ -81,9 +82,12 @@ class _QuestionWidgetWithColumnAndListTileState
             const SizedBox(
               width: 10,
             ),
-            const Text(
-              "ответить",
-              style: TextStyle(color: Colors.black87),
+            InkWell(
+              onTap: onTap,
+              child: const Text(
+                "ответить",
+                style: TextStyle(color: Colors.black87),
+              ),
             ),
           ],
         ),

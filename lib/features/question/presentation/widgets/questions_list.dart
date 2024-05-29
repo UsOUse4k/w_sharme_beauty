@@ -14,6 +14,7 @@ class QuestionsList extends StatelessWidget {
         itemBuilder: (context, index) {
           return QuestionWidgetWithColumnAndListTile(
             question: questions[index],
+            onPressed: () {},
           );
         },
         separatorBuilder: (context, index) => const SizedBox(height: 10),
