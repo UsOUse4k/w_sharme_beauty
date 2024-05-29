@@ -7,6 +7,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
@@ -38,6 +39,8 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
     context.read<CategoryBloc>().add(const CategoryEvent.loadCategories());
+    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
+
   }
 
   @override
@@ -103,6 +106,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           publications: user.publics.toString(),
                           followers: user.followers!.length.toString(),
                           subscriptions: user.subscriptions!.length.toString(),
+                          onPressedFollowers: () {
+                            context.push('/profile/followers');
+                          },
+                          onPressedSubscribe: () {
+                            context.push('/profile/subscriptions');
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -159,7 +168,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         child: BlocBuilder<CategoryBloc, CategoryState>(
                           builder: (context, state) {
-                            
                             return state.maybeWhen(
                               loading: () {
                                 return SizedBox(
@@ -169,12 +177,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                     physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) =>
                                         const CategoryShimmer(),
-                                    itemCount: 5,
+                                    itemCount: user.category!.length,
                                   ),
                                 );
                               },
                               success: (categories) {
-                                final filterCategories = categories.where((element) => user.category!.contains(element.title),).toList();
+                                final filterCategories = categories
+                                    .where(
+                                      (element) => user.category!
+                                          .contains(element.title),
+                                    )
+                                    .toList();
                                 return CategoryList(
                                   category: filterCategories,
                                   onFilterCategories: (value) {

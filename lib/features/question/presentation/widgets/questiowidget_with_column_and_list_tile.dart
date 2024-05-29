@@ -8,6 +8,7 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
 
@@ -44,20 +45,27 @@ class _QuestionWidgetWithColumnAndListTileState
 
   @override
   Widget build(BuildContext context) {
+    final avatar = widget.question.avatarUrl;
     final Timestamp timestamp = widget.question.createdAt!;
     final String formattedDate = formatDateTime(timestamp);
     return Column(
       children: [
         ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(23)),
-            child: GlCachedNetworImage(
-              urlImage: widget.question.imageUrl,
-              width: 46.w,
-              height: 46.h,
-            ),
-          ),
+          leading: avatar != null
+              ? ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(25)),
+                  child: GlCachedNetworImage(
+                    urlImage: avatar,
+                    width: 50.w,
+                    height: 50.h,
+                  ),
+                )
+              : Image.asset(
+                  Assets.images.notAvatar.path,
+                  width: 50.w,
+                  height: 50.h,
+                ),
           title: Text(
             widget.question.username.toString(),
             style: AppStyles.w500f16.copyWith(fontWeight: FontWeight.w600),

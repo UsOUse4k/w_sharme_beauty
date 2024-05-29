@@ -13,6 +13,7 @@ class Question with _$Question {
     String? uid,
     String? username,
     String? questionId,
+    String? avatarUrl,
     String? imageUrl,
     @Default([]) List<String> answers,
     @TimestampConverter() Timestamp? createdAt,
@@ -30,6 +31,7 @@ class Question with _$Question {
       username: firestoreData['username'] as String?,
       questionId: firestoreData['questionId'] as String?,
       imageUrl: firestoreData['imageUrl'] as String?,
+      avatarUrl: firestoreData['avatarUrl'] as String?,
       answers:
           List<String>.from(firestoreData['answers'] as List<dynamic>? ?? []),
       createdAt: firestoreData['createdAt'] as Timestamp?,

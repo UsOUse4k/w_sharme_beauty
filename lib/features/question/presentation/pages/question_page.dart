@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
+import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
-
-import 'package:w_sharme_beauty/features/profile/data/stories_data.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/stories_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/add_question.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/my_questions.dart';
@@ -27,6 +28,7 @@ class _QuestionPageState extends State<QuestionPage> {
     context
         .read<GetAllQuestionBloc>()
         .add(const GetAllQuestionEvent.getAllQuestions());
+    context.read<CategoryBloc>().add(const CategoryEvent.loadCategories());
     super.initState();
   }
 
@@ -37,10 +39,30 @@ class _QuestionPageState extends State<QuestionPage> {
       appBar: GlAppBar(
         leading: Row(
           children: [
-            GlCircleAvatar(
-              avatar: Assets.images.avatar.path,
-              width: 26,
-              height: 26,
+            BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  succes: (user) {
+                    return user.profilePictureUrl != null
+                        ? ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                            child: GlCachedNetworImage(
+                              height: 26.h,
+                              width: 26.w,
+                              urlImage: user.profilePictureUrl,
+                            ),
+                          )
+                        : GlCircleAvatar(
+                            avatar: Assets.images.notAvatar.path,
+                            width: 26.w,
+                            height: 26.h,
+                          );
+                  },
+                  orElse: () => Container(),
+                );
+              },
             ),
             const SizedBox(width: 16),
             Text(
@@ -66,7 +88,13 @@ class _QuestionPageState extends State<QuestionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SearchWidget(),
+            SearchWidget(
+              onChanged: (value) {
+                context
+                    .read<GetAllQuestionBloc>()
+                    .add(GetAllQuestionEvent.searchQuestion(value: value));
+              },
+            ),
             const SizedBox(
               height: 15,
             ),
@@ -110,9 +138,24 @@ class _QuestionPageState extends State<QuestionPage> {
                 color: AppColors.darkGrey,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: StoriesWidget(storiesModel: storiesModel),
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  success: (categories) {
+                    return CategoryList(
+                      category: categories,
+                      onFilterCategories: (value) {
+                        context.read<GetAllQuestionBloc>().add(
+                              GetAllQuestionEvent.filterQuestion(
+                                title: value.title!,
+                              ),
+                            );
+                      },
+                    );
+                  },
+                  orElse: () => Container(),
+                );
+              },
             ),
             const SizedBox(
               height: 10,
@@ -131,8 +174,6 @@ class _QuestionPageState extends State<QuestionPage> {
             const SizedBox(
               height: 10,
             ),
-            // Image.network(
-            //     ("https://images.nightcafe.studio/users/ZcDYVAlvjNbsAHbwNhUFxdU0rXs2/uploads/m7XuV1i6egth4ISiD240.jpeg?tr=w-1600,c-at_max")),
           ],
         ),
       ),

@@ -21,7 +21,7 @@ class ParticipantsList extends StatelessWidget {
     return ListView.builder(
       itemCount: userProfiles.length,
       itemBuilder: (BuildContext context, int index) {
-        final formatDate = getUserStatus(userProfiles[index].lastSeen!);
+        final formatDate = userProfiles[index].lastSeen != null ? getUserStatus(userProfiles[index].lastSeen!) : 'Неизвестно';
         return SubscribersListTileWidget(
           title: userProfiles[index].username.toString(),
           subtitle: formatDate,

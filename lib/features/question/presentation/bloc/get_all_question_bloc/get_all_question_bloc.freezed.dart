@@ -19,32 +19,50 @@ mixin _$GetAllQuestionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +125,9 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
   }) {
     return getAllQuestions();
   }
@@ -115,6 +136,9 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
   }) {
     return getAllQuestions?.call();
   }
@@ -123,6 +147,9 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
     required TResult orElse(),
   }) {
     if (getAllQuestions != null) {
@@ -135,6 +162,9 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
   }) {
     return getAllQuestions(this);
   }
@@ -143,6 +173,9 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
   }) {
     return getAllQuestions?.call(this);
   }
@@ -151,6 +184,9 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
     required TResult orElse(),
   }) {
     if (getAllQuestions != null) {
@@ -162,6 +198,458 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
 
 abstract class _GetAllQuestions implements GetAllQuestionEvent {
   const factory _GetAllQuestions() = _$GetAllQuestionsImpl;
+}
+
+/// @nodoc
+abstract class _$$AddNewQuestionImplCopyWith<$Res> {
+  factory _$$AddNewQuestionImplCopyWith(_$AddNewQuestionImpl value,
+          $Res Function(_$AddNewQuestionImpl) then) =
+      __$$AddNewQuestionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Question question});
+
+  $QuestionCopyWith<$Res> get question;
+}
+
+/// @nodoc
+class __$$AddNewQuestionImplCopyWithImpl<$Res>
+    extends _$GetAllQuestionEventCopyWithImpl<$Res, _$AddNewQuestionImpl>
+    implements _$$AddNewQuestionImplCopyWith<$Res> {
+  __$$AddNewQuestionImplCopyWithImpl(
+      _$AddNewQuestionImpl _value, $Res Function(_$AddNewQuestionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? question = null,
+  }) {
+    return _then(_$AddNewQuestionImpl(
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as Question,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $QuestionCopyWith<$Res> get question {
+    return $QuestionCopyWith<$Res>(_value.question, (value) {
+      return _then(_value.copyWith(question: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$AddNewQuestionImpl implements _AddNewQuestion {
+  const _$AddNewQuestionImpl({required this.question});
+
+  @override
+  final Question question;
+
+  @override
+  String toString() {
+    return 'GetAllQuestionEvent.addNewQuestion(question: $question)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddNewQuestionImpl &&
+            (identical(other.question, question) ||
+                other.question == question));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, question);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddNewQuestionImplCopyWith<_$AddNewQuestionImpl> get copyWith =>
+      __$$AddNewQuestionImplCopyWithImpl<_$AddNewQuestionImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
+  }) {
+    return addNewQuestion(question);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
+  }) {
+    return addNewQuestion?.call(question);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
+    required TResult orElse(),
+  }) {
+    if (addNewQuestion != null) {
+      return addNewQuestion(question);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
+  }) {
+    return addNewQuestion(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
+  }) {
+    return addNewQuestion?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
+    required TResult orElse(),
+  }) {
+    if (addNewQuestion != null) {
+      return addNewQuestion(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddNewQuestion implements GetAllQuestionEvent {
+  const factory _AddNewQuestion({required final Question question}) =
+      _$AddNewQuestionImpl;
+
+  Question get question;
+  @JsonKey(ignore: true)
+  _$$AddNewQuestionImplCopyWith<_$AddNewQuestionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SearchQuestionImplCopyWith<$Res> {
+  factory _$$SearchQuestionImplCopyWith(_$SearchQuestionImpl value,
+          $Res Function(_$SearchQuestionImpl) then) =
+      __$$SearchQuestionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$SearchQuestionImplCopyWithImpl<$Res>
+    extends _$GetAllQuestionEventCopyWithImpl<$Res, _$SearchQuestionImpl>
+    implements _$$SearchQuestionImplCopyWith<$Res> {
+  __$$SearchQuestionImplCopyWithImpl(
+      _$SearchQuestionImpl _value, $Res Function(_$SearchQuestionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$SearchQuestionImpl(
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchQuestionImpl implements _SearchQuestion {
+  const _$SearchQuestionImpl({required this.value});
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'GetAllQuestionEvent.searchQuestion(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchQuestionImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchQuestionImplCopyWith<_$SearchQuestionImpl> get copyWith =>
+      __$$SearchQuestionImplCopyWithImpl<_$SearchQuestionImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
+  }) {
+    return searchQuestion(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
+  }) {
+    return searchQuestion?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
+    required TResult orElse(),
+  }) {
+    if (searchQuestion != null) {
+      return searchQuestion(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
+  }) {
+    return searchQuestion(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
+  }) {
+    return searchQuestion?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
+    required TResult orElse(),
+  }) {
+    if (searchQuestion != null) {
+      return searchQuestion(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchQuestion implements GetAllQuestionEvent {
+  const factory _SearchQuestion({required final String value}) =
+      _$SearchQuestionImpl;
+
+  String get value;
+  @JsonKey(ignore: true)
+  _$$SearchQuestionImplCopyWith<_$SearchQuestionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FilterQuestionImplCopyWith<$Res> {
+  factory _$$FilterQuestionImplCopyWith(_$FilterQuestionImpl value,
+          $Res Function(_$FilterQuestionImpl) then) =
+      __$$FilterQuestionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String title});
+}
+
+/// @nodoc
+class __$$FilterQuestionImplCopyWithImpl<$Res>
+    extends _$GetAllQuestionEventCopyWithImpl<$Res, _$FilterQuestionImpl>
+    implements _$$FilterQuestionImplCopyWith<$Res> {
+  __$$FilterQuestionImplCopyWithImpl(
+      _$FilterQuestionImpl _value, $Res Function(_$FilterQuestionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+  }) {
+    return _then(_$FilterQuestionImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FilterQuestionImpl implements _FilterQuestion {
+  const _$FilterQuestionImpl({required this.title});
+
+  @override
+  final String title;
+
+  @override
+  String toString() {
+    return 'GetAllQuestionEvent.filterQuestion(title: $title)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FilterQuestionImpl &&
+            (identical(other.title, title) || other.title == title));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, title);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FilterQuestionImplCopyWith<_$FilterQuestionImpl> get copyWith =>
+      __$$FilterQuestionImplCopyWithImpl<_$FilterQuestionImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
+  }) {
+    return filterQuestion(title);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
+  }) {
+    return filterQuestion?.call(title);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
+    required TResult orElse(),
+  }) {
+    if (filterQuestion != null) {
+      return filterQuestion(title);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
+  }) {
+    return filterQuestion(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
+  }) {
+    return filterQuestion?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
+    required TResult orElse(),
+  }) {
+    if (filterQuestion != null) {
+      return filterQuestion(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FilterQuestion implements GetAllQuestionEvent {
+  const factory _FilterQuestion({required final String title}) =
+      _$FilterQuestionImpl;
+
+  String get title;
+  @JsonKey(ignore: true)
+  _$$FilterQuestionImplCopyWith<_$FilterQuestionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

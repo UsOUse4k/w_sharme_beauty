@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-//import 'package:w_sharme_beauty/features/home/data/model/comments_model.dart';
-//import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class MyQuestions extends StatefulWidget {

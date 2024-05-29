@@ -234,6 +234,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/map.png
   AssetGenImage get map => const AssetGenImage('assets/images/map.png');
 
+  /// File path: assets/images/notAvatar.png
+  AssetGenImage get notAvatar =>
+      const AssetGenImage('assets/images/notAvatar.png');
+
   /// File path: assets/images/serviceImg1.jpeg
   AssetGenImage get serviceImg1 =>
       const AssetGenImage('assets/images/serviceImg1.jpeg');
@@ -275,6 +279,7 @@ class $AssetsImagesGen {
         close,
         mainPicture,
         map,
+        notAvatar,
         serviceImg1,
         serviceImg2,
         serviceImg3,

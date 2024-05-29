@@ -22,7 +22,9 @@ import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/followers_users_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/subscriptions_users_page.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
 
 mixin AppRouter on State<App> {
@@ -502,6 +504,16 @@ mixin AppRouter on State<App> {
                 path: RouterContants.profile,
                 builder: (context, state) => const ProfilePage(),
                 routes: [
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: 'subscriptions',
+                    builder: (context, state) => const SubscriptionsUsersPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: 'followers',
+                    builder: (context, state) => const FollowersUsersPage(),
+                  ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.profileEdit,

@@ -13,6 +13,7 @@ class ProfileNavbarWidget extends StatelessWidget {
     this.subscriptions,
     this.subscribeText = "Подписчиков",
     this.onPressedFollowers,
+    this.onPressedSubscribe,
   });
 
   final String? avatar;
@@ -21,6 +22,7 @@ class ProfileNavbarWidget extends StatelessWidget {
   final String? subscriptions;
   final String? subscribeText;
   final Function()? onPressedFollowers;
+  final Function()? onPressedSubscribe;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +81,16 @@ class ProfileNavbarWidget extends StatelessWidget {
         ),
         Column(
           children: [
-            if (subscriptions != null)
-              Text(subscriptions!, style: AppStyles.w500f16),
-            if (subscriptions != null)
-              Text("Подписок", style: AppStyles.w400f14),
+              if (subscriptions != null)
+                GestureDetector(
+                  onTap: onPressedSubscribe,
+                  child: Column(
+                    children: [
+                      Text(subscriptions!, style: AppStyles.w500f16),
+                      Text("Подписок", style: AppStyles.w400f14),
+                    ],
+                  ),
+                ),
           ],
         ),
       ],
