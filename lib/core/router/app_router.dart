@@ -23,6 +23,9 @@ import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_p
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/followers_users_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_birth_date.page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_noticfaction_settings_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_numbe_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/subscriptions_users_page.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
@@ -538,6 +541,22 @@ mixin AppRouter on State<App> {
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.profileNewEmail,
                     builder: (context, state) => const ProfileNewEmailPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: RouterContants.profileNumber,
+                    builder: (context, state) => const ProfileNumberPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: RouterContants.profileBirthDate,
+                    builder: (context, state) => const ProfileBirthDatePage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: RouterContants.profileNoticfactionSettings,
+                    builder: (context, state) =>
+                        const ProfileNoticfactionSettingsPage(),
                   ),
                 ],
               ),

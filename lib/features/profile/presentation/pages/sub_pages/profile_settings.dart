@@ -73,12 +73,22 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                           subtitle: user.phone != ''
                               ? user.phone.toString()
                               : 'Не указан',
+                          onTap: () {
+                            route.push(
+                              '/profile/${RouterContants.profileNumber}',
+                            );
+                          },
                         ),
                         ProfileSettingItemWidget(
                           title: 'День рождения',
                           subtitle: user.date != ''
                               ? user.date.toString()
                               : 'Не указан',
+                          onTap: () {
+                            route.push(
+                              '/profile/${RouterContants.profileBirthDate}',
+                            );
+                          },
                         ),
                         BlocListener<AuthBloc, AuthState>(
                           listener: (context, state) {
@@ -135,7 +145,11 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   ProfileSettingCardItemWidget(
                     text: 'УВЕДОМЛЕНИЯ',
                     title: 'Настройки уведомления',
-                    onPresed: () {},
+                    onPresed: () {
+                      route.push(
+                        '/profile/${RouterContants.profileNoticfactionSettings}',
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 15,

@@ -31,7 +31,10 @@ abstract class RouterContants {
   static const String profileNewEmail = 'profile-new-email';
   static const String profileChangePassword = 'profile-change-password';
   static const String createPost = 'create-post';
-
+  static const String profileNumber = 'profile-number';
+  static const String profileBirthDate = 'profile-birth-date';
+  static const String profileNoticfactionSettings =
+      'profile-noticfaction-settings';
   // advert sub pages
   static const String advertMyAdvertsPage = 'advertMyAdvertsPage';
   static const String advertEditAdvertsPage = 'advertEditAdvertsPage';
