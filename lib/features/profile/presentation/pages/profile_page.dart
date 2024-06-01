@@ -183,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           success: (categories) {
                                             final filter = categories
                                                 .where((e) => user.category!
-                                                    .contains(e.title))
+                                                    .contains(e.title),)
                                                 .toList();
                                             return CategoryList(
                                               category: filter,

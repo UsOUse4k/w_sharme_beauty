@@ -22,7 +22,6 @@ import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_page
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
-import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/followers_users_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
