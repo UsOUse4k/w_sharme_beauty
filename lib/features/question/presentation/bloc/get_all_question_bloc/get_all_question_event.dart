@@ -10,4 +10,8 @@ class GetAllQuestionEvent with _$GetAllQuestionEvent {
       _SearchQuestion;
   const factory GetAllQuestionEvent.filterQuestion({required String title}) =
       _FilterQuestion;
+  const factory GetAllQuestionEvent.myQuestions() =
+      _MyQuestions;
+  const factory GetAllQuestionEvent.myAnswers() =
+      _MyAnswers;
 }

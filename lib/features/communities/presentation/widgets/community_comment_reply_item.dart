@@ -91,9 +91,11 @@ class _CommunityCommentItemReplyCardState
               Flexible(
                 child: InkWell(
                   onTap: () {
-                    context.push(
-                      '/home/${RouterContants.profilePersonPage}/${widget.item.uid}',
-                    );
+                    if (firebaseAuth.currentUser!.uid != widget.item.uid) {
+                      context.push(
+                        '/communities/community-profile/${widget.communityId}/community-detail/${widget.communityId}/${widget.postId}/profilePersonPage/${widget.item.uid}',
+                      );
+                    }
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(

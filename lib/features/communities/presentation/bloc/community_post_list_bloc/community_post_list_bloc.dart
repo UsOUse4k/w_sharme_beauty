@@ -49,7 +49,7 @@ class CommunityPostListBloc
         addPost: (event) async {
           state.maybeWhen(
             success: (posts) async {
-              final data = [...posts, event.post];
+              final data = [event.post, ...posts];
               emit(CommunityPostListState.success(data));
             },
             orElse: () {},

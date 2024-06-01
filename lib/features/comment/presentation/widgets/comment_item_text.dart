@@ -39,7 +39,7 @@ class CommentItemText extends StatelessWidget {
           children: [
             Text(
               data,
-              style: AppStyles.w400f14.copyWith(color: AppColors.grey),
+              style: AppStyles.w400f14.copyWith(color: AppColors.darkGrey),
             ),
             Text(
               'Нравится: $like',

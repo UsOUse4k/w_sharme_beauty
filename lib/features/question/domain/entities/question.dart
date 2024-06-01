@@ -16,6 +16,7 @@ class Question with _$Question {
     String? avatarUrl,
     String? imageUrl,
     @Default([]) List<String> answers,
+    @Default(0) int countOutput,
     @TimestampConverter() Timestamp? createdAt,
   }) = _Question;
 
@@ -32,6 +33,7 @@ class Question with _$Question {
       questionId: firestoreData['questionId'] as String?,
       imageUrl: firestoreData['imageUrl'] as String?,
       avatarUrl: firestoreData['avatarUrl'] as String?,
+      countOutput: firestoreData['countOutput'] as int,
       answers:
           List<String>.from(firestoreData['answers'] as List<dynamic>? ?? []),
       createdAt: firestoreData['createdAt'] as Timestamp?,

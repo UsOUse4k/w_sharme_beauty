@@ -16,16 +16,19 @@ import 'package:w_sharme_beauty/features/chat/presentation/pages/sub_pages/sub_p
 import 'package:w_sharme_beauty/features/chat_group/presentation/pages/chat_group_messages_page.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/community_post_detail_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/create_a_community_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/followers_users_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/subscriptions_users_page.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/sub_pages.dart';
 
 mixin AppRouter on State<App> {
   final GoRouter _router = GoRouter(
@@ -99,7 +102,6 @@ mixin AppRouter on State<App> {
                 builder: (context, state) => const HomePage(),
                 routes: [
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
                     path: '${RouterContants.post}/:postId',
                     builder: (BuildContext context, GoRouterState state) {
                       final postId = state.pathParameters['postId'];
@@ -116,6 +118,16 @@ mixin AppRouter on State<App> {
                       return ProfilePersonPage(authorId: authorId);
                     },
                     routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: '${RouterContants.post}/:postId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final postId = state.pathParameters['postId'];
+                          return HomePostPage(
+                            postId: postId,
+                          );
+                        },
+                      ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
                         path: '${RouterContants.chatMessages}/:userId',
@@ -155,6 +167,21 @@ mixin AppRouter on State<App> {
                               final userId = state.pathParameters['userId'];
                               return ProfilePersonPage(authorId: userId);
                             },
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: RouterKeys.rootKey,
+                                path: '${RouterContants.post}/:postId',
+                                builder: (
+                                  BuildContext context,
+                                  GoRouterState state,
+                                ) {
+                                  final postId = state.pathParameters['postId'];
+                                  return HomePostPage(
+                                    postId: postId,
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -328,6 +355,41 @@ mixin AppRouter on State<App> {
                 name: RouterContants.question,
                 path: RouterContants.question,
                 builder: (context, state) => const QuestionPage(),
+                routes: [
+                  GoRoute(
+                    path: 'question-datail/:questionId',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final questionId = state.pathParameters['questionId'];
+                      return QuestionDetailPage(
+                        questionId: questionId.toString(),
+                      );
+                    },
+                    routes: [
+                      GoRoute(
+                        path: "${RouterContants.profilePersonPage}/:authorId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final authorId = state.pathParameters['authorId'];
+                          return ProfilePersonPage(authorId: authorId);
+                        },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: '${RouterContants.post}/:postId',
+                            builder: (
+                              BuildContext context,
+                              GoRouterState state,
+                            ) {
+                              final postId = state.pathParameters['postId'];
+                              return HomePostPage(
+                                postId: postId,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -359,6 +421,45 @@ mixin AppRouter on State<App> {
                     routes: [
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'community-detail/:communityId/:postId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          final postId = state.pathParameters['postId'];
+                          return CommunityPostDetailPage(
+                            postId: postId,
+                            communityId: communityId.toString(),
+                          );
+                        },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: "${RouterContants.profilePersonPage}/:userId",
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final userId = state.pathParameters['userId'];
+                              return ProfilePersonPage(authorId: userId);
+                            },
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: RouterKeys.rootKey,
+                                path: '${RouterContants.post}/:postId',
+                                builder: (
+                                  BuildContext context,
+                                  GoRouterState state,
+                                ) {
+                                  final postId = state.pathParameters['postId'];
+                                  return HomePostPage(
+                                    postId: postId,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
                         path:
                             '${RouterContants.chatGroupMessages}/:groupId/:communityId',
                         builder: (BuildContext context, GoRouterState state) {
@@ -383,6 +484,45 @@ mixin AppRouter on State<App> {
                       );
                     },
                     routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'community-detail/:communityId/:postId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final communityId =
+                              state.pathParameters['communityId'];
+                          final postId = state.pathParameters['postId'];
+                          return CommunityPostDetailPage(
+                            postId: postId,
+                            communityId: communityId.toString(),
+                          );
+                        },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path: "${RouterContants.profilePersonPage}/:userId",
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final userId = state.pathParameters['userId'];
+                              return ProfilePersonPage(authorId: userId);
+                            },
+                            routes: [
+                              GoRoute(
+                                parentNavigatorKey: RouterKeys.rootKey,
+                                path: '${RouterContants.post}/:postId',
+                                builder: (
+                                  BuildContext context,
+                                  GoRouterState state,
+                                ) {
+                                  final postId = state.pathParameters['postId'];
+                                  return HomePostPage(
+                                    postId: postId,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
                         path:
@@ -504,6 +644,19 @@ mixin AppRouter on State<App> {
                 path: RouterContants.profile,
                 builder: (context, state) => const ProfilePage(),
                 routes: [
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: '${RouterContants.post}/:postId',
+                    builder: (
+                      BuildContext context,
+                      GoRouterState state,
+                    ) {
+                      final postId = state.pathParameters['postId'];
+                      return HomePostPage(
+                        postId: postId,
+                      );
+                    },
+                  ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: 'subscriptions',

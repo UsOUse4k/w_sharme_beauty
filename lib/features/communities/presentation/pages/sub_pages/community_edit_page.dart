@@ -59,8 +59,8 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
     final currentUser = firebaseAuth.currentUser;
 
     GoRouter.of(context);
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: GlAppBar(
         leading: IconButton(
           iconSize: 16,
@@ -113,128 +113,122 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                       orElse: () {},
                     );
                   },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 8),
-                      TextFieldWidgetWithTitle(
-                        controller: _communityNameCtrl,
-                        title: "Название сообщества",
-                        titleStyle: AppStyles.w500f14
-                            .copyWith(color: AppColors.darkGrey),
-                        hintStyle: AppStyles.w400f16,
-                      ),
-                      const SizedBox(height: 14),
-                      const CommunityCategoryBottomSheet(),
-                      const SizedBox(height: 14),
-                      Text(
-                        "Аватар сообщества",
-                        style: AppStyles.w500f14
-                            .copyWith(color: AppColors.darkGrey),
-                      ),
-                      const SizedBox(height: 8),
-                      //Image.asset(Assets.images.ava.path),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      if (file != null)
-                        CardImageProfileAdd(
-                          radius: 50,
-                          image: MemoryImage(file!),
-                          onPressed: () {
-                            file = null;
-                            setState(() {});
-                          },
-                        )
-                      else
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: GlCachedNetworImage(
-                            width: 100.w,
-                            height: 100.h,
-                            urlImage: community.avatarUrls,
-                          ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 8.h),
+                        TextFieldWidgetWithTitle(
+                          controller: _communityNameCtrl,
+                          title: "Название сообщества",
+                          titleStyle: AppStyles.w500f14
+                              .copyWith(color: AppColors.darkGrey),
+                          hintStyle: AppStyles.w400f16,
                         ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      AddingButton(
-                        text: '+ Выбрать фото',
-                        onPressed: selectedImage,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFieldWidgetWithTitle(
-                        controller: _descNameCtrl,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 10,
+                        SizedBox(height: 14.h),
+                        const CommunityCategoryBottomSheet(),
+                        SizedBox(height: 14.h),
+                        Text(
+                          "Аватар сообщества",
+                          style: AppStyles.w500f14
+                              .copyWith(color: AppColors.darkGrey),
                         ),
-                        title: "Описание сообщества",
-                        titleStyle:
-                            AppStyles.w500f14.copyWith(color: AppColors.grey),
-                        hintStyle: AppStyles.w400f16,
-                        maxLines: 2,
-                      ),
-                      Text(
-                        "Используйте слова, которые описывают тематику сообщества и помогают быстрее его найти. Изменить описание можно в любой момент.",
-                        style: AppStyles.w400f13
-                            .copyWith(color: AppColors.darkGrey),
-                      ),
-                      const SizedBox(
-                        height: 80,
-                      ),
-                      BlocBuilder<CommunityCategoryBloc,
-                          CommunityCategoryState>(
-                        builder: (context, state) {
-                          return GlButton(
-                            text: 'Сохранить',
+                        SizedBox(height: 8.h),
+                        //Image.asset(Assets.images.ava.path),
+                        SizedBox(height: 10.h),
+                        if (file != null)
+                          CardImageProfileAdd(
+                            radius: 50,
+                            image: MemoryImage(file!),
                             onPressed: () {
-                              if (currentUser!.uid == community.uid) {
-                                if (file != null) {
+                              file = null;
+                              setState(() {});
+                            },
+                          )
+                        else
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: GlCachedNetworImage(
+                              width: 100.w,
+                              height: 100.h,
+                              urlImage: community.avatarUrls,
+                            ),
+                          ),
+                        SizedBox(height: 10.h),
+                        AddingButton(
+                          text: '+ Выбрать фото',
+                          onPressed: selectedImage,
+                        ),
+                        SizedBox(height: 20.h),
+                        TextFieldWidgetWithTitle(
+                          controller: _descNameCtrl,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 10,
+                          ),
+                          title: "Описание сообщества",
+                          titleStyle:
+                              AppStyles.w500f14.copyWith(color: AppColors.grey),
+                          hintStyle: AppStyles.w400f16,
+                          maxLines: 2,
+                        ),
+                        Text(
+                          "Используйте слова, которые описывают тематику сообщества и помогают быстрее его найти. Изменить описание можно в любой момент.",
+                          style: AppStyles.w400f13
+                              .copyWith(color: AppColors.darkGrey),
+                        ),
+                        SizedBox(height: 80.h),
+                        BlocBuilder<CommunityCategoryBloc,
+                            CommunityCategoryState>(
+                          builder: (context, state) {
+                            return GlButton(
+                              text: 'Сохранить',
+                              onPressed: () {
+                                if (currentUser!.uid == community.uid) {
+                                  if (file != null) {
+                                    context.read<UpdateCommunityBloc>().add(
+                                          UpdateCommunityEvent.updateCommunity(
+                                            communityName:
+                                                _communityNameCtrl.text,
+                                            desc: _descNameCtrl.text,
+                                            category: state.selectedTitle,
+                                            file: file,
+                                            communityId: widget.communityId,
+                                          ),
+                                        );
+                                  } else {
+                                    context.read<UpdateCommunityBloc>().add(
+                                          UpdateCommunityEvent.updateCommunity(
+                                            communityName:
+                                                _communityNameCtrl.text,
+                                            desc: _descNameCtrl.text,
+                                            category: state.selectedTitle,
+                                            communityId: widget.communityId,
+                                          ),
+                                        );
+                                  }
+                                } else if (community.administrator != null &&
+                                    community.administrator!
+                                            .contains(currentUser.uid) ==
+                                        true) {
                                   context.read<UpdateCommunityBloc>().add(
                                         UpdateCommunityEvent.updateCommunity(
                                           communityName:
                                               _communityNameCtrl.text,
-                                          desc: _descNameCtrl.text,
-                                          category: state.selectedTitle,
-                                          file: file,
                                           communityId: widget.communityId,
                                         ),
                                       );
                                 } else {
-                                  context.read<UpdateCommunityBloc>().add(
-                                        UpdateCommunityEvent.updateCommunity(
-                                          communityName:
-                                              _communityNameCtrl.text,
-                                          desc: _descNameCtrl.text,
-                                          category: state.selectedTitle,
-                                          communityId: widget.communityId,
-                                        ),
-                                      );
+                                  showMyDialog(context, 'У вас нет права!');
                                 }
-                              } else if (community.administrator != null &&
-                                  community.administrator!
-                                          .contains(currentUser.uid) ==
-                                      true) {
-                                context.read<UpdateCommunityBloc>().add(
-                                      UpdateCommunityEvent.updateCommunity(
-                                        communityName: _communityNameCtrl.text,
-                                        communityId: widget.communityId,
-                                      ),
-                                    );
-                              } else {
-                                showMyDialog(context, 'У вас нет права!');
-                              }
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                              },
+                            );
+                          },
+                        ),
+                        SizedBox(height: 20.h),
+                      ],
+                    ),
                   ),
                 );
               },

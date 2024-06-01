@@ -4,15 +4,15 @@ import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 
 abstract class ICommunityPostRepository {
-  Future<Either<PostError, Unit>> createPost(
-    Post post,
-    List<Uint8List> imageFiles, {
+  Future<Either<PostError, Post>> createPost(
+    Post post, {
+    List<Uint8List>? imageFiles,
     required String communityId,
   });
   Future<Either<PostError, List<Post>>> getPosts({
     required String communityId,
   });
-   Future<Either<PostError, Post>> getPost({
+  Future<Either<PostError, Post>> getPost({
     required String communityId,
     required String postId,
   });

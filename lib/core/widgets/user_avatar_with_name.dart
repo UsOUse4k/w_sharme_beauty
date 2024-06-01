@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class UserAvatarWithName extends StatelessWidget {
   const UserAvatarWithName({
@@ -31,7 +32,7 @@ class UserAvatarWithName extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (avatar != null)
+          if (avatar != null && avatar != null && avatar != '')
             ClipRRect(
               borderRadius: BorderRadius.all(
                 Radius.circular(raduis!),
@@ -41,6 +42,12 @@ class UserAvatarWithName extends StatelessWidget {
                 width: width.w,
                 urlImage: avatar,
               ),
+            )
+          else
+            GlCircleAvatar(
+              avatar: Assets.images.notAvatar.path,
+              width: height.w,
+              height: width.w,
             ),
           const SizedBox(width: 5),
           Column(

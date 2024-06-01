@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
 import 'package:w_sharme_beauty/features/question/domain/repositories/i_question_repository.dart';
@@ -15,6 +16,7 @@ class GetAllQuestionBloc
   List<Question>? allQuestions;
   GetAllQuestionBloc(this._iQuestionRepository) : super(const _Initial()) {
     on<GetAllQuestionEvent>((event, emit) async {
+      final currentUid = firebaseAuth.currentUser!.uid;
       await event.map(
         getAllQuestions: (event) async {
           emit(const GetAllQuestionState.loading());
@@ -68,6 +70,32 @@ class GetAllQuestionBloc
                     )
                     .toList();
                 emit(GetAllQuestionState.success(updateQiestion));
+              }
+            },
+            orElse: () {},
+          );
+        },
+        myQuestions: (value) {
+          state.maybeWhen(
+            success: (questions) {
+              if (allQuestions != null) {
+                final updateQuestion = allQuestions!
+                    .where((element) => element.uid == currentUid)
+                    .toList();
+                emit(GetAllQuestionState.success(updateQuestion));
+              }
+            },
+            orElse: () {},
+          );
+        },
+        myAnswers: (value) {
+          state.maybeWhen(
+            success: (questions) {
+              if (allQuestions != null) {
+                final updateQuestions = allQuestions!
+                    .where((element) => element.answers.contains(currentUid))
+                    .toList();
+                emit(GetAllQuestionState.success(updateQuestions));
               }
             },
             orElse: () {},

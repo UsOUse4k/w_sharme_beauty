@@ -29,6 +29,7 @@ mixin _$Question {
   String? get avatarUrl => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   List<String> get answers => throw _privateConstructorUsedError;
+  int get countOutput => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
 
@@ -53,6 +54,7 @@ abstract class $QuestionCopyWith<$Res> {
       String? avatarUrl,
       String? imageUrl,
       List<String> answers,
+      int countOutput,
       @TimestampConverter() Timestamp? createdAt});
 }
 
@@ -78,6 +80,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? avatarUrl = freezed,
     Object? imageUrl = freezed,
     Object? answers = null,
+    Object? countOutput = null,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -117,6 +120,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      countOutput: null == countOutput
+          ? _value.countOutput
+          : countOutput // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -143,6 +150,7 @@ abstract class _$$QuestionImplCopyWith<$Res>
       String? avatarUrl,
       String? imageUrl,
       List<String> answers,
+      int countOutput,
       @TimestampConverter() Timestamp? createdAt});
 }
 
@@ -166,6 +174,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
     Object? avatarUrl = freezed,
     Object? imageUrl = freezed,
     Object? answers = null,
+    Object? countOutput = null,
     Object? createdAt = freezed,
   }) {
     return _then(_$QuestionImpl(
@@ -205,6 +214,10 @@ class __$$QuestionImplCopyWithImpl<$Res>
           ? _value._answers
           : answers // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      countOutput: null == countOutput
+          ? _value.countOutput
+          : countOutput // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -226,6 +239,7 @@ class _$QuestionImpl implements _Question {
       this.avatarUrl,
       this.imageUrl,
       final List<String> answers = const [],
+      this.countOutput = 0,
       @TimestampConverter() this.createdAt})
       : _answers = answers;
 
@@ -258,12 +272,15 @@ class _$QuestionImpl implements _Question {
   }
 
   @override
+  @JsonKey()
+  final int countOutput;
+  @override
   @TimestampConverter()
   final Timestamp? createdAt;
 
   @override
   String toString() {
-    return 'Question(questionText: $questionText, category: $category, theme: $theme, uid: $uid, username: $username, questionId: $questionId, avatarUrl: $avatarUrl, imageUrl: $imageUrl, answers: $answers, createdAt: $createdAt)';
+    return 'Question(questionText: $questionText, category: $category, theme: $theme, uid: $uid, username: $username, questionId: $questionId, avatarUrl: $avatarUrl, imageUrl: $imageUrl, answers: $answers, countOutput: $countOutput, createdAt: $createdAt)';
   }
 
   @override
@@ -286,6 +303,8 @@ class _$QuestionImpl implements _Question {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
+            (identical(other.countOutput, countOutput) ||
+                other.countOutput == countOutput) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -303,6 +322,7 @@ class _$QuestionImpl implements _Question {
       avatarUrl,
       imageUrl,
       const DeepCollectionEquality().hash(_answers),
+      countOutput,
       createdAt);
 
   @JsonKey(ignore: true)
@@ -330,6 +350,7 @@ abstract class _Question implements Question {
       final String? avatarUrl,
       final String? imageUrl,
       final List<String> answers,
+      final int countOutput,
       @TimestampConverter() final Timestamp? createdAt}) = _$QuestionImpl;
 
   factory _Question.fromJson(Map<String, dynamic> json) =
@@ -353,6 +374,8 @@ abstract class _Question implements Question {
   String? get imageUrl;
   @override
   List<String> get answers;
+  @override
+  int get countOutput;
   @override
   @TimestampConverter()
   Timestamp? get createdAt;

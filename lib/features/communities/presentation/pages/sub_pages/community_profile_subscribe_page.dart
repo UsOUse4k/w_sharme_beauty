@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
+import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
@@ -77,7 +78,7 @@ class _CommunityProfileSubscribePageState
   @override
   Widget build(BuildContext context) {
     final currentUid = firebaseAuth.currentUser!.uid;
-    return GlScaffold(
+    return Scaffold(
       appBar: GlAppBar(
         leading: IconButton(
           onPressed: () => context.pop(),
@@ -172,6 +173,11 @@ class _CommunityProfileSubscribePageState
                                 itemCount: posts.length,
                                 itemBuilder: (context, index) =>
                                     CommunityPostCard(
+                                  onPressedDetailPost: () {
+                                    context.push(
+                                      '/communities/community-profile-subscribe/${widget.communityId}/community-detail/${widget.communityId}/${posts[index].postId}',
+                                    );
+                                  },
                                   onPressed: () {},
                                   post: posts[index],
                                   communityName:
@@ -197,12 +203,12 @@ class _CommunityProfileSubscribePageState
     );
   }
 
-  Padding _buildTop(
+  CustomContainer _buildTop(
     Community community,
     String currentUid,
   ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
+    return CustomContainer(
+      marginBottom: 15,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -217,56 +223,52 @@ class _CommunityProfileSubscribePageState
               );
             },
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15.h),
           Text(
             "${community.communityName}",
             style: AppStyles.w500f18,
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10.h),
           Text(
             "${community.description}",
             style: AppStyles.w400f13,
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          BlocBuilder<CategoryBloc, CategoryState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                loading: () {
-                  return SizedBox(
-                    height: 100.h,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => const CategoryShimmer(),
-                      itemCount: community.category!.length,
-                    ),
-                  );
-                },
-                success: (categories) {
-                  final filterCategories = categories
-                      .where((e) => community.category!.contains(e.title))
-                      .toList();
-                  return CategoryList(
-                    category: filterCategories,
-                    onFilterCategories: (category) {
-                      context.read<CommunityPostListBloc>().add(
-                            CommunityPostListEvent.filterCommunityPost(
-                              title: category.title.toString(),
-                            ),
-                          );
-                    },
-                  );
-                },
-                orElse: () => Container(),
-              );
-            },
-          ),
+          SizedBox(height: 10.h),
+          if (community.category != null && community.category!.isNotEmpty)
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  loading: () {
+                    return SizedBox(
+                      height: 100.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) =>
+                            const CategoryShimmer(),
+                        itemCount: community.category!.length,
+                      ),
+                    );
+                  },
+                  success: (categories) {
+                    final filterCategories = categories
+                        .where((e) => community.category!.contains(e.title))
+                        .toList();
+                    return CategoryList(
+                      category: filterCategories,
+                      onFilterCategories: (category) {
+                        context.read<CommunityPostListBloc>().add(
+                              CommunityPostListEvent.filterCommunityPost(
+                                title: category.title.toString(),
+                              ),
+                            );
+                      },
+                    );
+                  },
+                  orElse: () => Container(),
+                );
+              },
+            ),
           ForTheUserButtonsWidget(
             isSubscribe: isSubscribe,
             onPressedSubscribe: () {

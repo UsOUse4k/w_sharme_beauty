@@ -17,20 +17,21 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PostCreateEvent {
   Post get post => throw _privateConstructorUsedError;
-  List<Uint8List> get imageFiles => throw _privateConstructorUsedError;
+  List<Uint8List>? get imageFiles => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
+    required TResult Function(Post post, List<Uint8List>? imageFiles)
+        createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
+    TResult? Function(Post post, List<Uint8List>? imageFiles)? createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
+    TResult Function(Post post, List<Uint8List>? imageFiles)? createPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,7 +63,7 @@ abstract class $PostCreateEventCopyWith<$Res> {
           PostCreateEvent value, $Res Function(PostCreateEvent) then) =
       _$PostCreateEventCopyWithImpl<$Res, PostCreateEvent>;
   @useResult
-  $Res call({Post post, List<Uint8List> imageFiles});
+  $Res call({Post post, List<Uint8List>? imageFiles});
 
   $PostCopyWith<$Res> get post;
 }
@@ -81,17 +82,17 @@ class _$PostCreateEventCopyWithImpl<$Res, $Val extends PostCreateEvent>
   @override
   $Res call({
     Object? post = null,
-    Object? imageFiles = null,
+    Object? imageFiles = freezed,
   }) {
     return _then(_value.copyWith(
       post: null == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as Post,
-      imageFiles: null == imageFiles
+      imageFiles: freezed == imageFiles
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
-              as List<Uint8List>,
+              as List<Uint8List>?,
     ) as $Val);
   }
 
@@ -112,7 +113,7 @@ abstract class _$$CreatePostImplCopyWith<$Res>
       __$$CreatePostImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Post post, List<Uint8List> imageFiles});
+  $Res call({Post post, List<Uint8List>? imageFiles});
 
   @override
   $PostCopyWith<$Res> get post;
@@ -130,17 +131,17 @@ class __$$CreatePostImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? post = null,
-    Object? imageFiles = null,
+    Object? imageFiles = freezed,
   }) {
     return _then(_$CreatePostImpl(
-      null == post
+      post: null == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as Post,
-      null == imageFiles
+      imageFiles: freezed == imageFiles
           ? _value._imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
-              as List<Uint8List>,
+              as List<Uint8List>?,
     ));
   }
 }
@@ -148,17 +149,20 @@ class __$$CreatePostImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreatePostImpl implements _CreatePost {
-  const _$CreatePostImpl(this.post, final List<Uint8List> imageFiles)
+  const _$CreatePostImpl(
+      {required this.post, final List<Uint8List>? imageFiles})
       : _imageFiles = imageFiles;
 
   @override
   final Post post;
-  final List<Uint8List> _imageFiles;
+  final List<Uint8List>? _imageFiles;
   @override
-  List<Uint8List> get imageFiles {
+  List<Uint8List>? get imageFiles {
+    final value = _imageFiles;
+    if (value == null) return null;
     if (_imageFiles is EqualUnmodifiableListView) return _imageFiles;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageFiles);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -189,7 +193,8 @@ class _$CreatePostImpl implements _CreatePost {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Post post, List<Uint8List> imageFiles) createPost,
+    required TResult Function(Post post, List<Uint8List>? imageFiles)
+        createPost,
   }) {
     return createPost(post, imageFiles);
   }
@@ -197,7 +202,7 @@ class _$CreatePostImpl implements _CreatePost {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Post post, List<Uint8List> imageFiles)? createPost,
+    TResult? Function(Post post, List<Uint8List>? imageFiles)? createPost,
   }) {
     return createPost?.call(post, imageFiles);
   }
@@ -205,7 +210,7 @@ class _$CreatePostImpl implements _CreatePost {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Post post, List<Uint8List> imageFiles)? createPost,
+    TResult Function(Post post, List<Uint8List>? imageFiles)? createPost,
     required TResult orElse(),
   }) {
     if (createPost != null) {
@@ -244,13 +249,14 @@ class _$CreatePostImpl implements _CreatePost {
 }
 
 abstract class _CreatePost implements PostCreateEvent {
-  const factory _CreatePost(final Post post, final List<Uint8List> imageFiles) =
-      _$CreatePostImpl;
+  const factory _CreatePost(
+      {required final Post post,
+      final List<Uint8List>? imageFiles}) = _$CreatePostImpl;
 
   @override
   Post get post;
   @override
-  List<Uint8List> get imageFiles;
+  List<Uint8List>? get imageFiles;
   @override
   @JsonKey(ignore: true)
   _$$CreatePostImplCopyWith<_$CreatePostImpl> get copyWith =>

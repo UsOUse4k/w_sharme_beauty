@@ -58,8 +58,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: GlAppBar(
         leading: GlIconButton(
           iconSize: 16,
@@ -82,16 +82,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
               });
             },
             success: (value) {
-              context.read<PostListBloc>().add(const PostListEvent.getPosts());
+              context
+                  .read<PostListBloc>()
+                  .add(PostListEvent.addNewPost(value.post));
               context
                   .read<MyPostListBloc>()
-                  .add(const MyPostListEvent.getPosts());
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Загрузка успешно завершена!"),
-                ),
-              );
+                  .add(MyPostListEvent.addNewPost(value.post));
+              context.go('/home');
               setState(() {
                 selectedImageBytes = [];
                 desc.clear();
@@ -111,44 +108,39 @@ class _CreatePostPageState extends State<CreatePostPage> {
             orElse: () {},
           );
         },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Выберите фото или видео",
-              style: AppStyles.w500f16.copyWith(
-                color: AppColors.darkGrey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Выберите фото или видео",
+                style: AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Wrap(
-              spacing: 5,
-              runSpacing: 5,
-              children: selectedImageBytes.map((bytes) {
-                return CardImageProfileAdd(
-                  image: MemoryImage(
-                    bytes,
-                  ),
-                  onPressed: () {
-                    clearImage(
+              SizedBox(height: 10.h),
+              Wrap(
+                spacing: 5,
+                runSpacing: 5,
+                children: selectedImageBytes.map((bytes) {
+                  return CardImageProfileAdd(
+                    image: MemoryImage(
                       bytes,
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 20),
-            AddingButton(
-              text: "+ Выбрать из галереи",
-              onPressed: () => pickImage(context),
-            ),
-            const SizedBox(height: 20),
-            Padding(
+                    ),
+                    onPressed: () {
+                      clearImage(
+                        bytes,
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 10.h),
+              AddingButton(
+                text: "+ Выбрать из галереи",
+                onPressed: () => pickImage(context),
+              ),
+              SizedBox(height: 15.h),
+              Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(
                   'Выберите категорию',
@@ -157,55 +149,64 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   ),
                 ),
               ),
-            FilterButtonWidget(
-              width: 394.w,
-              onPressed: () => BottomSheetUtil.showAppBottomSheet(
-                context,
-                CustomBottomSheet(
-                  maxHeight: 0.5,
-                  navbarTitle: 'Категория',
-                  widget: RadioFilterWidget(
-                    list: categoryList,
-                    onSelect: (String text) {
-                      filterText = text;
-                      selectedCategory = text;
-                      setState(() {});
-                    },
-                    selectedValue: selectedCategory ?? '',
+              FilterButtonWidget(
+                width: 394.w,
+                onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                  context,
+                  CustomBottomSheet(
+                    maxHeight: 0.5,
+                    navbarTitle: 'Категория',
+                    widget: RadioFilterWidget(
+                      list: categoryList,
+                      onSelect: (String text) {
+                        filterText = text;
+                        selectedCategory = text;
+                        setState(() {});
+                      },
+                      selectedValue: selectedCategory ?? '',
+                    ),
                   ),
                 ),
+                title: filterText,
               ),
-              title: filterText,
-            ),
-            TextFieldWidgetWithTitle(
-              controller: desc,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-              title: "Описание",
-              titleStyle: AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
-              hintText: "Напишите сообщение",
-            ),
-            const Spacer(),
-            GlButton(
-              text: isLoading ? "Загрузка.." : "Опубликовать",
-              onPressed: () {
-                if (desc.text.isNotEmpty &&
-                    selectedImageBytes.isNotEmpty &&
-                    selectedCategory != null) {
-                  context.read<PostCreateBloc>().add(
-                        PostCreateEvent.createPost(
-                          Post(
-                            text: desc.text,
-                            category: selectedCategory,
-                          ),
-                          selectedImageBytes,
-                        ),
-                      );
-                }
-              },
-            ),
-            const SizedBox(height: 30),
-          ],
+              TextFieldWidgetWithTitle(
+                controller: desc,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                title: "Описание",
+                titleStyle:
+                    AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
+                hintText: "Напишите сообщение",
+              ),
+              const Spacer(),
+              GlButton(
+                text: isLoading ? "Загрузка.." : "Опубликовать",
+                onPressed: () {
+                  if (desc.text.isNotEmpty && selectedCategory != null) {
+                    final newPost = Post(
+                      text: desc.text,
+                      category: selectedCategory,
+                    );
+                    if (selectedImageBytes.isNotEmpty) {
+                      context.read<PostCreateBloc>().add(
+                            PostCreateEvent.createPost(
+                              post: newPost,
+                              imageFiles: selectedImageBytes,
+                            ),
+                          );
+                    } else {
+                      context.read<PostCreateBloc>().add(
+                            PostCreateEvent.createPost(
+                              post: newPost,
+                            ),
+                          );
+                    }
+                  }
+                },
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );

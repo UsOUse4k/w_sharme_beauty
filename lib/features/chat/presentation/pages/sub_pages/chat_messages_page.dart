@@ -168,7 +168,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
       builder: (context, state) {
         return state.maybeWhen(
           success: (userData) {
-            final statusTime = getUserStatus(userData.lastSeen!);
+            final statusTime = userData.lastSeen !=null ? getUserStatus(userData.lastSeen!) : 'Неизвестно';
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -22,7 +22,7 @@ class TextFieldSendMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
       decoration: const BoxDecoration(
         color: AppColors.white,
       ),

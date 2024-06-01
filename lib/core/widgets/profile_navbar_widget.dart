@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -28,40 +29,37 @@ class ProfileNavbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (avatar != null)
+        if (avatar != null && avatar != '')
           ClipRRect(
             borderRadius: const BorderRadius.all(
-              Radius.circular(50),
+              Radius.circular(45),
             ),
             child: GlCachedNetworImage(
-              height: 100.h,
-              width: 100.w,
+              height: 90.h,
+              width: 90.w,
               urlImage: avatar,
             ),
           )
         else
           GlCircleAvatar(
-            avatar: Assets.images.ava.path,
-            width: 100.w,
-            height: 100.w,
+            avatar: Assets.images.notAvatar.path,
+            width: 90.w,
+            height: 90.w,
           ),
-        const SizedBox(
-          width: 15,
-        ),
+        SizedBox(width: 20.w),
         Column(
           children: [
             if (publications != null)
               Text(
                 publications!,
-                style: AppStyles.w500f16,
+                style: AppStyles.w500f22,
               ),
             if (publications != null)
-              Text("Публикации", style: AppStyles.w400f14),
+              Text("Публикации",
+                  style: AppStyles.w400f14.copyWith(color: AppColors.darkGrey),),
           ],
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        SizedBox(width: 22.w),
         Column(
           children: [
             if (followers != null)
@@ -69,28 +67,32 @@ class ProfileNavbarWidget extends StatelessWidget {
                 onTap: onPressedFollowers,
                 child: Column(
                   children: [
-                    Text(followers!, style: AppStyles.w500f16),
-                    Text(subscribeText!, style: AppStyles.w400f14),
+                    Text(followers!, style: AppStyles.w500f22),
+                    Text(subscribeText!,
+                        style: AppStyles.w400f14
+                            .copyWith(color: AppColors.darkGrey),),
                   ],
                 ),
               ),
           ],
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        SizedBox(width: 22.w),
         Column(
           children: [
-              if (subscriptions != null)
-                GestureDetector(
-                  onTap: onPressedSubscribe,
-                  child: Column(
-                    children: [
-                      Text(subscriptions!, style: AppStyles.w500f16),
-                      Text("Подписок", style: AppStyles.w400f14),
-                    ],
-                  ),
+            if (subscriptions != null)
+              GestureDetector(
+                onTap: onPressedSubscribe,
+                child: Column(
+                  children: [
+                    Text(subscriptions!, style: AppStyles.w500f22),
+                    Text(
+                      "Подписок",
+                      style:
+                          AppStyles.w400f14.copyWith(color: AppColors.darkGrey),
+                    ),
+                  ],
                 ),
+              ),
           ],
         ),
       ],

@@ -48,12 +48,13 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
   @override
   Widget build(BuildContext context) {
     GoRouter.of(context);
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: GlAppBar(
         leading: IconButton(
+          iconSize: 16,
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -64,132 +65,138 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: BlocListener<CommunityCreateBloc, CommunityCreateState>(
-          listener: (context, state) {
-            state.maybeWhen(
-              loading: () {
-                isLoading = true;
-                setState(() {});
-              },
-              success: () {
-                isLoading = false;
-                avatar = null;
-                setState(() {});
-                context
-                    .read<CommunityListBloc>()
-                    .add(const CommunityListEvent.getCommunities());
-                context
-                    .read<MyCommunityListBloc>()
-                    .add(const MyCommunityListEvent.getMyCommunity());
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      "Сообщество создано",
-                    ),
+      body: BlocListener<CommunityCreateBloc, CommunityCreateState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            loading: () {
+              isLoading = true;
+              setState(() {});
+            },
+            success: () {
+              isLoading = false;
+              avatar = null;
+              setState(() {});
+              context
+                  .read<CommunityListBloc>()
+                  .add(const CommunityListEvent.getCommunities());
+              context
+                  .read<MyCommunityListBloc>()
+                  .add(const MyCommunityListEvent.getMyCommunity());
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    "Сообщество создано",
                   ),
-                );
-              },
-              error: (message) {
-                isLoading = false;
-                setState(() {});
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      "Что-то пошло не так",
-                    ),
+                ),
+              );
+            },
+            error: (message) {
+              isLoading = false;
+              setState(() {});
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    "Что-то пошло не так",
                   ),
-                );
-              },
-              orElse: () {},
-            );
-          },
+                ),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 8),
-              TextFieldWidgetWithTitle(
-                title: "Название сообщества",
-                hintText: "Придумайте название",
-                controller: communityName,
-              ),
-              const SizedBox(height: 14),
-              Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Text(
-                  'Выберите категорию',
-                  style: AppStyles.w500f16.copyWith(
-                    color: AppColors.darkGrey,
-                  ),
-                ),
-              ),
-              FilterButtonWidget(
-                width: 394.w,
-                onPressed: () => BottomSheetUtil.showAppBottomSheet(
-                  context,
-                  CustomBottomSheet(
-                    maxHeight: 0.5,
-                    navbarTitle: 'Выберите категорию',
-                    widget: RadioFilterWidget(
-                      list: categoryList,
-                      onSelect: (String text) {
-                        filterText = text;
-                        selectedCategory = text;
-                        setState(() {});
-                      },
-                      selectedValue: selectedCategory ?? '',
+              Flexible(
+                flex: 15,
+                child: ListView(
+                  children: [
+                    TextFieldWidgetWithTitle(
+                      title: "Название сообщества",
+                      hintText: "Придумайте название",
+                      controller: communityName,
                     ),
-                  ),
+                    SizedBox(height: 14.h),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Выберите категорию',
+                        style: AppStyles.w500f16.copyWith(
+                          color: AppColors.darkGrey,
+                        ),
+                      ),
+                    ),
+                    FilterButtonWidget(
+                      width: 394.w,
+                      onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                        context,
+                        CustomBottomSheet(
+                          maxHeight: 0.5,
+                          navbarTitle: 'Выберите категорию',
+                          widget: RadioFilterWidget(
+                            list: categoryList,
+                            onSelect: (String text) {
+                              filterText = text;
+                              selectedCategory = text;
+                              setState(() {});
+                            },
+                            selectedValue: selectedCategory ?? '',
+                          ),
+                        ),
+                      ),
+                      title: filterText,
+                    ),
+                    SizedBox(height: 14.h),
+                    const Text(
+                      "Установите аватар",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.darkGrey,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    if (avatar != null)
+                      CardImageProfileAdd(
+                        radius: 50,
+                        image: MemoryImage(avatar!),
+                        onPressed: () {
+                          avatar = null;
+                          setState(() {});
+                        },
+                      ),
+                    SizedBox(height: 20.h),
+                    AddingButton(
+                      text: '+ Выбрать фото',
+                      onPressed: () {
+                        selectedPickImage(context);
+                      },
+                    ),
+                    SizedBox(height: 20.h),
+                    TextFieldWidgetWithTitle(
+                      maxLines: 3,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      title: "Описание",
+                      titleStyle:
+                          AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
+                      hintText: "Расскажите о сообществе",
+                      controller: description,
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      "Используйте слова, которые описывают тематику сообщества и помогают быстрее его найти. Изменить описание можно в любой момент.",
+                      style:
+                          AppStyles.w400f13.copyWith(color: AppColors.darkGrey),
+                    ),
+                  ],
                 ),
-                title: filterText,
               ),
-              const SizedBox(height: 14),
-              const Text(
-                "Установите аватар",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.darkGrey,
-                ),
-              ),
-              const SizedBox(height: 8),
-              if (avatar != null)
-                CardImageProfileAdd(
-                  radius: 50,
-                  image: MemoryImage(avatar!),
-                  onPressed: () {
-                    avatar = null;
-                    setState(() {});
-                  },
-                ),
-              const SizedBox(
-                height: 20,
-              ),
-              AddingButton(
-                text: '+ Выбрать фото',
-                onPressed: () {
-                  selectedPickImage(context);
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFieldWidgetWithTitle(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-                title: "Описание",
-                titleStyle:
-                    AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
-                hintText: "Расскажите о сообществе",
-                controller: description,
-              ),
-              Text(
-                "Используйте слова, которые описывают тематику сообщества и помогают быстрее его найти. Изменить описание можно в любой момент.",
-                style: AppStyles.w400f13.copyWith(color: AppColors.darkGrey),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
+              const Spacer(),
               GlButton(
                 text: isLoading ? 'Создание...' : 'Создать сообщество',
                 onPressed: () {
@@ -220,6 +227,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                   }
                 },
               ),
+              SizedBox(height: 50.h),
             ],
           ),
         ),

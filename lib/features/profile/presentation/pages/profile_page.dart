@@ -5,12 +5,14 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
+import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
@@ -25,6 +27,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List<Post>? selectedPosts;
   String publics = '0';
   String followers = '0';
   String subscriptions = '0';
@@ -40,13 +43,12 @@ class _ProfilePageState extends State<ProfilePage> {
     context.read<MyPostListBloc>().add(const MyPostListEvent.getPosts());
     context.read<CategoryBloc>().add(const CategoryEvent.loadCategories());
     context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
-
   }
 
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
-    return GlScaffold(
+    return Scaffold(
       appBar: GlAppBar(
         leading: Text(
           'Профиль',
@@ -61,19 +63,19 @@ class _ProfilePageState extends State<ProfilePage> {
               },
               child: Image.asset(
                 Assets.icons.bell.path,
-                width: 26,
-                height: 26,
+                width: 26.w,
+                height: 26.h,
               ),
             ),
-            const SizedBox(width: 6),
+            SizedBox(width: 16.w),
             GestureDetector(
               onTap: () {
                 route.push('/profile/${RouterContants.profileSettings}');
               },
               child: Image.asset(
                 Assets.icons.settings.path,
-                width: 26,
-                height: 26,
+                width: 26.w,
+                height: 26.h,
               ),
             ),
           ],
@@ -96,152 +98,145 @@ class _ProfilePageState extends State<ProfilePage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: ProfileNavbarWidget(
-                          avatar: user.profilePictureUrl.toString(),
-                          publications: user.publics.toString(),
-                          followers: user.followers!.length.toString(),
-                          subscriptions: user.subscriptions!.length.toString(),
-                          onPressedFollowers: () {
-                            context.push('/profile/followers');
-                          },
-                          onPressedSubscribe: () {
-                            context.push('/profile/subscriptions');
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Row(
+                      CustomContainer(
+                        vertical: 16,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('${user.username}', style: AppStyles.w500f18),
-                            const SizedBox(
-                              width: 10,
+                            ProfileNavbarWidget(
+                              avatar: user.profilePictureUrl.toString(),
+                              publications: user.publics.toString(),
+                              followers: user.followers!.length.toString(),
+                              subscriptions:
+                                  user.subscriptions!.length.toString(),
+                              onPressedFollowers: () {
+                                context.push('/profile/followers');
+                              },
+                              onPressedSubscribe: () {
+                                context.push('/profile/subscriptions');
+                              },
                             ),
-                            Image.asset(Assets.icons.point.path),
-                            const SizedBox(
-                              width: 10,
+                            SizedBox(height: 16.h),
+                            Row(
+                              children: [
+                                Text(
+                                  '${user.username}',
+                                  style: AppStyles.w500f18,
+                                ),
+                                SizedBox(width: 11.w),
+                                Image.asset(Assets.icons.point.path),
+                                SizedBox(width: 11.w),
+                                Text(
+                                  '${user.rating}',
+                                  style: AppStyles.w500f18,
+                                ),
+                              ],
                             ),
-                            Text('${user.rating}'),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Row(
-                          children: [
-                            Image.asset(Assets.icons.location.path),
-                            const SizedBox(
-                              width: 10,
+                            SizedBox(height: 12.h),
+                            Row(
+                              children: [
+                                Image.asset(Assets.icons.location.path),
+                                SizedBox(width: 9.w),
+                                Text(
+                                  '${user.city}',
+                                  style: AppStyles.w500f14,
+                                ),
+                              ],
                             ),
+                            SizedBox(height: 10.h),
                             Text(
-                              '${user.city}',
-                              style: AppStyles.w400f16,
+                              '${user.aboutYourself}',
+                              style: AppStyles.w400f14,
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Text(
-                          '${user.aboutYourself}',
-                          style: AppStyles.w400f14,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: BlocBuilder<CategoryBloc, CategoryState>(
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              loading: () {
-                                return SizedBox(
-                                  height: 100.h,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemBuilder: (context, index) =>
-                                        const CategoryShimmer(),
-                                    itemCount: user.category!.length,
-                                  ),
-                                );
-                              },
-                              success: (categories) {
-                                final filterCategories = categories
-                                    .where(
-                                      (element) => user.category!
-                                          .contains(element.title),
-                                    )
-                                    .toList();
-                                return CategoryList(
-                                  category: filterCategories,
-                                  onFilterCategories: (value) {
-                                    context.read<MyPostListBloc>().add(
-                                          MyPostListEvent.filterPost(
-                                            value: value.title.toString(),
-                                          ),
-                                        );
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            BlocListener<MyPostListBloc, MyPostListState>(
+                              listener: (context, state) {
+                                state.maybeWhen(
+                                  success: (posts) {
+                                    selectedPosts = posts;
+                                    setState(() {});
                                   },
+                                  orElse: () {},
                                 );
                               },
-                              orElse: () => Container(),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: const BorderSide(
-                                  color: AppColors.purple,
+                              child: selectedPosts != null &&
+                                      selectedPosts!.isNotEmpty
+                                  ? BlocBuilder<CategoryBloc, CategoryState>(
+                                      builder: (context, state) {
+                                        return state.maybeWhen(
+                                          loading: () {
+                                            return SizedBox(
+                                              height: 100.h,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                itemBuilder: (context, index) =>
+                                                    const CategoryShimmer(),
+                                                itemCount:
+                                                    user.category!.length,
+                                              ),
+                                            );
+                                          },
+                                          success: (categories) {
+                                            final filter = categories
+                                                .where((e) => user.category!
+                                                    .contains(e.title))
+                                                .toList();
+                                            return CategoryList(
+                                              category: filter,
+                                              onFilterCategories: (value) {
+                                                context
+                                                    .read<MyPostListBloc>()
+                                                    .add(
+                                                      MyPostListEvent
+                                                          .filterPost(
+                                                        value: value.title
+                                                            .toString(),
+                                                      ),
+                                                    );
+                                              },
+                                            );
+                                          },
+                                          orElse: () => Container(),
+                                        );
+                                      },
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: const BorderSide(
+                                      color: AppColors.purple,
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  route.push(
+                                    '/profile/${RouterContants.profileEdit}',
+                                  );
+                                },
+                                child: Text(
+                                  "Редактировать профиль",
+                                  style: AppStyles.w500f16
+                                      .copyWith(color: AppColors.purple),
                                 ),
                               ),
                             ),
-                            onPressed: () {
-                              route.push(
-                                '/profile/${RouterContants.profileEdit}',
-                              );
-                            },
-                            child: const Text(
-                              "Редактировать профиль",
-                              style: TextStyle(
-                                color: AppColors.purple,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                      SizedBox(height: 15.h),
+                      CustomContainer(
+                        vertical: 16,
                         child: SizedBox(
                           height: 50,
                           width: double.infinity,
@@ -264,28 +259,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Assets.icons.plus.path,
                                   color: AppColors.purple,
                                 ),
-                                const Text(
+                                SizedBox(width: 12.w),
+                                Text(
                                   "Опубликовать",
-                                  style: TextStyle(
-                                    color: AppColors.purple,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: AppStyles.w500f16
+                                      .copyWith(color: AppColors.purple),
                                 ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
-                      ),
+                      SizedBox(height: 15.h),
                       BlocBuilder<MyPostListBloc, MyPostListState>(
                         builder: (context, blocState) {
                           return blocState.maybeWhen(
                             loading: () => ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
-                              itemCount: 5,
+                              itemCount: 3,
                               itemBuilder: (context, index) =>
                                   const PostShimmer(),
                             ),
@@ -296,6 +288,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: posts.length,
                                 itemBuilder: (context, index) => PostCard(
+                                  onPressedDetailPage: () {
+                                    context.push('/profile/post/${posts[index].postId}');
+                                  },
                                   onPressed: () {},
                                   post: posts[index],
                                 ),

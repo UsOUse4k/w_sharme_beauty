@@ -48,4 +48,23 @@ class FirebaseQuestionFacade implements IQuestionRepository {
       return left(PostError(e.toString()));
     }
   }
+
+  @override
+  Future<Either<PostError, Question>> getQuestion({
+    required String questionid,
+  }) async {
+    try {
+      final DocumentSnapshot questionSnapshot =
+          await _firestore.collection('questions').doc(questionid).get();
+      if (!questionSnapshot.exists) {
+        return left(PostError('Question not found.'));
+      }
+      final Question questionData = Question.fromStoreData(
+        questionSnapshot.data()! as Map<String, dynamic>,
+      );
+      return right(questionData);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
 }

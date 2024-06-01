@@ -25,34 +25,59 @@ class FirestorePostRepository implements IPostRepository {
     this.storage,
   );
   @override
-  Future<Either<PostError, Unit>> createPost(
-    Post post,
+  Future<Either<PostError, Post>> createPost({
+    required Post post,
     List<Uint8List>? imageFiles,
-    String? username,
-    String? avatarUrl,
-  ) async {
+    required String username,
+    required String avatarUrl,
+  }) async {
     try {
       final String postId = const Uuid().v1();
       final String authorId = auth.currentUser!.uid;
       final DateTime now = DateTime.now();
       final String formattedDate = DateFormatter.format(now);
-      final List<String> imageUrls =
-          await FirebaseStorageImageMethods(auth, storage)
-              .uploadImageToStorage(imageFiles!, true, 'posts');
       final updatedPost = post.copyWith(
         postId: postId,
         createdAt: formattedDate,
         authorId: authorId,
-        imageUrls: imageUrls,
         username: username,
         avatarUrl: avatarUrl,
       );
-      await firestore.collection('posts').doc(postId).set(updatedPost.toJson());
       // количество поста у автора
-      await firestore.collection('users').doc(auth.currentUser!.uid).update(
+      await firestore.collection('users').doc(authorId).update(
         {'publics': FieldValue.increment(1)},
       );
-      return right(unit);
+      // добавим категории автора 
+      await firestore.runTransaction((transaction) async {
+        final snapshot = await transaction
+            .get(firestore.collection('users').doc(authorId));
+        final docData = snapshot.data();
+        final category =
+            List<String>.from(docData?['category'] as List<dynamic>);
+        if (!category.contains(updatedPost.category)) {
+          transaction
+              .update(firestore.collection('users').doc(authorId), {
+            'category': FieldValue.arrayUnion([updatedPost.category]),
+          });
+        }
+      });
+      if (imageFiles != null && imageFiles.isNotEmpty) {
+        final List<String> imageUrls =
+            await FirebaseStorageImageMethods(auth, storage)
+                .uploadImageToStorage(imageFiles, true, 'posts');
+        final updatePostImages = updatedPost.copyWith(imageUrls: imageUrls);
+        await firestore
+            .collection('posts')
+            .doc(postId)
+            .set(updatePostImages.toJson());
+        return right(updatePostImages);
+      } else {
+        await firestore
+            .collection('posts')
+            .doc(postId)
+            .set(updatedPost.toJson());
+        return right(updatedPost);
+      }
     } catch (e) {
       return left(PostError(e.toString()));
     }

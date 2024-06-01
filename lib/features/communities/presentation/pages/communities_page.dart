@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
@@ -54,8 +55,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
       appBar: GlAppBar(
         leading: BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
           builder: (context, state) {
@@ -94,19 +94,19 @@ class _CommunitiesPageState extends State<CommunitiesPage>
               },
               child: Image.asset(
                 Assets.icons.addCommunity.path,
-                width: 26,
-                height: 26,
+                width: 26.w,
+                height: 26.h,
               ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 16.w),
             GestureDetector(
               onTap: () {
                 route.push('/home/${RouterContants.chat}');
               },
               child: Image.asset(
                 Assets.icons.chat.path,
-                width: 26,
-                height: 26,
+                width: 26.w,
+                height: 26.h,
               ),
             ),
           ],
@@ -114,110 +114,117 @@ class _CommunitiesPageState extends State<CommunitiesPage>
       ),
       body: Column(
         children: [
-          SearchWidget(
-            onChanged: (value) {
-              context
-                  .read<CommunityListBloc>()
-                  .add(CommunityListEvent.searchCommunities(query: value));
-            },
-            hintText: "Поиск сообществ",
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          BlocBuilder<CommunityListBloc, CommunityListState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                success: (communities) {
-                  return BlocBuilder<CategoryBloc, CategoryState>(
-                    builder: (context, state) {
-                      return state.maybeWhen(
-                        success: (categories) {
-                          final categoyList = categories
-                              .map((e) => e.title)
-                              .where((element) => element != null)
-                              .map((element) => element!)
-                              .toList();
-                          return Row(
-                            children: [
-                              FilterButtonWidget(
-                                width: 200.w,
-                                onPressed: () =>
-                                    BottomSheetUtil.showAppBottomSheet(
-                                  context,
-                                  CustomBottomSheet(
-                                    maxHeight: 0.33,
-                                    navbarTitle: 'Сообщества',
-                                    widget: RadioFilterWidget(
-                                      list: communityList,
-                                      onSelect: (String text) {
-                                        filterCommynity = text;
-                                        selectedCommunity = text;
-                                        context.read<CommunityListBloc>().add(
-                                              CommunityListEvent
-                                                  .filterCommunity(
-                                                filterCommunity:
-                                                    selectedCommunity,
-                                              ),
-                                            );
-                                        setState(() {});
-                                      },
-                                      selectedValue: selectedCommunity,
+          CustomContainer(
+            child: Column(
+              children: [
+                SearchWidget(
+                  onChanged: (value) {
+                    context.read<CommunityListBloc>().add(
+                          CommunityListEvent.searchCommunities(query: value),
+                        );
+                  },
+                  hintText: "Поиск сообществ",
+                ),
+                SizedBox(height: 15.h),
+                BlocBuilder<CommunityListBloc, CommunityListState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      success: (communities) {
+                        return BlocBuilder<CategoryBloc, CategoryState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              success: (categories) {
+                                final categoyList = categories
+                                    .map((e) => e.title)
+                                    .where((element) => element != null)
+                                    .map((element) => element!)
+                                    .toList();
+                                return Row(
+                                  children: [
+                                    FilterButtonWidget(
+                                      width: 200.w,
+                                      onPressed: () =>
+                                          BottomSheetUtil.showAppBottomSheet(
+                                        context,
+                                        CustomBottomSheet(
+                                          maxHeight: 0.33,
+                                          navbarTitle: 'Сообщества',
+                                          widget: RadioFilterWidget(
+                                            list: communityList,
+                                            onSelect: (String text) {
+                                              filterCommynity = text;
+                                              selectedCommunity = text;
+                                              context
+                                                  .read<CommunityListBloc>()
+                                                  .add(
+                                                    CommunityListEvent
+                                                        .filterCommunity(
+                                                      filterCommunity:
+                                                          selectedCommunity,
+                                                    ),
+                                                  );
+                                              setState(() {});
+                                            },
+                                            selectedValue: selectedCommunity,
+                                          ),
+                                        ),
+                                      ),
+                                      title: filterCommynity,
                                     ),
-                                  ),
-                                ),
-                                title: filterCommynity,
-                              ),
-                              const SizedBox(width: 10),
-                              FilterButtonWidget(
-                                width: 150.w,
-                                onPressed: () =>
-                                    BottomSheetUtil.showAppBottomSheet(
-                                  context,
-                                  CustomBottomSheet(
-                                    maxHeight: 0.55,
-                                    navbarTitle: 'Категория',
-                                    widget: RadioFilterWidget(
-                                      list: categoyList,
-                                      onSelect: (String text) {
-                                        filterCategory = text;
-                                        selectedCategory = text;
-                                        context.read<CommunityListBloc>().add(
-                                              CommunityListEvent
-                                                  .filterCommunity(
-                                                filterCommunity:
-                                                    selectedCategory!,
-                                              ),
-                                            );
-                                        setState(() {});
-                                      },
-                                      selectedValue: selectedCategory ?? '',
+                                    const SizedBox(width: 10),
+                                    FilterButtonWidget(
+                                      width: 150.w,
+                                      onPressed: () =>
+                                          BottomSheetUtil.showAppBottomSheet(
+                                        context,
+                                        CustomBottomSheet(
+                                          maxHeight: 0.55,
+                                          navbarTitle: 'Категория',
+                                          widget: RadioFilterWidget(
+                                            list: categoyList,
+                                            onSelect: (String text) {
+                                              filterCategory = text;
+                                              selectedCategory = text;
+                                              context
+                                                  .read<CommunityListBloc>()
+                                                  .add(
+                                                    CommunityListEvent
+                                                        .filterCommunity(
+                                                      filterCommunity:
+                                                          selectedCategory!,
+                                                    ),
+                                                  );
+                                              setState(() {});
+                                            },
+                                            selectedValue:
+                                                selectedCategory ?? '',
+                                          ),
+                                        ),
+                                      ),
+                                      title: filterCategory,
                                     ),
-                                  ),
-                                ),
-                                title: filterCategory,
-                              ),
-                            ],
-                          );
-                        },
-                        orElse: () => Container(),
-                      );
-                    },
-                  );
-                },
-                orElse: () => Container(),
-              );
-            },
+                                  ],
+                                );
+                              },
+                              orElse: () => Container(),
+                            );
+                          },
+                        );
+                      },
+                      orElse: () => Container(),
+                    );
+                  },
+                ),
+                SizedBox(height: 15.h),
+                GlTabBarWidget(
+                  tabController: _tabController,
+                  tabBarItem1: 'Все сообщества',
+                  tabBarItem2: 'Управляемые',
+                ),
+              ],
+            ),
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          GlTabBarWidget(
-            tabController: _tabController,
-            tabBarItem1: 'Все сообщества',
-            tabBarItem2: 'Управляемые',
-          ),
-          Expanded(
+          Flexible(
             child: TabBarView(
               controller: _tabController,
               children: const [

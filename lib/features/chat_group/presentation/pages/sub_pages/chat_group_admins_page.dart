@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
@@ -84,12 +85,11 @@ class _ChatGroupAdminsPageState extends State<ChatGroupAdminsPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 15),
+                        SizedBox(height: 15.h),
                         SearchWidget(
                           onChanged: (value) {
-                            context
-                                .read<GetAdminsSortedBloc>()
-                                .add(GetAdminsSortedEvent.searchUsers(query: value));
+                            context.read<GetAdminsSortedBloc>().add(
+                                GetAdminsSortedEvent.searchUsers(query: value),);
                           },
                         ),
                         BlocBuilder<GetAllAdminsChatGroupBloc,

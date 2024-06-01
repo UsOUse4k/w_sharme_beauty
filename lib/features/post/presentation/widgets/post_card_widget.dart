@@ -5,11 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
-import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc/post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
@@ -26,9 +23,11 @@ class PostCard extends StatefulWidget {
     this.post,
     this.show = 'hide',
     this.showButton = false,
+    this.onPressedDetailPage,
   });
   final Post? post;
   final Function()? onPressed;
+  final Function()? onPressedDetailPage;
   final int? index;
   final String? show;
   final bool? showButton;
@@ -98,7 +97,6 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final postId = widget.post!.postId;
     final currentUid = firebaseAuth.currentUser!.uid;
     return Container(
       margin: EdgeInsets.only(bottom: 16, top: widget.index == 0 ? 16 : 0),
@@ -134,21 +132,29 @@ class _PostCardState extends State<PostCard> {
                 ),
             ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            widget.post!.text,
-            style: AppStyles.w400f16,
-          ),
-          if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
-            const SizedBox(height: 6),
-          if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
-            SizedBox(
-              height: 394.h,
-              child: PostImage(
-                imageUrls: widget.post!.imageUrls,
-              ),
+          SizedBox(height: 6.h),
+          GestureDetector(
+            onTap: widget.onPressedDetailPage,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.post!.text,
+                  style: AppStyles.w400f16,
+                ),
+                if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
+                  SizedBox(height: 6.h),
+                if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
+                  SizedBox(
+                    height: 394.h,
+                    child: PostImage(
+                      imageUrls: widget.post!.imageUrls,
+                    ),
+                  ),
+              ],
             ),
-          const SizedBox(height: 6),
+          ),
+          SizedBox(height: 6.h),
           Row(
             children: [
               PostIconsWidget(
@@ -158,28 +164,14 @@ class _PostCardState extends State<PostCard> {
                     : Assets.svgs.like.svg(),
                 text: countLike.toString(),
               ),
-              const SizedBox(width: 6),
-              //if (widget.show == 'hide')
-              BlocBuilder<PostDetailBloc, PostDetailState>(
-                builder: (context, state) {
-                  return PostIconsWidget(
-                    onPessed: () {
-                      BottomSheetUtil.showAppBottomSheet(
-                        context,
-                        CommentBottomSheet(
-                          postId: postId!,
-                        ),
-                      );
-                    },
-                    icon: Assets.svgs.comment.svg(),
-                    text: state.maybeWhen(
-                      orElse: () => widget.post!.commentsCount.toString(),
-                      success: (post) => post.commentsCount.toString(),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 6),
+              SizedBox(width: 6.w),
+              if (widget.show != 'show')
+                PostIconsWidget(
+                  onPessed: widget.onPressedDetailPage!,
+                  icon: Assets.svgs.comment.svg(),
+                  text: widget.post!.commentsCount.toString(),
+                ),
+              SizedBox(width: 6.w),
               PostIconsWidget(
                 onPessed: () {},
                 icon: Assets.svgs.share.svg(),

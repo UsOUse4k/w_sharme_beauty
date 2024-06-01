@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
@@ -12,15 +13,16 @@ import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
 
-class AddQuestion extends StatefulWidget {
-  const AddQuestion({super.key});
+class AddQuestionPage extends StatefulWidget {
+  const AddQuestionPage({super.key});
 
   @override
-  State<AddQuestion> createState() => _AddQuestionState();
+  State<AddQuestionPage> createState() => _AddQuestionPageState();
 }
 
-class _AddQuestionState extends State<AddQuestion> {
+class _AddQuestionPageState extends State<AddQuestionPage> {
   final TextEditingController _themeCtrl = TextEditingController();
   final TextEditingController _categoryCtrl = TextEditingController();
   final TextEditingController _questionCtrl = TextEditingController();
@@ -65,11 +67,12 @@ class _AddQuestionState extends State<AddQuestion> {
                 });
               },
               success: (value) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Загрузка успешно завершена!"),
-                  ),
-                );
+                context.read<GetAllQuestionBloc>().add(
+                      GetAllQuestionEvent.addNewQuestion(
+                        question: value.question,
+                      ),
+                    );
+                context.pop();
                 setState(() {
                   _questionCtrl.clear();
                   _themeCtrl.clear();

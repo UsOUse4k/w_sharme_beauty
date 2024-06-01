@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
@@ -39,215 +40,198 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-      ),
-      child: Scaffold(
-        appBar: GlAppBar(
-          leading: GlIconButton(
-            iconSize: 16,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              context.pop();
-            },
-          ),
-          title: CenterTitleAppBar(
-            title: 'Редактировать профиль',
-            textStyle: AppStyles.w500f18,
-          ),
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: GlAppBar(
+        leading: GlIconButton(
+          iconSize: 16,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            context.pop();
+          },
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 18, right: 18, bottom: 20),
-          child: SingleChildScrollView(
-            child: BlocListener<MyProfileInfoBloc, MyProfileInfoState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  succes: (user) {
-                    if (user.category != null && user.category!.isNotEmpty) {
-                      context
-                          .read<CategoryListBloc>()
-                          .add(CategoryListEvent.loaded(user.category!));
-                    }
-                    themeText.text = user.theme ?? '';
-                    username.text = user.username ?? '';
-                    location.text = user.city ?? '';
-                    aboutYourself.text = user.aboutYourself ?? '';
-                    avatarUrl = user.profilePictureUrl ?? '';
-                    isLoading = false;
-                    setState(() {});
-                  },
-                  orElse: () {},
-                );
+        title: CenterTitleAppBar(
+          title: 'Редактировать профиль',
+          textStyle: AppStyles.w500f18,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 18, right: 18, bottom: 20),
+        child: BlocListener<MyProfileInfoBloc, MyProfileInfoState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              succes: (user) {
+                if (user.category != null && user.category!.isNotEmpty) {
+                  context
+                      .read<CategoryListBloc>()
+                      .add(CategoryListEvent.loaded(user.category!));
+                }
+                themeText.text = user.theme ?? '';
+                username.text = user.username ?? '';
+                location.text = user.city ?? '';
+                aboutYourself.text = user.aboutYourself ?? '';
+                avatarUrl = user.profilePictureUrl ?? '';
+                isLoading = false;
+                setState(() {});
               },
-              child:
-                  BlocListener<ProfileInfoUpdateBloc, ProfileInfoUpdateState>(
-                listener: (context, state) {
-                  state.maybeWhen(
-                    loading: () {
-                      setState(() {
-                        isLoading = true;
-                      });
-                    },
-                    success: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Успешно сохранились'),
-                        ),
-                      );
-                      context
-                          .read<MyProfileInfoBloc>()
-                          .add(const MyProfileInfoEvent.getMe());
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-                    error: (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Ошибка при сохрание'),
-                        ),
-                      );
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-                    orElse: () {},
-                  );
+              orElse: () {},
+            );
+          },
+          child: BlocListener<ProfileInfoUpdateBloc, ProfileInfoUpdateState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                loading: () {
+                  setState(() {
+                    isLoading = true;
+                  });
                 },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
+                success: () {
+                  context
+                      .read<MyProfileInfoBloc>()
+                      .add(const MyProfileInfoEvent.getMe());
+                  setState(() {
+                    isLoading = false;
+                  });
+                  context.pop();
+                },
+                error: (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Ошибка при сохрание'),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Ваш аватар",
-                          style: AppStyles.w500f16
-                              .copyWith(color: AppColors.darkGrey),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        if (avatar != null)
-                          CardImageProfileAdd(
-                            radius: 50,
-                            image: MemoryImage(avatar!),
-                            onPressed: () {
-                              avatar = null;
-                              setState(() {});
-                            },
-                          )
-                        else if (avatarUrl != null)
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(50),
-                            ),
-                            child: GlCachedNetworImage(
-                              height: 100,
-                              width: 100,
-                              urlImage: avatarUrl,
-                            ),
+                  );
+                  setState(() {
+                    isLoading = false;
+                  });
+                },
+                orElse: () {},
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                Expanded(
+                  flex: 35,
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Ваш аватар",
+                            style: AppStyles.w500f14
+                                .copyWith(color: AppColors.darkGrey),
                           ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        AddingButton(
-                          onPressed: selectedImage,
-                          text: "+ Изменить фото или аватар",
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFieldWidgetWithTitle(
-                      title: 'Тема',
-                      hintText: 'Придумайте тему вопроса',
-                      controller: themeText,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFieldWidgetWithTitle(
-                      title: 'Имя пользователя',
-                      hintText: 'Имя пользователя',
-                      controller: username,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const CategoryBottomSheet(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFieldWidgetWithTitle(
-                      title: 'Ваше местоположение',
-                      hintText: 'Ваше местоположение',
-                      controller: location,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFieldWidgetWithTitle(
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 30,
-                        horizontal: 10,
+                          SizedBox(height: 10.h),
+                          if (avatar != null)
+                            CardImageProfileAdd(
+                              radius: 50,
+                              image: MemoryImage(avatar!),
+                              onPressed: () {
+                                avatar = null;
+                                setState(() {});
+                              },
+                            )
+                          else if (avatarUrl != null)
+                            ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(50),
+                              ),
+                              child: GlCachedNetworImage(
+                                height: 100.h,
+                                width: 100.w,
+                                urlImage: avatarUrl,
+                              ),
+                            ),
+                          SizedBox(height: 10.h),
+                          AddingButton(
+                            onPressed: selectedImage,
+                            text: "+ Изменить фото или аватар",
+                          ),
+                        ],
                       ),
-                      title: 'О себе',
-                      hintText: 'Расскажите о себе',
-                      controller: aboutYourself,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    BlocBuilder<CategoryListBloc, CategoryListState>(
-                      builder: (context, state) {
-                        return GlButton(
-                          text: isLoading
-                              ? 'Сохранение...'
-                              : 'Сохранить изменения',
-                          onPressed: () {
-                            if (avatar != null && avatar!.isNotEmpty) {
-                              context.read<ProfileInfoUpdateBloc>().add(
-                                    ProfileInfoUpdateEvent.update(
-                                      UserProfile(
-                                        theme: themeText.text,
-                                        aboutYourself: aboutYourself.text,
-                                        city: location.text,
-                                        username: username.text,
-                                        category: state.selectedTitle,
-                                      ),
-                                      avatar: avatar,
-                                    ),
-                                  );
-                            } else {
-                              context.read<ProfileInfoUpdateBloc>().add(
-                                    ProfileInfoUpdateEvent.update(
-                                      UserProfile(
-                                        theme: themeText.text,
-                                        aboutYourself: aboutYourself.text,
-                                        city: location.text,
-                                        username: username.text,
-                                        profilePictureUrl: avatarUrl,
-                                        category: state.selectedTitle,
-                                      ),
-                                    ),
-                                  );
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
+                      SizedBox(height: 10.h),
+                      TextFieldWidgetWithTitle(
+                        title: 'Тема',
+                        hintText: 'Придумайте тему вопроса',
+                        controller: themeText,
+                        raduis: 10,
+                      ),
+                      SizedBox(height: 10.h),
+                      TextFieldWidgetWithTitle(
+                        title: 'Имя пользователя',
+                        hintText: 'Имя пользователя',
+                        controller: username,
+                        raduis: 10,
+                      ),
+                      SizedBox(height: 10.h),
+                      const CategoryBottomSheet(),
+                      SizedBox(height: 10.h),
+                      TextFieldWidgetWithTitle(
+                        title: 'Ваше местоположение',
+                        hintText: 'Ваше местоположение',
+                        controller: location,
+                        raduis: 10,
+                      ),
+                      SizedBox(height: 10.h),
+                      TextFieldWidgetWithTitle(
+                        maxLines: 3,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 10,
+                        ),
+                        title: 'О себе',
+                        hintText: 'Расскажите о себе',
+                        raduis: 10,
+                        controller: aboutYourself,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                const Spacer(),
+                BlocBuilder<CategoryListBloc, CategoryListState>(
+                  builder: (context, state) {
+                    return GlButton(
+                      text: isLoading ? 'Сохранение...' : 'Сохранить изменения',
+                      onPressed: () {
+                        if (avatar != null && avatar!.isNotEmpty) {
+                          context.read<ProfileInfoUpdateBloc>().add(
+                                ProfileInfoUpdateEvent.update(
+                                  UserProfile(
+                                    theme: themeText.text,
+                                    aboutYourself: aboutYourself.text,
+                                    city: location.text,
+                                    username: username.text,
+                                    category: state.selectedTitle,
+                                  ),
+                                  avatar: avatar,
+                                ),
+                              );
+                        } else {
+                          context.read<ProfileInfoUpdateBloc>().add(
+                                ProfileInfoUpdateEvent.update(
+                                  UserProfile(
+                                    theme: themeText.text,
+                                    aboutYourself: aboutYourself.text,
+                                    city: location.text,
+                                    username: username.text,
+                                    profilePictureUrl: avatarUrl,
+                                    category: state.selectedTitle,
+                                  ),
+                                ),
+                              );
+                        }
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
           ),
         ),

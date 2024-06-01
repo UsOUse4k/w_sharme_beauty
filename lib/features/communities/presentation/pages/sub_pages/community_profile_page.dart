@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
+import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
@@ -42,7 +43,7 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
     final currentUid = firebaseAuth.currentUser!.uid;
-    return GlScaffold(
+    return Scaffold(
       appBar: GlAppBar(
         leading: IconButton(
           iconSize: 16,
@@ -115,138 +116,115 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: ProfileNavbarWidget(
-                          avatar: community.avatarUrls,
-                          publications: community.public.toString(),
-                          followers: community.participants!.length.toString(),
-                          subscribeText: "Участники",
-                          onPressedFollowers: () {
-                            route.push(
-                              '/communities/${RouterContants.communityMembers}/${community.communityId}',
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                      CustomContainer(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              community.communityName.toString(),
-                              style: AppStyles.w500f18,
+                            ProfileNavbarWidget(
+                              avatar: community.avatarUrls,
+                              publications: community.public.toString(),
+                              followers:
+                                  community.participants!.length.toString(),
+                              subscribeText: "Участники",
+                              onPressedFollowers: () {
+                                route.push(
+                                  '/communities/${RouterContants.communityMembers}/${community.communityId}',
+                                );
+                              },
+                            ),
+                            SizedBox(height: 15.h),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  community.communityName.toString(),
+                                  style: AppStyles.w500f18,
+                                ),
+                                SizedBox(height: 10.h),
+                                Text(
+                                  "${community.description}",
+                                  style: AppStyles.w400f13,
+                                ),
+                              ],
                             ),
                             SizedBox(height: 10.h),
-                            Text(
-                              "${community.description}",
-                              style: AppStyles.w400f13,
+                            BlocBuilder<CategoryBloc, CategoryState>(
+                              builder: (context, state) {
+                                return state.maybeWhen(
+                                  loading: () {
+                                    return SizedBox(
+                                      height: 100.h,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: const BouncingScrollPhysics(),
+                                        itemBuilder: (context, index) =>
+                                            const CategoryShimmer(),
+                                        itemCount: state.maybeWhen(
+                                          orElse: () => 0,
+                                          success: (categories) =>
+                                              categories.length,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  success: (categories) {
+                                    final filterCategories = categories
+                                        .where(
+                                          (e) => community.category!
+                                              .contains(e.title),
+                                        )
+                                        .toList();
+                                    return CategoryList(
+                                      category: filterCategories,
+                                      onFilterCategories: (category) {
+                                        context
+                                            .read<CommunityPostListBloc>()
+                                            .add(
+                                              CommunityPostListEvent
+                                                  .filterCommunityPost(
+                                                title:
+                                                    category.title.toString(),
+                                              ),
+                                            );
+                                      },
+                                    );
+                                  },
+                                  orElse: () => Container(),
+                                );
+                              },
+                            ),
+                            SizedBox(height: 10.h),
+                            GlButton(
+                              text: 'Создать чат',
+                              onPressed: () {
+                                if (community.uid == currentUid ||
+                                    community.administrator != null &&
+                                        community.administrator!
+                                                .contains(currentUid) ==
+                                            true) {
+                                  context.push(
+                                    '/communities/community-profile/${widget.communityId}/${RouterContants.communityChat}/${widget.communityId}',
+                                  );
+                                } else {
+                                  showMyDialog(context, 'У вас нет права!');
+                                }
+                              },
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: BlocBuilder<CategoryBloc, CategoryState>(
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              loading: () {
-                                return SizedBox(
-                                  height: 100.h,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemBuilder: (context, index) =>
-                                        const CategoryShimmer(),
-                                    itemCount: state.maybeWhen(
-                                      orElse: () => 0,
-                                      success: (categories) =>
-                                          categories.length,
-                                    ),
-                                  ),
-                                );
-                              },
-                              success: (categories) {
-                                final filterCategories = categories
-                                    .where((e) =>
-                                        community.category!.contains(e.title),)
-                                    .toList();
-                                return CategoryList(
-                                  category: filterCategories,
-                                  onFilterCategories: (category) {
-                                    context.read<CommunityPostListBloc>().add(
-                                          CommunityPostListEvent
-                                              .filterCommunityPost(
-                                            title: category.title.toString(),
-                                          ),
-                                        );
-                                  },
-                                );
-                              },
-                              orElse: () => Container(),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: GlButton(
-                          text: 'Создать чат',
-                          onPressed: () {
-                            if (community.uid == currentUid ||
-                                community.administrator != null &&
-                                    community.administrator!
-                                            .contains(currentUid) ==
-                                        true) {
-                              context.push(
-                                '/communities/community-profile/${widget.communityId}/${RouterContants.communityChat}/${widget.communityId}',
-                              );
-                            } else {
-                              showMyDialog(context, 'У вас нет права!');
-                            }
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                      CustomContainer(
+                        marginBottom: 15,
+                        marginTop: 15,
                         child: ButtonCreateCommutityPost(
                           community: community,
                           communityId: community.communityId.toString(),
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
-                      ),
                       BlocBuilder<CommunityPostListBloc,
                           CommunityPostListState>(
                         builder: (context, state) {
                           return state.maybeWhen(
-                            loading: () => ListView.separated(
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: 5,
-                              itemBuilder: (context, index) =>
-                                  const PostShimmer(),
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const SizedBox(height: 10),
-                            ),
                             error: (message) => Text('Ошибка: $message'),
                             success: (posts) {
                               return ListView.builder(
@@ -255,6 +233,11 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                                 itemCount: posts.length,
                                 itemBuilder: (context, index) =>
                                     CommunityPostCard(
+                                  onPressedDetailPost: () {
+                                    context.push(
+                                      '/communities/community-profile/${widget.communityId}/community-detail/${widget.communityId}/${posts[index].postId}',
+                                    );
+                                  },
                                   onPressed: () {},
                                   communityName:
                                       community.communityName.toString(),

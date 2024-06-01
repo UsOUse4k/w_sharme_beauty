@@ -16,9 +16,9 @@ class GlCachedNetworImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      width: height,
-      height: width,
-      imageUrl: urlImage ?? '',
+      width: width,
+      height: height,
+      imageUrl: urlImage.toString(),
       fit: BoxFit.cover,
       placeholder: (context, url) => Container(
         color: AppColors.lightGrey,

@@ -30,25 +30,40 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
                 ),
               );
             }, (user) async {
-              final username =
-                  await _authFacade.getMeInfo(user.uid);
+              final username = await _authFacade.getMeInfo(user.uid);
               await username.fold((l) {
                 emit(const PostCreateState.error(message: 'not username'));
               }, (post) async {
-                final result = await _repository.createPost(
-                  event.post,
-                  event.imageFiles,
-                  post.username.toString(),
-                  post.profilePictureUrl,
-                );
-                result.fold(
-                  (error) {
-                    emit(PostCreateState.error(message: error.messasge));
-                  },
-                  (post) {
-                    emit(PostCreateState.success(event.post));
-                  },
-                );
+                if (event.imageFiles != null) {
+                  final result = await _repository.createPost(
+                    post: event.post,
+                    imageFiles: event.imageFiles,
+                    username: post.username.toString(),
+                    avatarUrl: post.profilePictureUrl.toString(),
+                  );
+                  result.fold(
+                    (error) {
+                      emit(PostCreateState.error(message: error.messasge));
+                    },
+                    (post) {
+                      emit(PostCreateState.success(post));
+                    },
+                  );
+                } else {
+                  final result = await _repository.createPost(
+                    post: event.post,
+                    username: post.username.toString(),
+                    avatarUrl: post.profilePictureUrl.toString(),
+                  );
+                  result.fold(
+                    (error) {
+                      emit(PostCreateState.error(message: error.messasge));
+                    },
+                    (post) {
+                      emit(PostCreateState.success(post));
+                    },
+                  );
+                }
               });
             });
           },

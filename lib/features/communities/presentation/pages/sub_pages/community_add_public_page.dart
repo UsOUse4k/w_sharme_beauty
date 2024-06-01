@@ -18,7 +18,6 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/addi
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 
-
 class CommunityAddPublicPage extends StatefulWidget {
   const CommunityAddPublicPage({super.key, required this.communityId});
 
@@ -60,8 +59,8 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: GlAppBar(
         leading: GlIconButton(
           iconSize: 16,
@@ -84,19 +83,17 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
               });
             },
             success: (value) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Загрузка успешно завершена!"),
-                ),
-              );
               context.read<CommunityPostListBloc>().add(
-                  CommunityPostListEvent.getPosts(
-                      communityId: widget.communityId,),);
+                    CommunityPostListEvent.addPost(
+                      value.post,
+                    ),
+                  );
               setState(() {
                 selectedImageBytes = [];
                 desc.clear();
                 isLoading = false;
               });
+              context.pop();
             },
             error: (value) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -111,44 +108,44 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
             orElse: () {},
           );
         },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Выберите фото или видео",
-              style: AppStyles.w500f16.copyWith(
-                color: AppColors.darkGrey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10.h),
+              Text(
+                "Выберите фото или видео",
+                style: AppStyles.w500f16.copyWith(
+                  color: AppColors.darkGrey,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Wrap(
-              spacing: 5,
-              runSpacing: 5,
-              children: selectedImageBytes.map((bytes) {
-                return CardImageProfileAdd(
-                  image: MemoryImage(
-                    bytes,
-                  ),
-                  onPressed: () {
-                    clearImage(
+              const SizedBox(
+                height: 10,
+              ),
+              Wrap(
+                spacing: 5,
+                runSpacing: 5,
+                children: selectedImageBytes.map((bytes) {
+                  return CardImageProfileAdd(
+                    image: MemoryImage(
                       bytes,
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 20),
-            AddingButton(
-              text: "+ Выбрать из галереи",
-              onPressed: () => pickImage(context),
-            ),
-            const SizedBox(height: 20),
-            Padding(
+                    ),
+                    onPressed: () {
+                      clearImage(
+                        bytes,
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 20),
+              AddingButton(
+                text: "+ Выбрать из галереи",
+                onPressed: () => pickImage(context),
+              ),
+              const SizedBox(height: 20),
+              Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(
                   'Выберите категорию',
@@ -157,57 +154,70 @@ class _CommunityAddPublicPageState extends State<CommunityAddPublicPage> {
                   ),
                 ),
               ),
-            FilterButtonWidget(
-              width: 394.w,
-              onPressed: () => BottomSheetUtil.showAppBottomSheet(
-                context,
-                CustomBottomSheet(
-                  maxHeight: 0.5,
-                  navbarTitle: 'Категория',
-                  widget: RadioFilterWidget(
-                    list: categoryList,
-                    onSelect: (String text) {
-                      filterText = text;
-                      selectedCategory = text;
-                      setState(() {});
-                    },
-                    selectedValue: selectedCategory ?? '',
+              FilterButtonWidget(
+                width: 394.w,
+                onPressed: () => BottomSheetUtil.showAppBottomSheet(
+                  context,
+                  CustomBottomSheet(
+                    maxHeight: 0.5,
+                    navbarTitle: 'Категория',
+                    widget: RadioFilterWidget(
+                      list: categoryList,
+                      onSelect: (String text) {
+                        filterText = text;
+                        selectedCategory = text;
+                        setState(() {});
+                      },
+                      selectedValue: selectedCategory ?? '',
+                    ),
                   ),
                 ),
+                title: filterText,
               ),
-              title: filterText,
-            ),
-            const SizedBox(height: 20),
-            TextFieldWidgetWithTitle(
-              controller: desc,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-              title: "Описание",
-              titleStyle: AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
-              hintText: "Напишите сообщение",
-            ),
-            const Spacer(),
-            GlButton(
-              text: isLoading ? "Загрузка.." : "Опубликовать",
-              onPressed: () {
-                if (desc.text.isNotEmpty &&
-                    selectedImageBytes.isNotEmpty &&
-                    selectedCategory != null) {
-                  context.read<CommunityCreatePostBloc>().add(
-                        CommunityCreatePostEvent.createPost(
-                          Post(
-                            text: desc.text,
-                            category: selectedCategory,
-                          ),
-                          selectedImageBytes,
-                          communityId: widget.communityId,
-                        ),
-                      );
-                }
-              },
-            ),
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 20),
+              TextFieldWidgetWithTitle(
+                maxLines: 3,
+                controller: desc,
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                title: "Описание",
+                titleStyle:
+                    AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
+                hintText: "Напишите сообщение",
+              ),
+              const Spacer(),
+              GlButton(
+                text: isLoading ? "Загрузка.." : "Опубликовать",
+                onPressed: () {
+                  if (desc.text.isNotEmpty && selectedCategory != null) {
+                    if (selectedImageBytes.isNotEmpty) {
+                      context.read<CommunityCreatePostBloc>().add(
+                            CommunityCreatePostEvent.createPost(
+                              Post(
+                                text: desc.text,
+                                category: selectedCategory,
+                              ),
+                              imageFiles: selectedImageBytes,
+                              communityId: widget.communityId,
+                            ),
+                          );
+                    } else {
+                      context.read<CommunityCreatePostBloc>().add(
+                            CommunityCreatePostEvent.createPost(
+                              Post(
+                                text: desc.text,
+                                category: selectedCategory,
+                              ),
+                              communityId: widget.communityId,
+                            ),
+                          );
+                    }
+                  }
+                },
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
