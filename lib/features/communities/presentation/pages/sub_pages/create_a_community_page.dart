@@ -82,6 +82,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
               context
                   .read<MyCommunityListBloc>()
                   .add(const MyCommunityListEvent.getMyCommunity());
+              context.pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(
