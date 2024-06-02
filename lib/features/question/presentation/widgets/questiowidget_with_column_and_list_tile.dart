@@ -21,7 +21,8 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
     this.onPressed,
     required this.question,
     this.index,
-    this.show = "hide", this.onPressedOutput,
+    this.show = "hide",
+    this.onPressedOutput,
   });
   final Question question;
   final String? questionText;
@@ -37,6 +38,7 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
     final avatar = question.avatarUrl;
     final Timestamp timestamp = question.createdAt!;
     final String formattedDate = formatDateTime(timestamp);
+
     return GestureDetector(
       onTap: onPressedOutput,
       child: Container(
@@ -49,9 +51,10 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
               contentPadding: EdgeInsets.zero,
               leading: avatar != null
                   ? GestureDetector(
-                    onTap: onPressed,
-                    child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(25)),
+                      onTap: onPressed,
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25)),
                         child: GlCachedNetworImage(
                           key: ValueKey(question.questionId),
                           urlImage: avatar,
@@ -59,7 +62,7 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
                           height: 50.h,
                         ),
                       ),
-                  )
+                    )
                   : Image.asset(
                       Assets.images.notAvatar.path,
                       width: 50.w,

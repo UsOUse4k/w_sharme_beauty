@@ -7,8 +7,10 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
+
 import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/question/presentation/widgets/wigets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
@@ -26,6 +28,7 @@ class _QuestionPageState extends State<QuestionPage> {
     context
         .read<GetAllQuestionBloc>()
         .add(const GetAllQuestionEvent.getAllQuestions());
+
     context.read<CategoryBloc>().add(const CategoryEvent.loadCategories());
     super.initState();
   }

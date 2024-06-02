@@ -20,7 +20,6 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
-
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
@@ -140,7 +139,11 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   ProfileSettingCardItemWidget(
                     text: 'УВЕДОМЛЕНИЯ',
                     title: 'Настройки уведомления',
-                    onPresed: () {},
+                    onPresed: () {
+                      route.push(
+                        '/profile/${RouterContants.profileNoticfactionSettings}',
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 15,

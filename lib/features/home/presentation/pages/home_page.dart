@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
               builder: (context, state) {
                 return state.maybeWhen(
                   succes: (profile) => profile.profilePictureUrl != null || profile.profilePictureUrl != ''
+
                       ? ClipRRect(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(14),
@@ -45,6 +46,7 @@ class _HomePageState extends State<HomePage> {
                           child: GlCachedNetworImage(
                             height: 28.h,
                             width: 28.w,
+
                             urlImage: profile.profilePictureUrl.toString(),
                           ),
                         )

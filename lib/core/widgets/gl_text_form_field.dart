@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class GlTextFormField extends StatefulWidget {
   const GlTextFormField({
@@ -57,6 +58,9 @@ class _GlTextFormFieldState extends State<GlTextFormField> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
+        ),
+        hintStyle: AppStyles.w500f18.copyWith(
+          color: AppColors.darkGrey,
         ),
       ),
     );

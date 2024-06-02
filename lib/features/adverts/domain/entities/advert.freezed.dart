@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'create_advert.dart';
+part of 'advert.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-CreateAdvert _$CreateAdvertFromJson(Map<String, dynamic> json) {
-  return _CreateAdvert.fromJson(json);
+Advert _$AdvertFromJson(Map<String, dynamic> json) {
+  return _Advert.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CreateAdvert {
+mixin _$Advert {
   String? get authorId => throw _privateConstructorUsedError;
   String? get advertId => throw _privateConstructorUsedError;
   String? get sloonName => throw _privateConstructorUsedError;
@@ -40,15 +40,13 @@ mixin _$CreateAdvert {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CreateAdvertCopyWith<CreateAdvert> get copyWith =>
-      throw _privateConstructorUsedError;
+  $AdvertCopyWith<Advert> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CreateAdvertCopyWith<$Res> {
-  factory $CreateAdvertCopyWith(
-          CreateAdvert value, $Res Function(CreateAdvert) then) =
-      _$CreateAdvertCopyWithImpl<$Res, CreateAdvert>;
+abstract class $AdvertCopyWith<$Res> {
+  factory $AdvertCopyWith(Advert value, $Res Function(Advert) then) =
+      _$AdvertCopyWithImpl<$Res, Advert>;
   @useResult
   $Res call(
       {String? authorId,
@@ -71,9 +69,9 @@ abstract class $CreateAdvertCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CreateAdvertCopyWithImpl<$Res, $Val extends CreateAdvert>
-    implements $CreateAdvertCopyWith<$Res> {
-  _$CreateAdvertCopyWithImpl(this._value, this._then);
+class _$AdvertCopyWithImpl<$Res, $Val extends Advert>
+    implements $AdvertCopyWith<$Res> {
+  _$AdvertCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -175,11 +173,10 @@ class _$CreateAdvertCopyWithImpl<$Res, $Val extends CreateAdvert>
 }
 
 /// @nodoc
-abstract class _$$CreateAdvertImplCopyWith<$Res>
-    implements $CreateAdvertCopyWith<$Res> {
-  factory _$$CreateAdvertImplCopyWith(
-          _$CreateAdvertImpl value, $Res Function(_$CreateAdvertImpl) then) =
-      __$$CreateAdvertImplCopyWithImpl<$Res>;
+abstract class _$$AdvertImplCopyWith<$Res> implements $AdvertCopyWith<$Res> {
+  factory _$$AdvertImplCopyWith(
+          _$AdvertImpl value, $Res Function(_$AdvertImpl) then) =
+      __$$AdvertImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -203,11 +200,11 @@ abstract class _$$CreateAdvertImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CreateAdvertImplCopyWithImpl<$Res>
-    extends _$CreateAdvertCopyWithImpl<$Res, _$CreateAdvertImpl>
-    implements _$$CreateAdvertImplCopyWith<$Res> {
-  __$$CreateAdvertImplCopyWithImpl(
-      _$CreateAdvertImpl _value, $Res Function(_$CreateAdvertImpl) _then)
+class __$$AdvertImplCopyWithImpl<$Res>
+    extends _$AdvertCopyWithImpl<$Res, _$AdvertImpl>
+    implements _$$AdvertImplCopyWith<$Res> {
+  __$$AdvertImplCopyWithImpl(
+      _$AdvertImpl _value, $Res Function(_$AdvertImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -231,7 +228,7 @@ class __$$CreateAdvertImplCopyWithImpl<$Res>
     Object? isFavorite = null,
     Object? createdAt = freezed,
   }) {
-    return _then(_$CreateAdvertImpl(
+    return _then(_$AdvertImpl(
       authorId: freezed == authorId
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
@@ -306,8 +303,8 @@ class __$$CreateAdvertImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CreateAdvertImpl implements _CreateAdvert {
-  const _$CreateAdvertImpl(
+class _$AdvertImpl implements _Advert {
+  const _$AdvertImpl(
       {this.authorId,
       this.advertId,
       this.sloonName,
@@ -329,8 +326,8 @@ class _$CreateAdvertImpl implements _CreateAdvert {
         _likes = likes,
         _reposts = reposts;
 
-  factory _$CreateAdvertImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CreateAdvertImplFromJson(json);
+  factory _$AdvertImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AdvertImplFromJson(json);
 
   @override
   final String? authorId;
@@ -394,14 +391,14 @@ class _$CreateAdvertImpl implements _CreateAdvert {
 
   @override
   String toString() {
-    return 'CreateAdvert(authorId: $authorId, advertId: $advertId, sloonName: $sloonName, category: $category, address: $address, phoneNumber: $phoneNumber, description: $description, schedule: $schedule, productServices: $productServices, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, likes: $likes, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Advert(authorId: $authorId, advertId: $advertId, sloonName: $sloonName, category: $category, address: $address, phoneNumber: $phoneNumber, description: $description, schedule: $schedule, productServices: $productServices, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, likes: $likes, reposts: $reposts, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAdvertImpl &&
+            other is _$AdvertImpl &&
             (identical(other.authorId, authorId) ||
                 other.authorId == authorId) &&
             (identical(other.advertId, advertId) ||
@@ -460,19 +457,19 @@ class _$CreateAdvertImpl implements _CreateAdvert {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateAdvertImplCopyWith<_$CreateAdvertImpl> get copyWith =>
-      __$$CreateAdvertImplCopyWithImpl<_$CreateAdvertImpl>(this, _$identity);
+  _$$AdvertImplCopyWith<_$AdvertImpl> get copyWith =>
+      __$$AdvertImplCopyWithImpl<_$AdvertImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CreateAdvertImplToJson(
+    return _$$AdvertImplToJson(
       this,
     );
   }
 }
 
-abstract class _CreateAdvert implements CreateAdvert {
-  const factory _CreateAdvert(
+abstract class _Advert implements Advert {
+  const factory _Advert(
       {final String? authorId,
       final String? advertId,
       final String? sloonName,
@@ -489,10 +486,9 @@ abstract class _CreateAdvert implements CreateAdvert {
       final List<String> likes,
       final List<String> reposts,
       final bool isFavorite,
-      final String? createdAt}) = _$CreateAdvertImpl;
+      final String? createdAt}) = _$AdvertImpl;
 
-  factory _CreateAdvert.fromJson(Map<String, dynamic> json) =
-      _$CreateAdvertImpl.fromJson;
+  factory _Advert.fromJson(Map<String, dynamic> json) = _$AdvertImpl.fromJson;
 
   @override
   String? get authorId;
@@ -530,6 +526,6 @@ abstract class _CreateAdvert implements CreateAdvert {
   String? get createdAt;
   @override
   @JsonKey(ignore: true)
-  _$$CreateAdvertImplCopyWith<_$CreateAdvertImpl> get copyWith =>
+  _$$AdvertImplCopyWith<_$AdvertImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

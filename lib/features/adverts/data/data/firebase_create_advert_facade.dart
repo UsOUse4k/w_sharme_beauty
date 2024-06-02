@@ -9,11 +9,11 @@ import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
 import 'package:w_sharme_beauty/core/utils/firebase_storage_url/firebase_storage_image_methods.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/date_formatter.dart';
-import 'package:w_sharme_beauty/features/adverts/domain/entities/create_advert.dart';
-import 'package:w_sharme_beauty/features/adverts/domain/repositories/i_create_advert_repository.dart';
+import 'package:w_sharme_beauty/features/adverts/domain/entities/advert.dart';
+import 'package:w_sharme_beauty/features/adverts/domain/repositories/i_advert_repository.dart';
 
-@LazySingleton(as: ICreateAdvartRepository)
-class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {
+@LazySingleton(as: IAdvartRepository)
+class FirebaseCreateAdvartRepository implements IAdvartRepository {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
   final FirebaseStorage storage;
@@ -24,7 +24,7 @@ class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {
   );
   @override
   Future<Either<PostError, Unit>> createAdvert(
-    CreateAdvert createAdvert,
+    Advert createAdvert,
     List<Uint8List> imageFiles,
     String saloonName,
     String? avatarUrl,
@@ -56,7 +56,7 @@ class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {
   }
 
   @override
-  Future<Either<PostError, List<CreateAdvert>>> getCreateAdverts({
+  Future<Either<PostError, List<Advert>>> getCreateAdverts({
     String? userId,
   }) async {
     try {
@@ -70,9 +70,9 @@ class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {
         querySnapshot = await firestore.collection('adverts').get();
       }
       if (querySnapshot.docs.isNotEmpty) {
-        final List<CreateAdvert> createAdverts = querySnapshot.docs
+        final List<Advert> createAdverts = querySnapshot.docs
             .map(
-              (e) => CreateAdvert.fromJson(e.data()! as Map<String, dynamic>),
+              (e) => Advert.fromJson(e.data()! as Map<String, dynamic>),
             )
             .toList();
         return right(createAdverts);
@@ -103,7 +103,7 @@ class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {
   }
 
   @override
-  Future<Either<PostError, CreateAdvert>> getCreateAdvert(
+  Future<Either<PostError, Advert>> getCreateAdvert(
     String? advertId,
     String? userId,
   ) async {
@@ -116,7 +116,7 @@ class FirebaseCreateAdvartRepository implements ICreateAdvartRepository {
       if (!advert.exists) {
         return left(PostError('Advert not found.'));
       }
-      final CreateAdvert userProfile = CreateAdvert.fromStoreData(
+      final Advert userProfile = Advert.fromStoreData(
         advert.data()! as Map<String, dynamic>,
       );
       return right(userProfile);

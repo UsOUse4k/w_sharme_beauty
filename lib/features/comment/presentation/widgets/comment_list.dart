@@ -21,7 +21,6 @@ class CommentList extends StatelessWidget {
       itemBuilder: (context, index) {
         return CommentItemCard(
           key: ValueKey(comments[index].commentId),
-          
           item: comments[index],
           postId: postId,
         );
