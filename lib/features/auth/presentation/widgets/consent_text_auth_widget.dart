@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class ConsentTextAuthWidget extends StatefulWidget {
   const ConsentTextAuthWidget({super.key});
@@ -25,33 +26,38 @@ class _ConsentTextAuthWidgetState extends State<ConsentTextAuthWidget> {
           height: 26,
           padding: const EdgeInsets.all(2),
           decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: mainColor,
-              ),
-              shape: BoxShape.circle,),
+            border: Border.all(
+              width: 2,
+              color: mainColor,
+            ),
+            shape: BoxShape.circle,
+          ),
           child: InkWell(
             onTap: toggleClick,
             child: _toggle
                 ? Container(
                     width: 26,
                     height: 26,
-                    decoration:
-                        const BoxDecoration(color: mainColor, shape: BoxShape.circle),
+                    decoration: const BoxDecoration(
+                      color: mainColor,
+                      shape: BoxShape.circle,
+                    ),
                   )
                 : null,
           ),
         ),
         const SizedBox(width: 6),
         RichText(
-          text:  const TextSpan(
+          text: TextSpan(
             text: 'Я даю согласие на',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF0A0A0A),
-            ),
-            children: <InlineSpan>[
+            style: AppStyles.w400f14,
+            //TextStyle(
+
+            // fontSize: 14,
+            // fontWeight: FontWeight.w400,
+            // color: Color(0xFF0A0A0A),
+            //),
+            children: const <InlineSpan>[
               WidgetSpan(
                 child: SizedBox(
                   width: 3,

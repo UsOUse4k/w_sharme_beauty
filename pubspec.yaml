@@ -60,6 +60,10 @@ flutter:
     - family: GTEastiProDisplay
       fonts:
         - asset: assets/fonts/GT Eesti Pro Display Regular.otf
+        - asset: assets/fonts/GT Eesti Pro Display Medium.otf
+          weight: 500
+        - asset: assets/fonts/GT Eesti Pro Display Bold.otf
+          weight: 700
 
 flutter_gen:
   assets:

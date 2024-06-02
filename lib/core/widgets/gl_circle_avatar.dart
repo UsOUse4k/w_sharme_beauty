@@ -14,11 +14,15 @@ class GlCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: width,
-      width: height,
-      child: CircleAvatar(
-        backgroundImage: AssetImage(avatar),
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: AssetImage(avatar),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

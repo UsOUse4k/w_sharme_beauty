@@ -26,12 +26,14 @@ class GlCachedNetworImage extends StatelessWidget {
       errorWidget: (context, url, error) => Container(
         decoration: const BoxDecoration(
           color: AppColors.lightGrey,
+          shape: BoxShape.circle,
         ),
-        child: const Icon(
-          Icons.image,
-          color: Colors.grey,
-          size: 80,
-        ),
+        child: Image.asset('assets/images/notAvatar.png', fit: BoxFit.cover),
+        //  const Icon(
+        //   Icons.image,
+        //   color: Colors.red,
+        //   size: 80,
+        // ),
       ),
     );
   }

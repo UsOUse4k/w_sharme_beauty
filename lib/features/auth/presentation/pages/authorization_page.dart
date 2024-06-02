@@ -40,7 +40,9 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                   context
                       .read<MyProfileInfoBloc>()
                       .add(const MyProfileInfoEvent.getMe());
-                  context.read<PostListBloc>().add(const PostListEvent.getPosts());
+                  context
+                      .read<PostListBloc>()
+                      .add(const PostListEvent.getPosts());
                 }
                 if (state is AuthError) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -72,7 +74,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                           GlTextFormField(
                             controller: _email,
                             obscureText: false,
-                            hintText: 'Электронная почта',
+                            hintText: ' Эл.адрес или номер телефона',
                           ),
                           const SizedBox(height: 10),
                           GlTextFormField(
@@ -88,7 +90,7 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
                                   context.push(RouterContants.reset);
                                 },
                                 child: Text(
-                                  'забыли пароль',
+                                  'Забыли пароль?',
                                   style: AppStyles.w400f16.copyWith(
                                     color: AppColors.purple,
                                   ),
