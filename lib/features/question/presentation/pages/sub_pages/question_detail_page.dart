@@ -11,6 +11,7 @@ import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart'
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/parent_id.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/create_question_comment_bloc/create_question_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/create_question_reply_comment_bloc/create_question_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_comments_bloc/get_all_question_comments_bloc.dart';
@@ -46,6 +47,7 @@ class _QuestionDetailPageState extends State<QuestionDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUid = firebaseAuth.currentUser!.uid;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: GlAppBar(
@@ -97,9 +99,11 @@ class _QuestionDetailPageState extends State<QuestionDetailPage> {
                                       ? GestureDetector(
                                           onTap: () {
                                             if (question.avatarUrl != '') {
-                                              context.push(
-                                                '/question/question-datail/${widget.questionId}/profilePersonPage/${question.uid}',
-                                              );
+                                              if (question.uid != currentUid) {
+                                                context.push(
+                                                  '/question/question-datail/${widget.questionId}/profilePersonPage/${question.uid}',
+                                                );
+                                              }
                                             }
                                           },
                                           child: ClipRRect(

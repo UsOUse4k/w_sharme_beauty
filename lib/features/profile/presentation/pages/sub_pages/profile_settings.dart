@@ -20,8 +20,6 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
-  final TextEditingController phoneCtrl = TextEditingController();
-  final TextEditingController dateCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,15 +68,21 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     child: Column(
                       children: [
                         ProfileSettingItemWidget(
+                          onTap: () {
+                            context.push('/profile/profile-phone');
+                          },
                           title: 'Телефон',
-                          subtitle: user.phone != ''
-                              ? user.phone.toString()
+                          subtitle: user.phoneUser != ''
+                              ? user.phoneUser.toString()
                               : 'Не указан',
                         ),
                         ProfileSettingItemWidget(
+                          onTap: () {
+                            context.push('/profile/profile-date');
+                          },
                           title: 'День рождения',
-                          subtitle: user.date != ''
-                              ? user.date.toString()
+                          subtitle: user.dateUser != ''
+                              ? user.dateUser.toString()
                               : 'Не указан',
                         ),
                         BlocListener<AuthBloc, AuthState>(

@@ -6,6 +6,8 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/create_notification_bloc/create_notification_bloc.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_notification_bloc/get_all_notification_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/parent_id.dart';
@@ -47,6 +49,7 @@ class _HomePostPageState extends State<HomePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUid = firebaseAuth.currentUser!.uid;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: GlAppBar(
@@ -93,109 +96,134 @@ class _HomePostPageState extends State<HomePostPage> {
                         context
                             .read<CommentListBloc>()
                             .add(CommentListEvent.addNewComments(comment));
+                        if (post.authorId != currentUid) {
+                          context.read<CreateNotificationBloc>().add(
+                                CreateNotificationEvent.created(
+                                  type: 'comment',
+                                  fromUser: post.authorId.toString(),
+                                  contentId: post.postId.toString(),
+                                ),
+                              );
+                        }
                       },
                       orElse: () {},
                     );
                   },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 10,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            children: [
-                              PostCard(
-                                show: 'show',
-                                onPressed: () {},
-                                onPressedDetailPage: () {},
-                                showButton: true,
-                                post: post,
-                              ),
-                              CustomContainer(
-                                child: BlocBuilder<CommentListBloc,
-                                    CommentListState>(
-                                  builder: (context, state) {
-                                    return state.maybeWhen(
-                                      success: (comments) {
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '${post.commentsCount} Ответа',
-                                              style: AppStyles.w500f14.copyWith(
-                                                color: AppColors.darkGrey,
-                                              ),
-                                            ),
-                                            SizedBox(height: 15.h),
-                                            CommentList(
-                                              comments: comments,
-                                              postId: post.postId.toString(),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                      orElse: () => Container(),
-                                    );
-                                  },
+                  child: BlocListener<CreateNotificationBloc,
+                      CreateNotificationState>(
+                    listener: (context, state) {
+                      state.maybeWhen(
+                        success: (notification) {
+                          context.read<GetAllNotificationBloc>().add(
+                                GetAllNotificationEvent.addNewNotification(
+                                  notification: notification,
                                 ),
-                              ),
-                            ],
+                              );
+                        },
+                        orElse: () {},
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 10,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: ListView(
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                PostCard(
+                                  show: 'show',
+                                  onPressed: () {},
+                                  onPressedDetailPage: () {},
+                                  showButton: true,
+                                  post: post,
+                                ),
+                                CustomContainer(
+                                  child: BlocBuilder<CommentListBloc,
+                                      CommentListState>(
+                                    builder: (context, state) {
+                                      return state.maybeWhen(
+                                        success: (comments) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${post.commentsCount} Ответа',
+                                                style:
+                                                    AppStyles.w500f14.copyWith(
+                                                  color: AppColors.darkGrey,
+                                                ),
+                                              ),
+                                              SizedBox(height: 15.h),
+                                              CommentList(
+                                                comments: comments,
+                                                postId: post.postId.toString(),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                        orElse: () => Container(),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      BlocBuilder<ParentCommentIdBloc, ParentIdUsername?>(
-                        builder: (context, state) {
-                          if (state != null && state.username != '') {
-                            comment.text = "${state.username} -> ";
-                          }
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (state != null && state.id != '')
-                                UsernameReplyCommentWidget(
-                                  username: state.username.toString(),
+                        BlocBuilder<ParentCommentIdBloc, ParentIdUsername?>(
+                          builder: (context, state) {
+                            if (state != null && state.username != '') {
+                              comment.text = "${state.username} -> ";
+                            }
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (state != null && state.id != '')
+                                  UsernameReplyCommentWidget(
+                                    username: state.username.toString(),
+                                    controller: comment,
+                                  ),
+                                TextFieldSendMessageWidget(
                                   controller: comment,
-                                ),
-                              TextFieldSendMessageWidget(
-                                controller: comment,
-                                show: 'show',
-                                onPressed: () {
-                                  if (comment.text.isNotEmpty) {
-                                    if (state != null && state.id != '') {
-                                      context.read<AddReplyCommentBloc>().add(
-                                            AddReplyCommentEvent
-                                                .addReplyComment(
-                                              Comment(
-                                                comment: comment.text,
+                                  show: 'show',
+                                  onPressed: () {
+                                    if (comment.text.isNotEmpty) {
+                                      if (state != null && state.id != '') {
+                                        context.read<AddReplyCommentBloc>().add(
+                                              AddReplyCommentEvent
+                                                  .addReplyComment(
+                                                Comment(
+                                                  comment: comment.text,
+                                                ),
+                                                state.id.toString(),
+                                                widget.postId.toString(),
                                               ),
-                                              state.id.toString(),
-                                              widget.postId.toString(),
-                                            ),
-                                          );
-                                    } else {
-                                      context.read<CommentCreateBloc>().add(
-                                            CommentCreateEvent.addComment(
-                                              Comment(
-                                                comment: comment.text,
+                                            );
+                                      } else {
+                                        context.read<CommentCreateBloc>().add(
+                                              CommentCreateEvent.addComment(
+                                                Comment(
+                                                  comment: comment.text,
+                                                ),
+                                                widget.postId.toString(),
                                               ),
-                                              widget.postId.toString(),
-                                            ),
-                                          );
+                                            );
+                                      }
+                                      comment.clear();
                                     }
-                                    comment.clear();
-                                  }
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

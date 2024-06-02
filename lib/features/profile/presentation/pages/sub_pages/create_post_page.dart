@@ -141,7 +141,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
               ),
               SizedBox(height: 15.h),
               Padding(
-                padding: const EdgeInsets.only(left: 8),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Выберите категорию',
                   style: AppStyles.w500f16.copyWith(
@@ -170,9 +170,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 title: filterText,
               ),
               TextFieldWidgetWithTitle(
+                maxLines: 3,
                 controller: desc,
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 title: "Описание",
                 titleStyle:
                     AppStyles.w500f16.copyWith(color: AppColors.darkGrey),

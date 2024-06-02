@@ -24,6 +24,8 @@ import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_p
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/followers_users_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_date_page.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_phone_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/subscriptions_users_page.dart';
 import 'package:w_sharme_beauty/features/question/presentation/pages/pages.dart';
@@ -129,6 +131,26 @@ mixin AppRouter on State<App> {
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'subscriptions/:userId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final userId = state.pathParameters['userId'];
+                          return SubscriptionsUsersPage(
+                            userId: userId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'followers/:userId',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final userId = state.pathParameters['userId'];
+                          return FollowersUsersPage(
+                            userId: userId.toString(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
                         path: '${RouterContants.chatMessages}/:userId',
                         builder: (BuildContext context, GoRouterState state) {
                           final userId = state.pathParameters['userId'];
@@ -143,6 +165,16 @@ mixin AppRouter on State<App> {
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.homeNotification,
                     builder: (context, state) => const HomeNotificationPage(),
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: "${RouterContants.profilePersonPage}/:userId",
+                        builder: (BuildContext context, GoRouterState state) {
+                          final userId = state.pathParameters['userId'];
+                          return ProfilePersonPage(authorId: userId);
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
@@ -658,13 +690,23 @@ mixin AppRouter on State<App> {
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    path: 'subscriptions',
-                    builder: (context, state) => const SubscriptionsUsersPage(),
+                    path: 'subscriptions/:userId',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final userId = state.pathParameters['userId'];
+                      return SubscriptionsUsersPage(
+                        userId: userId.toString(),
+                      );
+                    },
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    path: 'followers',
-                    builder: (context, state) => const FollowersUsersPage(),
+                    path: 'followers/:userId',
+                    builder: (BuildContext context, GoRouterState state) {
+                      final userId = state.pathParameters['userId'];
+                      return FollowersUsersPage(
+                        userId: userId.toString(),
+                      );
+                    },
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
@@ -680,6 +722,16 @@ mixin AppRouter on State<App> {
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: RouterContants.profileSettings,
                     builder: (context, state) => const ProfileSettingsPage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: 'profile-phone',
+                    builder: (context, state) => const ProfilePhonePage(),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    path: 'profile-date',
+                    builder: (context, state) => const ProfileDatePage(),
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

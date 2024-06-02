@@ -15,6 +15,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_b
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/button_write_down.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePersonPage extends StatefulWidget {
@@ -126,6 +127,12 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ProfileNavbarWidget(
+                                    onPressedFollowers: () {
+                                      context.push('/home/profilePersonPage/${widget.authorId}/followers/${widget.authorId}');
+                                    },
+                                    onPressedSubscribe: () {
+                                      context.push('/home/profilePersonPage/${widget.authorId}/subscriptions/${widget.authorId}');
+                                    },
                                     avatar: userData.profilePictureUrl.toString(),
                                     publications: "${posts.length}",
                                     followers: "${userData.followers!.length}",
@@ -142,9 +149,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                       SizedBox(width: 10.w),
                                       Image.asset(Assets.icons.point.path),
                                       SizedBox(width: 10.w),
-                                      Image.asset(
-                                        Assets.icons.rating.path,
-                                      ),
+                                      RatingCardWidget(rating: userData.rating.toString()),
                                     ],
                                   ),
                                   SizedBox(height: 11.h),

@@ -10,7 +10,7 @@ part 'post_like_bloc.freezed.dart';
 
 @injectable
 class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
-  PostLikeBloc(this._postRepository, this._authFacade)
+  PostLikeBloc(this._postRepository, this._authFacade, )
       : super(const _Initial()) {
     on<PostLikeEvent>((event, emit) async {
       await event.map(
@@ -20,6 +20,7 @@ class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
           await userOpt.fold(() {
             emit(const PostLikeState.error(message: 'no sigin user'));
           }, (data) async {
+
             await _postRepository.updateLikes(
               event.postId,
               data.uid.toString(),
@@ -33,6 +34,7 @@ class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
           await userOpt.fold(() {
             emit(const PostLikeState.error(message: 'no sigin user'));
           }, (data) async {
+            
             await _postRepository.updateLikes(
               event.postId,
               data.uid.toString(),
@@ -46,4 +48,5 @@ class PostLikeBloc extends Bloc<PostLikeEvent, PostLikeState> {
 
   final IAuthFacade _authFacade;
   final IPostRepository _postRepository;
+
 }

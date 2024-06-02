@@ -29,8 +29,8 @@ mixin _$UserProfile {
   List<String>? get category => throw _privateConstructorUsedError;
   String? get theme => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
-  String? get date => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
+  String? get dateUser => throw _privateConstructorUsedError;
+  String? get phoneUser => throw _privateConstructorUsedError;
   int? get publics => throw _privateConstructorUsedError;
   List<String>? get followers => throw _privateConstructorUsedError;
   List<String>? get subscriptions => throw _privateConstructorUsedError;
@@ -61,8 +61,8 @@ abstract class $UserProfileCopyWith<$Res> {
       List<String>? category,
       String? theme,
       String? city,
-      String? date,
-      String? phone,
+      String? dateUser,
+      String? phoneUser,
       int? publics,
       List<String>? followers,
       List<String>? subscriptions,
@@ -93,8 +93,8 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
     Object? category = freezed,
     Object? theme = freezed,
     Object? city = freezed,
-    Object? date = freezed,
-    Object? phone = freezed,
+    Object? dateUser = freezed,
+    Object? phoneUser = freezed,
     Object? publics = freezed,
     Object? followers = freezed,
     Object? subscriptions = freezed,
@@ -139,13 +139,13 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      dateUser: freezed == dateUser
+          ? _value.dateUser
+          : dateUser // ignore: cast_nullable_to_non_nullable
               as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      phoneUser: freezed == phoneUser
+          ? _value.phoneUser
+          : phoneUser // ignore: cast_nullable_to_non_nullable
               as String?,
       publics: freezed == publics
           ? _value.publics
@@ -193,8 +193,8 @@ abstract class _$$UserProfileImplCopyWith<$Res>
       List<String>? category,
       String? theme,
       String? city,
-      String? date,
-      String? phone,
+      String? dateUser,
+      String? phoneUser,
       int? publics,
       List<String>? followers,
       List<String>? subscriptions,
@@ -223,8 +223,8 @@ class __$$UserProfileImplCopyWithImpl<$Res>
     Object? category = freezed,
     Object? theme = freezed,
     Object? city = freezed,
-    Object? date = freezed,
-    Object? phone = freezed,
+    Object? dateUser = freezed,
+    Object? phoneUser = freezed,
     Object? publics = freezed,
     Object? followers = freezed,
     Object? subscriptions = freezed,
@@ -269,13 +269,13 @@ class __$$UserProfileImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String?,
-      date: freezed == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      dateUser: freezed == dateUser
+          ? _value.dateUser
+          : dateUser // ignore: cast_nullable_to_non_nullable
               as String?,
-      phone: freezed == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+      phoneUser: freezed == phoneUser
+          ? _value.phoneUser
+          : phoneUser // ignore: cast_nullable_to_non_nullable
               as String?,
       publics: freezed == publics
           ? _value.publics
@@ -318,8 +318,8 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       final List<String>? category = const [],
       this.theme = '',
       this.city = '',
-      this.date = '',
-      this.phone = '',
+      this.dateUser = '',
+      this.phoneUser = '',
       this.publics = 0,
       final List<String>? followers = const [],
       final List<String>? subscriptions = const [],
@@ -369,10 +369,10 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
   final String? city;
   @override
   @JsonKey()
-  final String? date;
+  final String? dateUser;
   @override
   @JsonKey()
-  final String? phone;
+  final String? phoneUser;
   @override
   @JsonKey()
   final int? publics;
@@ -418,7 +418,7 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserProfile(uid: $uid, email: $email, name: $name, username: $username, profilePictureUrl: $profilePictureUrl, aboutYourself: $aboutYourself, category: $category, theme: $theme, city: $city, date: $date, phone: $phone, publics: $publics, followers: $followers, subscriptions: $subscriptions, rating: $rating, stories: $stories, lastSeen: $lastSeen)';
+    return 'UserProfile(uid: $uid, email: $email, name: $name, username: $username, profilePictureUrl: $profilePictureUrl, aboutYourself: $aboutYourself, category: $category, theme: $theme, city: $city, dateUser: $dateUser, phoneUser: $phoneUser, publics: $publics, followers: $followers, subscriptions: $subscriptions, rating: $rating, stories: $stories, lastSeen: $lastSeen)';
   }
 
   @override
@@ -435,8 +435,8 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('theme', theme))
       ..add(DiagnosticsProperty('city', city))
-      ..add(DiagnosticsProperty('date', date))
-      ..add(DiagnosticsProperty('phone', phone))
+      ..add(DiagnosticsProperty('dateUser', dateUser))
+      ..add(DiagnosticsProperty('phoneUser', phoneUser))
       ..add(DiagnosticsProperty('publics', publics))
       ..add(DiagnosticsProperty('followers', followers))
       ..add(DiagnosticsProperty('subscriptions', subscriptions))
@@ -462,8 +462,10 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
             const DeepCollectionEquality().equals(other._category, _category) &&
             (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.city, city) || other.city == city) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.dateUser, dateUser) ||
+                other.dateUser == dateUser) &&
+            (identical(other.phoneUser, phoneUser) ||
+                other.phoneUser == phoneUser) &&
             (identical(other.publics, publics) || other.publics == publics) &&
             const DeepCollectionEquality()
                 .equals(other._followers, _followers) &&
@@ -488,8 +490,8 @@ class _$UserProfileImpl with DiagnosticableTreeMixin implements _UserProfile {
       const DeepCollectionEquality().hash(_category),
       theme,
       city,
-      date,
-      phone,
+      dateUser,
+      phoneUser,
       publics,
       const DeepCollectionEquality().hash(_followers),
       const DeepCollectionEquality().hash(_subscriptions),
@@ -522,8 +524,8 @@ abstract class _UserProfile implements UserProfile {
       final List<String>? category,
       final String? theme,
       final String? city,
-      final String? date,
-      final String? phone,
+      final String? dateUser,
+      final String? phoneUser,
       final int? publics,
       final List<String>? followers,
       final List<String>? subscriptions,
@@ -553,9 +555,9 @@ abstract class _UserProfile implements UserProfile {
   @override
   String? get city;
   @override
-  String? get date;
+  String? get dateUser;
   @override
-  String? get phone;
+  String? get phoneUser;
   @override
   int? get publics;
   @override

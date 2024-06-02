@@ -120,6 +120,7 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                       children: [
                         SizedBox(height: 8.h),
                         TextFieldWidgetWithTitle(
+                          raduis: 10,
                           controller: _communityNameCtrl,
                           title: "Название сообщества",
                           titleStyle: AppStyles.w500f14
@@ -162,6 +163,7 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                         ),
                         SizedBox(height: 20.h),
                         TextFieldWidgetWithTitle(
+                          raduis: 10,
                           controller: _descNameCtrl,
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 10,
@@ -173,12 +175,13 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                           hintStyle: AppStyles.w400f16,
                           maxLines: 2,
                         ),
+                        SizedBox(height: 10.h),
                         Text(
                           "Используйте слова, которые описывают тематику сообщества и помогают быстрее его найти. Изменить описание можно в любой момент.",
                           style: AppStyles.w400f13
                               .copyWith(color: AppColors.darkGrey),
                         ),
-                        SizedBox(height: 80.h),
+                        SizedBox(height: 75.h),
                         BlocBuilder<CommunityCategoryBloc,
                             CommunityCategoryState>(
                           builder: (context, state) {

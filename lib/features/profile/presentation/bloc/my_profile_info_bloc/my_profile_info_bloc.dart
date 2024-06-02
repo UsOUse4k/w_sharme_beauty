@@ -24,7 +24,6 @@ class MyProfileInfoBloc extends Bloc<MyProfileInfoEvent, MyProfileInfoState> {
             result.fold((_) {
               emit(const MyProfileInfoState.error());
             }, (user) {
-              
               emit(MyProfileInfoState.succes(user));
             });
           });

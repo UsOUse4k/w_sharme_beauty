@@ -16,12 +16,15 @@ import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_blo
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ChatMessagesPage extends StatefulWidget {
-  const ChatMessagesPage({super.key, this.userId,});
+  const ChatMessagesPage({
+    super.key,
+    this.userId,
+  });
 
   final String? userId;
-
 
   @override
   State<ChatMessagesPage> createState() => _ChatMessagesPageState();
@@ -30,6 +33,7 @@ class ChatMessagesPage extends StatefulWidget {
 class _ChatMessagesPageState extends State<ChatMessagesPage> {
   final TextEditingController sendMessageCtrl = TextEditingController();
   Uint8List? file;
+  bool isLoading = false;
 
   Future<void> selectedImage(String chatRoomId) async {
     file = await pickImage(context);
@@ -52,8 +56,9 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CreateChatroomBloc>().add(
-          CreateChatroomEvent.createdChatRoomId(
+
+    context.read<UserDetailBloc>().add(
+          UserDetailEvent.getUserDetail(
             userId: widget.userId.toString(),
           ),
         );
@@ -80,86 +85,101 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
         ),
         title: _buildProfileName(),
         action: _buildAvatarUser(router, widget.userId.toString()),
-        
       ),
-      body: BlocConsumer<CreateChatroomBloc, CreateChatroomState>(
+      body: BlocListener<UserDetailBloc, UserDetailState>(
         listener: (context, state) {
           state.maybeWhen(
-            sucsess: (chatRoomId) {
-              context.read<UserDetailBloc>().add(
-                    UserDetailEvent.getUserDetail(
-                      userId: widget.userId.toString(),
-                    ),
-                  );
+            loading: () => setState(() => isLoading = true),
+            success: (userData) {
+              setState(() => isLoading = false);
               context
                   .read<UpdateStatusUserBloc>()
                   .add(const UpdateStatusUserEvent.updateStatusUser());
-              context.read<GetMessagesBloc>().add(
-                    GetMessagesEvent.getMessages(
-                      chatRoomId: chatRoomId.toString(),
+              context.read<CreateChatroomBloc>().add(
+                    CreateChatroomEvent.createdChatRoomId(
+                      userId: userData.uid.toString(),
                     ),
                   );
             },
+            error: (e) => setState(() => isLoading = false),
             orElse: () {},
           );
         },
-        builder: (context, state) {
-          return state.maybeWhen(
-            sucsess: (chatRoomId) {
-              return SafeArea(
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 70,
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          top: 30,
-                          left: 18,
-                          right: 18,
-                        ),
-                        decoration: const BoxDecoration(color: AppColors.bgColors),
-                        child: BlocBuilder<GetMessagesBloc, GetMessagesState>(
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              success: (messages) {
-                                return ChatMessageList(
-                                  messages: messages,
-                                  typeMessages: 'chat',
-                                  chatRoomId: chatRoomId.toString(),
-                                );
-                              },
-                              orElse: () => Container(),
-                            );
-                          },
-                        ),
+        child: BlocConsumer<CreateChatroomBloc, CreateChatroomState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              sucsess: (chatRoomId) {
+                context.read<GetMessagesBloc>().add(
+                      GetMessagesEvent.getMessages(
+                        chatRoomId: chatRoomId.toString(),
                       ),
-                    ),
-                    const Spacer(),
-                    TextFieldSendMessageWidget(
-                      onGallery: () => selectedImage(chatRoomId.toString()),
-                      controller: sendMessageCtrl,
-                      onPressed: () {
-                        if (sendMessageCtrl.text.isNotEmpty) {
-                          context.read<SendMessageBloc>().add(
-                                SendMessageEvent.sendMessage(
-                                  chatRoomId: chatRoomId.toString(),
-                                  message: sendMessageCtrl.text,
-                                  receiverId: widget.userId.toString(),
+                    );
+              },
+              orElse: () {},
+            );
+          },
+          builder: (context, state) {
+            return state.maybeWhen(
+              sucsess: (chatRoomId) {
+                return SafeArea(
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : Column(
+                          children: [
+                            Expanded(
+                              flex: 70,
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                  top: 30,
+                                  left: 18,
+                                  right: 18,
                                 ),
-                              );
-                          sendMessageCtrl.clear();
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-            orElse: () => Container(),
-          );
-        },
+                                decoration: const BoxDecoration(
+                                    color: AppColors.bgColors,),
+                                child: BlocBuilder<GetMessagesBloc,
+                                    GetMessagesState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(
+                                      success: (messages) {
+                                        return ChatMessageList(
+                                          messages: messages,
+                                          typeMessages: 'chat',
+                                          chatRoomId: chatRoomId.toString(),
+                                        );
+                                      },
+                                      orElse: () => Container(),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            TextFieldSendMessageWidget(
+                              onGallery: () =>
+                                  selectedImage(chatRoomId.toString()),
+                              controller: sendMessageCtrl,
+                              onPressed: () {
+                                if (sendMessageCtrl.text.isNotEmpty) {
+                                  context.read<SendMessageBloc>().add(
+                                        SendMessageEvent.sendMessage(
+                                          chatRoomId: chatRoomId.toString(),
+                                          message: sendMessageCtrl.text,
+                                          receiverId: widget.userId.toString(),
+                                        ),
+                                      );
+                                  sendMessageCtrl.clear();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
+        ),
       ),
-      
     );
   }
 
@@ -168,7 +188,9 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
       builder: (context, state) {
         return state.maybeWhen(
           success: (userData) {
-            final statusTime = userData.lastSeen !=null ? getUserStatus(userData.lastSeen!) : 'Неизвестно';
+            final statusTime = userData.lastSeen != null
+                ? getUserStatus(userData.lastSeen!)
+                : 'Неизвестно';
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -207,11 +229,18 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(50),
                 ),
-                child: GlCachedNetworImage(
-                  height: 40.h,
-                  width: 40.w,
-                  urlImage: userData.profilePictureUrl,
-                ),
+                child: userData.profilePictureUrl != null &&
+                        userData.profilePictureUrl != ''
+                    ? GlCachedNetworImage(
+                        height: 40.h,
+                        width: 40.w,
+                        urlImage: userData.profilePictureUrl,
+                      )
+                    : GlCircleAvatar(
+                        avatar: Assets.images.notAvatar.path,
+                        width: 40.w,
+                        height: 40.h,
+                      ),
               ),
             );
           },

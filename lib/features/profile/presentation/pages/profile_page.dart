@@ -16,6 +16,7 @@ import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -110,10 +111,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               subscriptions:
                                   user.subscriptions!.length.toString(),
                               onPressedFollowers: () {
-                                context.push('/profile/followers');
+                                context.push('/profile/followers/${user.uid}');
                               },
                               onPressedSubscribe: () {
-                                context.push('/profile/subscriptions');
+                                context
+                                    .push('/profile/subscriptions/${user.uid}');
                               },
                             ),
                             SizedBox(height: 16.h),
@@ -126,10 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(width: 11.w),
                                 Image.asset(Assets.icons.point.path),
                                 SizedBox(width: 11.w),
-                                Text(
-                                  '${user.rating}',
-                                  style: AppStyles.w500f18,
-                                ),
+                                RatingCardWidget(rating: user.rating.toString()),
                               ],
                             ),
                             SizedBox(height: 12.h),
@@ -182,8 +181,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                           },
                                           success: (categories) {
                                             final filter = categories
-                                                .where((e) => user.category!
-                                                    .contains(e.title),)
+                                                .where(
+                                                  (e) => user.category!
+                                                      .contains(e.title),
+                                                )
                                                 .toList();
                                             return CategoryList(
                                               category: filter,
@@ -289,7 +290,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 itemCount: posts.length,
                                 itemBuilder: (context, index) => PostCard(
                                   onPressedDetailPage: () {
-                                    context.push('/profile/post/${posts[index].postId}');
+                                    context.push(
+                                        '/profile/post/${posts[index].postId}');
                                   },
                                   onPressed: () {},
                                   post: posts[index],
@@ -312,3 +314,4 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+

@@ -91,6 +91,7 @@ class _QuestionCommentItemState extends State<QuestionCommentItem> {
   Widget build(BuildContext context) {
     final Timestamp timestamp = widget.item.createdAt!;
     final String formattedDate = formatDateTime(timestamp);
+    final currentUid = firebaseAuth.currentUser!.uid;
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: BlocListener<CreateQuestionReplyCommentBloc,
@@ -124,10 +125,12 @@ class _QuestionCommentItemState extends State<QuestionCommentItem> {
                   child: InkWell(
                     onTap: () {
                       if (widget.item.avatarUrl != '') {
-                        context.push(
-                          '/question/question-datail/${widget.questionId}/profilePersonPage/${widget.item.uid}',
-                        );
-                      } 
+                        if (currentUid != widget.item.uid) {
+                          context.push(
+                            '/question/question-datail/${widget.questionId}/profilePersonPage/${widget.item.uid}',
+                          );
+                        }
+                      }
                     },
                     child: widget.item.avatarUrl != null &&
                             widget.item.avatarUrl!.isNotEmpty

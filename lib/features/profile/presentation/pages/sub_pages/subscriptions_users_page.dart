@@ -9,11 +9,26 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 
-class SubscriptionsUsersPage extends StatelessWidget {
-  const SubscriptionsUsersPage({super.key});
+class SubscriptionsUsersPage extends StatefulWidget {
+  const SubscriptionsUsersPage({super.key, required this.userId});
+  final String userId;
 
+  @override
+  State<SubscriptionsUsersPage> createState() => _SubscriptionsUsersPageState();
+}
+
+class _SubscriptionsUsersPageState extends State<SubscriptionsUsersPage> {
+  @override
+  void initState() {
+     context.read<UserDetailBloc>().add(
+          UserDetailEvent.getUserDetail(
+            userId: widget.userId,
+          ),
+        );
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +62,11 @@ class SubscriptionsUsersPage extends StatelessWidget {
                   builder: (context, userState) {
                     return userState.maybeWhen(
                       success: (users) {
-                        return BlocBuilder<MyProfileInfoBloc,
-                            MyProfileInfoState>(
+                        return BlocBuilder<UserDetailBloc,
+                            UserDetailState>(
                           builder: (context, state) {
                             return state.maybeWhen(
-                              succes: (data) {
+                              success: (data) {
                                 final filterUsers = users
                                     .where(
                                       (element) => data.subscriptions!

@@ -114,16 +114,20 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                 child: ListView(
                   children: [
                     TextFieldWidgetWithTitle(
+                      raduis: 10,
                       title: "Название сообщества",
                       hintText: "Придумайте название",
                       controller: communityName,
+                      titleStyle: AppStyles.w500f14.copyWith(
+                        color: AppColors.darkGrey,
+                      ),
                     ),
                     SizedBox(height: 14.h),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Выберите категорию',
-                        style: AppStyles.w500f16.copyWith(
+                        style: AppStyles.w500f14.copyWith(
                           color: AppColors.darkGrey,
                         ),
                       ),
@@ -152,7 +156,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                     const Text(
                       "Установите аватар",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.darkGrey,
                       ),
@@ -176,6 +180,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                     ),
                     SizedBox(height: 20.h),
                     TextFieldWidgetWithTitle(
+                      raduis: 10,
                       maxLines: 3,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -183,7 +188,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                       ),
                       title: "Описание",
                       titleStyle:
-                          AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
+                          AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
                       hintText: "Расскажите о сообществе",
                       controller: description,
                     ),

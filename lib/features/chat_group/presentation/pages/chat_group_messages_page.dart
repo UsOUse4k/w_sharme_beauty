@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,13 +9,16 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/chat_list.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/send_message_group_bloc/send_message_group_bloc.dart';
+import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/chat_group_input_model.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
 
 class ChatGroupMessagesPage extends StatefulWidget {
@@ -30,6 +37,25 @@ class ChatGroupMessagesPage extends StatefulWidget {
 
 class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
   final TextEditingController sendMessageCtrl = TextEditingController();
+
+  Uint8List? file;
+  Future<void> selectedImage(String groupRoomId) async {
+    file = await pickImage(context);
+    setState(() {});
+    if (file != null) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return ChatGroupInputModal(
+            imageFile: file!,
+            communityId: widget.communityId,
+            groupId: groupRoomId,
+          );
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -181,6 +207,7 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
                 ),
                 const Spacer(),
                 TextFieldSendMessageWidget(
+                  onGallery: () => selectedImage(widget.groupId),
                   controller: sendMessageCtrl,
                   onPressed: () {
                     if (sendMessageCtrl.text.isNotEmpty) {

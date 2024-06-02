@@ -9,6 +9,8 @@ abstract class IChatRepository {
   Future<Either<PostError, String>> createChatRoom({
     required String uid,
     required String receiverUsername,
+    required String receiverUserAvatar,
+
   });
   Future<Either<PostError, String?>> sendMessage({
     required String message,
@@ -21,12 +23,6 @@ abstract class IChatRepository {
   Future<Either<PostError, String?>> seenMessage({
     required String chatRoomId,
     required String senderId,
-  });
-  Future<Either<PostError, String>> sendFileMessage({
-    required String chatRoomId,
-    required String messageType,
-    required Uint8List file,
-    required String receiverId,
   });
   Stream<List<Message>> getMessages({
     required String chatRoomId,

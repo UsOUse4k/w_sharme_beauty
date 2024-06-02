@@ -24,6 +24,8 @@ class FirebaseChatFacade implements IChatRepository {
   Future<Either<PostError, String>> createChatRoom({
     required String uid,
     required String receiverUsername,
+    required String receiverUserAvatar,
+
 
   }) async {
     try {
@@ -50,6 +52,7 @@ class FirebaseChatFacade implements IChatRepository {
           lastSenderId: '',
           receiverId: uid,
           receiverUsername: receiverUsername,
+          receiverUserAvatar: receiverUserAvatar,
         );
         await firestore
             .collection('chatrooms')
@@ -90,51 +93,6 @@ class FirebaseChatFacade implements IChatRepository {
           .update({'messageCount': 0, 'seen': true});
 
       return right(null);
-    } catch (e) {
-      return left(PostError(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<PostError, String>> sendFileMessage({
-    required String chatRoomId,
-    required String messageType,
-    required Uint8List file,
-    required String receiverId,
-  }) async {
-    try {
-      final messageId = const Uuid().v1();
-      final now = Timestamp.now();
-      final String myUid = auth.currentUser!.uid;
-      final downloadUrl = await StorageMethods(auth, storage)
-          .uploadImageToStorage('messages', file, true);
-      final Message newMessage = Message(
-        message: downloadUrl,
-        messageId: messageId,
-        senderId: myUid,
-        receiverId: receiverId,
-        timestamp: now,
-        seen: false,
-        messageType: 'text',
-      );
-      final DocumentReference myChatRoomRef =
-          firestore.collection('chatrooms').doc(chatRoomId);
-
-      await myChatRoomRef
-          .collection('messages')
-          .doc(messageId)
-          .set(newMessage.toJson());
-
-      if (myUid != receiverId) {
-        await myChatRoomRef.update({
-          'messageCount': FieldValue.increment(1),
-          'lastMessage': downloadUrl,
-          'lastMessageTs': now,
-          'seen': false,
-          'lastSenderId': myUid,
-        });
-      }
-      return right('');
     } catch (e) {
       return left(PostError(e.toString()));
     }

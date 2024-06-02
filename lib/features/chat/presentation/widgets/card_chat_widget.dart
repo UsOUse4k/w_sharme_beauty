@@ -42,39 +42,27 @@ class _CardChatWidgetState extends State<CardChatWidget> {
           '/home/chat/${RouterContants.chatMessages}/${widget.userId}',
         );
       },
-      child: BlocBuilder<UserDetailBloc, UserDetailState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-            error: (message) => const Center(
-              child: Text('error'),
+      child: Container(
+        height: 74,
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            UserAvatarWithName(
+              width: 60.w,
+              height: 60.h,
+              raduis: 30,
+              avatar: widget.chatRooms.receiverUserAvatar,
+              name: widget.chatRooms.receiverUsername.toString(),
+              subTitle: widget.chatRooms.lastMessage ?? "пусто",
             ),
-            success: (userData) {
-              return Container(
-                height: 74,
-                margin: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    UserAvatarWithName(
-                      width: 60.w,
-                      height: 60.h,
-                      raduis: 30,
-                      avatar: userData.profilePictureUrl,
-                      name: userData.username.toString(),
-                      subTitle: widget.chatRooms.lastMessage ?? "пусто",
-                    ),
-                    MessageCheckTimeTextWidget(
-                      userId: widget.userId,
-                      chatRoom: widget.chatRooms,
-                    ),
-                  ],
-                ),
-              );
-            },
-            orElse: () => Container(),
-          );
-        },
+            MessageCheckTimeTextWidget(
+              userId: widget.userId,
+              chatRoom: widget.chatRooms,
+            ),
+          ],
+        ),
       ),
     );
   }
