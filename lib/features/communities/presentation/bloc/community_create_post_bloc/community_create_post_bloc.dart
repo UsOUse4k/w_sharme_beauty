@@ -44,16 +44,28 @@ class CommunityCreatePostBloc
                 username: userData.username,
                 avatarUrl: userData.profilePictureUrl,
               );
-              final result = await _repository.createPost(
-                updtCommunityPost,
-                event.imageFiles,
-                communityId: event.communityId,
-              );
-              result.fold((error) {
-                emit(CommunityCreatePostState.error(message: error.messasge));
-              }, (post) {
-                emit(CommunityCreatePostState.success(event.post));
-              });
+              if (event.imageFiles != null && event.imageFiles!.isNotEmpty) {
+                final result = await _repository.createPost(
+                  updtCommunityPost,
+                  imageFiles:  event.imageFiles,
+                  communityId: event.communityId,
+                );
+                result.fold((error) {
+                  emit(CommunityCreatePostState.error(message: error.messasge));
+                }, (post) {
+                  emit(CommunityCreatePostState.success(event.post));
+                });
+              } else {
+                final result = await _repository.createPost(
+                  updtCommunityPost,
+                  communityId: event.communityId,
+                );
+                result.fold((error) {
+                  emit(CommunityCreatePostState.error(message: error.messasge));
+                }, (post) {
+                  emit(CommunityCreatePostState.success(event.post));
+                });
+              }
             });
           });
         },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
@@ -26,7 +27,6 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
     return Scaffold(
-      backgroundColor: AppColors.lightGrey,
       appBar: GlAppBar(
         leading: GlIconButton(
           iconSize: 16,
@@ -51,7 +51,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     height: 10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: Text(
                       "УЧЕТНЫЕ ДАННЫЕ",
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -60,8 +60,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                           ),
                     ),
                   ),
+                  SizedBox(height: 6.h),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: AppColors.white,

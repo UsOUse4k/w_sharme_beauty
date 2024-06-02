@@ -19,36 +19,45 @@ class FirestorePostRepository implements ICommunityPostRepository {
   final FirebaseStorage storage;
   FirestorePostRepository(this.firestore, this.auth, this.storage);
   @override
-  Future<Either<PostError, Unit>> createPost(
-    Post post,
-    List<Uint8List>? imageFiles, {
+  Future<Either<PostError, Post>> createPost(
+    Post post, {
     required String communityId,
+    List<Uint8List>? imageFiles,
   }) async {
     try {
       final String postId = const Uuid().v1();
       final String authorId = auth.currentUser!.uid;
       final DateTime now = DateTime.now();
       final String formattedDate = DateFormatter.format(now);
-      final List<String> imageUrls =
-          await FirebaseStorageImageMethods(auth, storage)
-              .uploadImageToStorage(imageFiles!, true, 'communities_posts');
       final DocumentReference reference =
           firestore.collection('communities').doc(communityId);
-
       final updatedPost = post.copyWith(
         postId: postId,
         createdAt: formattedDate,
         authorId: authorId,
-        imageUrls: imageUrls,
       );
-      // added post communities
-      await reference.collection('posts').doc(postId).set(updatedPost.toJson());
-
-      // update count public
       await reference.update({
         'public': FieldValue.increment(1),
       });
-      return right(unit);
+      if (imageFiles != null && imageFiles.isNotEmpty) {
+        final List<String> imageUrls =
+            await FirebaseStorageImageMethods(auth, storage)
+                .uploadImageToStorage(imageFiles, true, 'communities_posts');
+        final updatePostImages = updatedPost.copyWith(
+          imageUrls: imageUrls,
+        );
+        await reference
+            .collection('posts')
+            .doc(postId)
+            .set(updatePostImages.toJson());
+        return right(updatePostImages);
+      } else {
+        await reference
+            .collection('posts')
+            .doc(postId)
+            .set(updatedPost.toJson());
+        return right(updatedPost);
+      }
     } catch (e) {
       return left(PostError(e.toString()));
     }

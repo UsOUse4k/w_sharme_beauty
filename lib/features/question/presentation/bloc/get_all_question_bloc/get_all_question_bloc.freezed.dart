@@ -22,6 +22,8 @@ mixin _$GetAllQuestionEvent {
     required TResult Function(Question question) addNewQuestion,
     required TResult Function(String value) searchQuestion,
     required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +32,8 @@ mixin _$GetAllQuestionEvent {
     TResult? Function(Question question)? addNewQuestion,
     TResult? Function(String value)? searchQuestion,
     TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +42,8 @@ mixin _$GetAllQuestionEvent {
     TResult Function(Question question)? addNewQuestion,
     TResult Function(String value)? searchQuestion,
     TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +53,8 @@ mixin _$GetAllQuestionEvent {
     required TResult Function(_AddNewQuestion value) addNewQuestion,
     required TResult Function(_SearchQuestion value) searchQuestion,
     required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +63,8 @@ mixin _$GetAllQuestionEvent {
     TResult? Function(_AddNewQuestion value)? addNewQuestion,
     TResult? Function(_SearchQuestion value)? searchQuestion,
     TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +73,8 @@ mixin _$GetAllQuestionEvent {
     TResult Function(_AddNewQuestion value)? addNewQuestion,
     TResult Function(_SearchQuestion value)? searchQuestion,
     TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,6 +140,8 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
     required TResult Function(Question question) addNewQuestion,
     required TResult Function(String value) searchQuestion,
     required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
   }) {
     return getAllQuestions();
   }
@@ -139,6 +153,8 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
     TResult? Function(Question question)? addNewQuestion,
     TResult? Function(String value)? searchQuestion,
     TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
   }) {
     return getAllQuestions?.call();
   }
@@ -150,6 +166,8 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
     TResult Function(Question question)? addNewQuestion,
     TResult Function(String value)? searchQuestion,
     TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
     required TResult orElse(),
   }) {
     if (getAllQuestions != null) {
@@ -165,6 +183,8 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
     required TResult Function(_AddNewQuestion value) addNewQuestion,
     required TResult Function(_SearchQuestion value) searchQuestion,
     required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
   }) {
     return getAllQuestions(this);
   }
@@ -176,6 +196,8 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
     TResult? Function(_AddNewQuestion value)? addNewQuestion,
     TResult? Function(_SearchQuestion value)? searchQuestion,
     TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
   }) {
     return getAllQuestions?.call(this);
   }
@@ -187,6 +209,8 @@ class _$GetAllQuestionsImpl implements _GetAllQuestions {
     TResult Function(_AddNewQuestion value)? addNewQuestion,
     TResult Function(_SearchQuestion value)? searchQuestion,
     TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
     required TResult orElse(),
   }) {
     if (getAllQuestions != null) {
@@ -280,6 +304,8 @@ class _$AddNewQuestionImpl implements _AddNewQuestion {
     required TResult Function(Question question) addNewQuestion,
     required TResult Function(String value) searchQuestion,
     required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
   }) {
     return addNewQuestion(question);
   }
@@ -291,6 +317,8 @@ class _$AddNewQuestionImpl implements _AddNewQuestion {
     TResult? Function(Question question)? addNewQuestion,
     TResult? Function(String value)? searchQuestion,
     TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
   }) {
     return addNewQuestion?.call(question);
   }
@@ -302,6 +330,8 @@ class _$AddNewQuestionImpl implements _AddNewQuestion {
     TResult Function(Question question)? addNewQuestion,
     TResult Function(String value)? searchQuestion,
     TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
     required TResult orElse(),
   }) {
     if (addNewQuestion != null) {
@@ -317,6 +347,8 @@ class _$AddNewQuestionImpl implements _AddNewQuestion {
     required TResult Function(_AddNewQuestion value) addNewQuestion,
     required TResult Function(_SearchQuestion value) searchQuestion,
     required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
   }) {
     return addNewQuestion(this);
   }
@@ -328,6 +360,8 @@ class _$AddNewQuestionImpl implements _AddNewQuestion {
     TResult? Function(_AddNewQuestion value)? addNewQuestion,
     TResult? Function(_SearchQuestion value)? searchQuestion,
     TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
   }) {
     return addNewQuestion?.call(this);
   }
@@ -339,6 +373,8 @@ class _$AddNewQuestionImpl implements _AddNewQuestion {
     TResult Function(_AddNewQuestion value)? addNewQuestion,
     TResult Function(_SearchQuestion value)? searchQuestion,
     TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
     required TResult orElse(),
   }) {
     if (addNewQuestion != null) {
@@ -427,6 +463,8 @@ class _$SearchQuestionImpl implements _SearchQuestion {
     required TResult Function(Question question) addNewQuestion,
     required TResult Function(String value) searchQuestion,
     required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
   }) {
     return searchQuestion(value);
   }
@@ -438,6 +476,8 @@ class _$SearchQuestionImpl implements _SearchQuestion {
     TResult? Function(Question question)? addNewQuestion,
     TResult? Function(String value)? searchQuestion,
     TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
   }) {
     return searchQuestion?.call(value);
   }
@@ -449,6 +489,8 @@ class _$SearchQuestionImpl implements _SearchQuestion {
     TResult Function(Question question)? addNewQuestion,
     TResult Function(String value)? searchQuestion,
     TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
     required TResult orElse(),
   }) {
     if (searchQuestion != null) {
@@ -464,6 +506,8 @@ class _$SearchQuestionImpl implements _SearchQuestion {
     required TResult Function(_AddNewQuestion value) addNewQuestion,
     required TResult Function(_SearchQuestion value) searchQuestion,
     required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
   }) {
     return searchQuestion(this);
   }
@@ -475,6 +519,8 @@ class _$SearchQuestionImpl implements _SearchQuestion {
     TResult? Function(_AddNewQuestion value)? addNewQuestion,
     TResult? Function(_SearchQuestion value)? searchQuestion,
     TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
   }) {
     return searchQuestion?.call(this);
   }
@@ -486,6 +532,8 @@ class _$SearchQuestionImpl implements _SearchQuestion {
     TResult Function(_AddNewQuestion value)? addNewQuestion,
     TResult Function(_SearchQuestion value)? searchQuestion,
     TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
     required TResult orElse(),
   }) {
     if (searchQuestion != null) {
@@ -574,6 +622,8 @@ class _$FilterQuestionImpl implements _FilterQuestion {
     required TResult Function(Question question) addNewQuestion,
     required TResult Function(String value) searchQuestion,
     required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
   }) {
     return filterQuestion(title);
   }
@@ -585,6 +635,8 @@ class _$FilterQuestionImpl implements _FilterQuestion {
     TResult? Function(Question question)? addNewQuestion,
     TResult? Function(String value)? searchQuestion,
     TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
   }) {
     return filterQuestion?.call(title);
   }
@@ -596,6 +648,8 @@ class _$FilterQuestionImpl implements _FilterQuestion {
     TResult Function(Question question)? addNewQuestion,
     TResult Function(String value)? searchQuestion,
     TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
     required TResult orElse(),
   }) {
     if (filterQuestion != null) {
@@ -611,6 +665,8 @@ class _$FilterQuestionImpl implements _FilterQuestion {
     required TResult Function(_AddNewQuestion value) addNewQuestion,
     required TResult Function(_SearchQuestion value) searchQuestion,
     required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
   }) {
     return filterQuestion(this);
   }
@@ -622,6 +678,8 @@ class _$FilterQuestionImpl implements _FilterQuestion {
     TResult? Function(_AddNewQuestion value)? addNewQuestion,
     TResult? Function(_SearchQuestion value)? searchQuestion,
     TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
   }) {
     return filterQuestion?.call(this);
   }
@@ -633,6 +691,8 @@ class _$FilterQuestionImpl implements _FilterQuestion {
     TResult Function(_AddNewQuestion value)? addNewQuestion,
     TResult Function(_SearchQuestion value)? searchQuestion,
     TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
     required TResult orElse(),
   }) {
     if (filterQuestion != null) {
@@ -650,6 +710,258 @@ abstract class _FilterQuestion implements GetAllQuestionEvent {
   @JsonKey(ignore: true)
   _$$FilterQuestionImplCopyWith<_$FilterQuestionImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MyQuestionsImplCopyWith<$Res> {
+  factory _$$MyQuestionsImplCopyWith(
+          _$MyQuestionsImpl value, $Res Function(_$MyQuestionsImpl) then) =
+      __$$MyQuestionsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MyQuestionsImplCopyWithImpl<$Res>
+    extends _$GetAllQuestionEventCopyWithImpl<$Res, _$MyQuestionsImpl>
+    implements _$$MyQuestionsImplCopyWith<$Res> {
+  __$$MyQuestionsImplCopyWithImpl(
+      _$MyQuestionsImpl _value, $Res Function(_$MyQuestionsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MyQuestionsImpl implements _MyQuestions {
+  const _$MyQuestionsImpl();
+
+  @override
+  String toString() {
+    return 'GetAllQuestionEvent.myQuestions()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MyQuestionsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
+  }) {
+    return myQuestions();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
+  }) {
+    return myQuestions?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
+    required TResult orElse(),
+  }) {
+    if (myQuestions != null) {
+      return myQuestions();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
+  }) {
+    return myQuestions(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
+  }) {
+    return myQuestions?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
+    required TResult orElse(),
+  }) {
+    if (myQuestions != null) {
+      return myQuestions(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MyQuestions implements GetAllQuestionEvent {
+  const factory _MyQuestions() = _$MyQuestionsImpl;
+}
+
+/// @nodoc
+abstract class _$$MyAnswersImplCopyWith<$Res> {
+  factory _$$MyAnswersImplCopyWith(
+          _$MyAnswersImpl value, $Res Function(_$MyAnswersImpl) then) =
+      __$$MyAnswersImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MyAnswersImplCopyWithImpl<$Res>
+    extends _$GetAllQuestionEventCopyWithImpl<$Res, _$MyAnswersImpl>
+    implements _$$MyAnswersImplCopyWith<$Res> {
+  __$$MyAnswersImplCopyWithImpl(
+      _$MyAnswersImpl _value, $Res Function(_$MyAnswersImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MyAnswersImpl implements _MyAnswers {
+  const _$MyAnswersImpl();
+
+  @override
+  String toString() {
+    return 'GetAllQuestionEvent.myAnswers()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MyAnswersImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllQuestions,
+    required TResult Function(Question question) addNewQuestion,
+    required TResult Function(String value) searchQuestion,
+    required TResult Function(String title) filterQuestion,
+    required TResult Function() myQuestions,
+    required TResult Function() myAnswers,
+  }) {
+    return myAnswers();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllQuestions,
+    TResult? Function(Question question)? addNewQuestion,
+    TResult? Function(String value)? searchQuestion,
+    TResult? Function(String title)? filterQuestion,
+    TResult? Function()? myQuestions,
+    TResult? Function()? myAnswers,
+  }) {
+    return myAnswers?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllQuestions,
+    TResult Function(Question question)? addNewQuestion,
+    TResult Function(String value)? searchQuestion,
+    TResult Function(String title)? filterQuestion,
+    TResult Function()? myQuestions,
+    TResult Function()? myAnswers,
+    required TResult orElse(),
+  }) {
+    if (myAnswers != null) {
+      return myAnswers();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllQuestions value) getAllQuestions,
+    required TResult Function(_AddNewQuestion value) addNewQuestion,
+    required TResult Function(_SearchQuestion value) searchQuestion,
+    required TResult Function(_FilterQuestion value) filterQuestion,
+    required TResult Function(_MyQuestions value) myQuestions,
+    required TResult Function(_MyAnswers value) myAnswers,
+  }) {
+    return myAnswers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllQuestions value)? getAllQuestions,
+    TResult? Function(_AddNewQuestion value)? addNewQuestion,
+    TResult? Function(_SearchQuestion value)? searchQuestion,
+    TResult? Function(_FilterQuestion value)? filterQuestion,
+    TResult? Function(_MyQuestions value)? myQuestions,
+    TResult? Function(_MyAnswers value)? myAnswers,
+  }) {
+    return myAnswers?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllQuestions value)? getAllQuestions,
+    TResult Function(_AddNewQuestion value)? addNewQuestion,
+    TResult Function(_SearchQuestion value)? searchQuestion,
+    TResult Function(_FilterQuestion value)? filterQuestion,
+    TResult Function(_MyQuestions value)? myQuestions,
+    TResult Function(_MyAnswers value)? myAnswers,
+    required TResult orElse(),
+  }) {
+    if (myAnswers != null) {
+      return myAnswers(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MyAnswers implements GetAllQuestionEvent {
+  const factory _MyAnswers() = _$MyAnswersImpl;
 }
 
 /// @nodoc

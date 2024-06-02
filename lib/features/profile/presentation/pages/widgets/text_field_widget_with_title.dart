@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
 class TextFieldWidgetWithTitle extends StatelessWidget {
@@ -18,11 +19,11 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
     this.prefixIcon,
     this.filled = true,
     this.contentPadding =
-        const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+        const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
     this.maxLines = 1,
     this.controller,
     this.readOnly = false, 
-    this.onPressed,
+    this.onPressed, this.raduis,
   });
 
   final int? maxLines;
@@ -37,20 +38,18 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
   final TextEditingController? controller;
   final bool? readOnly;
   final Function()? onPressed;
-
+  final double? raduis;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
-            title,
-            style: titleStyle,
-          ),
+        Text(
+          title,
+          style: titleStyle,
         ),
+        SizedBox(height: 10.h),
         GestureDetector(
           onTap: onPressed,
           child: TextField(
@@ -69,7 +68,7 @@ class TextFieldWidgetWithTitle extends StatelessWidget {
               suffixIcon: suffixIcon,
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(raduis ?? 16),
               ),
             ),
           ),

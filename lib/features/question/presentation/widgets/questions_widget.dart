@@ -17,13 +17,13 @@ class QuestionsWidget extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: AppColors.lightGrey,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: const EdgeInsets.all(10),
           child: Text(
             wrapText,
-            style: AppStyles.w400f14.copyWith(
+            style: AppStyles.w400f16.copyWith(
               color: AppColors.darkGrey,
             ),
           ),

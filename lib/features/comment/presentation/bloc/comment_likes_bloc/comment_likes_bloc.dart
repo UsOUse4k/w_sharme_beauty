@@ -12,33 +12,28 @@ class CommentLikesBloc extends Bloc<CommentLikesEvent, CommentLikesState> {
   CommentLikesBloc(
     this._commentRepository,
   ) : super(const CommentLikesState.initial()) {
-    on<CommentLikesEvent>((event, emit) async {
-      await event.maybeWhen(
-        likeComment: (commentId, subCommentId, postId, isLiked) async {
-          emit(const CommentLikesState.loading());
-          try {
-            if (subCommentId != null && subCommentId.isNotEmpty) {
-              await _commentRepository.updateLikes(
-                postId: postId.toString(),
-                commentId: commentId.toString(),
-                isLike: isLiked,
-                subCommentId: subCommentId,
-              );
-              emit(const CommentLikesState.success());
-            } else {
-              await _commentRepository.updateLikes(
-                postId: postId.toString(),
-                commentId: commentId.toString(),
-                isLike: isLiked,
-              );
-              emit(const CommentLikesState.success());
-            }
-          } catch (e) {
-            emit(const CommentLikesState.error());
-          }
-        },
-        orElse: () {},
-      );
+    on<_LikeComment>((event, emit) async {
+      emit(const CommentLikesState.loading());
+      try {
+        if (event.subCommentId != null && event.subCommentId!.isNotEmpty) {
+          await _commentRepository.updateLikes(
+            postId: event.postId.toString(),
+            commentId: event.commentId.toString(),
+            isLike: event.isLiked,
+            subCommentId: event.subCommentId,
+          );
+          emit(const CommentLikesState.success());
+        } else {
+          await _commentRepository.updateLikes(
+            postId: event.postId.toString(),
+            commentId: event.commentId.toString(),
+            isLike: event.isLiked,
+          );
+          emit(const CommentLikesState.success());
+        }
+      } catch (e) {
+        emit(const CommentLikesState.error());
+      }
     });
   }
   final ICommentRepository _commentRepository;

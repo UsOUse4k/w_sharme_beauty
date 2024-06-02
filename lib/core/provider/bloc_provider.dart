@@ -62,7 +62,13 @@ import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/update_new_email_bloc/update_new_email_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/create_question_comment_bloc/create_question_comment_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/create_question_reply_comment_bloc/create_question_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_comments_bloc/get_all_question_comments_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/get_question_bloc/get_question_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/question_comment_like_bloc/question_comment_like_bloc.dart';
+import 'package:w_sharme_beauty/features/question/presentation/bloc/question_get_all_reply_comment_bloc/question_get_all_reply_comment_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
   const BlocProviders({
@@ -269,6 +275,24 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<CommunityCategoryBloc>(
           create: (context) => getIt<CommunityCategoryBloc>(),
+        ),
+        BlocProvider<GetQuestionBloc>(
+          create: (context) => getIt<GetQuestionBloc>(),
+        ),
+        BlocProvider<CreateQuestionCommentBloc>(
+          create: (context) => getIt<CreateQuestionCommentBloc>(),
+        ),
+        BlocProvider<GetAllQuestionCommentsBloc>(
+          create: (context) => getIt<GetAllQuestionCommentsBloc>(),
+        ),
+        BlocProvider<CreateQuestionReplyCommentBloc>(
+          create: (context) => getIt<CreateQuestionReplyCommentBloc>(),
+        ),
+        BlocProvider<QuestionGetAllReplyCommentBloc>(
+          create: (context) => getIt<QuestionGetAllReplyCommentBloc>(),
+        ),
+        BlocProvider<QuestionCommentLikeBloc>(
+          create: (context) => getIt<QuestionCommentLikeBloc>(),
         ),
       ],
       child: child,

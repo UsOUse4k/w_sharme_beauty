@@ -17,25 +17,26 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CommunityCreatePostEvent {
   Post get post => throw _privateConstructorUsedError;
-  List<Uint8List> get imageFiles => throw _privateConstructorUsedError;
+  List<Uint8List>? get imageFiles => throw _privateConstructorUsedError;
   String get communityId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            Post post, List<Uint8List> imageFiles, String communityId)
+            Post post, List<Uint8List>? imageFiles, String communityId)
         createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            Post post, List<Uint8List> imageFiles, String communityId)?
+            Post post, List<Uint8List>? imageFiles, String communityId)?
         createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Post post, List<Uint8List> imageFiles, String communityId)?
+    TResult Function(
+            Post post, List<Uint8List>? imageFiles, String communityId)?
         createPost,
     required TResult orElse(),
   }) =>
@@ -68,7 +69,7 @@ abstract class $CommunityCreatePostEventCopyWith<$Res> {
           $Res Function(CommunityCreatePostEvent) then) =
       _$CommunityCreatePostEventCopyWithImpl<$Res, CommunityCreatePostEvent>;
   @useResult
-  $Res call({Post post, List<Uint8List> imageFiles, String communityId});
+  $Res call({Post post, List<Uint8List>? imageFiles, String communityId});
 
   $PostCopyWith<$Res> get post;
 }
@@ -88,7 +89,7 @@ class _$CommunityCreatePostEventCopyWithImpl<$Res,
   @override
   $Res call({
     Object? post = null,
-    Object? imageFiles = null,
+    Object? imageFiles = freezed,
     Object? communityId = null,
   }) {
     return _then(_value.copyWith(
@@ -96,10 +97,10 @@ class _$CommunityCreatePostEventCopyWithImpl<$Res,
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as Post,
-      imageFiles: null == imageFiles
+      imageFiles: freezed == imageFiles
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
-              as List<Uint8List>,
+              as List<Uint8List>?,
       communityId: null == communityId
           ? _value.communityId
           : communityId // ignore: cast_nullable_to_non_nullable
@@ -124,7 +125,7 @@ abstract class _$$CreatePostImplCopyWith<$Res>
       __$$CreatePostImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Post post, List<Uint8List> imageFiles, String communityId});
+  $Res call({Post post, List<Uint8List>? imageFiles, String communityId});
 
   @override
   $PostCopyWith<$Res> get post;
@@ -142,7 +143,7 @@ class __$$CreatePostImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? post = null,
-    Object? imageFiles = null,
+    Object? imageFiles = freezed,
     Object? communityId = null,
   }) {
     return _then(_$CreatePostImpl(
@@ -150,10 +151,10 @@ class __$$CreatePostImplCopyWithImpl<$Res>
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as Post,
-      null == imageFiles
+      imageFiles: freezed == imageFiles
           ? _value._imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
-              as List<Uint8List>,
+              as List<Uint8List>?,
       communityId: null == communityId
           ? _value.communityId
           : communityId // ignore: cast_nullable_to_non_nullable
@@ -165,18 +166,20 @@ class __$$CreatePostImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreatePostImpl implements _CreatePost {
-  const _$CreatePostImpl(this.post, final List<Uint8List> imageFiles,
-      {required this.communityId})
+  const _$CreatePostImpl(this.post,
+      {final List<Uint8List>? imageFiles, required this.communityId})
       : _imageFiles = imageFiles;
 
   @override
   final Post post;
-  final List<Uint8List> _imageFiles;
+  final List<Uint8List>? _imageFiles;
   @override
-  List<Uint8List> get imageFiles {
+  List<Uint8List>? get imageFiles {
+    final value = _imageFiles;
+    if (value == null) return null;
     if (_imageFiles is EqualUnmodifiableListView) return _imageFiles;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageFiles);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -213,7 +216,7 @@ class _$CreatePostImpl implements _CreatePost {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            Post post, List<Uint8List> imageFiles, String communityId)
+            Post post, List<Uint8List>? imageFiles, String communityId)
         createPost,
   }) {
     return createPost(post, imageFiles, communityId);
@@ -223,7 +226,7 @@ class _$CreatePostImpl implements _CreatePost {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            Post post, List<Uint8List> imageFiles, String communityId)?
+            Post post, List<Uint8List>? imageFiles, String communityId)?
         createPost,
   }) {
     return createPost?.call(post, imageFiles, communityId);
@@ -232,7 +235,8 @@ class _$CreatePostImpl implements _CreatePost {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Post post, List<Uint8List> imageFiles, String communityId)?
+    TResult Function(
+            Post post, List<Uint8List>? imageFiles, String communityId)?
         createPost,
     required TResult orElse(),
   }) {
@@ -272,13 +276,14 @@ class _$CreatePostImpl implements _CreatePost {
 }
 
 abstract class _CreatePost implements CommunityCreatePostEvent {
-  const factory _CreatePost(final Post post, final List<Uint8List> imageFiles,
-      {required final String communityId}) = _$CreatePostImpl;
+  const factory _CreatePost(final Post post,
+      {final List<Uint8List>? imageFiles,
+      required final String communityId}) = _$CreatePostImpl;
 
   @override
   Post get post;
   @override
-  List<Uint8List> get imageFiles;
+  List<Uint8List>? get imageFiles;
   @override
   String get communityId;
   @override

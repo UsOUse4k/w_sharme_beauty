@@ -66,7 +66,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
   @override
   Widget build(BuildContext context) {
     final uid = firebaseAuth.currentUser!.uid;
-    return GlScaffold(
+    return Scaffold(
       appBar: GlAppBar(
         leading: GlIconButton(
           iconSize: 16,
@@ -93,6 +93,9 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                 context.read<PostUserListBloc>().add(
                       PostUserListEvent.getUserPosts(userId: widget.authorId),
                     );
+                context
+                    .read<CategoryBloc>()
+                    .add(const CategoryEvent.loadCategories());
                 setState(() {
                   isSubscribe = userData.followers!.contains(uid);
                 });
@@ -123,90 +126,92 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ProfileNavbarWidget(
-                                    avatar:
-                                        userData.profilePictureUrl.toString(),
-                                    publications: "${userData.publics}",
+                                    avatar: userData.profilePictureUrl.toString(),
+                                    publications: "${posts.length}",
                                     followers: "${userData.followers!.length}",
                                     subscriptions:
                                         "${userData.subscriptions!.length}",
                                   ),
-                                  const SizedBox(height: 16),
+                                  SizedBox(height: 16.h),
                                   Row(
                                     children: [
                                       Text(
                                         '${userData.username}',
                                         style: AppStyles.w500f18,
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                                      SizedBox(width: 10.w),
                                       Image.asset(Assets.icons.point.path),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                                      SizedBox(width: 10.w),
                                       Image.asset(
                                         Assets.icons.rating.path,
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 11),
+                                  SizedBox(height: 11.h),
                                   Row(
                                     children: [
                                       Image.asset(Assets.icons.location.path),
                                       const SizedBox(
                                         width: 10,
                                       ),
-                                      Text(
-                                        "${userData.city}",
-                                        style: AppStyles.w400f16,
-                                      ),
+                                      if (userData.city != '')
+                                        Text(
+                                          "${userData.city}",
+                                          style: AppStyles.w400f16,
+                                        ),
                                     ],
                                   ),
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(
-                                    '${userData.aboutYourself}',
-                                    style: AppStyles.w400f14,
-                                  ),
+                                  if (userData.aboutYourself != '')
+                                    Text(
+                                      '${userData.aboutYourself}',
+                                      style: AppStyles.w400f14,
+                                    ),
                                   const SizedBox(height: 16),
-                                  BlocBuilder<CategoryBloc, CategoryState>(
-                                    builder: (context, state) {
-                                      return state.maybeWhen(
-                                        loading: () {
-                                          return SizedBox(
-                                            height: 100.h,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const BouncingScrollPhysics(),
-                                              itemBuilder: (context, index) =>
-                                                  const CategoryShimmer(),
-                                              itemCount: 5,
-                                            ),
-                                          );
-                                        },
-                                        success: (categories) {
-                                          final filterCategories = categories
-                                              .where(
-                                                (element) => userData.category!
-                                                    .contains(element.title),
-                                              )
-                                              .toList();
-                                          return CategoryList(
-                                            category: filterCategories,
-                                            onFilterCategories: (value) {
-                                              context
-                                                  .read<PostUserListBloc>()
-                                                  .add(PostUserListEvent.filterPost(value: value.toString()));
-                                            },
-                                          );
-                                        },
-                                        orElse: () => Container(),
-                                      );
-                                    },
-                                  ),
-                                  const SizedBox(height: 16),
+                                  if (posts.isNotEmpty)
+                                    BlocBuilder<CategoryBloc, CategoryState>(
+                                      builder: (context, state) {
+                                        return state.maybeWhen(
+                                          loading: () {
+                                            return SizedBox(
+                                              height: 100.h,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                itemBuilder: (context, index) =>
+                                                    const CategoryShimmer(),
+                                                itemCount: 5,
+                                              ),
+                                            );
+                                          },
+                                          success: (categories) {
+                                            final filter = categories
+                                                .where(
+                                                  (e) => userData.category!
+                                                      .contains(e.title),
+                                                )
+                                                .toList();
+                                            return CategoryList(
+                                              category: filter,
+                                              onFilterCategories: (value) {
+                                                context
+                                                    .read<PostUserListBloc>()
+                                                    .add(
+                                                      PostUserListEvent
+                                                          .filterPost(
+                                                        value: value.toString(),
+                                                      ),
+                                                    );
+                                              },
+                                            );
+                                          },
+                                          orElse: () => Container(),
+                                        );
+                                      },
+                                    ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -234,12 +239,16 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                 ],
                               ),
                             ),
+                            SizedBox(height: 15.h),
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               itemCount: posts.length,
                               itemBuilder: (context, index) {
                                 return PostCard(
+                                  onPressedDetailPage: () {
+                                    context.push('/home/profilePersonPage/${posts[index].authorId}/post/${posts[index].postId}');
+                                  },
                                   onPressed: () {},
                                   post: posts[index],
                                 );

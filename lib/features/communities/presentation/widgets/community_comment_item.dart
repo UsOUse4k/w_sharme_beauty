@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
@@ -11,7 +12,6 @@ import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_sh
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_likes_bloc/community_comment_likes_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_detail_bloc/community_post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_reply_comment_lidt_bloc/community_reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 
@@ -110,21 +110,15 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
                 repliesVisibility[comment.parentCommentId!] = true;
               });
               getRepliesComment(comment.parentCommentId!);
+              context.read<CommunityReplyCommentListBloc>().add(
+                    CommunityReplyCommentListEvent.addNewCommunityComments(
+                      comment,
+                    ),
+                  );
+              context
+                  .read<ParentCommentIdBloc>()
+                  .add(const ParentCommentIdEvent.addParentCommentId('', ''));
             }
-            context.read<CommunityReplyCommentListBloc>().add(
-                  CommunityReplyCommentListEvent.addNewCommunityComments(
-                    comment,
-                  ),
-                );
-            context.read<CommunityPostDetailBloc>().add(
-                  CommunityPostDetailEvent.getPost(
-                    communityId: widget.communityId,
-                    postId: widget.postId,
-                  ),
-                );
-            context
-                .read<ParentCommentIdBloc>()
-                .add(const ParentCommentIdEvent.addParentCommentId('', ''));
           },
           orElse: () {},
         );
@@ -138,8 +132,11 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
               Flexible(
                 child: InkWell(
                   onTap: () {
-                    //context.push(
-                    //    '/home/${RouterContants.profilePersonPage}/${widget.item.uid}',);
+                    if (firebaseAuth.currentUser!.uid != widget.item.uid) {
+                      context.push(
+                        '/communities/community-profile/${widget.communityId}/community-detail/${widget.communityId}/${widget.postId}/profilePersonPage/${widget.item.uid}',
+                      );
+                    }
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
@@ -177,6 +174,32 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
               ),
             ],
           ),
+          if (widget.item.replies != 0)
+            Padding(
+              padding: const EdgeInsets.only(left: 50, top: 25),
+              child: InkWell(
+                onTap: () =>
+                    toggleRepliesVisibility(widget.item.commentId.toString()),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 2,
+                      decoration: const BoxDecoration(
+                        color: AppColors.lightGrey,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      repliesVisibility[widget.item.commentId.toString()] ??
+                              false
+                          ? 'Скрыть ответы'
+                          : 'Смотреть  ${widget.item.replies} ответов',
+                    ),
+                  ],
+                ),
+              ),
+            ),
           if (repliesVisibility[widget.item.commentId.toString()] ?? false)
             BlocBuilder<CommunityReplyCommentListBloc,
                 CommunityReplyCommentListState>(
@@ -223,32 +246,7 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
               },
             ),
           //if (widget.item)
-          if (widget.item.replies != 0)
-            Padding(
-              padding: const EdgeInsets.only(left: 50, top: 25),
-              child: InkWell(
-                onTap: () =>
-                    toggleRepliesVisibility(widget.item.commentId.toString()),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 2,
-                      decoration: const BoxDecoration(
-                        color: AppColors.lightGrey,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      repliesVisibility[widget.item.commentId.toString()] ??
-                              false
-                          ? 'Скрыть ответы'
-                          : 'Смотреть  ${widget.item.replies} ответов',
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
           const SizedBox(height: 8),
         ],
       ),

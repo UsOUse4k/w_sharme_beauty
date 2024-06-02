@@ -9,10 +9,9 @@ import 'package:w_sharme_beauty/features/comment/domain/entities/parent_id.dart'
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/add_reply_comment/add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/comment_create_bloc/comment_create_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_add_reply_comment_bloc/community_add_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_comment_create_bloc/community_comment_create_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/question/presentation/widgets/username_reply_comment_widget.dart';
 
 class CommentBottomSheet extends StatefulWidget {
   const CommentBottomSheet({
@@ -88,19 +87,19 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   ),
                 ),
               ),
-              if (widget.communityId == null)
-                CommentList(
-                  postId: widget.postId,
-                )
-              else
-                CommunityCommentList(
-                  postId: widget.postId,
-                  communityId: widget.communityId.toString(),
-                ),
+              //if (widget.communityId == null)
+              //  //CommentList(
+              //  //  postId: widget.postId,
+              //  //)
+              //else
+              //  CommunityCommentList(
+              //    postId: widget.postId,
+              //    communityId: widget.communityId.toString(),
+              //  ),
               BlocBuilder<ParentCommentIdBloc, ParentIdUsername?>(
                 builder: (context, state) {
                   if (state != null && state.username != '') {
-                    commentController.text = state.username.toString();
+                    commentController.text = "${state.username} -> ";
                   }
                   return Padding(
                     padding: EdgeInsets.only(
@@ -109,35 +108,9 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                     child: Column(
                       children: [
                         if (state != null && state.id != '')
-                          Container(
-                            height: 50,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18,
-                              vertical: 5,
-                            ),
-                            decoration: const BoxDecoration(
-                              color: AppColors.lightGrey,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(state.username.toString()),
-                                GestureDetector(
-                                  onTap: () {
-                                    commentController.clear();
-                                    context.read<ParentCommentIdBloc>().add(
-                                          const ParentCommentIdEvent
-                                              .addParentCommentId('', ''),
-                                        );
-                                  },
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          UsernameReplyCommentWidget(
+                            username: state.username.toString(),
+                            controller: commentController,
                           ),
                         SizedBox(height: 5.h),
                         TextFieldSendMessageWidget(

@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_detail_bloc/community_post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
@@ -28,9 +26,12 @@ class CommunityPostCard extends StatefulWidget {
     required this.communityName,
     required this.avatarUrl,
     required this.communityId,
+    this.onPressedDetailPost,
   });
   final Post post;
   final Function()? onPressed;
+  final Function()? onPressedDetailPost;
+
   final int? index;
   final String? show;
   final bool? showButton;
@@ -81,7 +82,6 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
 
   @override
   Widget build(BuildContext context) {
-    //final postId = widget.post!.postId;
     return Container(
       margin: EdgeInsets.only(bottom: 16, top: widget.index == 0 ? 16 : 0),
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
@@ -103,24 +103,30 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
                   subTitle: widget.post.createdAt.toString(),
                 ),
               ),
-              if (firebaseAuth.currentUser!.uid == widget.post.authorId)
-                const Icon(Icons.more_horiz),
             ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            widget.post.text,
-            style: AppStyles.w400f16,
-          ),
-          if (widget.post.imageUrls.isNotEmpty) const SizedBox(height: 6),
-          if (widget.post.imageUrls.isNotEmpty)
-            SizedBox(
-              height: 394.h,
-              child: PostImage(
-                imageUrls: widget.post.imageUrls,
-              ),
+          SizedBox(height: 6.h),
+          GestureDetector(
+            onTap: widget.onPressedDetailPost,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.post.text,
+                  style: AppStyles.w400f16,
+                ),
+                if (widget.post.imageUrls.isNotEmpty) SizedBox(height: 6.h),
+                if (widget.post.imageUrls.isNotEmpty)
+                  SizedBox(
+                    height: 394.h,
+                    child: PostImage(
+                      imageUrls: widget.post.imageUrls,
+                    ),
+                  ),
+              ],
             ),
-          const SizedBox(height: 6),
+          ),
+          SizedBox(height: 6.h),
           Row(
             children: [
               PostIconsWidget(
@@ -130,28 +136,21 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
                     : Assets.svgs.like.svg(),
                 text: countLike.toString(),
               ),
-              const SizedBox(width: 6),
-              BlocBuilder<CommunityPostDetailBloc, CommunityPostDetailState>(
-                builder: (context, state) {
-                  return PostIconsWidget(
-                    onPessed: () {
-                      BottomSheetUtil.showAppBottomSheet(
-                        context,
-                        CommentBottomSheet(
-                          postId: widget.post.postId.toString(),
-                          communityId: widget.communityId,
-                        ),
-                      );
-                    },
-                    icon: Assets.svgs.comment.svg(),
-                    text: state.maybeWhen(
-                      orElse: () => widget.post.commentsCount.toString(),
-                      success: (post) => post.commentsCount.toString(),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 6),
+              SizedBox(height: 6.h),
+              if (widget.show != 'show')
+                BlocBuilder<CommunityPostDetailBloc, CommunityPostDetailState>(
+                  builder: (context, state) {
+                    return PostIconsWidget(
+                      onPessed: widget.onPressedDetailPost!,
+                      icon: Assets.svgs.comment.svg(),
+                      text: state.maybeWhen(
+                        orElse: () => widget.post.commentsCount.toString(),
+                        success: (post) => post.commentsCount.toString(),
+                      ),
+                    );
+                  },
+                ),
+              SizedBox(height: 6.h),
               PostIconsWidget(
                 onPessed: () {},
                 icon: Assets.svgs.share.svg(),

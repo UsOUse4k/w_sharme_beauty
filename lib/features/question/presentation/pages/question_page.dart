@@ -10,9 +10,9 @@ import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart'
 
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';
-import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/add_question_page.dart';
-import 'package:w_sharme_beauty/features/question/presentation/widgets/questions_list.dart';
-import 'package:w_sharme_beauty/features/question/presentation/widgets/questions_widget.dart';
+
+import 'package:w_sharme_beauty/features/question/presentation/pages/sub_pages/sub_pages.dart';
+import 'package:w_sharme_beauty/features/question/presentation/widgets/wigets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -35,8 +35,7 @@ class _QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
       appBar: GlAppBar(
         leading: Row(
           children: [
@@ -89,74 +88,81 @@ class _QuestionPageState extends State<QuestionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SearchWidget(
-              onChanged: (value) {
-                context
-                    .read<GetAllQuestionBloc>()
-                    .add(GetAllQuestionEvent.searchQuestion(value: value));
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                QuestionsWidget(
-                  wrapText: 'Мои вопросы',
-                  onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const MyQuestions.QuestionsPage(),
-                    //     ),
-                    //   );
-                  },
-                ),
-                QuestionsWidget(
-                  wrapText: 'Мои ответы',
-                  onTap: () {},
-                ),
-                QuestionsWidget(
-                  wrapText: 'Задать вопрос',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AddQuestionPage(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              decoration: const BoxDecoration(color: AppColors.white),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SearchWidget(
+                    onChanged: (value) {
+                      context.read<GetAllQuestionBloc>().add(
+                            GetAllQuestionEvent.searchQuestion(value: value),
+                          );
+                    },
+                  ),
+                  SizedBox(height: 15.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      QuestionsWidget(
+                        wrapText: 'Мои вопросы',
+                        onTap: () {
+                          context
+                              .read<GetAllQuestionBloc>()
+                              .add(const GetAllQuestionEvent.myQuestions());
+                        },
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Категории",
-              style: AppStyles.w400f14.copyWith(
-                color: AppColors.darkGrey,
+                      QuestionsWidget(
+                        wrapText: 'Мои ответы',
+                        onTap: () {
+                          context
+                              .read<GetAllQuestionBloc>()
+                              .add(const GetAllQuestionEvent.myAnswers());
+                        },
+                      ),
+                      QuestionsWidget(
+                        wrapText: 'Задать вопрос',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AddQuestionPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15.h),
+                  Text(
+                    "Категории",
+                    style: AppStyles.w500f18.copyWith(
+                      color: AppColors.darkGrey,
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  BlocBuilder<CategoryBloc, CategoryState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        success: (categories) {
+                          return CategoryList(
+                            category: categories,
+                            onFilterCategories: (value) {
+                              context.read<GetAllQuestionBloc>().add(
+                                    GetAllQuestionEvent.filterQuestion(
+                                      title: value.title!,
+                                    ),
+                                  );
+                            },
+                          );
+                        },
+                        orElse: () => Container(),
+                      );
+                    },
+                  ),
+                ],
               ),
-            ),
-            BlocBuilder<CategoryBloc, CategoryState>(
-              builder: (context, state) {
-                return state.maybeWhen(
-                  success: (categories) {
-                    return CategoryList(
-                      category: categories,
-                      onFilterCategories: (value) {
-                        context.read<GetAllQuestionBloc>().add(
-                              GetAllQuestionEvent.filterQuestion(
-                                title: value.title!,
-                              ),
-                            );
-                      },
-                    );
-                  },
-                  orElse: () => Container(),
-                );
-              },
             ),
             const SizedBox(
               height: 10,
@@ -164,7 +170,6 @@ class _QuestionPageState extends State<QuestionPage> {
             BlocBuilder<GetAllQuestionBloc, GetAllQuestionState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  loading: () => const SizedBox(),
                   success: (questions) {
                     return QuestionsList(questions: questions);
                   },

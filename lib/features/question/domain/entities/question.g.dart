@@ -20,6 +20,7 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      countOutput: json['countOutput'] as int? ?? 0,
       createdAt: const TimestampConverter().fromJson(json['createdAt']),
     );
 
@@ -34,5 +35,6 @@ Map<String, dynamic> _$$QuestionImplToJson(_$QuestionImpl instance) =>
       'avatarUrl': instance.avatarUrl,
       'imageUrl': instance.imageUrl,
       'answers': instance.answers,
+      'countOutput': instance.countOutput,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

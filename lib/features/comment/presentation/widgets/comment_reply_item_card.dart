@@ -73,6 +73,7 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
   Widget build(BuildContext context) {
     final Timestamp timestamp = widget.item.createdAt!;
     final String formattedDate = formatDateTime(timestamp);
+    final currentUid = firebaseAuth.currentUser!.uid;
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Column(
@@ -85,9 +86,11 @@ class _CommentItemReplyCardState extends State<CommentItemReplyCard> {
               Flexible(
                 child: InkWell(
                   onTap: () {
-                    context.push(
-                      '/home/${RouterContants.profilePersonPage}/${widget.item.uid}',
-                    );
+                    if (currentUid != widget.item.uid) {
+                      context.push(
+                        '/home/${RouterContants.profilePersonPage}/${widget.item.uid}',
+                      );
+                    }
                   },
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(

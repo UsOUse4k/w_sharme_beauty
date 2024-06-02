@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
@@ -19,8 +21,8 @@ class ChatParticipantsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: GlAppBar(
         leading: GlIconButton(
           iconSize: 16,
@@ -52,23 +54,26 @@ class ChatParticipantsPage extends StatelessWidget {
                       orElse: () {},
                     );
                   },
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 15),
-                      SearchWidget(
-                        onChanged: (value) {
-                          context
-                              .read<GetGroupBloc>()
-                              .add(GetGroupEvent.searchUsers(query: value));
-                        },
-                      ),
-                      Expanded(
-                        child: ParticipantsList(
-                          group: group,
-                          userProfiles: userProfiles,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15.h),
+                        SearchWidget(
+                          onChanged: (value) {
+                            context
+                                .read<GetGroupBloc>()
+                                .add(GetGroupEvent.searchUsers(query: value));
+                          },
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: ParticipantsList(
+                            group: group,
+                            userProfiles: userProfiles,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
+import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
 class ProfileSettingCardItemWidget extends StatelessWidget {
   final String text;
@@ -10,11 +12,8 @@ class ProfileSettingCardItemWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.title,
-    this.style = const TextStyle(
-      fontSize: 14,
-      color: AppColors.black,
-      fontWeight: FontWeight.w700,
-    ), required this.onPresed,
+    this.style,
+    required this.onPresed,
   });
 
   @override
@@ -33,6 +32,7 @@ class ProfileSettingCardItemWidget extends StatelessWidget {
                 ),
           ),
         ),
+        SizedBox(height: 6.h),
         GestureDetector(
           onTap: onPresed,
           child: Container(
@@ -45,7 +45,7 @@ class ProfileSettingCardItemWidget extends StatelessWidget {
               contentPadding: EdgeInsets.zero,
               title: Text(
                 title,
-                style: style,
+                style: style ?? AppStyles.w500f14,
               ),
               trailing: const Icon(
                 Icons.arrow_forward_ios,

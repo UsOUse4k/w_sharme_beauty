@@ -10,7 +10,6 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,23 +24,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
-    //preloadUserDetails();
-  }
-
-  void preloadUserDetails() {
-    final postBlocState = context.read<PostListBloc>().state;
-    postBlocState.maybeWhen(
-      success: (posts) {
-        for (final post in posts) {
-          if (post.authorId != null) {
-            context.read<UserDetailBloc>().add(
-                  UserDetailEvent.getUserDetail(userId: post.authorId!),
-                );
-          }
-        }
-      },
-      orElse: () {},
-    );
   }
 
   @override
@@ -88,14 +70,20 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 route.push('/home/${RouterContants.homeNotification}');
               },
-              child: Assets.icons.bell.image(width: 26.w, height: 26.h),
+              child: Assets.icons.bell.image(
+                width: 26.w,
+                height: 26.h,
+              ),
             ),
-            const SizedBox(width: 6),
+            SizedBox(width: 16.w),
             GestureDetector(
               onTap: () {
                 route.push('/home/${RouterContants.chat}');
               },
-              child: Assets.icons.chat.image(width: 26, height: 26),
+              child: Assets.icons.chat.image(
+                width: 26.w,
+                height: 26.h,
+              ),
             ),
           ],
         ),
@@ -123,6 +111,9 @@ class _HomePageState extends State<HomePage> {
                     return PostCard(
                       key: ValueKey(posts[index].authorId),
                       showButton: true,
+                      onPressedDetailPage: () {
+                        context.push('/home/post/${posts[index].postId}');
+                      },
                       onPressed: () {
                         if (posts[index].authorId != currentUid) {
                           context.push(

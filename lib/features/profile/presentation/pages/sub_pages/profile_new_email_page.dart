@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
@@ -24,8 +25,8 @@ class _ProfileNewEmailPageState extends State<ProfileNewEmailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GlScaffold(
-      horizontalPadding: 16,
+    return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: GlAppBar(
         leading: GlIconButton(
           iconSize: 16,
@@ -39,79 +40,82 @@ class _ProfileNewEmailPageState extends State<ProfileNewEmailPage> {
           textStyle: AppStyles.w500f18,
         ),
       ),
-      body: BlocConsumer<MyProfileInfoBloc, MyProfileInfoState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            succes: (user) {
-              emaiCtrl.text = user.email.toString();
-            },
-            orElse: () {},
-          );
-        },
-        builder: (context, state) {
-          return state.maybeWhen(
-            succes: (user) {
-              return BlocListener<UpdateNewEmailBloc, UpdateNewEmailState>(
-                listener: (context, state) {
-                  state.maybeWhen(
-                    error: (message) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(message)));
-                    },
-                    orElse: () {},
-                  );
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: AppColors.lightGrey,
-                      ),
-                      child: TextField(
-                        controller: emaiCtrl,
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          //constraints: const BoxConstraints(),
-                          isDense: true,
-                          filled: true,
-                          fillColor: AppColors.lightGrey,
-                          labelStyle: AppStyles.w500f18
-                              .copyWith(color: AppColors.darkGrey),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: BlocConsumer<MyProfileInfoBloc, MyProfileInfoState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              succes: (user) {
+                emaiCtrl.text = user.email.toString();
+              },
+              orElse: () {},
+            );
+          },
+          builder: (context, state) {
+            return state.maybeWhen(
+              succes: (user) {
+                return BlocListener<UpdateNewEmailBloc, UpdateNewEmailState>(
+                  listener: (context, state) {
+                    state.maybeWhen(
+                      error: (message) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(message)));
+                      },
+                      orElse: () {},
+                    );
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 40.h),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: AppColors.lightGrey,
+                        ),
+                        child: TextField(
+                          controller: emaiCtrl,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 10),
+                            labelText: 'Электронная почта',
+                            isDense: true,
+                            filled: true,
+                            fillColor: AppColors.lightGrey,
+                            labelStyle: AppStyles.w500f18
+                                .copyWith(color: AppColors.darkGrey),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const Spacer(),
-                    GlButton(
-                      text: 'Отправить',
-                      onPressed: () {
-                        if (emaiCtrl.text.isNotEmpty) {
-                          context.read<UpdateNewEmailBloc>().add(
-                                UpdateNewEmailEvent.updateNewEmail(
-                                  email: emaiCtrl.text,
-                                ),
-                              );
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              );
-            },
-            orElse: () => Container(),
-          );
-        },
+                      const Spacer(),
+                      GlButton(
+                        text: 'Отправить',
+                        onPressed: () {
+                          if (emaiCtrl.text.isNotEmpty) {
+                            context.read<UpdateNewEmailBloc>().add(
+                                  UpdateNewEmailEvent.updateNewEmail(
+                                    email: emaiCtrl.text,
+                                  ),
+                                );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                );
+              },
+              orElse: () => Container(),
+            );
+          },
+        ),
       ),
     );
   }

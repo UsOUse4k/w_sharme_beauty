@@ -106,7 +106,7 @@ class FirebaseCommentFacade implements ICommentRepository {
         .collection('comments')
         .doc(commentId);
     try {
-      if (subCommentId != null) {
+      if (subCommentId != null && subCommentId.isNotEmpty) {
         await reference.collection('replies').doc(subCommentId).update(
           {
             'likes': isLike
