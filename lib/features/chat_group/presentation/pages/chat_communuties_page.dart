@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
+import 'package:w_sharme_beauty/core/widgets/custom_container_padding_left.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
@@ -13,10 +14,11 @@ class ChatCommunitiesPage extends StatefulWidget {
 }
 
 class _ChatCommunitiesPageState extends State<ChatCommunitiesPage> {
-  
   @override
   void initState() {
-    context.read<CommunityListBloc>().add(const CommunityListEvent.getCommunities());
+    context
+        .read<CommunityListBloc>()
+        .add(const CommunityListEvent.getCommunities());
     super.initState();
   }
 
@@ -24,7 +26,7 @@ class _ChatCommunitiesPageState extends State<ChatCommunitiesPage> {
   Widget build(BuildContext context) {
     final currentUser = firebaseAuth.currentUser!.uid;
     return SafeArea(
-      child: CustomContainer(
+      child: CustomContainerPaddingLeft(
         marginTop: 15,
         marginBottom: 15,
         child: BlocBuilder<CommunityListBloc, CommunityListState>(
@@ -44,7 +46,8 @@ class _ChatCommunitiesPageState extends State<ChatCommunitiesPage> {
                     return community.chatGroupId != null
                         ? CardChatGroupWidget(
                             groupId: community.chatGroupId.toString(),
-                            communityId: community.communityId.toString(), community: community,
+                            communityId: community.communityId.toString(),
+                            community: community,
                           )
                         : const SizedBox.shrink();
                   },
