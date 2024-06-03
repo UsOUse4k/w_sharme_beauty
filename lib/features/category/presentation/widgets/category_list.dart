@@ -5,9 +5,10 @@ import 'package:w_sharme_beauty/features/category/domain/entities/category.dart'
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_item.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({super.key, required this.category, this.onFilterCategories});
+  const CategoryList(
+      {super.key, required this.category, this.onFilterCategories});
   final List<Category> category;
-  final Function(Category)? onFilterCategories;
+  final Function(Category?)? onFilterCategories;
 
   @override
   State<CategoryList> createState() => _CategoryListState();
@@ -30,17 +31,28 @@ class _CategoryListState extends State<CategoryList> {
             imageUrl: item.image.toString(),
             title: item.title.toString(),
             onPressed: () {
-              widget.onFilterCategories!(item);
-              setState(() {
-                selectedActiveIndex = index;
-              });
+              if (selectedActiveIndex == index) {
+                // Если текущий индекс уже выбран, сбрасываем его
+                widget.onFilterCategories?.call(null);
+                setState(() {
+                  selectedActiveIndex = null;
+                });
+              } else {
+                // Иначе, обновляем индекс активного элемента и вызываем callback
+                widget.onFilterCategories?.call(item);
+                setState(() {
+                  selectedActiveIndex = index;
+                });
+              }
             },
             color: selectedActiveIndex == index
                 ? AppColors.purple
                 : AppColors.black,
           );
         },
-        separatorBuilder: (context, index) => SizedBox(width: 15.w,),
+        separatorBuilder: (context, index) => SizedBox(
+          width: 15.w,
+        ),
       ),
     );
   }

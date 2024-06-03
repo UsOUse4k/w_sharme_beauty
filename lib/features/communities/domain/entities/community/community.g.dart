@@ -35,6 +35,11 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
       public: json['public'] as int? ?? 0,
       isFavorite: json['isFavorite'] as bool? ?? false,
       createdAt: json['createdAt'] as String? ?? "",
+      lastMessageTs: const TimestampConverter().fromJson(json['lastMessageTs']),
+      messageCount: json['messageCount'] as int? ?? 0,
+      lastMessage: json['lastMessage'] as String? ?? "",
+      lastSenderId: json['lastSenderId'] as String? ?? "",
+      seen: json['seen'] as bool?,
     );
 
 Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
@@ -54,4 +59,10 @@ Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
       'public': instance.public,
       'isFavorite': instance.isFavorite,
       'createdAt': instance.createdAt,
+      'lastMessageTs':
+          const TimestampConverter().toJson(instance.lastMessageTs),
+      'messageCount': instance.messageCount,
+      'lastMessage': instance.lastMessage,
+      'lastSenderId': instance.lastSenderId,
+      'seen': instance.seen,
     };

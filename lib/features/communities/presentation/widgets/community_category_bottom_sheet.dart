@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
@@ -44,46 +45,61 @@ class CommunityCategoryBottomSheet extends StatelessWidget {
                       widget: BlocBuilder<CommunityCategoryBloc,
                           CommunityCategoryState>(
                         builder: (context, state) {
-                          return ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                SizedBox(height: 10.h),
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: categoryTitle.length,
-                            itemBuilder: (context, index) {
-                              final bool isSelected = state.selectedTitle
-                                  .contains(categoryTitle[index]);
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 18),
-                                child: Row(
-                                  key: ValueKey(categoryTitle[index]),
-                                  children: [
-                                    RoundCheckbox(
-                                      isChecked: isSelected,
-                                      onChanged: (bool? value) {
-                                        if (value != null) {
-                                          context
-                                              .read<CommunityCategoryBloc>()
-                                              .add(
-                                                CommunityCategoryEvent
-                                                    .toggleUserSelection(
-                                                  categoryTitle[index]
-                                                      .toString(),
-                                                ),
-                                              );
-                                        }
-                                      },
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListView.separated(
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(height: 10.h),
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: categoryTitle.length,
+                                itemBuilder: (context, index) {
+                                  final bool isSelected = state.selectedTitle
+                                      .contains(categoryTitle[index]);
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18),
+                                    child: Row(
+                                      key: ValueKey(categoryTitle[index]),
+                                      children: [
+                                        RoundCheckbox(
+                                          isChecked: isSelected,
+                                          onChanged: (bool? value) {
+                                            if (value != null) {
+                                              context
+                                                  .read<CommunityCategoryBloc>()
+                                                  .add(
+                                                    CommunityCategoryEvent
+                                                        .toggleUserSelection(
+                                                      categoryTitle[index]
+                                                          .toString(),
+                                                    ),
+                                                  );
+                                            }
+                                          },
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          categoryTitle[index].toString(),
+                                          style: AppStyles.w500f18,
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      categoryTitle[index].toString(),
-                                      style: AppStyles.w500f18,
-                                    ),
-                                  ],
+                                  );
+                                },
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 40),
+                                padding: const EdgeInsets.symmetric(horizontal: 18),
+                                child: GlButton(
+                                  onPressed: () {
+                                    context.pop();
+                                  },
+                                  text: 'Ок',
                                 ),
-                              );
-                            },
+                              )
+                            ],
                           );
                         },
                       ),
@@ -102,7 +118,8 @@ class CommunityCategoryBottomSheet extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BlocBuilder<CommunityCategoryBloc, CommunityCategoryState>(
+                      BlocBuilder<CommunityCategoryBloc,
+                          CommunityCategoryState>(
                         builder: (context, listState) {
                           return Flexible(
                             child: Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
@@ -24,8 +25,8 @@ class _ForTheUserButtonsWidgetState extends State<ForTheUserButtonsWidget> {
         GestureDetector(
           onTap: widget.onPressedSubscribe,
           child: Container(
-            height: 47,
-            width: 172,
+            height: 47.h,
+            width: 172.w,
             decoration: BoxDecoration(
               color: widget.isSubscribe ? Colors.white : AppColors.purple,
               borderRadius: BorderRadius.circular(10),
@@ -44,8 +45,8 @@ class _ForTheUserButtonsWidgetState extends State<ForTheUserButtonsWidget> {
         GestureDetector(
           onTap: widget.onPressed,
           child: Container(
-            height: 47,
-            width: 172,
+            height: 47.h,
+            width: 172.w,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),

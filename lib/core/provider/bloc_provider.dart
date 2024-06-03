@@ -59,6 +59,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/p
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/get_user_detail_bloc/get_user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/update_new_email_bloc/update_new_email_bloc.dart';
@@ -112,6 +113,9 @@ class BlocProviders extends StatelessWidget {
           create: (context) {
             return getIt<MyProfileInfoBloc>();
           },
+        ),
+        BlocProvider<GetUserDetailBloc>(
+          create: (context) => getIt<GetUserDetailBloc>(),
         ),
         BlocProvider<CommentCreateBloc>(
           create: (context) => getIt<CommentCreateBloc>(),

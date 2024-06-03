@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 
 class SubscriptionsUsersPage extends StatefulWidget {
@@ -83,11 +84,12 @@ class _SubscriptionsUsersPageState extends State<SubscriptionsUsersPage> {
                                   itemBuilder: (context, index) {
                                     return NotificationBookingCard(
                                       onPressed: () {
-                                        //context.push(
-                                        //    '/home/profilePersonPage/${filterUsers[index].uid}',);
-                                        //context.push(
-                                        //  '/home/profilePersonPage/${widget.userId}/subscriptions/${widget.userId}/profilePersonPage/${filterUsers[index].uid}',
-                                        //);
+                                        if (filterUsers[index].uid !=
+                                            firebaseAuth.currentUser!.uid) {
+                                          context.push(
+                                            '/profile/subscriptions/${widget.userId}/follower-subscribe-profile/${filterUsers[index].uid}',
+                                          );
+                                        }
                                       },
                                       user: filterUsers[index],
                                     );

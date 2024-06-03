@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -36,15 +35,15 @@ class _CardChatWidgetState extends State<CardChatWidget> {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
-    return GestureDetector(
-      onTap: () {
-        router.push(
-          '/home/chat/${RouterContants.chatMessages}/${widget.userId}',
-        );
-      },
-      child: Container(
-        height: 73.h,
-        margin: const EdgeInsets.only(bottom: 10),
+    return Container(
+      height: 73.h,
+      margin: const EdgeInsets.only(bottom: 10),
+      child: InkWell(
+        onTap: () {
+          router.push(
+            '/home/chat/${RouterContants.chatMessages}/${widget.userId}',
+          );
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,

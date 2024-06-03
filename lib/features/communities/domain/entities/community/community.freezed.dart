@@ -35,6 +35,12 @@ mixin _$Community {
   int? get public => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  Timestamp? get lastMessageTs => throw _privateConstructorUsedError;
+  int? get messageCount => throw _privateConstructorUsedError;
+  String? get lastMessage => throw _privateConstructorUsedError;
+  String? get lastSenderId => throw _privateConstructorUsedError;
+  bool? get seen => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,7 +68,12 @@ abstract class $CommunityCopyWith<$Res> {
       List<String>? participants,
       int? public,
       bool isFavorite,
-      String? createdAt});
+      String? createdAt,
+      @TimestampConverter() Timestamp? lastMessageTs,
+      int? messageCount,
+      String? lastMessage,
+      String? lastSenderId,
+      bool? seen});
 }
 
 /// @nodoc
@@ -93,6 +104,11 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? public = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
+    Object? lastMessageTs = freezed,
+    Object? messageCount = freezed,
+    Object? lastMessage = freezed,
+    Object? lastSenderId = freezed,
+    Object? seen = freezed,
   }) {
     return _then(_value.copyWith(
       communityId: freezed == communityId
@@ -155,6 +171,26 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastMessageTs: freezed == lastMessageTs
+          ? _value.lastMessageTs
+          : lastMessageTs // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
+      messageCount: freezed == messageCount
+          ? _value.messageCount
+          : messageCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastMessage: freezed == lastMessage
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastSenderId: freezed == lastSenderId
+          ? _value.lastSenderId
+          : lastSenderId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      seen: freezed == seen
+          ? _value.seen
+          : seen // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -182,7 +218,12 @@ abstract class _$$CommunityImplCopyWith<$Res>
       List<String>? participants,
       int? public,
       bool isFavorite,
-      String? createdAt});
+      String? createdAt,
+      @TimestampConverter() Timestamp? lastMessageTs,
+      int? messageCount,
+      String? lastMessage,
+      String? lastSenderId,
+      bool? seen});
 }
 
 /// @nodoc
@@ -211,6 +252,11 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? public = freezed,
     Object? isFavorite = null,
     Object? createdAt = freezed,
+    Object? lastMessageTs = freezed,
+    Object? messageCount = freezed,
+    Object? lastMessage = freezed,
+    Object? lastSenderId = freezed,
+    Object? seen = freezed,
   }) {
     return _then(_$CommunityImpl(
       communityId: freezed == communityId
@@ -273,6 +319,26 @@ class __$$CommunityImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      lastMessageTs: freezed == lastMessageTs
+          ? _value.lastMessageTs
+          : lastMessageTs // ignore: cast_nullable_to_non_nullable
+              as Timestamp?,
+      messageCount: freezed == messageCount
+          ? _value.messageCount
+          : messageCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastMessage: freezed == lastMessage
+          ? _value.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastSenderId: freezed == lastSenderId
+          ? _value.lastSenderId
+          : lastSenderId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      seen: freezed == seen
+          ? _value.seen
+          : seen // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -295,7 +361,12 @@ class _$CommunityImpl implements _Community {
       final List<String>? participants = const [],
       this.public = 0,
       this.isFavorite = false,
-      this.createdAt = ""})
+      this.createdAt = "",
+      @TimestampConverter() this.lastMessageTs,
+      this.messageCount = 0,
+      this.lastMessage = "",
+      this.lastSenderId = "",
+      this.seen})
       : _category = category,
         _administrator = administrator,
         _editors = editors,
@@ -375,10 +446,24 @@ class _$CommunityImpl implements _Community {
   @override
   @JsonKey()
   final String? createdAt;
+  @override
+  @TimestampConverter()
+  final Timestamp? lastMessageTs;
+  @override
+  @JsonKey()
+  final int? messageCount;
+  @override
+  @JsonKey()
+  final String? lastMessage;
+  @override
+  @JsonKey()
+  final String? lastSenderId;
+  @override
+  final bool? seen;
 
   @override
   String toString() {
-    return 'Community(communityId: $communityId, uid: $uid, chatGroupId: $chatGroupId, chatGroupName: $chatGroupName, communityName: $communityName, description: $description, category: $category, administrator: $administrator, editors: $editors, avatarUrls: $avatarUrls, chatImageUrl: $chatImageUrl, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Community(communityId: $communityId, uid: $uid, chatGroupId: $chatGroupId, chatGroupName: $chatGroupName, communityName: $communityName, description: $description, category: $category, administrator: $administrator, editors: $editors, avatarUrls: $avatarUrls, chatImageUrl: $chatImageUrl, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt, lastMessageTs: $lastMessageTs, messageCount: $messageCount, lastMessage: $lastMessage, lastSenderId: $lastSenderId, seen: $seen)';
   }
 
   @override
@@ -411,28 +496,43 @@ class _$CommunityImpl implements _Community {
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.lastMessageTs, lastMessageTs) ||
+                other.lastMessageTs == lastMessageTs) &&
+            (identical(other.messageCount, messageCount) ||
+                other.messageCount == messageCount) &&
+            (identical(other.lastMessage, lastMessage) ||
+                other.lastMessage == lastMessage) &&
+            (identical(other.lastSenderId, lastSenderId) ||
+                other.lastSenderId == lastSenderId) &&
+            (identical(other.seen, seen) || other.seen == seen));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      communityId,
-      uid,
-      chatGroupId,
-      chatGroupName,
-      communityName,
-      description,
-      const DeepCollectionEquality().hash(_category),
-      const DeepCollectionEquality().hash(_administrator),
-      const DeepCollectionEquality().hash(_editors),
-      avatarUrls,
-      chatImageUrl,
-      const DeepCollectionEquality().hash(_participants),
-      public,
-      isFavorite,
-      createdAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        communityId,
+        uid,
+        chatGroupId,
+        chatGroupName,
+        communityName,
+        description,
+        const DeepCollectionEquality().hash(_category),
+        const DeepCollectionEquality().hash(_administrator),
+        const DeepCollectionEquality().hash(_editors),
+        avatarUrls,
+        chatImageUrl,
+        const DeepCollectionEquality().hash(_participants),
+        public,
+        isFavorite,
+        createdAt,
+        lastMessageTs,
+        messageCount,
+        lastMessage,
+        lastSenderId,
+        seen
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -464,7 +564,12 @@ abstract class _Community implements Community {
       final List<String>? participants,
       final int? public,
       final bool isFavorite,
-      final String? createdAt}) = _$CommunityImpl;
+      final String? createdAt,
+      @TimestampConverter() final Timestamp? lastMessageTs,
+      final int? messageCount,
+      final String? lastMessage,
+      final String? lastSenderId,
+      final bool? seen}) = _$CommunityImpl;
 
   factory _Community.fromJson(Map<String, dynamic> json) =
       _$CommunityImpl.fromJson;
@@ -499,6 +604,17 @@ abstract class _Community implements Community {
   bool get isFavorite;
   @override
   String? get createdAt;
+  @override
+  @TimestampConverter()
+  Timestamp? get lastMessageTs;
+  @override
+  int? get messageCount;
+  @override
+  String? get lastMessage;
+  @override
+  String? get lastSenderId;
+  @override
+  bool? get seen;
   @override
   @JsonKey(ignore: true)
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>

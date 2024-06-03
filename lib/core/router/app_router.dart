@@ -23,6 +23,7 @@ import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/follower_subscribe_profile_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/followers_users_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_date_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/sub_pages/profile_phone_page.dart';
@@ -138,19 +139,6 @@ mixin AppRouter on State<App> {
                             userId: userId.toString(),
                           );
                         },
-                        //routes: [
-                        //  GoRoute(
-                        //    parentNavigatorKey: RouterKeys.rootKey,
-                        //    path:
-                        //        "${RouterContants.profilePersonPage}/:authorId",
-                        //    builder:
-                        //        (BuildContext context, GoRouterState state) {
-                        //      final authorId = state.pathParameters['authorId'];
-                        //      return ProfilePersonPage(
-                        //          authorId: authorId.toString(),);
-                        //    },
-                        //  ),
-                        //],
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
@@ -170,7 +158,8 @@ mixin AppRouter on State<App> {
                                 (BuildContext context, GoRouterState state) {
                               final authorId = state.pathParameters['authorId'];
                               return ProfilePersonPage(
-                                  authorId: authorId.toString(),);
+                                authorId: authorId.toString(),
+                              );
                             },
                           ),
                         ],
@@ -198,7 +187,8 @@ mixin AppRouter on State<App> {
                         builder: (BuildContext context, GoRouterState state) {
                           final authorId = state.pathParameters['authorId'];
                           return ProfilePersonPage(
-                              authorId: authorId.toString(),);
+                            authorId: authorId.toString(),
+                          );
                         },
                       ),
                     ],
@@ -224,7 +214,8 @@ mixin AppRouter on State<App> {
                                 (BuildContext context, GoRouterState state) {
                               final authorId = state.pathParameters['authorId'];
                               return ProfilePersonPage(
-                                  authorId: authorId.toString(),);
+                                authorId: authorId.toString(),
+                              );
                             },
                             routes: [
                               GoRoute(
@@ -429,7 +420,8 @@ mixin AppRouter on State<App> {
                         builder: (BuildContext context, GoRouterState state) {
                           final authorId = state.pathParameters['authorId'];
                           return ProfilePersonPage(
-                              authorId: authorId.toString(),);
+                            authorId: authorId.toString(),
+                          );
                         },
                         routes: [
                           GoRoute(
@@ -499,7 +491,8 @@ mixin AppRouter on State<App> {
                                 (BuildContext context, GoRouterState state) {
                               final userId = state.pathParameters['userId'];
                               return ProfilePersonPage(
-                                  authorId: userId.toString(),);
+                                authorId: userId.toString(),
+                              );
                             },
                             routes: [
                               GoRoute(
@@ -565,7 +558,8 @@ mixin AppRouter on State<App> {
                                 (BuildContext context, GoRouterState state) {
                               final userId = state.pathParameters['userId'];
                               return ProfilePersonPage(
-                                  authorId: userId.toString(),);
+                                authorId: userId.toString(),
+                              );
                             },
                             routes: [
                               GoRoute(
@@ -673,6 +667,18 @@ mixin AppRouter on State<App> {
                         communityId: communityId.toString(),
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'follower-subscribe-profile/:participantsUid',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final uid = state.pathParameters['participantsUid'];
+                          return FollowerSubscribeProfilePage(
+                            userId: uid.toString(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
@@ -709,10 +715,7 @@ mixin AppRouter on State<App> {
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: '${RouterContants.post}/:postId',
-                    builder: (
-                      BuildContext context,
-                      GoRouterState state,
-                    ) {
+                    builder: (BuildContext context, GoRouterState state) {
                       final postId = state.pathParameters['postId'];
                       return HomePostPage(
                         postId: postId,
@@ -728,16 +731,38 @@ mixin AppRouter on State<App> {
                         userId: userId.toString(),
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'follower-subscribe-profile/:subscriptionUid',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final uid = state.pathParameters['subscriptionUid'];
+                          return FollowerSubscribeProfilePage(
+                            userId: uid.toString(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
                     path: 'followers/:userId',
                     builder: (BuildContext context, GoRouterState state) {
                       final userId = state.pathParameters['userId'];
-                      return FollowersUsersPage(
-                        userId: userId.toString(),
-                      );
+                      return FollowersUsersPage(userId: userId.toString());
                     },
+                    routes: [
+                      GoRoute(
+                        parentNavigatorKey: RouterKeys.rootKey,
+                        path: 'follower-subscribe-profile/:followerUid',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final uid = state.pathParameters['followerUid'];
+                          return FollowerSubscribeProfilePage(
+                            userId: uid.toString(),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

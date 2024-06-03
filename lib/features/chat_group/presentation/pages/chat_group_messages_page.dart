@@ -18,6 +18,7 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/send_message_group_bloc/send_message_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/chat_group_input_model.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 
 class ChatGroupMessagesPage extends StatefulWidget {
   const ChatGroupMessagesPage({
@@ -188,47 +189,58 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
             );
           },
           builder: (context, state) {
-            return Column(
-              children: [
-                Expanded(
-                  flex: 70,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      top: 30,
-                      left: 18,
-                      right: 18,
-                    ),
-                    decoration: const BoxDecoration(color: AppColors.bgColors),
-                    child: state.maybeWhen(
-                      success: (messages) {
-                        return ChatMessageList(
-                          messages: messages,
-                          chatRoomId: '',
-                          typeMessages: 'group',
-                        );
-                      },
-                      orElse: () => Container(),
+            return BlocListener<SendMessageGroupBloc, SendMessageGroupState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  success: () {
+                    context.read<CommunityDetailBloc>().add(CommunityDetailEvent.loaded(widget.communityId));
+                  },
+                  orElse: () {},
+                );
+              },
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 70,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 30,
+                        left: 18,
+                        right: 18,
+                      ),
+                      decoration:
+                          const BoxDecoration(color: AppColors.bgColors),
+                      child: state.maybeWhen(
+                        success: (messages) {
+                          return ChatMessageList(
+                            messages: messages,
+                            chatRoomId: '',
+                            typeMessages: 'group',
+                          );
+                        },
+                        orElse: () => Container(),
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                TextFieldSendMessageWidget(
-                  onGallery: () => selectedImage(widget.groupId),
-                  controller: sendMessageCtrl,
-                  onPressed: () {
-                    if (sendMessageCtrl.text.isNotEmpty) {
-                      context.read<SendMessageGroupBloc>().add(
-                            SendMessageGroupEvent.sendMessage(
-                              groupId: widget.groupId,
-                              message: sendMessageCtrl.text,
-                              communityId: widget.communityId,
-                            ),
-                          );
-                      sendMessageCtrl.clear();
-                    }
-                  },
-                ),
-              ],
+                  const Spacer(),
+                  TextFieldSendMessageWidget(
+                    onGallery: () => selectedImage(widget.groupId),
+                    controller: sendMessageCtrl,
+                    onPressed: () {
+                      if (sendMessageCtrl.text.isNotEmpty) {
+                        context.read<SendMessageGroupBloc>().add(
+                              SendMessageGroupEvent.sendMessage(
+                                groupId: widget.groupId,
+                                message: sendMessageCtrl.text,
+                                communityId: widget.communityId,
+                              ),
+                            );
+                        sendMessageCtrl.clear();
+                      }
+                    },
+                  ),
+                ],
+              ),
             );
           },
         ),

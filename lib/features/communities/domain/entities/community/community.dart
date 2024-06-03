@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 
 part 'community.freezed.dart';
 part 'community.g.dart';
@@ -21,6 +23,11 @@ class Community with _$Community {
     @Default(0) int? public,
     @Default(false) bool isFavorite,
     @Default("") String? createdAt,
+    @TimestampConverter() Timestamp? lastMessageTs,
+    @Default(0) int? messageCount,
+    @Default("") String? lastMessage,
+    @Default("") String? lastSenderId,
+    bool? seen,
   }) = _Community;
 
   factory Community.fromJson(Map<String, dynamic> json) =>
@@ -47,9 +54,14 @@ class Community with _$Community {
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
       createdAt: firestoreData['createdAt'] as String?,
       chatGroupId: firestoreData['chatGroupId'] as String?,
+      messageCount: firestoreData['messageCount'] as int?,
+      lastMessage: firestoreData['lastMessage'] as String?,
       chatGroupName: firestoreData['chatGroupName'] as String?,
       chatImageUrl: firestoreData['chatImageUrl'] as String?,
       public: firestoreData['public'] as int?,
+      seen: firestoreData['seen'] as bool?,
+      lastMessageTs: firestoreData['lastMessageTs'] as Timestamp?,
+      lastSenderId: firestoreData['lastSenderId'] as String?,
     );
   }
 }

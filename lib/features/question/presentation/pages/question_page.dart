@@ -149,11 +149,15 @@ class _QuestionPageState extends State<QuestionPage> {
                           return CategoryList(
                             category: categories,
                             onFilterCategories: (value) {
-                              context.read<GetAllQuestionBloc>().add(
+                              if(value != null) {
+                                context.read<GetAllQuestionBloc>().add(
                                     GetAllQuestionEvent.filterQuestion(
                                       title: value.title!,
                                     ),
                                   );
+                              } else {
+                                context.read<GetAllQuestionBloc>().add(const GetAllQuestionEvent.getAllQuestions());
+                              }
                             },
                           );
                         },

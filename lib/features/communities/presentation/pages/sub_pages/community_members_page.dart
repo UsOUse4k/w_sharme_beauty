@@ -10,6 +10,7 @@ import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bl
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 class CommunityMembersPage extends StatelessWidget {
   const CommunityMembersPage({super.key, required this.communityId});
@@ -68,6 +69,14 @@ class CommunityMembersPage extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     return NotificationBookingCard(
                                       user: filterUsers[index],
+                                      onPressed: () {
+                                        if (filterUsers[index].uid !=
+                                            firebaseAuth.currentUser!.uid) {
+                                          context.push(
+                                            '/communities/community-members/$communityId/follower-subscribe-profile/${filterUsers[index].uid}',
+                                          );
+                                        }
+                                      },
                                     );
                                   },
                                   separatorBuilder: (context, index) =>

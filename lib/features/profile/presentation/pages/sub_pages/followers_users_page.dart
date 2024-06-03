@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
 
 class FollowersUsersPage extends StatefulWidget {
@@ -64,13 +65,10 @@ class _FollowersUsersPageState extends State<FollowersUsersPage> {
                   builder: (context, userState) {
                     return userState.maybeWhen(
                       success: (users) {
-                        return BlocBuilder<UserDetailBloc,
-                            UserDetailState>(
+                        return BlocBuilder<UserDetailBloc, UserDetailState>(
                           builder: (context, state) {
-                            
                             return state.maybeWhen(
                               success: (data) {
-                                
                                 final filterUsers = users
                                     .where(
                                       (element) =>
@@ -87,7 +85,12 @@ class _FollowersUsersPageState extends State<FollowersUsersPage> {
                                     return NotificationBookingCard(
                                       user: filterUsers[index],
                                       onPressed: () {
-                                        //context.push('/home/profilePersonPage/${widget.userId}/followers/${widget.userId}/profilePersonPage/${filterUsers[index].uid}');
+                                        if (filterUsers[index].uid !=
+                                            firebaseAuth.currentUser!.uid) {
+                                          context.push(
+                                            '/profile/followers/${widget.userId}/follower-subscribe-profile/${filterUsers[index].uid}',
+                                          );
+                                        }
                                       },
                                     );
                                   },

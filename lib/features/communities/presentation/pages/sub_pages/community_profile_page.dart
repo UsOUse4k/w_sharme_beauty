@@ -177,15 +177,26 @@ class _CommunityProfilePageState extends State<CommunityProfilePage> {
                                     return CategoryList(
                                       category: filterCategories,
                                       onFilterCategories: (category) {
-                                        context
-                                            .read<CommunityPostListBloc>()
-                                            .add(
-                                              CommunityPostListEvent
-                                                  .filterCommunityPost(
-                                                title:
-                                                    category.title.toString(),
-                                              ),
-                                            );
+                                        if (category != null) {
+                                          context
+                                              .read<CommunityPostListBloc>()
+                                              .add(
+                                                CommunityPostListEvent
+                                                    .filterCommunityPost(
+                                                  title:
+                                                      category.title.toString(),
+                                                ),
+                                              );
+                                        } else {
+                                          context
+                                              .read<CommunityPostListBloc>()
+                                              .add(
+                                                CommunityPostListEvent.getPosts(
+                                                  communityId:
+                                                      widget.communityId,
+                                                ),
+                                              );
+                                        }
                                       },
                                     );
                                   },

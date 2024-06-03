@@ -13,30 +13,30 @@ import 'package:w_sharme_beauty/features/category/presentation/widgets/category_
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_shimmer.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/bloc/get_user_detail_bloc/get_user_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class ProfilePersonPage extends StatefulWidget {
-  const ProfilePersonPage({super.key, required this.authorId});
+class FollowerSubscribeProfilePage extends StatefulWidget {
+  const FollowerSubscribeProfilePage({super.key, required this.userId});
 
-  final String authorId;
+  final String userId;
 
   @override
-  State<ProfilePersonPage> createState() => _ProfilePersonPageState();
+  State<FollowerSubscribeProfilePage> createState() =>
+      _FollowerSubscribeProfilePageState();
 }
 
-class _ProfilePersonPageState extends State<ProfilePersonPage> {
+class _FollowerSubscribeProfilePageState
+    extends State<FollowerSubscribeProfilePage> {
   bool isSubscribe = false;
 
   @override
   void initState() {
     super.initState();
-    context.read<UserDetailBloc>().add(
-          UserDetailEvent.getUserDetail(
-            userId: widget.authorId,
-          ),
-        );
+    context
+        .read<GetUserDetailBloc>()
+        .add(GetUserDetailEvent.getUserDetail(userId: widget.userId));
   }
 
   void toggleSubscribe() {
@@ -44,13 +44,13 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
     if (isSubscribe) {
       context.read<SubscribeBloc>().add(
             SubscribeEvent.unsubscribe(
-              targetUserId: widget.authorId,
+              targetUserId: widget.userId,
             ),
           );
     } else {
       context.read<SubscribeBloc>().add(
             SubscribeEvent.subscribe(
-              targetUserId: widget.authorId,
+              targetUserId: widget.userId,
             ),
           );
     }
@@ -71,7 +71,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => context.pop(),
         ),
-        title: BlocBuilder<UserDetailBloc, UserDetailState>(
+        title: BlocBuilder<GetUserDetailBloc, GetUserDetailState>(
           builder: (context, state) {
             return CenterTitleAppBar(
               title: state.maybeWhen(
@@ -84,12 +84,12 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
         ),
       ),
       body: SafeArea(
-        child: BlocConsumer<UserDetailBloc, UserDetailState>(
+        child: BlocConsumer<GetUserDetailBloc, GetUserDetailState>(
           listener: (context, state) {
             state.maybeWhen(
               success: (userData) {
                 context.read<PostUserListBloc>().add(
-                      PostUserListEvent.getUserPosts(userId: widget.authorId),
+                      PostUserListEvent.getUserPosts(userId: widget.userId),
                     );
                 context
                     .read<CategoryBloc>()
@@ -126,12 +126,12 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                   ProfileNavbarWidget(
                                     onPressedFollowers: () {
                                       context.push(
-                                        '/home/profilePersonPage/${widget.authorId}/followers/${widget.authorId}',
+                                        '/home/profilePersonPage/${widget.userId}/followers/${widget.userId}',
                                       );
                                     },
                                     onPressedSubscribe: () {
                                       context.push(
-                                        '/home/profilePersonPage/${widget.authorId}/subscriptions/${widget.authorId}',
+                                        '/home/profilePersonPage/${widget.userId}/subscriptions/${widget.userId}',
                                       );
                                     },
                                     avatar:
@@ -223,8 +223,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                                       .add(
                                                         PostUserListEvent
                                                             .getUserPosts(
-                                                          userId:
-                                                              widget.authorId,
+                                                          userId: widget.userId,
                                                         ),
                                                       );
                                                 }
@@ -252,7 +251,7 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                         child: ButtomWriteDown(
                                           onPressed: () {
                                             context.push(
-                                              '/home/profilePersonPage/${widget.authorId}/chatMessages/${widget.authorId}',
+                                              '/home/profilePersonPage/${widget.userId}/chatMessages/${widget.userId}',
                                             );
                                           },
                                         ),

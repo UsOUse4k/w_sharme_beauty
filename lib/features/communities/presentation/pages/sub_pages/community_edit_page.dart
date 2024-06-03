@@ -135,8 +135,6 @@ class _CommunityEditPageState extends State<CommunityEditPage> {
                           style: AppStyles.w500f14
                               .copyWith(color: AppColors.darkGrey),
                         ),
-                        SizedBox(height: 8.h),
-                        //Image.asset(Assets.images.ava.path),
                         SizedBox(height: 10.h),
                         if (file != null)
                           CardImageProfileAdd(

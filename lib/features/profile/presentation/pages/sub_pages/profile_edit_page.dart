@@ -28,7 +28,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   Uint8List? avatar;
   String? avatarUrl;
   bool isLoading = false;
-  final TextEditingController themeText = TextEditingController();
   final TextEditingController location = TextEditingController();
   final TextEditingController aboutYourself = TextEditingController();
   final TextEditingController username = TextEditingController();
@@ -66,7 +65,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       .read<CategoryListBloc>()
                       .add(CategoryListEvent.loaded(user.category!));
                 }
-                themeText.text = user.theme ?? '';
                 username.text = user.username ?? '';
                 location.text = user.city ?? '';
                 aboutYourself.text = user.aboutYourself ?? '';
@@ -156,13 +154,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       ),
                       SizedBox(height: 10.h),
                       TextFieldWidgetWithTitle(
-                        title: 'Тема',
-                        hintText: 'Придумайте тему вопроса',
-                        controller: themeText,
-                        raduis: 10,
-                      ),
-                      SizedBox(height: 10.h),
-                      TextFieldWidgetWithTitle(
                         title: 'Имя пользователя',
                         hintText: 'Имя пользователя',
                         controller: username,
@@ -202,7 +193,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           context.read<ProfileInfoUpdateBloc>().add(
                                 ProfileInfoUpdateEvent.update(
                                   UserProfile(
-                                    theme: themeText.text,
                                     aboutYourself: aboutYourself.text,
                                     city: location.text,
                                     username: username.text,
@@ -215,7 +205,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                           context.read<ProfileInfoUpdateBloc>().add(
                                 ProfileInfoUpdateEvent.update(
                                   UserProfile(
-                                    theme: themeText.text,
                                     aboutYourself: aboutYourself.text,
                                     city: location.text,
                                     username: username.text,
@@ -248,7 +237,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   @override
   void dispose() {
-    themeText.dispose();
     location.dispose();
     aboutYourself.dispose();
     username.dispose();

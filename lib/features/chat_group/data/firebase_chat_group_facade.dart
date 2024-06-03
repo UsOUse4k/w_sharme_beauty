@@ -134,6 +134,13 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
       }
 
       if (myUid != receiverId) {
+        await _firestore.collection('communities').doc(communityId).update({
+          'messageCount': FieldValue.increment(1),
+          'lastMessage': message,
+          'lastMessageTs': now,
+          'seen': false,
+          'lastSenderId': myUid,
+        });
         await myChatRoomRef.update({
           'messageCount': FieldValue.increment(1),
           'lastMessage': message,
@@ -141,6 +148,7 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
           'seen': false,
           'lastSenderId': myUid,
         });
+        
       }
       return right(null);
     } catch (e) {

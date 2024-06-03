@@ -129,7 +129,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Image.asset(Assets.icons.point.path),
                                 SizedBox(width: 11.w),
                                 RatingCardWidget(
-                                    rating: user.rating.toString()),
+                                  rating: user.rating.toString(),
+                                ),
                               ],
                             ),
                             SizedBox(height: 12.h),
@@ -161,8 +162,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   orElse: () {},
                                 );
                               },
-                              child: selectedPosts != null &&
-                                      selectedPosts!.isNotEmpty
+                              child: user.category != null &&
+                                      user.category!.isNotEmpty
                                   ? BlocBuilder<CategoryBloc, CategoryState>(
                                       builder: (context, state) {
                                         return state.maybeWhen(
@@ -190,15 +191,24 @@ class _ProfilePageState extends State<ProfilePage> {
                                             return CategoryList(
                                               category: filter,
                                               onFilterCategories: (value) {
-                                                context
-                                                    .read<MyPostListBloc>()
-                                                    .add(
-                                                      MyPostListEvent
-                                                          .filterPost(
-                                                        value: value.title
-                                                            .toString(),
-                                                      ),
-                                                    );
+                                                if (value != null) {
+                                                  context
+                                                      .read<MyPostListBloc>()
+                                                      .add(
+                                                        MyPostListEvent
+                                                            .filterPost(
+                                                          value: value.title
+                                                              .toString(),
+                                                        ),
+                                                      );
+                                                } else {
+                                                  context
+                                                      .read<MyPostListBloc>()
+                                                      .add(
+                                                        const MyPostListEvent
+                                                            .getPosts(),
+                                                      );
+                                                }
                                               },
                                             );
                                           },
@@ -301,7 +311,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 itemBuilder: (context, index) => PostCard(
                                   onPressedDetailPage: () {
                                     context.push(
-                                        '/profile/post/${posts[index].postId}');
+                                      '/profile/post/${posts[index].postId}',
+                                    );
                                   },
                                   onPressed: () {},
                                   post: posts[index],

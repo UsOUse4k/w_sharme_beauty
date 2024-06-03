@@ -19,6 +19,7 @@ class PostImage extends StatelessWidget {
             ),
             child: GlCachedNetworImage(
               height: 394.h,
+              width: double.infinity,
               urlImage: imageUrls![0],
             ),
           )
