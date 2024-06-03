@@ -42,10 +42,14 @@ class _ChatPageState extends State<ChatPage>
   void _handleSearch(String value) {
     if (_tabController.index == 0) {
       // Поиск в чатах пользователей
-      context.read<GetAllChatsBloc>().add(GetAllChatsEvent.searchChat(query: value));
+      context
+          .read<GetAllChatsBloc>()
+          .add(GetAllChatsEvent.searchChat(query: value));
     } else if (_tabController.index == 1) {
       // Поиск в чатах сообществ
-      context.read<CommunityListBloc>().add(CommunityListEvent.searchCommunityChatGroup(query: value));
+      context
+          .read<CommunityListBloc>()
+          .add(CommunityListEvent.searchCommunityChatGroup(query: value));
     }
   }
 

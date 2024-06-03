@@ -412,6 +412,8 @@ abstract class _$$SuccessImplCopyWith<$Res> {
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
   $Res call({UserProfile userData});
+
+  $UserProfileCopyWith<$Res> get userData;
 }
 
 /// @nodoc
@@ -425,14 +427,22 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userData = freezed,
+    Object? userData = null,
   }) {
     return _then(_$SuccessImpl(
-      freezed == userData
+      null == userData
           ? _value.userData
           : userData // ignore: cast_nullable_to_non_nullable
               as UserProfile,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserProfileCopyWith<$Res> get userData {
+    return $UserProfileCopyWith<$Res>(_value.userData, (value) {
+      return _then(_value.copyWith(userData: value));
+    });
   }
 }
 
@@ -454,12 +464,12 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            const DeepCollectionEquality().equals(other.userData, userData));
+            (identical(other.userData, userData) ||
+                other.userData == userData));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(userData));
+  int get hashCode => Object.hash(runtimeType, userData);
 
   @JsonKey(ignore: true)
   @override
