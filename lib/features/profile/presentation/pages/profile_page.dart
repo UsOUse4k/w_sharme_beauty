@@ -129,7 +129,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Image.asset(Assets.icons.point.path),
                                 SizedBox(width: 11.w),
                                 RatingCardWidget(
-                                    rating: user.rating.toString()),
+                                  rating: user.rating.toString(),
+                                ),
                               ],
                             ),
                             SizedBox(height: 12.h),
@@ -301,7 +302,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 itemBuilder: (context, index) => PostCard(
                                   onPressedDetailPage: () {
                                     context.push(
-                                        '/profile/post/${posts[index].postId}');
+                                      '/profile/post/${posts[index].postId}',
+                                    );
                                   },
                                   onPressed: () {},
                                   post: posts[index],

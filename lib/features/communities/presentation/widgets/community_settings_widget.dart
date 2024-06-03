@@ -5,12 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -33,7 +28,9 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
   String? userId;
   @override
   void initState() {
-    context.read<CommunityDetailBloc>().add(CommunityDetailEvent.loaded(widget.communityId));
+    context
+        .read<CommunityDetailBloc>()
+        .add(CommunityDetailEvent.loaded(widget.communityId));
     super.initState();
   }
 
@@ -52,7 +49,7 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
               groupId = community.chatGroupId;
               setState(() {});
               print(groupId);
-              
+
               //if (group.editors != null &&
               //    group.administrator != null &&
               //    group.groupId != null) {

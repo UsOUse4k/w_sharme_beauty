@@ -19,7 +19,7 @@ class CustomContainer extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: marginTop ?? 0, bottom: marginBottom ?? 0),
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: vertical ?? 18),
+      padding: EdgeInsets.only(left: vertical ?? 18),
       decoration: const BoxDecoration(
         color: AppColors.white,
       ),

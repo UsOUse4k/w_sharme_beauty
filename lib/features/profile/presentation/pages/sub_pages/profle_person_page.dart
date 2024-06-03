@@ -18,7 +18,7 @@ import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widg
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePersonPage extends StatefulWidget {
-  const ProfilePersonPage({super.key,  required this.authorId});
+  const ProfilePersonPage({super.key, required this.authorId});
 
   final String authorId;
 
@@ -31,7 +31,6 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
 
   @override
   void initState() {
-    print(widget.authorId);
     super.initState();
     context.read<UserDetailBloc>().add(
           UserDetailEvent.getUserDetail(
@@ -127,11 +126,13 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                   ProfileNavbarWidget(
                                     onPressedFollowers: () {
                                       context.push(
-                                          '/home/profilePersonPage/${widget.authorId}/followers/${widget.authorId}',);
+                                        '/home/profilePersonPage/${widget.authorId}/followers/${widget.authorId}',
+                                      );
                                     },
                                     onPressedSubscribe: () {
                                       context.push(
-                                          '/home/profilePersonPage/${widget.authorId}/subscriptions/${widget.authorId}',);
+                                        '/home/profilePersonPage/${widget.authorId}/subscriptions/${widget.authorId}',
+                                      );
                                     },
                                     avatar:
                                         userData.profilePictureUrl.toString(),
@@ -151,7 +152,8 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                       Image.asset(Assets.icons.point.path),
                                       SizedBox(width: 10.w),
                                       RatingCardWidget(
-                                          rating: userData.rating.toString(),),
+                                        rating: userData.rating.toString(),
+                                      ),
                                     ],
                                   ),
                                   SizedBox(height: 11.h),
@@ -255,7 +257,8 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                 return PostCard(
                                   onPressedDetailPage: () {
                                     context.push(
-                                        '/home/profilePersonPage/${posts[index].authorId}/post/${posts[index].postId}',);
+                                      '/home/profilePersonPage/${posts[index].authorId}/post/${posts[index].postId}',
+                                    );
                                   },
                                   onPressed: () {},
                                   post: posts[index],
