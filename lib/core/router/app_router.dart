@@ -116,7 +116,7 @@ mixin AppRouter on State<App> {
                     path: "${RouterContants.profilePersonPage}/:authorId",
                     builder: (BuildContext context, GoRouterState state) {
                       final authorId = state.pathParameters['authorId'];
-                      return ProfilePersonPage(authorId: authorId);
+                      return ProfilePersonPage(authorId: authorId.toString());
                     },
                     routes: [
                       GoRoute(
@@ -138,6 +138,19 @@ mixin AppRouter on State<App> {
                             userId: userId.toString(),
                           );
                         },
+                        //routes: [
+                        //  GoRoute(
+                        //    parentNavigatorKey: RouterKeys.rootKey,
+                        //    path:
+                        //        "${RouterContants.profilePersonPage}/:authorId",
+                        //    builder:
+                        //        (BuildContext context, GoRouterState state) {
+                        //      final authorId = state.pathParameters['authorId'];
+                        //      return ProfilePersonPage(
+                        //          authorId: authorId.toString(),);
+                        //    },
+                        //  ),
+                        //],
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
@@ -148,6 +161,19 @@ mixin AppRouter on State<App> {
                             userId: userId.toString(),
                           );
                         },
+                        routes: [
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
+                            path:
+                                "${RouterContants.profilePersonPage}/:authorId",
+                            builder:
+                                (BuildContext context, GoRouterState state) {
+                              final authorId = state.pathParameters['authorId'];
+                              return ProfilePersonPage(
+                                  authorId: authorId.toString(),);
+                            },
+                          ),
+                        ],
                       ),
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
@@ -168,10 +194,11 @@ mixin AppRouter on State<App> {
                     routes: [
                       GoRoute(
                         parentNavigatorKey: RouterKeys.rootKey,
-                        path: "${RouterContants.profilePersonPage}/:userId",
+                        path: "${RouterContants.profilePersonPage}/:authorId",
                         builder: (BuildContext context, GoRouterState state) {
-                          final userId = state.pathParameters['userId'];
-                          return ProfilePersonPage(authorId: userId);
+                          final authorId = state.pathParameters['authorId'];
+                          return ProfilePersonPage(
+                              authorId: authorId.toString(),);
                         },
                       ),
                     ],
@@ -191,12 +218,13 @@ mixin AppRouter on State<App> {
                         routes: [
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
-                            name: RouterContants.profilePersonPage,
-                            path: "${RouterContants.profilePersonPage}/:userId",
+                            path:
+                                "${RouterContants.profilePersonPage}/:authorId",
                             builder:
                                 (BuildContext context, GoRouterState state) {
-                              final userId = state.pathParameters['userId'];
-                              return ProfilePersonPage(authorId: userId);
+                              final authorId = state.pathParameters['authorId'];
+                              return ProfilePersonPage(
+                                  authorId: authorId.toString(),);
                             },
                             routes: [
                               GoRoute(
@@ -400,7 +428,8 @@ mixin AppRouter on State<App> {
                         path: "${RouterContants.profilePersonPage}/:authorId",
                         builder: (BuildContext context, GoRouterState state) {
                           final authorId = state.pathParameters['authorId'];
-                          return ProfilePersonPage(authorId: authorId);
+                          return ProfilePersonPage(
+                              authorId: authorId.toString(),);
                         },
                         routes: [
                           GoRoute(
@@ -469,7 +498,8 @@ mixin AppRouter on State<App> {
                             builder:
                                 (BuildContext context, GoRouterState state) {
                               final userId = state.pathParameters['userId'];
-                              return ProfilePersonPage(authorId: userId);
+                              return ProfilePersonPage(
+                                  authorId: userId.toString(),);
                             },
                             routes: [
                               GoRoute(
@@ -534,7 +564,8 @@ mixin AppRouter on State<App> {
                             builder:
                                 (BuildContext context, GoRouterState state) {
                               final userId = state.pathParameters['userId'];
-                              return ProfilePersonPage(authorId: userId);
+                              return ProfilePersonPage(
+                                  authorId: userId.toString(),);
                             },
                             routes: [
                               GoRoute(

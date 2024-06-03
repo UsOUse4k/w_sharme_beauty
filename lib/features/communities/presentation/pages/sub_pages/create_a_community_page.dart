@@ -83,13 +83,6 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                   .read<MyCommunityListBloc>()
                   .add(const MyCommunityListEvent.getMyCommunity());
               context.pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(
-                    "Сообщество создано",
-                  ),
-                ),
-              );
             },
             error: (message) {
               isLoading = false;
@@ -113,6 +106,8 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
               Flexible(
                 flex: 15,
                 child: ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     TextFieldWidgetWithTitle(
                       raduis: 10,
@@ -164,13 +159,18 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                     ),
                     SizedBox(height: 8.h),
                     if (avatar != null)
-                      CardImageProfileAdd(
-                        radius: 50,
-                        image: MemoryImage(avatar!),
-                        onPressed: () {
-                          avatar = null;
-                          setState(() {});
-                        },
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CardImageProfileAdd(
+                            radius: 50,
+                            image: MemoryImage(avatar!),
+                            onPressed: () {
+                              avatar = null;
+                              setState(() {});
+                            },
+                          ),
+                        ],
                       ),
                     SizedBox(height: 20.h),
                     AddingButton(

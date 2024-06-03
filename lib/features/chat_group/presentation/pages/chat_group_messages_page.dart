@@ -11,8 +11,6 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/utils/pick_image.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/chat_list.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/text_field_send_message_widget.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
@@ -60,6 +58,12 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
   @override
   void initState() {
     super.initState();
+    context.read<GetAllGroupMessagesBloc>().add(
+          GetAllGroupMessagesEvent.getAllGroupMessages(
+            groupId: widget.groupId,
+            communityId: widget.communityId,
+          ),
+        );
   }
 
   @override
@@ -81,7 +85,21 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
             router.pop();
           },
         ),
-        title: BlocBuilder<GetGroupBloc, GetGroupState>(
+        title: BlocConsumer<GetGroupBloc, GetGroupState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              success: (group, userProfiles) {
+                context.read<ChatGroupCheckManagerBloc>().add(
+                      ChatGroupCheckManagerEvent.getAllAdministrator(
+                        administrator: group.administrator!,
+                        editors: group.editors!,
+                        groupId: group.groupId!,
+                      ),
+                    );
+              },
+              orElse: () {},
+            );
+          },
           builder: (context, state) {
             return state.maybeWhen(
               success: (group, userProfiles) {
@@ -155,25 +173,18 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
         ),
       ),
       body: SafeArea(
-        child: BlocConsumer<GetGroupBloc, GetGroupState>(
+        child: BlocConsumer<GetAllGroupMessagesBloc, GetAllGroupMessagesState>(
           listener: (context, state) {
             state.maybeWhen(
-              success: (group, userProfiles) {
-                context.read<ChatGroupCheckManagerBloc>().add(
-                      ChatGroupCheckManagerEvent.getAllAdministrator(
-                        administrator: group.administrator!,
-                        editors: group.editors!,
-                        groupId: group.groupId!,
-                      ),
-                    );
-                context.read<GetAllGroupMessagesBloc>().add(
-                      GetAllGroupMessagesEvent.getAllGroupMessages(
+              success: (messages) {},
+              orElse: () {
+                context.read<GetGroupBloc>().add(
+                      GetGroupEvent.getGroup(
                         groupId: widget.groupId,
                         communityId: widget.communityId,
                       ),
                     );
               },
-              orElse: () {},
             );
           },
           builder: (context, state) {
@@ -188,20 +199,15 @@ class _ChatGroupMessagesPageState extends State<ChatGroupMessagesPage> {
                       right: 18,
                     ),
                     decoration: const BoxDecoration(color: AppColors.bgColors),
-                    child: BlocBuilder<GetAllGroupMessagesBloc,
-                        GetAllGroupMessagesState>(
-                      builder: (context, state) {
-                        return state.maybeWhen(
-                          success: (messages) {
-                            return ChatMessageList(
-                              messages: messages,
-                              chatRoomId: '',
-                              typeMessages: 'group',
-                            );
-                          },
-                          orElse: () => Container(),
+                    child: state.maybeWhen(
+                      success: (messages) {
+                        return ChatMessageList(
+                          messages: messages,
+                          chatRoomId: '',
+                          typeMessages: 'group',
                         );
                       },
+                      orElse: () => Container(),
                     ),
                   ),
                 ),

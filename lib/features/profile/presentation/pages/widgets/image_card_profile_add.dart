@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 
 class CardImageProfileAdd extends StatelessWidget {
@@ -20,8 +21,8 @@ class CardImageProfileAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 100,
-      height: height ?? 100,
+      width: width ?? 100.w,
+      height: height ?? 100.h,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: image,

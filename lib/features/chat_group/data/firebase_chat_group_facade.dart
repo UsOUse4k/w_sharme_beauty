@@ -69,6 +69,8 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
           'participants': FieldValue.arrayUnion(members),
           'chatGroupId': groupId,
           'chatGroupName': chatGroupRoom.groupName,
+          'chatImageUrl': groupProfileImage,
+
         });
         await _firestore
             .collection('communities')

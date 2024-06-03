@@ -47,7 +47,7 @@ class _HomeNotificationPageState extends State<HomeNotificationPage> {
               success: (notification) {
                 return BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
                   builder: (context, state) {
-                    return CustomContainer(
+                    return notification.isNotEmpty ? CustomContainer(
                       marginTop: 15,
                       marginBottom: 15,
                       child: ListView.separated(
@@ -76,11 +76,11 @@ class _HomeNotificationPageState extends State<HomeNotificationPage> {
                             SizedBox(height: 15.h),
                         itemCount: notification.length,
                       ),
-                    );
+                    ) : const SizedBox.shrink();
                   },
                 );
               },
-              orElse: () => Container(),
+              orElse: () => const SizedBox.shrink(),
             );
           },
         ),

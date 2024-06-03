@@ -14,14 +14,13 @@ import 'package:w_sharme_beauty/features/category/presentation/widgets/category_
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/button_write_down.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePersonPage extends StatefulWidget {
-  const ProfilePersonPage({super.key, this.authorId});
+  const ProfilePersonPage({super.key,  required this.authorId});
 
-  final String? authorId;
+  final String authorId;
 
   @override
   State<ProfilePersonPage> createState() => _ProfilePersonPageState();
@@ -32,14 +31,13 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
 
   @override
   void initState() {
+    print(widget.authorId);
     super.initState();
-    if (widget.authorId != null) {
-      context.read<UserDetailBloc>().add(
-            UserDetailEvent.getUserDetail(
-              userId: widget.authorId!,
-            ),
-          );
-    }
+    context.read<UserDetailBloc>().add(
+          UserDetailEvent.getUserDetail(
+            userId: widget.authorId,
+          ),
+        );
   }
 
   void toggleSubscribe() {
@@ -47,13 +45,13 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
     if (isSubscribe) {
       context.read<SubscribeBloc>().add(
             SubscribeEvent.unsubscribe(
-              targetUserId: widget.authorId.toString(),
+              targetUserId: widget.authorId,
             ),
           );
     } else {
       context.read<SubscribeBloc>().add(
             SubscribeEvent.subscribe(
-              targetUserId: widget.authorId.toString(),
+              targetUserId: widget.authorId,
             ),
           );
     }
@@ -128,12 +126,15 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                 children: [
                                   ProfileNavbarWidget(
                                     onPressedFollowers: () {
-                                      context.push('/home/profilePersonPage/${widget.authorId}/followers/${widget.authorId}');
+                                      context.push(
+                                          '/home/profilePersonPage/${widget.authorId}/followers/${widget.authorId}',);
                                     },
                                     onPressedSubscribe: () {
-                                      context.push('/home/profilePersonPage/${widget.authorId}/subscriptions/${widget.authorId}');
+                                      context.push(
+                                          '/home/profilePersonPage/${widget.authorId}/subscriptions/${widget.authorId}',);
                                     },
-                                    avatar: userData.profilePictureUrl.toString(),
+                                    avatar:
+                                        userData.profilePictureUrl.toString(),
                                     publications: "${posts.length}",
                                     followers: "${userData.followers!.length}",
                                     subscriptions:
@@ -149,7 +150,8 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                       SizedBox(width: 10.w),
                                       Image.asset(Assets.icons.point.path),
                                       SizedBox(width: 10.w),
-                                      RatingCardWidget(rating: userData.rating.toString()),
+                                      RatingCardWidget(
+                                          rating: userData.rating.toString(),),
                                     ],
                                   ),
                                   SizedBox(height: 11.h),
@@ -252,7 +254,8 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                               itemBuilder: (context, index) {
                                 return PostCard(
                                   onPressedDetailPage: () {
-                                    context.push('/home/profilePersonPage/${posts[index].authorId}/post/${posts[index].postId}');
+                                    context.push(
+                                        '/home/profilePersonPage/${posts[index].authorId}/post/${posts[index].postId}',);
                                   },
                                   onPressed: () {},
                                   post: posts[index],

@@ -16,6 +16,7 @@ class Community with _$Community {
     @Default([]) List<String>? administrator,
     @Default([]) List<String>? editors,
     @Default("") String? avatarUrls,
+    @Default("") String? chatImageUrl,
     @Default([]) List<String>? participants,
     @Default(0) int? public,
     @Default(false) bool isFavorite,
@@ -47,6 +48,7 @@ class Community with _$Community {
       createdAt: firestoreData['createdAt'] as String?,
       chatGroupId: firestoreData['chatGroupId'] as String?,
       chatGroupName: firestoreData['chatGroupName'] as String?,
+      chatImageUrl: firestoreData['chatImageUrl'] as String?,
       public: firestoreData['public'] as int?,
     );
   }

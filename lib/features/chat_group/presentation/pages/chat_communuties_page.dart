@@ -5,8 +5,20 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/widgets/widgets
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 
-class ChatCommunitiesPage extends StatelessWidget {
+class ChatCommunitiesPage extends StatefulWidget {
   const ChatCommunitiesPage({super.key});
+
+  @override
+  State<ChatCommunitiesPage> createState() => _ChatCommunitiesPageState();
+}
+
+class _ChatCommunitiesPageState extends State<ChatCommunitiesPage> {
+  
+  @override
+  void initState() {
+    context.read<CommunityListBloc>().add(const CommunityListEvent.getCommunities());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +37,22 @@ class ChatCommunitiesPage extends StatelessWidget {
                     )
                     .toList();
                 return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     final community = groups[index];
                     return community.chatGroupId != null
                         ? CardChatGroupWidget(
                             groupId: community.chatGroupId.toString(),
-                            communityId: community.communityId.toString(),
+                            communityId: community.communityId.toString(), community: community,
                           )
-                        : null;
+                        : const SizedBox.shrink();
                   },
-                  separatorBuilder: (context, index) => const Divider(),
+                  separatorBuilder: (context, index) => const SizedBox(),
                   itemCount: groups.length,
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (message) => Center(child: Text(message)),
               orElse: () => Container(),
             );
           },

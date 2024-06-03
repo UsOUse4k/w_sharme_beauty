@@ -22,13 +22,15 @@ class SubscriptionsUsersPage extends StatefulWidget {
 class _SubscriptionsUsersPageState extends State<SubscriptionsUsersPage> {
   @override
   void initState() {
-     context.read<UserDetailBloc>().add(
+    context.read<UserDetailBloc>().add(
           UserDetailEvent.getUserDetail(
             userId: widget.userId,
           ),
         );
+    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +64,7 @@ class _SubscriptionsUsersPageState extends State<SubscriptionsUsersPage> {
                   builder: (context, userState) {
                     return userState.maybeWhen(
                       success: (users) {
-                        return BlocBuilder<UserDetailBloc,
-                            UserDetailState>(
+                        return BlocBuilder<UserDetailBloc, UserDetailState>(
                           builder: (context, state) {
                             return state.maybeWhen(
                               success: (data) {
@@ -81,6 +82,13 @@ class _SubscriptionsUsersPageState extends State<SubscriptionsUsersPage> {
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
                                     return NotificationBookingCard(
+                                      onPressed: () {
+                                        //context.push(
+                                        //    '/home/profilePersonPage/${filterUsers[index].uid}',);
+                                        //context.push(
+                                        //  '/home/profilePersonPage/${widget.userId}/subscriptions/${widget.userId}/profilePersonPage/${filterUsers[index].uid}',
+                                        //);
+                                      },
                                       user: filterUsers[index],
                                     );
                                   },

@@ -27,6 +27,7 @@ class _FollowersUsersPageState extends State<FollowersUsersPage> {
             userId: widget.userId,
           ),
         );
+    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
     super.initState();
   }
 
@@ -66,8 +67,10 @@ class _FollowersUsersPageState extends State<FollowersUsersPage> {
                         return BlocBuilder<UserDetailBloc,
                             UserDetailState>(
                           builder: (context, state) {
+                            
                             return state.maybeWhen(
                               success: (data) {
+                                
                                 final filterUsers = users
                                     .where(
                                       (element) =>
@@ -83,6 +86,9 @@ class _FollowersUsersPageState extends State<FollowersUsersPage> {
                                   itemBuilder: (context, index) {
                                     return NotificationBookingCard(
                                       user: filterUsers[index],
+                                      onPressed: () {
+                                        //context.push('/home/profilePersonPage/${widget.userId}/followers/${widget.userId}/profilePersonPage/${filterUsers[index].uid}');
+                                      },
                                     );
                                   },
                                   separatorBuilder: (context, index) =>

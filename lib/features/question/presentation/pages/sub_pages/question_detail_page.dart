@@ -98,7 +98,7 @@ class _QuestionDetailPageState extends State<QuestionDetailPage> {
                                   leading: question.avatarUrl != null
                                       ? GestureDetector(
                                           onTap: () {
-                                            if (question.avatarUrl != '') {
+                                            if (question.username != 'Анонимно') {
                                               if (question.uid != currentUid) {
                                                 context.push(
                                                   '/question/question-datail/${widget.questionId}/profilePersonPage/${question.uid}',

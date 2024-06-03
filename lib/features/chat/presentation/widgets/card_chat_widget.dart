@@ -43,7 +43,7 @@ class _CardChatWidgetState extends State<CardChatWidget> {
         );
       },
       child: Container(
-        height: 74,
+        height: 73.h,
         margin: const EdgeInsets.only(bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

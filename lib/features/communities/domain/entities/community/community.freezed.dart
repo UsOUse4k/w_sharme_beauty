@@ -30,6 +30,7 @@ mixin _$Community {
   List<String>? get administrator => throw _privateConstructorUsedError;
   List<String>? get editors => throw _privateConstructorUsedError;
   String? get avatarUrls => throw _privateConstructorUsedError;
+  String? get chatImageUrl => throw _privateConstructorUsedError;
   List<String>? get participants => throw _privateConstructorUsedError;
   int? get public => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
@@ -57,6 +58,7 @@ abstract class $CommunityCopyWith<$Res> {
       List<String>? administrator,
       List<String>? editors,
       String? avatarUrls,
+      String? chatImageUrl,
       List<String>? participants,
       int? public,
       bool isFavorite,
@@ -86,6 +88,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? administrator = freezed,
     Object? editors = freezed,
     Object? avatarUrls = freezed,
+    Object? chatImageUrl = freezed,
     Object? participants = freezed,
     Object? public = freezed,
     Object? isFavorite = null,
@@ -132,6 +135,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
           ? _value.avatarUrls
           : avatarUrls // ignore: cast_nullable_to_non_nullable
               as String?,
+      chatImageUrl: freezed == chatImageUrl
+          ? _value.chatImageUrl
+          : chatImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       participants: freezed == participants
           ? _value.participants
           : participants // ignore: cast_nullable_to_non_nullable
@@ -171,6 +178,7 @@ abstract class _$$CommunityImplCopyWith<$Res>
       List<String>? administrator,
       List<String>? editors,
       String? avatarUrls,
+      String? chatImageUrl,
       List<String>? participants,
       int? public,
       bool isFavorite,
@@ -198,6 +206,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? administrator = freezed,
     Object? editors = freezed,
     Object? avatarUrls = freezed,
+    Object? chatImageUrl = freezed,
     Object? participants = freezed,
     Object? public = freezed,
     Object? isFavorite = null,
@@ -244,6 +253,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
           ? _value.avatarUrls
           : avatarUrls // ignore: cast_nullable_to_non_nullable
               as String?,
+      chatImageUrl: freezed == chatImageUrl
+          ? _value.chatImageUrl
+          : chatImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       participants: freezed == participants
           ? _value._participants
           : participants // ignore: cast_nullable_to_non_nullable
@@ -278,6 +291,7 @@ class _$CommunityImpl implements _Community {
       final List<String>? administrator = const [],
       final List<String>? editors = const [],
       this.avatarUrls = "",
+      this.chatImageUrl = "",
       final List<String>? participants = const [],
       this.public = 0,
       this.isFavorite = false,
@@ -338,6 +352,9 @@ class _$CommunityImpl implements _Community {
   @override
   @JsonKey()
   final String? avatarUrls;
+  @override
+  @JsonKey()
+  final String? chatImageUrl;
   final List<String>? _participants;
   @override
   @JsonKey()
@@ -361,7 +378,7 @@ class _$CommunityImpl implements _Community {
 
   @override
   String toString() {
-    return 'Community(communityId: $communityId, uid: $uid, chatGroupId: $chatGroupId, chatGroupName: $chatGroupName, communityName: $communityName, description: $description, category: $category, administrator: $administrator, editors: $editors, avatarUrls: $avatarUrls, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Community(communityId: $communityId, uid: $uid, chatGroupId: $chatGroupId, chatGroupName: $chatGroupName, communityName: $communityName, description: $description, category: $category, administrator: $administrator, editors: $editors, avatarUrls: $avatarUrls, chatImageUrl: $chatImageUrl, participants: $participants, public: $public, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -386,6 +403,8 @@ class _$CommunityImpl implements _Community {
             const DeepCollectionEquality().equals(other._editors, _editors) &&
             (identical(other.avatarUrls, avatarUrls) ||
                 other.avatarUrls == avatarUrls) &&
+            (identical(other.chatImageUrl, chatImageUrl) ||
+                other.chatImageUrl == chatImageUrl) &&
             const DeepCollectionEquality()
                 .equals(other._participants, _participants) &&
             (identical(other.public, public) || other.public == public) &&
@@ -409,6 +428,7 @@ class _$CommunityImpl implements _Community {
       const DeepCollectionEquality().hash(_administrator),
       const DeepCollectionEquality().hash(_editors),
       avatarUrls,
+      chatImageUrl,
       const DeepCollectionEquality().hash(_participants),
       public,
       isFavorite,
@@ -440,6 +460,7 @@ abstract class _Community implements Community {
       final List<String>? administrator,
       final List<String>? editors,
       final String? avatarUrls,
+      final String? chatImageUrl,
       final List<String>? participants,
       final int? public,
       final bool isFavorite,
@@ -468,6 +489,8 @@ abstract class _Community implements Community {
   List<String>? get editors;
   @override
   String? get avatarUrls;
+  @override
+  String? get chatImageUrl;
   @override
   List<String>? get participants;
   @override

@@ -106,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             ProfileNavbarWidget(
                               avatar: user.profilePictureUrl.toString(),
-                              publications: user.publics.toString(),
+                              publications: publics,
                               followers: user.followers!.length.toString(),
                               subscriptions:
                                   user.subscriptions!.length.toString(),
@@ -128,7 +128,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(width: 11.w),
                                 Image.asset(Assets.icons.point.path),
                                 SizedBox(width: 11.w),
-                                RatingCardWidget(rating: user.rating.toString()),
+                                RatingCardWidget(
+                                    rating: user.rating.toString()),
                               ],
                             ),
                             SizedBox(height: 12.h),
@@ -272,7 +273,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       SizedBox(height: 15.h),
-                      BlocBuilder<MyPostListBloc, MyPostListState>(
+                      BlocConsumer<MyPostListBloc, MyPostListState>(
+                        listener: (context, state) {
+                          state.maybeWhen(
+                            success: (posts) {
+                              publics = posts.length.toString();
+                              setState(() {});
+                            },
+                            orElse: () {},
+                          );
+                        },
                         builder: (context, blocState) {
                           return blocState.maybeWhen(
                             loading: () => ListView.builder(
@@ -314,4 +324,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-

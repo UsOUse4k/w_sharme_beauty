@@ -14,9 +14,11 @@ import 'package:w_sharme_beauty/gen/assets.gen.dart';
 class NotificationBookingCard extends StatefulWidget {
   const NotificationBookingCard({
     super.key,
-    required this.user,
+    required this.user, this.onPressed,
   });
   final UserProfile user;
+  final Function()? onPressed;
+
 
   @override
   State<NotificationBookingCard> createState() =>
@@ -71,42 +73,45 @@ class _NotificationBookingCardState extends State<NotificationBookingCard> {
       children: [
         Flexible(
           flex: 2,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.user.profilePictureUrl != '')
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: GlCachedNetworImage(
-                    height: 50.h,
+          child: GestureDetector(
+            onTap: widget.onPressed,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.user.profilePictureUrl != '')
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: GlCachedNetworImage(
+                      height: 50.h,
+                      width: 50.w,
+                      urlImage: widget.user.profilePictureUrl,
+                    ),
+                  )
+                else
+                  GlCircleAvatar(
+                    avatar: Assets.images.notAvatar.path,
                     width: 50.w,
-                    urlImage: widget.user.profilePictureUrl,
+                    height: 50.w,
                   ),
-                )
-              else
-                GlCircleAvatar(
-                  avatar: Assets.images.notAvatar.path,
-                  width: 50.w,
-                  height: 50.w,
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.user.username.toString(),
+                        style: AppStyles.w500f16,
+                      ),
+                      Text(
+                        statusUser,
+                        overflow: TextOverflow.clip,
+                        style: AppStyles.w400f14.copyWith(color: AppColors.grey),
+                      ),
+                    ],
+                  ),
                 ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.user.username.toString(),
-                      style: AppStyles.w500f16,
-                    ),
-                    Text(
-                      statusUser,
-                      overflow: TextOverflow.clip,
-                      style: AppStyles.w400f14.copyWith(color: AppColors.grey),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Flexible(
