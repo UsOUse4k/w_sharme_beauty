@@ -27,6 +27,7 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           const [],
       avatarUrls: json['avatarUrls'] as String? ?? "",
+      chatImageUrl: json['chatImageUrl'] as String? ?? "",
       participants: (json['participants'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -48,6 +49,7 @@ Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
       'administrator': instance.administrator,
       'editors': instance.editors,
       'avatarUrls': instance.avatarUrls,
+      'chatImageUrl': instance.chatImageUrl,
       'participants': instance.participants,
       'public': instance.public,
       'isFavorite': instance.isFavorite,

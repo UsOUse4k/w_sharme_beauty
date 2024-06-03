@@ -32,9 +32,9 @@ class SendMessageGroupBloc
               final data = await _authFacade.getMeInfo(userData.uid);
               await data.fold((l) {
                 emit(SendMessageGroupState.error(message: l.messasge));
-                
               }, (user) async {
                 final result = await _chatGroupRepository.sendMessage(
+                  file: event.file,
                   message: message,
                   groupId: groupId,
                   receiverId: '',

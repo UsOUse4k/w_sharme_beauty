@@ -9,6 +9,8 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_group_messages_bloc/get_all_group_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -31,11 +33,7 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
   String? userId;
   @override
   void initState() {
-    context.read<GetAllChatGroupBloc>().add(
-          GetAllChatGroupEvent.getAllChatGroups(
-            communityId: widget.communityId,
-          ),
-        );
+    context.read<CommunityDetailBloc>().add(CommunityDetailEvent.loaded(widget.communityId));
     super.initState();
   }
 
@@ -47,35 +45,31 @@ class _CommunitySettingsWidgetState extends State<CommunitySettingsWidget> {
         borderRadius: BorderRadius.circular(50),
         color: AppColors.white,
       ),
-      child: BlocListener<GetAllChatGroupBloc, GetAllChatGroupState>(
+      child: BlocListener<CommunityDetailBloc, CommunityDetailState>(
         listener: (context, state) {
           state.maybeWhen(
-            success: (group) {
-              groupId = group.groupId;
+            success: (community) {
+              groupId = community.chatGroupId;
               setState(() {});
-              context.read<GetGroupBloc>().add(
-                    GetGroupEvent.getGroup(
-                      groupId: group.groupId.toString(),
-                      communityId: widget.communityId,
-                    ),
-                  );
-              if (group.editors != null &&
-                  group.administrator != null &&
-                  group.groupId != null) {
-                context.read<ChatGroupCheckManagerBloc>().add(
-                      ChatGroupCheckManagerEvent.getAllAdministrator(
-                        administrator: group.administrator!,
-                        editors: group.editors!,
-                        groupId: group.groupId!,
-                      ),
-                    );
-                context.read<GetAllGroupMessagesBloc>().add(
-                      GetAllGroupMessagesEvent.getAllGroupMessages(
-                        groupId: group.groupId.toString(),
-                        communityId: group.communityId.toString(),
-                      ),
-                    );
-              }
+              print(groupId);
+              
+              //if (group.editors != null &&
+              //    group.administrator != null &&
+              //    group.groupId != null) {
+              //  context.read<ChatGroupCheckManagerBloc>().add(
+              //        ChatGroupCheckManagerEvent.getAllAdministrator(
+              //          administrator: group.administrator!,
+              //          editors: group.editors!,
+              //          groupId: group.groupId!,
+              //        ),
+              //      );
+              //  context.read<GetAllGroupMessagesBloc>().add(
+              //        GetAllGroupMessagesEvent.getAllGroupMessages(
+              //          groupId: group.groupId.toString(),
+              //          communityId: group.communityId.toString(),
+              //        ),
+              //      );
+              //}
             },
             orElse: () {},
           );

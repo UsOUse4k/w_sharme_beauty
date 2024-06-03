@@ -24,6 +24,12 @@ class _ProfileNewEmailPageState extends State<ProfileNewEmailPage> {
   }
 
   @override
+  void dispose() {
+    emaiCtrl.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,

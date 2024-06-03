@@ -20,8 +20,8 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
           const [],
       theme: json['theme'] as String? ?? '',
       city: json['city'] as String? ?? '',
-      date: json['date'] as String? ?? '',
-      phone: json['phone'] as String? ?? '',
+      dateUser: json['dateUser'] as String? ?? '',
+      phoneUser: json['phoneUser'] as String? ?? '',
       publics: json['publics'] as int? ?? 0,
       followers: (json['followers'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -50,8 +50,8 @@ Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
       'category': instance.category,
       'theme': instance.theme,
       'city': instance.city,
-      'date': instance.date,
-      'phone': instance.phone,
+      'dateUser': instance.dateUser,
+      'phoneUser': instance.phoneUser,
       'publics': instance.publics,
       'followers': instance.followers,
       'subscriptions': instance.subscriptions,

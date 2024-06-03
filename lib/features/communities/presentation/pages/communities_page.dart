@@ -63,16 +63,23 @@ class _CommunitiesPageState extends State<CommunitiesPage>
               succes: (user) {
                 return Row(
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(13),
+                    if (user.profilePictureUrl != null)
+                      ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(14),
+                        ),
+                        child: GlCachedNetworImage(
+                          height: 28.h,
+                          width: 28.w,
+                          urlImage: user.profilePictureUrl.toString(),
+                        ),
+                      )
+                    else
+                      GlCircleAvatar(
+                        avatar: Assets.images.notAvatar.path,
+                        width: 28.w,
+                        height: 28.h,
                       ),
-                      child: GlCachedNetworImage(
-                        height: 26.h,
-                        width: 26.w,
-                        urlImage: user.profilePictureUrl,
-                      ),
-                    ),
                     const SizedBox(width: 16),
                     Text(
                       'Сообщество',

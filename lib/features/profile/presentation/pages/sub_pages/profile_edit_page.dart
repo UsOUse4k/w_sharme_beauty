@@ -89,6 +89,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   context
                       .read<MyProfileInfoBloc>()
                       .add(const MyProfileInfoEvent.getMe());
+                  context.go('/profile');
                   setState(() {
                     isLoading = false;
                   });

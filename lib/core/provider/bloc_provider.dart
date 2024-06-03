@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/create_notification_bloc/create_notification_bloc.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_notification_bloc/get_all_notification_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/subscribe_bloc/subscribe_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/update_status_user_bloc/update_status_user_bloc.dart';
@@ -293,6 +295,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<QuestionCommentLikeBloc>(
           create: (context) => getIt<QuestionCommentLikeBloc>(),
+        ),
+        BlocProvider<CreateNotificationBloc>(
+          create: (context) => getIt<CreateNotificationBloc>(),
+        ),
+        BlocProvider<GetAllNotificationBloc>(
+          create: (context) => getIt<GetAllNotificationBloc>(),
         ),
       ],
       child: child,

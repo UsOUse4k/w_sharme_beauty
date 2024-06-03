@@ -15,11 +15,16 @@ class UserAvatarWithName extends StatelessWidget {
     required this.subTitle,
     this.onPressed,
     this.raduis = 20,
+    this.date, this.subStyle,
   });
   final double? raduis;
   final double width;
   final double height;
   final String? avatar;
+  final String? date;
+  final TextStyle? subStyle;
+
+
   final String name;
   final String subTitle;
 
@@ -32,7 +37,7 @@ class UserAvatarWithName extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (avatar != null && avatar != null && avatar != '')
+          if (avatar != null && avatar != '')
             ClipRRect(
               borderRadius: BorderRadius.all(
                 Radius.circular(raduis!),
@@ -59,8 +64,16 @@ class UserAvatarWithName extends StatelessWidget {
               ),
               Text(
                 subTitle,
-                style: AppStyles.w400f14.copyWith(color: AppColors.grey),
+                overflow: TextOverflow.ellipsis,
+                style: subStyle ??  AppStyles.w400f14.copyWith(color: AppColors.grey),
               ),
+              if (date != null)
+                Text(
+                  date.toString(),
+                  style: AppStyles.w400f14.copyWith(
+                    color: AppColors.darkGrey,
+                  ),
+                ),
             ],
           ),
         ],

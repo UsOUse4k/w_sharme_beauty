@@ -69,6 +69,8 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
           'participants': FieldValue.arrayUnion(members),
           'chatGroupId': groupId,
           'chatGroupName': chatGroupRoom.groupName,
+          'chatImageUrl': groupProfileImage,
+
         });
         await _firestore
             .collection('communities')
@@ -91,6 +93,7 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
     required String username,
     required String avatarUrl,
     required String communityId,
+    Uint8List? file,
   }) async {
     try {
       final String messageId = const Uuid().v1();
@@ -107,15 +110,29 @@ class FirebaseChatGroupFacade implements IChatGroupRepository {
         avatarUrl: avatarUrl,
         username: username,
       );
+
       final DocumentReference myChatRoomRef = _firestore
           .collection('communities')
           .doc(communityId)
           .collection('chat_groups')
           .doc(groupId);
-      await myChatRoomRef
-          .collection('messages')
-          .doc(messageId)
-          .set(newMessage.toJson());
+      if (file != null) {
+        final imageurl = await StorageMethods(_auth, _storage)
+            .uploadImageToStorage('chatGroup', file, true);
+        final updateMessage = newMessage.copyWith(
+          image: imageurl,
+        );
+        await myChatRoomRef
+            .collection('messages')
+            .doc(messageId)
+            .set(updateMessage.toJson());
+      } else {
+        await myChatRoomRef
+            .collection('messages')
+            .doc(messageId)
+            .set(newMessage.toJson());
+      }
+
       if (myUid != receiverId) {
         await myChatRoomRef.update({
           'messageCount': FieldValue.increment(1),

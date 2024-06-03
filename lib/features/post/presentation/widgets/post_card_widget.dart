@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/auth/presentation/bloc/create_notification_bloc/create_notification_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
@@ -55,12 +56,31 @@ class _PostCardState extends State<PostCard> {
   void toggleLike() {
     final postId = widget.post!.postId.toString();
     final bool newLikeStatus = !isLike;
+
     if (isLike) {
       context.read<PostLikeBloc>().add(PostLikeEvent.dislike(postId));
       countLike = countLike - 1;
     } else {
       context.read<PostLikeBloc>().add(PostLikeEvent.like(postId));
       countLike = countLike + 1;
+      if (widget.post != null && widget.post!.imageUrls.isNotEmpty) {
+        context.read<CreateNotificationBloc>().add(
+              CreateNotificationEvent.created(
+                type: 'like',
+                fromUser: widget.post!.authorId.toString(),
+                contentId: widget.post!.postId.toString(),
+                postImagUrl: widget.post!.imageUrls.first,
+              ),
+            );
+      } else {
+        context.read<CreateNotificationBloc>().add(
+              CreateNotificationEvent.created(
+                type: 'like',
+                fromUser: widget.post!.authorId.toString(),
+                contentId: widget.post!.postId.toString(),
+              ),
+            );
+      }
     }
     if (mounted) {
       setState(() {
@@ -87,6 +107,15 @@ class _PostCardState extends State<PostCard> {
               authorId: widget.post!.authorId,
             ),
           );
+      if (widget.post!.authorId != currentUid) {
+        context.read<CreateNotificationBloc>().add(
+              CreateNotificationEvent.created(
+                type: 'subscribe',
+                fromUser: widget.post!.authorId.toString(),
+                contentId: widget.post!.authorId.toString(),
+              ),
+            );
+      }
     }
     if (mounted) {
       setState(() {

@@ -82,13 +82,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
               context
                   .read<MyCommunityListBloc>()
                   .add(const MyCommunityListEvent.getMyCommunity());
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(
-                    "Сообщество создано",
-                  ),
-                ),
-              );
+              context.pop();
             },
             error: (message) {
               isLoading = false;
@@ -112,18 +106,24 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
               Flexible(
                 flex: 15,
                 child: ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     TextFieldWidgetWithTitle(
+                      raduis: 10,
                       title: "Название сообщества",
                       hintText: "Придумайте название",
                       controller: communityName,
+                      titleStyle: AppStyles.w500f14.copyWith(
+                        color: AppColors.darkGrey,
+                      ),
                     ),
                     SizedBox(height: 14.h),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
                         'Выберите категорию',
-                        style: AppStyles.w500f16.copyWith(
+                        style: AppStyles.w500f14.copyWith(
                           color: AppColors.darkGrey,
                         ),
                       ),
@@ -152,20 +152,25 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                     const Text(
                       "Установите аватар",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.darkGrey,
                       ),
                     ),
                     SizedBox(height: 8.h),
                     if (avatar != null)
-                      CardImageProfileAdd(
-                        radius: 50,
-                        image: MemoryImage(avatar!),
-                        onPressed: () {
-                          avatar = null;
-                          setState(() {});
-                        },
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CardImageProfileAdd(
+                            radius: 50,
+                            image: MemoryImage(avatar!),
+                            onPressed: () {
+                              avatar = null;
+                              setState(() {});
+                            },
+                          ),
+                        ],
                       ),
                     SizedBox(height: 20.h),
                     AddingButton(
@@ -176,6 +181,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                     ),
                     SizedBox(height: 20.h),
                     TextFieldWidgetWithTitle(
+                      raduis: 10,
                       maxLines: 3,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -183,7 +189,7 @@ class _CommunityCreatePageState extends State<CommunityCreatePage> {
                       ),
                       title: "Описание",
                       titleStyle:
-                          AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
+                          AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
                       hintText: "Расскажите о сообществе",
                       controller: description,
                     ),

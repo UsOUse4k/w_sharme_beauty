@@ -78,48 +78,6 @@ class _AllQuestionsPageState extends State<AllQuestionsPage> {
             const SizedBox(
               height: 5,
             ),
-            //CommentBookingCard(
-            //  item: CommentsModel(
-            //    username: 'Elena',
-            //    comment:
-            //        'Все супер! Хочу записаться. Можете сказать сколько стоило этот маникюр?',
-            //    like: '1',
-            //    id: 'sdfghjk',
-            //  ),
-            //  avatar: Assets.images.elena.path,
-            //),
-            //const SizedBox(
-            //  height: 10,
-            //),
-            //Container(
-            //  width: MediaQuery.of(context).size.width,
-            //  padding: const EdgeInsets.only(left: 40),
-            //  child: CommentBookingCard(
-            //    item: CommentsModel(
-            //      username: 'Nastya',
-            //      comment: 'Спасибо. 5000 рублей',
-            //      like: '1',
-            //      id: 'sdfghjk',
-            //    ),
-            //    avatar: Assets.images.nastya.path,
-            //  ),
-            //),
-            //const SizedBox(
-            //  height: 10,
-            //),
-            //CommentBookingCard(
-            //  item: CommentsModel(
-            //    username: 'Elena',
-            //    comment:
-            //        'Все супер! Хочу записаться. Можете сказать сколько стоило этот маникюр?',
-            //    like: '1',
-            //    id: 'sdfghjk',
-            //  ),
-            //  avatar: Assets.images.nastii.path,
-            //),
-            const SizedBox(
-              height: 10,
-            ),
             const Spacer(),
             Row(
               children: [

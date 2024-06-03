@@ -18,6 +18,7 @@ abstract class IChatGroupRepository {
     required String username,
     required String avatarUrl,
     required String communityId,
+    Uint8List? file,
   });
 
   Stream<List<Message>> getMessages({

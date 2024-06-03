@@ -7,8 +7,7 @@ part of 'community_comment.dart';
 // **************************************************************************
 
 _$CommunityCommentImpl _$$CommunityCommentImplFromJson(
-  Map<String, dynamic> json,
-) =>
+        Map<String, dynamic> json) =>
     _$CommunityCommentImpl(
       uid: json['uid'] as String? ?? '',
       commentId: json['commentId'] as String? ?? '',
@@ -24,8 +23,7 @@ _$CommunityCommentImpl _$$CommunityCommentImplFromJson(
     );
 
 Map<String, dynamic> _$$CommunityCommentImplToJson(
-  _$CommunityCommentImpl instance,
-) =>
+        _$CommunityCommentImpl instance) =>
     <String, dynamic>{
       'uid': instance.uid,
       'commentId': instance.commentId,

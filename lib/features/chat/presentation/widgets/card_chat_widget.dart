@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
-import 'package:w_sharme_beauty/core/theme/app_colors.dart';
-import 'package:w_sharme_beauty/core/widgets/user_avatar.dart';
-import 'package:w_sharme_beauty/core/widgets/user_name_and_text.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/chat_room.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
@@ -43,66 +41,27 @@ class _CardChatWidgetState extends State<CardChatWidget> {
           '/home/chat/${RouterContants.chatMessages}/${widget.userId}',
         );
       },
-      child: BlocBuilder<UserDetailBloc, UserDetailState>(
-        builder: (context, state) {
-          return state.maybeWhen(
-            error: (message) => const Center(
-              child: Text('error'),
+      child: Container(
+        height: 73.h,
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            UserAvatarWithName(
+              width: 60.w,
+              height: 60.h,
+              raduis: 30,
+              avatar: widget.chatRooms.receiverUserAvatar,
+              name: widget.chatRooms.receiverUsername.toString(),
+              subTitle: widget.chatRooms.lastMessage ?? "пусто",
             ),
-            success: (userData) {
-              return Container(
-                height: 78,
-                margin: const EdgeInsets.only(bottom: 10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        UserAvatar(
-                          width: 60.w,
-                          height: 60.h,
-                          raduis: 30,
-                          avatar: userData.profilePictureUrl,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 8.0,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                UserNameAndText(
-                                  name: userData.username.toString(),
-                                  subTitle:
-                                      widget.chatRooms.lastMessage ?? "пусто",
-                                ),
-                                MessageCheckTimeTextWidget(
-                                  userId: widget.userId,
-                                  chatRoom: widget.chatRooms,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        top: 10,
-                        left: 55,
-                      ),
-                      child: Divider(
-                        color: AppColors.lightGrey,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            orElse: () => Container(),
-          );
-        },
+            MessageCheckTimeTextWidget(
+              userId: widget.userId,
+              chatRoom: widget.chatRooms,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -20,9 +20,6 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
-  final TextEditingController phoneCtrl = TextEditingController();
-  final TextEditingController dateCtrl = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
@@ -70,26 +67,22 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     child: Column(
                       children: [
                         ProfileSettingItemWidget(
-                          title: 'Телефон',
-                          subtitle: user.phone != ''
-                              ? user.phone.toString()
-                              : 'Не указан',
                           onTap: () {
-                            route.push(
-                              '/profile/${RouterContants.profileNumber}',
-                            );
+                            context.push('/profile/profile-phone');
                           },
+                          title: 'Телефон',
+                          subtitle: user.phoneUser != ''
+                              ? user.phoneUser.toString()
+                              : 'Не указан',
                         ),
                         ProfileSettingItemWidget(
-                          title: 'День рождения',
-                          subtitle: user.date != ''
-                              ? user.date.toString()
-                              : 'Не указан',
                           onTap: () {
-                            route.push(
-                              '/profile/${RouterContants.profileBirthDate}',
-                            );
+                            context.push('/profile/profile-date');
                           },
+                          title: 'День рождения',
+                          subtitle: user.dateUser != ''
+                              ? user.dateUser.toString()
+                              : 'Не указан',
                         ),
                         BlocListener<AuthBloc, AuthState>(
                           listener: (context, state) {

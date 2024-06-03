@@ -21,7 +21,7 @@ class CommunityCategoryBottomSheet extends StatelessWidget {
         return ListTile(
           contentPadding: EdgeInsets.zero,
           title: Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Text(
               'Чем вы занимаетесь?',
               style: AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
@@ -97,7 +97,7 @@ class CommunityCategoryBottomSheet extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: AppColors.lightGrey,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

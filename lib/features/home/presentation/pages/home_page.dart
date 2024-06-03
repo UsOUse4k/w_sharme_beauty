@@ -37,21 +37,23 @@ class _HomePageState extends State<HomePage> {
             BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  succes: (profile) => profile.profilePictureUrl != null
+                  succes: (profile) => profile.profilePictureUrl != null || profile.profilePictureUrl != ''
+
                       ? ClipRRect(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(14),
                           ),
                           child: GlCachedNetworImage(
-                            height: 26.h,
-                            width: 26.w,
+                            height: 28.h,
+                            width: 28.w,
+
                             urlImage: profile.profilePictureUrl.toString(),
                           ),
                         )
                       : GlCircleAvatar(
                           avatar: Assets.images.notAvatar.path,
-                          width: 26.w,
-                          height: 26.h,
+                          width: 28.w,
+                          height: 28.h,
                         ),
                   orElse: () => Container(),
                 );

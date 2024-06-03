@@ -29,6 +29,7 @@ class CreateChatroomBloc
               final result = await _chatRepository.createChatRoom(
                 uid: userId,
                 receiverUsername: data.username.toString(),
+                receiverUserAvatar: data.profilePictureUrl.toString(),
               );
               await result.fold((erro) async {
                 emit(CreateChatroomState.error(errorMessage: erro.messasge));
