@@ -208,6 +208,9 @@ class $AssetsImagesGen {
   AssetGenImage get adverBg =>
       const AssetGenImage('assets/images/adver_bg.jpg');
 
+  /// File path: assets/images/arrow.png
+  AssetGenImage get arrow => const AssetGenImage('assets/images/arrow.png');
+
   /// File path: assets/images/ava.png
   AssetGenImage get ava => const AssetGenImage('assets/images/ava.png');
 
@@ -221,15 +224,29 @@ class $AssetsImagesGen {
   /// File path: assets/images/bloc.jpg
   AssetGenImage get bloc => const AssetGenImage('assets/images/bloc.jpg');
 
+  /// File path: assets/images/brows.png
+  AssetGenImage get brows => const AssetGenImage('assets/images/brows.png');
+
   /// File path: assets/images/camera.png
   AssetGenImage get camera => const AssetGenImage('assets/images/camera.png');
 
   /// File path: assets/images/close.png
   AssetGenImage get close => const AssetGenImage('assets/images/close.png');
 
+  /// File path: assets/images/eyelashes.png
+  AssetGenImage get eyelashes =>
+      const AssetGenImage('assets/images/eyelashes.png');
+
+  /// File path: assets/images/haircut.png
+  AssetGenImage get haircut => const AssetGenImage('assets/images/haircut.png');
+
   /// File path: assets/images/main_picture.png
   AssetGenImage get mainPicture =>
       const AssetGenImage('assets/images/main_picture.png');
+
+  /// File path: assets/images/manicure.png
+  AssetGenImage get manicure =>
+      const AssetGenImage('assets/images/manicure.png');
 
   /// File path: assets/images/map.png
   AssetGenImage get map => const AssetGenImage('assets/images/map.png');
@@ -237,6 +254,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/notAvatar.png
   AssetGenImage get notAvatar =>
       const AssetGenImage('assets/images/notAvatar.png');
+
+  /// File path: assets/images/pedicure.png
+  AssetGenImage get pedicure =>
+      const AssetGenImage('assets/images/pedicure.png');
+
+  /// File path: assets/images/place.png
+  AssetGenImage get place => const AssetGenImage('assets/images/place.png');
 
   /// File path: assets/images/serviceImg1.jpeg
   AssetGenImage get serviceImg1 =>
@@ -262,6 +286,9 @@ class $AssetsImagesGen {
   AssetGenImage get serviceImg6 =>
       const AssetGenImage('assets/images/serviceImg6.jpeg');
 
+  /// File path: assets/images/user.png
+  AssetGenImage get user => const AssetGenImage('assets/images/user.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         elena,
@@ -271,21 +298,29 @@ class $AssetsImagesGen {
         nastya,
         nasya,
         adverBg,
+        arrow,
         ava,
         avatar,
         beautyCenter,
         bloc,
+        brows,
         camera,
         close,
+        eyelashes,
+        haircut,
         mainPicture,
+        manicure,
         map,
         notAvatar,
+        pedicure,
+        place,
         serviceImg1,
         serviceImg2,
         serviceImg3,
         serviceImg4,
         serviceImg5,
-        serviceImg6
+        serviceImg6,
+        user
       ];
 }
 
@@ -301,6 +336,16 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/announcement.svg
   SvgGenImage get announcement =>
       const SvgGenImage('assets/svgs/announcement.svg');
+
+  /// File path: assets/svgs/arrow_back.svg
+  SvgGenImage get arrowBack => const SvgGenImage('assets/svgs/arrow_back.svg');
+
+  /// File path: assets/svgs/arrow_down.svg
+  SvgGenImage get arrowDown => const SvgGenImage('assets/svgs/arrow_down.svg');
+
+  /// File path: assets/svgs/arrow_forward.svg
+  SvgGenImage get arrowForward =>
+      const SvgGenImage('assets/svgs/arrow_forward.svg');
 
   /// File path: assets/svgs/chat.svg
   SvgGenImage get chat => const SvgGenImage('assets/svgs/chat.svg');
@@ -348,6 +393,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/profile.svg
   SvgGenImage get profile => const SvgGenImage('assets/svgs/profile.svg');
 
+  /// File path: assets/svgs/remove.svg
+  SvgGenImage get remove => const SvgGenImage('assets/svgs/remove.svg');
+
   /// File path: assets/svgs/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svgs/search.svg');
 
@@ -369,6 +417,9 @@ class $AssetsSvgsGen {
         add,
         ads,
         announcement,
+        arrowBack,
+        arrowDown,
+        arrowForward,
         chat,
         checkDouble,
         close,
@@ -384,6 +435,7 @@ class $AssetsSvgsGen {
         navigator,
         present,
         profile,
+        remove,
         search,
         share,
         subscribers,

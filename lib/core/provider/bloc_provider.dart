@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adverts_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/create_notification_bloc/create_notification_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_notification_bloc/get_all_notification_bloc.dart';
@@ -99,7 +101,9 @@ class BlocProviders extends StatelessWidget {
         BlocProvider<PostCreateBloc>(
           create: (context) => getIt<PostCreateBloc>(),
         ),
-        BlocProvider<PostLikeBloc>(create: (context) => getIt<PostLikeBloc>()),
+        BlocProvider<PostLikeBloc>(
+          create: (context) => getIt<PostLikeBloc>(),
+        ),
         BlocProvider<AddQuestionBloc>(
           create: (context) => getIt<AddQuestionBloc>(),
         ),
@@ -110,9 +114,7 @@ class BlocProviders extends StatelessWidget {
           create: (context) => getIt<ProfileInfoUpdateBloc>(),
         ),
         BlocProvider<MyProfileInfoBloc>(
-          create: (context) {
-            return getIt<MyProfileInfoBloc>();
-          },
+          create: (context) => getIt<MyProfileInfoBloc>(),
         ),
         BlocProvider<GetUserDetailBloc>(
           create: (context) => getIt<GetUserDetailBloc>(),
@@ -299,6 +301,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<QuestionCommentLikeBloc>(
           create: (context) => getIt<QuestionCommentLikeBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<MyAdvertsCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<AdvertsCubit>(),
         ),
         BlocProvider<CreateNotificationBloc>(
           create: (context) => getIt<CreateNotificationBloc>(),

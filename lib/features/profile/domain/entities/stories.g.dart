@@ -6,8 +6,7 @@ part of 'stories.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$StoriesImpl _$$StoriesImplFromJson(Map<String, dynamic> json) =>
-    _$StoriesImpl(
+_$StoriesImpl _$$StoriesImplFromJson(Map json) => _$StoriesImpl(
       uid: json['uid'] as String?,
       title: json['title'] as String?,
       imageUrl: json['imageUrl'] as String?,

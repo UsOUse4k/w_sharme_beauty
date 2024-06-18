@@ -8,7 +8,8 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_button_widget.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_radio_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
@@ -51,7 +52,6 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
             Navigator.pop(context);
           },
         ),
-        centerTitle: true,
         title: Text(
           'Задать вопрос',
           style: AppStyles.w500f18,

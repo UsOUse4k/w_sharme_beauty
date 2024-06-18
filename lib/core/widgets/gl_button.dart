@@ -20,14 +20,12 @@ class GlButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height ?? 47,
       width: width ?? double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

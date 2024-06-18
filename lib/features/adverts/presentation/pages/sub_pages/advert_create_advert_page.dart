@@ -1,318 +1,356 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
+import 'package:w_sharme_beauty/core/widgets/keyboard_dismiss_on_tap.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/schedule_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
+import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_advert/create_advert_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_schedule/select_schedule_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_pick_image.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_back_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_categories_modal_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_field_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_schedule_modal_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_text_form_field.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_warning_text.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/select_photo_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/titled_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
 
-class AdvertCreateAdvertPage extends StatefulWidget {
+class AdvertCreateAdvertPage extends StatelessWidget {
   const AdvertCreateAdvertPage({super.key});
 
   @override
-  State<AdvertCreateAdvertPage> createState() => _AdvertCreateAdvertPageState();
-}
-
-class _AdvertCreateAdvertPageState extends State<AdvertCreateAdvertPage> {
-  List<Uint8List> selectedImageBytes = [];
-  String? avatarUrl;
-  bool isLoading = false;
-  final TextEditingController description = TextEditingController();
-  final TextEditingController saloonName = TextEditingController();
-  final TextEditingController location = TextEditingController();
-  final TextEditingController number = TextEditingController();
-
-  Future pickImage(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final Uint8List imageData = await image.readAsBytes();
-      setState(() {
-        selectedImageBytes.add(imageData);
-      });
-    }
-  }
-
-  void clearImage(Uint8List bytes) {
-    setState(() {
-      selectedImageBytes.removeWhere((element) => element == bytes);
-    });
-  }
-
-  @override
-  void dispose() {
-    description.dispose();
-    saloonName.dispose();
-    location.dispose();
-    number.dispose();
-    avatarUrl = null;
-    selectedImageBytes.clear();
-
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final route = GoRouter.of(context);
-
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-      ),
+    return KeyboardDismissOnTap(
       child: Scaffold(
+        backgroundColor: AppColors.white,
         appBar: GlAppBar(
-          leading: GlIconButton(
-            iconSize: 16,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
+          leading: AdvertBackButton(
+            onTap: () {
               context.pop();
             },
           ),
-          title: CenterTitleAppBar(
-            title: 'Создайте объявление',
-            textStyle: AppStyles.w500f18,
+          title: Text(
+            "Создайте объявление",
+            style: AppStyles.w500f18,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 18, right: 18, bottom: 20),
-          child: SingleChildScrollView(
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<CreateAdvertCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<SearchResultsCubit>(),
+            ),
+          ],
+          child: const _AdvertCreateAdvertBody(),
+        ),
+      ),
+    );
+  }
+}
+
+class _AdvertCreateAdvertBody extends StatelessWidget {
+  const _AdvertCreateAdvertBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<CreateAdvertCubit, CreateAdvertState>(
+      listener: (context, state) {
+        state.advertFailureOrAdvertOption.fold(
+          () {},
+          (either) {
+            either.fold(
+              (l) {
+                print(l);
+              },
+              (advert) {
+                context.read<MyAdvertsCubit>().addAdvert(advert);
+                context.pushReplacement(
+                  "/adverts/${RouterContants.advertMyAdvertsPage}",
+                );
+              },
+            );
+          },
+        );
+      },
+      builder: (context, state) {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Form(
+            autovalidateMode: state.showErrorMessages
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
+                Text(
+                  "Фотографии",
+                  style: AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Фотографии",
-                      style:
-                          AppStyles.w500f16.copyWith(color: AppColors.darkGrey),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Wrap(
-                      spacing: 5,
-                      runSpacing: 5,
-                      children: selectedImageBytes.map((bytes) {
-                        return CardImageProfileAdd(
-                          image: MemoryImage(
-                            bytes,
-                          ),
+                const Gap(10),
+                if (state.images.isNotEmpty) ...[
+                  Wrap(
+                    spacing: 5,
+                    runSpacing: 5,
+                    children: [
+                      for (int index = 0; index < state.images.length; index++)
+                        CardImageProfileAdd(
+                          image: FileImage(state.images[index]),
                           onPressed: () {
-                            clearImage(
-                              bytes,
-                            );
+                            context
+                                .read<CreateAdvertCubit>()
+                                .removeImage(index);
                           },
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    AddingButton(
-                      onPressed: () => pickImage(context),
-                      text: "+ Выбрать фото",
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFieldWidgetWithTitle(
-                  title: 'Выберите категорию',
-                  titleStyle: AppStyles.w500f14.copyWith(
-                    color: AppColors.darkGrey,
-                  ),
-                  hintText: 'Выберите категорию',
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.expand_more,
-                      color: AppColors.black,
-                    ),
-                  ),
-                ),
-                TextFieldWidgetWithTitle(
-                  title: 'Ваше имя или название салона',
-                  titleStyle: AppStyles.w500f14.copyWith(
-                    color: AppColors.darkGrey,
-                  ),
-                  hintText: 'Например, iPhone 11',
-                  controller: saloonName,
-                ),
-                TextFieldWidgetWithTitle(
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 30,
-                    horizontal: 10,
-                  ),
-                  title: 'Описание',
-                  hintText: 'Напишите описание',
-                  controller: description,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFieldWidgetWithTitle(
-                  title: 'Ваше местоложение',
-                  titleStyle: AppStyles.w500f14.copyWith(
-                    color: AppColors.darkGrey,
-                  ),
-                  hintText: 'Ваше местоположение',
-                  controller: location,
-                ),
-                TextFieldWidgetWithTitle(
-                  title: 'Контакты',
-                  titleStyle: AppStyles.w500f14.copyWith(
-                    color: AppColors.darkGrey,
-                  ),
-                  hintText: 'Номер телефона',
-                  controller: location,
-                ),
-                TextFieldWidgetWithTitle(
-                  readOnly: true,
-                  title: 'Режим работы',
-                  hintText: 'Выберите режим работы',
-                  hintStyle: AppStyles.w500f16.copyWith(
-                    color: AppColors.black,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      BottomSheetUtil.showAppBottomSheet(
-                        context,
-                        CustomBottomSheet(
-                          maxHeight: 0.67,
-                          navbarTitle: 'График работы',
-                          widget: Padding(
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              children: [
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Понедельник:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Вторник:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Среда:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Четверг:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Пятница:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Суббота:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                ScheduleCardWidget(
-                                  onTap: () {},
-                                  weekDay: 'Воскресенье:',
-                                  timeText1: '07:00',
-                                  timeText2: '16:00',
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                GlButton(text: 'Применить', onPressed: () {}),
-                              ],
-                            ),
-                          ),
                         ),
+                    ],
+                  ),
+                  const Gap(10),
+                ],
+                SelectPhotoButton(
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+
+                    advertPickImage().then(
+                      (value) {
+                        if (value != null) {
+                          context.read<CreateAdvertCubit>().addImage(value);
+                        }
+                      },
+                    );
+                  },
+                ),
+                if (state.showErrorMessages && state.images.isEmpty)
+                  const AdvertWarningText(
+                    message: "Выберите хотя бы одно фото",
+                  ),
+                const Gap(15),
+                TitledWidget(
+                  title: "Выберите категорию",
+                  child: AdvertFieldButton(
+                    text: "Выберите категорию",
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+
+                      showAdvertModalBottomSheet<List<String>>(
+                        context: context,
+                        builder: (context) {
+                          return BlocProvider(
+                            create: (context) => getIt<SelectCategoriesCubit>()
+                              ..initialize(state.categories),
+                            child: const CategoriesModalBottomSheet(),
+                          );
+                        },
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            context
+                                .read<CreateAdvertCubit>()
+                                .categoriesChanged(value);
+                          }
+                        },
                       );
                     },
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      color: AppColors.black,
-                    ),
                   ),
                 ),
-                TextFieldWidgetWithTitle(
-                  readOnly: true,
-                  title: 'Товары и услуги',
-                  hintText: 'Добавьте товары и услуги',
-                  hintStyle: AppStyles.w500f16.copyWith(
-                    color: AppColors.black,
+                if (state.showErrorMessages && state.categories.isEmpty)
+                  const AdvertWarningText(
+                    message: "Выберите хотя бы одну категорию",
                   ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      route.push(
+                const Gap(15),
+                TitledWidget(
+                  title: "Ваше имя или название салона",
+                  child: AdvertTextFormField(
+                    hintText: "Например, iPhone 11",
+                    textInputAction: TextInputAction.next,
+                    onChanged: (value) {
+                      context.read<CreateAdvertCubit>().nameChanged(value);
+                    },
+                    validator: (value) {
+                      if (value != null) {
+                        if (value.isEmpty) {
+                          return "Обязательное поле";
+                        }
+                      }
+
+                      return null;
+                    },
+                  ),
+                ),
+                const Gap(15),
+                TitledWidget(
+                  title: "Описание",
+                  child: AdvertTextFormField(
+                    hintText: "Напишите описание",
+                    maxLines: 3,
+                    onChanged: (value) {
+                      context
+                          .read<CreateAdvertCubit>()
+                          .descriptionChanged(value);
+                    },
+                    validator: (value) {
+                      if (value != null) {
+                        if (value.isEmpty) {
+                          return "Обязательное поле";
+                        }
+                      }
+
+                      return null;
+                    },
+                  ),
+                ),
+                const Gap(15),
+                TitledWidget(
+                  title: "Ваше местоложение",
+                  child: AdvertFieldButton(
+                    text: "Ваше местоложение",
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+
+                      context
+                          .push<SearchResult>(
+                        '/adverts/${RouterContants.advertLocationSearchPage}',
+                        extra: context.read<SearchResultsCubit>(),
+                      )
+                          .then(
+                        (value) {
+                          if (value != null) {
+                            context.read<CreateAdvertCubit>().locationChanged(
+                                  Location(
+                                    address: value.title,
+                                    formattedAddress: value.subtitle!,
+                                    coordinates: value.coordinates!,
+                                  ),
+                                );
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+                if (state.showErrorMessages && state.location == null)
+                  const AdvertWarningText(
+                    message: "Выберите местоположение",
+                  ),
+                const Gap(15),
+                TitledWidget(
+                  title: "Контакты",
+                  child: AdvertTextFormField(
+                    hintText: "Номер телефона",
+                    keyboardType: TextInputType.phone,
+                    textInputAction: TextInputAction.done,
+                    onChanged: (value) {
+                      context
+                          .read<CreateAdvertCubit>()
+                          .phoneNumberChanged(value);
+                    },
+                    validator: (value) {
+                      if (value != null) {
+                        if (value.isEmpty) {
+                          return "Обязательное поле";
+                        }
+                      }
+
+                      return null;
+                    },
+                  ),
+                ),
+                const Gap(15),
+                TitledWidget(
+                  title: "Режим работы",
+                  child: AdvertFieldButton(
+                    text: "Выберите режим работы",
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+
+                      showAdvertModalBottomSheet<List<Time>>(
+                        context: context,
+                        builder: (context) {
+                          return BlocProvider(
+                            create: (context) {
+                              final cubit = getIt<SelectScheduleCubit>();
+
+                              if (state.schedule != null) {
+                                cubit.initialize(state.schedule!);
+                              }
+
+                              return cubit;
+                            },
+                            child: const ScheduleModalBottomSheet(),
+                          );
+                        },
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            context
+                                .read<CreateAdvertCubit>()
+                                .scheduleChanged(value);
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+                if (state.showErrorMessages && state.schedule == null)
+                  const AdvertWarningText(
+                    message: "Выберите режим работы",
+                  ),
+                const Gap(15),
+                TitledWidget(
+                  title: "Товары и услуги",
+                  child: AdvertFieldButton(
+                    text: "Добавьте товары и услуги",
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+
+                      context
+                          .push<List<Service>>(
                         '/adverts/${RouterContants.advertProductAndServicePage}',
+                        extra: state.services,
+                      )
+                          .then(
+                        (services) {
+                          if (services != null) {
+                            context
+                                .read<CreateAdvertCubit>()
+                                .servicesChanged(services);
+                          }
+                        },
                       );
                     },
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      color: AppColors.black,
-                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                if (state.showErrorMessages && state.services.isEmpty)
+                  const AdvertWarningText(
+                    message: "Выберите хотя бы один товар или услугу",
+                  ),
+                const Gap(20),
                 GlButton(
-                  text: 'Создать объявление',
-                  onPressed: () {},
+                  text:
+                      state.isSubmitting ? "Загрузка..." : "Создать объявление",
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+
+                    context.read<CreateAdvertCubit>().createAdvert();
+                  },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const Gap(20),
               ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

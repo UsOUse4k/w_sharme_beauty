@@ -6,8 +6,7 @@ part of 'message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MessageImpl _$$MessageImplFromJson(Map<String, dynamic> json) =>
-    _$MessageImpl(
+_$MessageImpl _$$MessageImplFromJson(Map json) => _$MessageImpl(
       message: json['message'] as String?,
       messageId: json['messageId'] as String?,
       senderId: json['senderId'] as String?,

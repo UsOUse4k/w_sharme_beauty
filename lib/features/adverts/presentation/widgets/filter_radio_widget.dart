@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
-import 'package:w_sharme_beauty/features/adverts/data/data/data.dart';
+import 'package:w_sharme_beauty/features/adverts/data/filter_list.dart';
 
 typedef OnSelectCallback = void Function(String text);
 

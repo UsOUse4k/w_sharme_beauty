@@ -1,50 +1,54 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/service_widget.dart';
 
 class AdverServicePage extends StatelessWidget {
-  const AdverServicePage({super.key});
+  const AdverServicePage({
+    super.key,
+    required this.services,
+  });
+
+  final List<Service> services;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 15),
-      physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-          ),
-          child: const CardPriceListWidget(
-            title: 'Маникюр',
-            text: 'Маникюр аппаратный/комбинированный/классический',
-            price: '1050',
-            text2: 'Мужской маникюр',
-            desc: 'В стоимость входит: форма ногтей, обработка вокруг ногтей: кутикулы и валиков.',
-            price2: '1050',
-            desc2: 'до 1050 ₽',
-          ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 18),
+        decoration: const BoxDecoration(
+          color: AppColors.white,
         ),
-        const SizedBox(height: 15),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-          ),
-          child: const CardPriceListWidget(
-            title: 'Дизайн',
-            text: 'Дизайн одного ногтя (ручная роспись)',
-            desc: 'до 350',
-            price: '100',
-            text2: 'Френч (классический, обратный, лучный)',
-            price2: '1000',
-          ),
+        child: ListView.separated(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          itemCount: services.length,
+          itemBuilder: (context, index) {
+            final service = services[index];
+
+            return ServiceWidget(
+              name: service.name,
+              description: service.description,
+              price: service.price,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const Column(
+              children: [
+                Gap(15),
+                Divider(
+                  height: 0,
+                  indent: 18,
+                  color: AppColors.lightGrey,
+                ),
+                Gap(15),
+              ],
+            );
+          },
         ),
-      ],
+      ),
     );
   }
 }

@@ -6,8 +6,7 @@ part of 'user_profile.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
-    _$UserProfileImpl(
+_$UserProfileImpl _$$UserProfileImplFromJson(Map json) => _$UserProfileImpl(
       uid: json['uid'] as String?,
       email: json['email'] as String?,
       name: json['name'] as String? ?? '',
@@ -33,7 +32,8 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
           const [],
       rating: json['rating'] as String? ?? '10',
       stories: (json['stories'] as List<dynamic>?)
-              ?.map((e) => Stories.fromJson(e as Map<String, dynamic>))
+              ?.map(
+                  (e) => Stories.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
       lastSeen: const TimestampConverter().fromJson(json['lastSeen']),
@@ -56,6 +56,6 @@ Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
       'followers': instance.followers,
       'subscriptions': instance.subscriptions,
       'rating': instance.rating,
-      'stories': instance.stories,
+      'stories': instance.stories?.map((e) => e.toJson()).toList(),
       'lastSeen': const TimestampConverter().toJson(instance.lastSeen),
     };
