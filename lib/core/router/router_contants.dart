@@ -33,11 +33,14 @@ abstract class RouterContants {
 
   // advert sub pages
   static const String advertMyAdvertsPage = 'advertMyAdvertsPage';
-  static const String advertEditAdvertsPage = 'advertEditAdvertsPage';
+  static const String advertCreateAdvertPage = 'advertCreateAdvertPage';
+  static const String advertLocationSearchPage = 'advertLocationSearchPage';
   static const String advertProductAndServicePage =
       'advertProductAndServicePage';
   static const String advertAddServicePage = 'advertAddServicePage';
-  static const String advertCreateAdvertPage = 'advertCreateAdvertPage';
+  static const String advertEditAdvertsPage = 'advertEditAdvertsPage';
+  static const String advertEditServicePage = 'advertEditServicePage';
+  static const String advertReplyReviewsPage = 'advertReplyReviewsPage';
 
   // community sub pages
   static const String communityCreate = 'community-create';

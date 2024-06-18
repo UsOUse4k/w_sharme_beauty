@@ -2,13 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/adverts_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_add_service_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_create_advert_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_detail_page.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_edit_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_edit_advert_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_edit_sevice_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_location_search_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_my_adverts_page.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_product_and_service_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_product_and_services_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_reply_reviews_page.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
@@ -305,7 +310,11 @@ mixin AppRouter on State<App> {
                     name: RouterContants.advertDetailPage,
                     path: RouterContants.advertDetailPage,
                     builder: (context, state) {
-                      return const AdverDetailPage();
+                      final advert = state.extra! as Advert;
+
+                      return AdverDetailPage(
+                        advert: advert,
+                      );
                     },
                   ),
                   GoRoute(
@@ -316,20 +325,52 @@ mixin AppRouter on State<App> {
                     },
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.advertEditAdvertsPage,
                     path: RouterContants.advertEditAdvertsPage,
                     builder: (context, state) {
-                      return const AdvertEditPage();
+                      final advert = state.extra! as Advert;
+
+                      return AdvertEditAdvertPage(
+                        advert: advert,
+                      );
                     },
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.advertCreateAdvertPage,
+                    path: RouterContants.advertCreateAdvertPage,
+                    builder: (context, state) {
+                      return const AdvertCreateAdvertPage();
+                    },
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.advertLocationSearchPage,
+                    path: RouterContants.advertLocationSearchPage,
+                    builder: (context, state) {
+                      final searchResultsCubit =
+                          state.extra! as SearchResultsCubit;
+
+                      return AdvertLocationSearchPage(
+                        searchResultsCubit: searchResultsCubit,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.advertProductAndServicePage,
                     path: RouterContants.advertProductAndServicePage,
                     builder: (context, state) {
-                      return const AdvertProductAndServicePage();
+                      final services = state.extra! as List<Service>;
+
+                      return AdvertProductAndServicesPage(
+                        services: services,
+                      );
                     },
                   ),
                   GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.advertAddServicePage,
                     path: RouterContants.advertAddServicePage,
                     builder: (context, state) {
@@ -337,10 +378,27 @@ mixin AppRouter on State<App> {
                     },
                   ),
                   GoRoute(
-                    name: RouterContants.advertCreateAdvertPage,
-                    path: RouterContants.advertCreateAdvertPage,
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.advertEditServicePage,
+                    path: RouterContants.advertEditServicePage,
                     builder: (context, state) {
-                      return const AdvertCreateAdvertPage();
+                      final service = state.extra! as Service;
+
+                      return AdvertEditServicePage(
+                        service: service,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.advertReplyReviewsPage,
+                    path: RouterContants.advertReplyReviewsPage,
+                    builder: (context, state) {
+                      final advert = state.extra! as Advert;
+
+                      return AdvertReplyReviewsPage(
+                        advert: advert,
+                      );
                     },
                   ),
                 ],

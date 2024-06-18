@@ -6,8 +6,7 @@ part of 'question.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
-    _$QuestionImpl(
+_$QuestionImpl _$$QuestionImplFromJson(Map json) => _$QuestionImpl(
       questionText: json['questionText'] as String?,
       category: json['category'] as String?,
       theme: json['theme'] as String?,

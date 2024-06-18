@@ -6,8 +6,7 @@ part of 'community.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
-    _$CommunityImpl(
+_$CommunityImpl _$$CommunityImplFromJson(Map json) => _$CommunityImpl(
       communityId: json['communityId'] as String?,
       uid: json['uid'] as String?,
       chatGroupId: json['chatGroupId'] as String?,

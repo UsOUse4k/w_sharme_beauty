@@ -1,14 +1,27 @@
+import 'package:flutter/material.dart' hide Animation;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
-import 'package:w_sharme_beauty/core/widgets/custom_bottom_sheet.dart';
+import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_scaffold.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adverts_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts_filter/adverts_filter_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_map_controll_buttons.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_panel.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_search_field.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_search_modal_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_search_panel.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/all_adverts_panel.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class AdvertsPage extends StatefulWidget {
   const AdvertsPage({super.key});
@@ -18,93 +31,389 @@ class AdvertsPage extends StatefulWidget {
 }
 
 class _AdvertsPageState extends State<AdvertsPage> {
+  int content = 0;
+  String queryText = "";
+
+  List<GlobalKey> keys = [
+    GlobalKey(),
+    GlobalKey(),
+  ];
+
+  late final YandexMapController controller;
+
+  final GlobalKey key = GlobalKey();
+
+  List<MapObject> mapObjects = [];
+
+  final MapAnimation animation = const MapAnimation(duration: 0.25);
+
+  Future<bool> get locationPermissionGranted async =>
+      await Permission.location.request().isGranted;
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<AdvertsCubit>().getAdverts(useFiltering: false);
+  }
+
+  void _rebuildContent(int index) {
+    keys[index] = GlobalKey();
+
+    setState(() {});
+  }
+
+  Future<void> zoomIn() async {
+    await controller.moveCamera(
+      CameraUpdate.zoomIn(),
+      animation: animation,
+    );
+  }
+
+  Future<void> zoomOut() async {
+    await controller.moveCamera(
+      CameraUpdate.zoomOut(),
+      animation: animation,
+    );
+  }
+
+  Future<void> navigateToUser() async {
+    final position = (await controller.getUserCameraPosition())!;
+
+    await controller.moveCamera(
+      CameraUpdate.newCameraPosition(
+        position.copyWith(
+          zoom: const CameraBounds().maxZoom,
+        ),
+      ),
+      animation: const MapAnimation(duration: 1),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final route = GoRouter.of(context);
+    final mediaQuery = MediaQuery.of(context);
+
     return GlScaffold(
-      body: Column(
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    Assets.images.map.path,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const SizedBox(height: 50),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
-                    child: const SearchWidget(),
-                  ),
-                  const MapButtonsWidget(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 20,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Объявления',
-                          style: AppStyles.w500f22,
+          BlocListener<AdvertsCubit, AdvertsState>(
+            listener: (context, state) {
+              state.maybeMap(
+                loadSuccess: (state) {
+                  final adverts = state.adverts;
+
+                  mapObjects = adverts.map(
+                    (advert) {
+                      final coordinates = advert.location.coordinates;
+                      final point = Point(
+                        latitude: coordinates.$1,
+                        longitude: coordinates.$2,
+                      );
+
+                      return PlacemarkMapObject(
+                        mapId: MapObjectId(advert.id),
+                        point: point,
+                        opacity: 0.6,
+                        text: PlacemarkText(
+                          text: advert.name,
+                          style: const PlacemarkTextStyle(
+                            placement: TextStylePlacement.bottom,
+                            color: AppColors.purple,
+                            outlineColor: Colors.transparent,
+                          ),
                         ),
-                        const SizedBox(height: 19),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            IconButtonTextWidget(
-                              text: 'Поиск',
-                              icon: const Icon(Icons.search),
-                              onPressed: () =>
-                                  BottomSheetUtil.showAppBottomSheet(
-                                context,
-                                const CustomBottomSheet(
-                                  maxHeight: 0.7,
-                                  navbarTitle: 'Объявления',
-                                  widget: CategoriesWidget(),
-                                ),
+                        icon: PlacemarkIcon.single(
+                          PlacemarkIconStyle(
+                            image: BitmapDescriptor.fromAssetImage(
+                              Assets.images.place.path,
+                            ),
+                          ),
+                        ),
+                        onTap: (_, __) {
+                          controller
+                              .moveCamera(
+                            CameraUpdate.newCameraPosition(
+                              CameraPosition(
+                                target: point,
+                                zoom: const CameraBounds().maxZoom,
                               ),
                             ),
-                            IconButtonTextWidget(
-                              text: 'Мои',
-                              icon:
-                                  Assets.icons.ads.image(height: 24, width: 24),
-                              onPressed: () {
-                                route.push(
-                                  "/adverts/${RouterContants.advertMyAdvertsPage}",
-                                );
-                              },
-                            ),
-                            IconButtonTextWidget(
-                              text: 'Создать',
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () {
-                                route.push(
-                                  "/adverts/${RouterContants.advertCreateAdvertPage}",
-                                );
-                              },
-                            ),
-                          ],
+                            animation: const MapAnimation(duration: 1),
+                          )
+                              .then(
+                            (_) {
+                              showAdvertModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return AdvertModalBottomSheet(
+                                    title: "Информация об объявлении",
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Gap(10),
+                                        Text(
+                                          advert.name,
+                                          style: AppStyles.w500f18,
+                                        ),
+                                        const Gap(6),
+                                        Text(
+                                          advert.description,
+                                          style: AppStyles.w400f16.copyWith(
+                                            color: AppColors.darkGrey,
+                                          ),
+                                        ),
+                                        const Gap(6),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star,
+                                              color: AppColors.yellow,
+                                            ),
+                                            const Gap(6),
+                                            Text(
+                                              advert.rating.toString(),
+                                              style: AppStyles.w500f16,
+                                            ),
+                                            const Gap(2),
+                                            Text(
+                                              ' /5 ',
+                                              style: AppStyles.w400f12.copyWith(
+                                                color: AppColors.darkGrey,
+                                              ),
+                                            ),
+                                            const Gap(2),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 3),
+                                              child: Text(
+                                                '(${advert.reviewsCount})',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: AppColors.darkGrey,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Gap(10),
+                                        GlButton(
+                                          text: "Посмотреть",
+                                          onPressed: () {
+                                            Navigator.pop(context);
+
+                                            context.push(
+                                              "/adverts/${RouterContants.advertDetailPage}",
+                                              extra: advert,
+                                            );
+                                          },
+                                        ),
+                                        const Gap(20),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ).toList();
+
+                  setState(() {});
+                },
+                orElse: () {},
+              );
+            },
+            child: YandexMap(
+              key: key,
+              onMapCreated: (yandexMapController) async {
+                controller = yandexMapController;
+
+                if (!await locationPermissionGranted) {
+                  return;
+                }
+
+                final height = key.currentContext!.size!.height *
+                    mediaQuery.devicePixelRatio;
+                final width = key.currentContext!.size!.width *
+                    mediaQuery.devicePixelRatio;
+
+                await controller.toggleUserLayer(
+                  visible: true,
+                  autoZoomEnabled: true,
+                  anchor: UserLocationAnchor(
+                    course: Offset(0.5 * width, 0.5 * height),
+                    normal: Offset(0.5 * width, 0.5 * height),
+                  ),
+                );
+              },
+              onUserLocationAdded: (view) async {
+                final userLocation = await controller.getUserCameraPosition();
+
+                if (userLocation != null) {
+                  await controller.moveCamera(
+                    CameraUpdate.newCameraPosition(
+                      userLocation.copyWith(zoom: const CameraBounds().maxZoom),
+                    ),
+                    animation: const MapAnimation(
+                      type: MapAnimationType.linear,
+                      duration: 0.3,
+                    ),
+                  );
+                }
+
+                return view.copyWith(
+                  pin: view.pin.copyWith(
+                    opacity: 0.6,
+                    icon: PlacemarkIcon.single(
+                      PlacemarkIconStyle(
+                        anchor: const Offset(0.5, 1),
+                        scale: 1.5,
+                        image: BitmapDescriptor.fromAssetImage(
+                          Assets.images.user.path,
+                        ),
+                      ),
+                    ),
+                  ),
+                  arrow: view.arrow.copyWith(
+                    icon: PlacemarkIcon.single(
+                      PlacemarkIconStyle(
+                        image: BitmapDescriptor.fromAssetImage(
+                          Assets.images.arrow.path,
+                        ),
+                      ),
+                    ),
+                  ),
+                  accuracyCircle: view.accuracyCircle.copyWith(
+                    fillColor: AppColors.purple.withOpacity(0.3),
+                    strokeColor: AppColors.purple,
+                  ),
+                );
+              },
+              mapObjects: mapObjects,
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Gap(25),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: AdvertsSearchField(
+                    queryText: queryText,
+                    onTap: () {
+                      showAdvertModalBottomSheet<String>(
+                        context: context,
+                        useRootNavigator: false,
+                        enableDrag: true,
+                        builder: (context) {
+                          return BlocProvider(
+                            create: (context) => getIt<SearchAdvertsCubit>(),
+                            child: const AdvertsSearchModalBottomSheet(),
+                          );
+                        },
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            content = 2;
+                            queryText = value;
+
+                            _rebuildContent(1);
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Expanded(
+                  flex: content == 0 ? 3 : 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Spacer(flex: 2),
+                        ZoomInButton(
+                          onTap: () async {
+                            await zoomIn();
+                          },
+                        ),
+                        const Gap(12),
+                        ZoomOutButton(
+                          onTap: () async {
+                            await zoomOut();
+                          },
+                        ),
+                        const Spacer(),
+                        NavigateToUserButton(
+                          onTap: () async {
+                            await navigateToUser();
+                          },
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                const Gap(20),
+                Expanded(
+                  flex: content == 0 ? 1 : 2,
+                  child: IndexedStack(
+                    index: content,
+                    children: [
+                      AdvertsPanel(
+                        onSearchTap: () {
+                          content = 1;
+
+                          _rebuildContent(0);
+                        },
+                      ),
+                      MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) => getIt<AdvertsCubit>(),
+                          ),
+                          BlocProvider(
+                            create: (context) => getIt<AdvertsFilterCubit>(),
+                          ),
+                        ],
+                        child: AllAdvertsPanel(
+                          key: keys[0],
+                          onCloseTap: () {
+                            content = 0;
+
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) => getIt<AdvertsCubit>(),
+                          ),
+                          BlocProvider(
+                            create: (context) => getIt<AdvertsFilterCubit>(),
+                          ),
+                        ],
+                        child: AdvertsSearchPanel(
+                          key: keys[1],
+                          queryText: queryText,
+                          onCloseTap: () {
+                            content = 0;
+                            queryText = "";
+
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

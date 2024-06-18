@@ -6,8 +6,7 @@ part of 'chat_room.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
-    _$ChatRoomImpl(
+_$ChatRoomImpl _$$ChatRoomImplFromJson(Map json) => _$ChatRoomImpl(
       chatRoomId: json['chatRoomId'] as String?,
       lastMessage: json['lastMessage'] as String?,
       lastSenderId: json['lastSenderId'] as String?,

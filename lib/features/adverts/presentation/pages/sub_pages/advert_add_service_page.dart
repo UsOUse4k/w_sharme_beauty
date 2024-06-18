@@ -1,127 +1,167 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/widgets/keyboard_dismiss_on_tap.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/add_service/add_service_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_back_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_text_form_field.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/titled_widget.dart';
 
-class AdvertAddServicePage extends StatefulWidget {
+class AdvertAddServicePage extends StatelessWidget {
   const AdvertAddServicePage({super.key});
 
   @override
-  State<AdvertAddServicePage> createState() => _AdvertAddServicePageState();
-}
-
-class _AdvertAddServicePageState extends State<AdvertAddServicePage> {
-  Uint8List? avatar;
-  String? avatarUrl;
-  bool isLoading = false;
-  final TextEditingController themeText = TextEditingController();
-  final TextEditingController location = TextEditingController();
-  final TextEditingController aboutYourself = TextEditingController();
-  final TextEditingController username = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-      ),
+    return KeyboardDismissOnTap(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: AppColors.bgColors,
         appBar: GlAppBar(
-          leading: GlIconButton(
-            iconSize: 16,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
+          leading: AdvertBackButton(
+            onTap: () {
               context.pop();
             },
           ),
-          title: CenterTitleAppBar(
-            title: 'Добавить услугу',
-            textStyle: AppStyles.w500f18,
+          title: Text(
+            "Добавить услугу",
+            style: AppStyles.w500f18,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 18, right: 18, bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Добавьте услугу',
-                style: AppStyles.w500f18.copyWith(
-                  color: AppColors.black,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFieldWidgetWithTitle(
-                title: 'Напишите название услуги',
-                titleStyle: AppStyles.w500f14.copyWith(
-                  color: AppColors.darkGrey,
-                ),
-                hintText: 'Напишите название услуги',
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFieldWidgetWithTitle(
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 35,
-                  horizontal: 10,
-                ),
-                title: 'Описание',
-                hintText: 'Напишите описание',
-                controller: aboutYourself,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const TextFieldWidgetWithTitle(
-                title: 'Цена',
-                hintText: 'Напишите цену',
-              ),
-              const Spacer(),
-              GlButton(text: 'Сохранить изменения', onPressed: () {}),
-            ],
-          ),
+        body: BlocProvider(
+          create: (context) => getIt<AddServiceCubit>(),
+          child: const _AdvertAddServiceBody(),
         ),
       ),
     );
   }
+}
+
+class _AdvertAddServiceBody extends StatelessWidget {
+  const _AdvertAddServiceBody();
 
   @override
-  void initState() {
-    context.read<MyProfileInfoBloc>().add(const MyProfileInfoEvent.getMe());
-    super.initState();
-  }
+  Widget build(BuildContext context) {
+    return BlocConsumer<AddServiceCubit, AddServiceState>(
+      listener: (context, state) {
+        state.serviceOption.fold(
+          () {},
+          (service) {
+            context.pop(service);
+          },
+        );
+      },
+      builder: (context, state) {
+        return Form(
+          autovalidateMode: state.showErrorMessages
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          child: Column(
+            children: [
+              const Gap(10),
+              Container(
+                padding: const EdgeInsets.all(18),
+                color: AppColors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Добавьте услугу',
+                      style: AppStyles.w500f18,
+                    ),
+                    const Gap(15),
+                    TitledWidget(
+                      title: "Напишите название услуги",
+                      child: AdvertTextFormField(
+                        hintText: "Напишите название услуги",
+                        textInputAction: TextInputAction.next,
+                        onChanged: (value) {
+                          context.read<AddServiceCubit>().nameChanged(value);
+                        },
+                        validator: (value) {
+                          if (value != null) {
+                            if (value.isEmpty) {
+                              return "Обязательное поле";
+                            }
+                          }
 
-  @override
-  void dispose() {
-    themeText.dispose();
-    location.dispose();
-    aboutYourself.dispose();
-    username.dispose();
-    super.dispose();
-  }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const Gap(15),
+                    TitledWidget(
+                      title: "Описание",
+                      child: AdvertTextFormField(
+                        hintText: "Напишите описание",
+                        textInputAction: TextInputAction.next,
+                        onChanged: (value) {
+                          context
+                              .read<AddServiceCubit>()
+                              .descriptionChanged(value);
+                        },
+                        validator: (value) {
+                          if (value != null) {
+                            if (value.isEmpty) {
+                              return "Обязательное поле";
+                            }
+                          }
 
-  Future pickImage(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.gallery,
+                          return null;
+                        },
+                      ),
+                    ),
+                    const Gap(15),
+                    TitledWidget(
+                      title: "Цена",
+                      child: AdvertTextFormField(
+                        hintText: "Напишите цену",
+                        keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.done,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp("^0+")),
+                        ],
+                        onChanged: (value) {
+                          context.read<AddServiceCubit>().priceChanged(
+                                value.isEmpty ? null : int.parse(value),
+                              );
+                        },
+                        validator: (value) {
+                          if (value != null) {
+                            if (value.isEmpty) {
+                              return "Обязательное поле";
+                            }
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: GlButton(
+                  text: 'Сохранить изменения',
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+
+                    context.read<AddServiceCubit>().addService();
+                  },
+                ),
+              ),
+              const Gap(50),
+            ],
+          ),
+        );
+      },
     );
-    if (image != null) {
-      final Uint8List imageData = await image.readAsBytes();
-      setState(() {
-        avatar = imageData;
-      });
-    }
   }
 }

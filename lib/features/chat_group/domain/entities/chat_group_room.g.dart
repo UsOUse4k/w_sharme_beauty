@@ -6,7 +6,7 @@ part of 'chat_group_room.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map<String, dynamic> json) =>
+_$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map json) =>
     _$ChatGroupRoomImpl(
       communityId: json['communityId'] as String?,
       groupName: json['groupName'] as String?,
@@ -23,8 +23,8 @@ _$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String?,
       lastSenderId: json['lastSenderId'] as String?,
       createdAt: const TimestampConverter().fromJson(json['createdAt']),
-      userRoles: (json['userRoles'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
+      userRoles: (json['userRoles'] as Map?)?.map(
+        (k, e) => MapEntry(k as String, e as String),
       ),
       groupId: json['groupId'] as String?,
       lastMessage: json['lastMessage'] as String?,
