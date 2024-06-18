@@ -6,8 +6,7 @@ part of 'notification.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationModelImpl _$$NotificationModelImplFromJson(
-        Map<String, dynamic> json) =>
+_$NotificationModelImpl _$$NotificationModelImplFromJson(Map json) =>
     _$NotificationModelImpl(
       type: json['type'] as String?,
       fromUser: json['fromUser'] as String?,
