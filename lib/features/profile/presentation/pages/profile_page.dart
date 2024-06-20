@@ -49,6 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final route = GoRouter.of(context);
+    final currentUid = firebaseAuth.currentUser!.uid;
     return Scaffold(
       appBar: GlAppBar(
         leading: Text(
@@ -111,11 +112,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               subscriptions:
                                   user.subscriptions!.length.toString(),
                               onPressedFollowers: () {
-                                context.push('/profile/followers/${user.uid}');
+                                context.push('/profile/followers/$currentUid');
                               },
                               onPressedSubscribe: () {
                                 context
-                                    .push('/profile/subscriptions/${user.uid}');
+                                    .push('/profile/subscriptions/$currentUid');
                               },
                             ),
                             SizedBox(height: 16.h),

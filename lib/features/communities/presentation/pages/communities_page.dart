@@ -64,7 +64,7 @@ class _CommunitiesPageState extends State<CommunitiesPage>
               succes: (user) {
                 return Row(
                   children: [
-                    if (user.profilePictureUrl != null)
+                    if (user.profilePictureUrl != null && user.profilePictureUrl != '')
                       ClipRRect(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(14),

@@ -125,7 +125,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                 .copyWith(color: AppColors.darkGrey),
                           ),
                           SizedBox(height: 10.h),
-                          if (avatar != null)
+                          if (avatar != null )
                             CardImageProfileAdd(
                               radius: 50,
                               image: MemoryImage(avatar!),
@@ -134,7 +134,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                 setState(() {});
                               },
                             )
-                          else if (avatarUrl != null)
+                          else if (avatarUrl != null && avatarUrl != '')
                             ClipRRect(
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(50),

@@ -33,37 +33,53 @@ class UserProfile with _$UserProfile {
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);
 
-  factory UserProfile.fromFirestore(Map<String, dynamic> firestoreData) {
-    final uid = firestoreData['uid'] as String?;
-    if (uid == null || uid.isEmpty) {
-      return UserProfile(
-        uid: '',
-        email: firestoreData['email'] as String?,
-        name: firestoreData['name'] as String? ?? '',
-        username: firestoreData['username'] as String? ?? '',
-        profilePictureUrl: firestoreData['profilePictureUrl'] as String? ?? '',
-        aboutYourself: firestoreData['aboutYourself'] as String? ?? '',
-        category: List<String>.from(
-          firestoreData['category'] as List<dynamic>? ?? [],
-        ),
-        theme: firestoreData['theme'] as String? ?? '',
-        phoneUser: firestoreData['phoneUser'] as String? ?? '',
-        city: firestoreData['city'] as String? ?? '',
-        dateUser: firestoreData['dateUser'] as String? ?? '',
-        rating: firestoreData['rating'] as String? ?? '10',
-        publics: firestoreData['publics'] as int? ?? 0,
-        lastSeen: firestoreData['lastSeen'] as Timestamp?,
-        followers: List<String>.from(
-          firestoreData['followers'] as List<dynamic>? ?? [],
-        ),
-        subscriptions: List<String>.from(
-          firestoreData['subscriptions'] as List<dynamic>? ?? [],
-        ),
-      );
-    }
+  //    factory Comment.fromStoreData(Map<String, dynamic> firestoreData) {
+  //  return Comment(
+  //    commentId: firestoreData['commentId'] as String? ?? '',
+  //    uid: firestoreData['uid'] as String? ?? '',
+  //    comment: firestoreData['comment'] as String? ?? '',
+  //    username: firestoreData['username'] as String? ?? '',
+  //    avatarUrl: firestoreData['avatarUrl'] as String? ?? '',
+  //    createdAt: firestoreData['createdAt'] as Timestamp?,
+  //    likes: List<String>.from(firestoreData['likes'] as List<dynamic>? ?? []),
+  //    replies: firestoreData['replies'] as int,
+  //  );
+  //}
+
+  factory UserProfile.fromStoreData(Map<String, dynamic> firestoreData)  {
+    
+    //final uid = firestoreData['uid'] as String?;
+    //print('model $uid');
+    //if (uid == null || uid.isEmpty) {
+    //  return UserProfile(
+    //    uid: firestoreData['uid'] as String?,
+    //    email: firestoreData['email'] as String?,
+    //    name: firestoreData['name'] as String? ?? '',
+    //    username: firestoreData['username'] as String? ?? '',
+    //    profilePictureUrl: firestoreData['profilePictureUrl'] as String? ?? '',
+    //    aboutYourself: firestoreData['aboutYourself'] as String? ?? '',
+    //    category: List<String>.from(
+    //      firestoreData['category'] as List<dynamic>? ?? [],
+    //    ),
+    //    theme: firestoreData['theme'] as String? ?? '',
+    //    phoneUser: firestoreData['phoneUser'] as String? ?? '',
+    //    city: firestoreData['city'] as String? ?? '',
+    //    dateUser: firestoreData['dateUser'] as String? ?? '',
+    //    rating: firestoreData['rating'] as String? ?? '10',
+    //    publics: firestoreData['publics'] as int? ?? 0,
+    //    lastSeen: firestoreData['lastSeen'] as Timestamp?,
+    //    followers: List<String>.from(
+    //      firestoreData['followers'] as List<dynamic>? ?? [],
+    //    ),
+    //    subscriptions: List<String>.from(
+    //      firestoreData['subscriptions'] as List<dynamic>? ?? [],
+    //    ),
+    //  );
+    //}
 
     return UserProfile(
-      uid: uid,
+      //uid: uid,
+      uid: firestoreData['uid'] as String?,
       email: firestoreData['email'] as String?,
       name: firestoreData['name'] as String? ?? '',
       username: firestoreData['username'] as String? ?? '',

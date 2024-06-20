@@ -20,10 +20,12 @@ class MyProfileInfoBloc extends Bloc<MyProfileInfoEvent, MyProfileInfoState> {
           await userOption.fold(() {
             emit(const MyProfileInfoState.notSignedIn());
           }, (users) async {
+            print('users $users');
             final result = await _authFacade.getMeInfo(users.uid);
             result.fold((_) {
               emit(const MyProfileInfoState.error());
             }, (user) {
+            print('user $users');
               emit(MyProfileInfoState.succes(user));
             });
           });

@@ -43,7 +43,8 @@ class _QuestionPageState extends State<QuestionPage> {
               builder: (context, state) {
                 return state.maybeWhen(
                   succes: (user) {
-                    return user.profilePictureUrl != null
+                    return user.profilePictureUrl != null &&
+                            user.profilePictureUrl != ''
                         ? ClipRRect(
                             borderRadius: const BorderRadius.all(
                               Radius.circular(50),
@@ -146,7 +147,6 @@ class _QuestionPageState extends State<QuestionPage> {
                     builder: (context, state) {
                       return state.maybeWhen(
                         error: (message) {
-                          //print(message);
                           return Container();
                         },
                         success: (categories) {
@@ -161,8 +161,9 @@ class _QuestionPageState extends State<QuestionPage> {
                                     );
                               } else {
                                 context.read<GetAllQuestionBloc>().add(
-                                    const GetAllQuestionEvent
-                                        .getAllQuestions(),);
+                                      const GetAllQuestionEvent
+                                          .getAllQuestions(),
+                                    );
                               }
                             },
                           );
@@ -174,9 +175,7 @@ class _QuestionPageState extends State<QuestionPage> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10.h),
             BlocBuilder<GetAllQuestionBloc, GetAllQuestionState>(
               builder: (context, state) {
                 return state.maybeWhen(
@@ -192,9 +191,7 @@ class _QuestionPageState extends State<QuestionPage> {
                 );
               },
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10.h),
           ],
         ),
       ),

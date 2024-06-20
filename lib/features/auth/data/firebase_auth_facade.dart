@@ -172,7 +172,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         return left(PostError('User not found.'));
       }
       final UserProfile userProfile =
-          UserProfile.fromFirestore(userDoc.data()! as Map<String, dynamic>);
+          UserProfile.fromStoreData(userDoc.data()! as Map<String, dynamic>);
       return right(userProfile);
     } catch (e) {
       return left(PostError(e.toString()));
@@ -189,7 +189,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         final snapshot = await _firestore.collection('users').doc(userId).get();
         final data = snapshot.data();
         if (data != null) {
-          profiles.add(UserProfile.fromFirestore(data));
+          profiles.add(UserProfile.fromStoreData(data));
         }
       }
       return profiles;

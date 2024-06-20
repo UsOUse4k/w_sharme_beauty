@@ -3,8 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
-class AdvertsIconButton extends StatelessWidget {
-  const AdvertsIconButton({
+class AdvertIconButton extends StatelessWidget {
+  const AdvertIconButton({
     super.key,
     required this.text,
     required this.icon,
