@@ -7,8 +7,8 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
-class AdvertsSearchField extends StatelessWidget {
-  const AdvertsSearchField({
+class AdvertSearchField extends StatelessWidget {
+  const AdvertSearchField({
     super.key,
     this.onTap,
     required this.queryText,

@@ -56,7 +56,6 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
   @override
   void initState() {
     super.initState();
-
     context.read<UserDetailBloc>().add(
           UserDetailEvent.getUserDetail(
             userId: widget.userId.toString(),

@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_icon_button.dart';
 
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_icon_button.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class AdvertsPanel extends StatelessWidget {

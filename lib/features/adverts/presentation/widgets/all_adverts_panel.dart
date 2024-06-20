@@ -9,6 +9,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adve
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts_filter/adverts_filter_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_categories_widget.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_filters_widget.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_refresh_indicator.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -94,46 +95,49 @@ class _AllAdvertsPanelState extends State<AllAdvertsPanel> {
           const FiltersWidget(),
           const Gap(15),
           Expanded(
-            child: BlocListener<AdvertsFilterCubit, AdvertsFilterState>(
-              listener: (context, state) {
-                context.read<AdvertsCubit>().filterAdvertsList(state);
-              },
-              child: BlocBuilder<AdvertsCubit, AdvertsState>(
-                builder: (context, state) {
-                  return state.maybeMap(
-                    loadSuccess: (state) {
-                      final adverts = state.adverts;
-
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: adverts.length,
-                        itemBuilder: (context, index) {
-                          final advert = adverts[index];
-
-                          return AdvertWidget(
-                            images: advert.images,
-                            name: advert.name,
-                            description: advert.description,
-                            address: advert.location.formattedAddress,
-                            rating: advert.rating,
-                            reviewsCount: advert.reviewsCount,
-                            schedule: advert.schedule,
-                            coordinates: advert.location.coordinates,
-                            onTap: () {
-                              context.push(
-                                "/adverts/${RouterContants.advertDetailPage}",
-                                extra: advert,
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                    orElse: () {
-                      return const SizedBox.shrink();
-                    },
-                  );
+            child: AdvertRefreshIndicator(
+              onRefresh: () => context.read<AdvertsCubit>().getAdverts(),
+              child: BlocListener<AdvertsFilterCubit, AdvertsFilterState>(
+                listener: (context, state) {
+                  context.read<AdvertsCubit>().filterAdvertsList(state);
                 },
+                child: BlocBuilder<AdvertsCubit, AdvertsState>(
+                  builder: (context, state) {
+                    return state.maybeMap(
+                      loadSuccess: (state) {
+                        final adverts = state.adverts;
+
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: adverts.length,
+                          itemBuilder: (context, index) {
+                            final advert = adverts[index];
+
+                            return AdvertWidget(
+                              images: advert.images,
+                              name: advert.name,
+                              description: advert.description,
+                              address: advert.location.formattedAddress,
+                              rating: advert.rating,
+                              reviewsCount: advert.reviewsCount,
+                              schedule: advert.schedule,
+                              coordinates: advert.location.coordinates,
+                              onTap: () {
+                                context.push(
+                                  "/adverts/${RouterContants.advertDetailPage}",
+                                  extra: advert,
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                      orElse: () {
+                        return const SizedBox.shrink();
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ),

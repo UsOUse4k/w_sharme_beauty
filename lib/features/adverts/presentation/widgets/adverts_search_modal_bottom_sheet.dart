@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart';
@@ -99,9 +101,7 @@ class _AdvertsSearchModalBottomSheetState
                                     .searchAdvert(value);
                               },
                               onSubmitted: (value) {
-                                context
-                                    .read<SearchAdvertsCubit>()
-                                    .searchAdvert(value);
+                                Navigator.pop(context, queryController.text);
                               },
                               style: AppStyles.w400f16,
                               decoration: InputDecoration(
@@ -161,7 +161,10 @@ class _AdvertsSearchModalBottomSheetState
                             title: advert.name,
                             subtitle: advert.location.formattedAddress,
                             onTap: () {
-                              Navigator.pop(context, queryController.text);
+                              context.push(
+                                "/adverts/${RouterContants.advertDetailPage}",
+                                extra: advert,
+                              );
                             },
                           );
                         },

@@ -22,7 +22,8 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
             await result.fold((error) async {
               emit(UserDetailState.error(message: error.messasge));
             }, (data) async {
-              emit(UserDetailState.success(data));
+              final updateProfile = data.copyWith(uid: userId);
+              emit(UserDetailState.success(updateProfile));
             });
           } catch (e) {
             emit(UserDetailState.error(message: e.toString()));

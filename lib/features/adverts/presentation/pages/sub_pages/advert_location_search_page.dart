@@ -81,11 +81,12 @@ class _AdvertLocationSearchBodyState extends State<AdvertLocationSearchBody> {
       ),
     );
 
-    await _handleSuggestionResult(resultWithSession.$2);
+    await _handleSuggestionResult(resultWithSession.$2, resultWithSession.$1);
   }
 
   Future<void> _handleSuggestionResult(
     Future<SuggestSessionResult> futureResult,
+    SuggestSession session,
   ) async {
     final result = await futureResult;
 
@@ -100,6 +101,8 @@ class _AdvertLocationSearchBodyState extends State<AdvertLocationSearchBody> {
     suggestionResults.clear();
     suggestionResults.addAll(result.items ?? []);
     setState(() {});
+
+    session.close();
   }
 
   Future<void> _search(String query) async {
@@ -125,7 +128,7 @@ class _AdvertLocationSearchBodyState extends State<AdvertLocationSearchBody> {
       ),
     );
 
-    _handleSearchResult(resultWithSession.$2, resultWithSession.$1);
+    await _handleSearchResult(resultWithSession.$2, resultWithSession.$1);
   }
 
   Future<void> _handleSearchResult(
@@ -154,6 +157,8 @@ class _AdvertLocationSearchBodyState extends State<AdvertLocationSearchBody> {
       searchResults.addAll(nextResult.items ?? []);
       setState(() {});
     }
+
+    session.close();
   }
 
   @override
