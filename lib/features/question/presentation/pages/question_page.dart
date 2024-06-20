@@ -145,18 +145,24 @@ class _QuestionPageState extends State<QuestionPage> {
                   BlocBuilder<CategoryBloc, CategoryState>(
                     builder: (context, state) {
                       return state.maybeWhen(
+                        error: (message) {
+                          //print(message);
+                          return Container();
+                        },
                         success: (categories) {
                           return CategoryList(
                             category: categories,
                             onFilterCategories: (value) {
-                              if(value != null) {
+                              if (value != null) {
                                 context.read<GetAllQuestionBloc>().add(
-                                    GetAllQuestionEvent.filterQuestion(
-                                      title: value.title!,
-                                    ),
-                                  );
+                                      GetAllQuestionEvent.filterQuestion(
+                                        title: value.title!,
+                                      ),
+                                    );
                               } else {
-                                context.read<GetAllQuestionBloc>().add(const GetAllQuestionEvent.getAllQuestions());
+                                context.read<GetAllQuestionBloc>().add(
+                                    const GetAllQuestionEvent
+                                        .getAllQuestions(),);
                               }
                             },
                           );
@@ -174,8 +180,13 @@ class _QuestionPageState extends State<QuestionPage> {
             BlocBuilder<GetAllQuestionBloc, GetAllQuestionState>(
               builder: (context, state) {
                 return state.maybeWhen(
+                  error: (message) {
+                    return Container();
+                  },
                   success: (questions) {
+                    //print(questions);
                     return QuestionsList(questions: questions);
+                    // return Container();
                   },
                   orElse: () => const SizedBox(),
                 );

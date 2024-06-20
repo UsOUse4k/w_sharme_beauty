@@ -49,7 +49,7 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
           children: [
             ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: avatar != null
+              leading: avatar != null && avatar != ''
                   ? GestureDetector(
                       onTap: onPressed,
                       child: ClipRRect(

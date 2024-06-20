@@ -59,7 +59,7 @@ class CommunityCategoryBottomSheet extends StatelessWidget {
                                       .contains(categoryTitle[index]);
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 18),
+                                        horizontal: 18,),
                                     child: Row(
                                       key: ValueKey(categoryTitle[index]),
                                       children: [
@@ -98,7 +98,7 @@ class CommunityCategoryBottomSheet extends StatelessWidget {
                                   },
                                   text: 'Ок',
                                 ),
-                              )
+                              ),
                             ],
                           );
                         },

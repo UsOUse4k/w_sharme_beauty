@@ -30,7 +30,6 @@ class _AdvertsSearchPanelState extends State<AdvertsSearchPanel> {
   @override
   void initState() {
     super.initState();
-    print("------" * 20);
     context.read<AdvertsCubit>().getAdverts(queryText: widget.queryText);
   }
 

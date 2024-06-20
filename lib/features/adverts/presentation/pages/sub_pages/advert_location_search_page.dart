@@ -40,6 +40,7 @@ class _AdvertLocationSearchBodyState extends State<AdvertLocationSearchBody> {
 
   final List<SuggestItem> suggestionResults = [];
   final List<SearchItem> searchResults = [];
+  // ignore: unused_field
   bool _progress = false;
 
   @override

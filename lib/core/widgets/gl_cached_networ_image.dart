@@ -29,11 +29,6 @@ class GlCachedNetworImage extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: Image.asset('assets/images/notAvatar.png', fit: BoxFit.cover),
-        //  const Icon(
-        //   Icons.image,
-        //   color: Colors.red,
-        //   size: 80,
-        // ),
       ),
     );
   }

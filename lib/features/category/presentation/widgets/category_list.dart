@@ -6,7 +6,7 @@ import 'package:w_sharme_beauty/features/category/presentation/widgets/category_
 
 class CategoryList extends StatefulWidget {
   const CategoryList(
-      {super.key, required this.category, this.onFilterCategories});
+      {super.key, required this.category, this.onFilterCategories,});
   final List<Category> category;
   final Function(Category?)? onFilterCategories;
 

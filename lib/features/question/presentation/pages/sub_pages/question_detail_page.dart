@@ -95,7 +95,7 @@ class _QuestionDetailPageState extends State<QuestionDetailPage> {
                               children: [
                                 ListTile(
                                   contentPadding: EdgeInsets.zero,
-                                  leading: question.avatarUrl != null
+                                  leading: question.avatarUrl != null && question.avatarUrl != ''
                                       ? GestureDetector(
                                           onTap: () {
                                             if (question.username != 'Анонимно') {

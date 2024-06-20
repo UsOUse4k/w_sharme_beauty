@@ -29,7 +29,7 @@ class AdvertsPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Gap(18),
+          const Gap(5),
           Text(
             'Объявления',
             style: AppStyles.w500f22,
@@ -65,7 +65,6 @@ class AdvertsPanel extends StatelessWidget {
               ),
             ],
           ),
-          const Gap(20),
         ],
       ),
     );

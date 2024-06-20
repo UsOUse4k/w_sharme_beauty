@@ -246,7 +246,6 @@ class AddReplyModalBottomSheet extends StatelessWidget {
             (either) {
               either.fold(
                 (l) {
-                  print(l);
                 },
                 (reply) {
                   Navigator.pop(context, reply);

@@ -104,7 +104,6 @@ class _AdvertEditAdvertBody extends StatelessWidget {
               (either) {
                 either.fold(
                   (l) {
-                    print(l);
                   },
                   (advert) {
                     context.read<MyAdvertsCubit>().updateAdvert(advert);
@@ -123,7 +122,6 @@ class _AdvertEditAdvertBody extends StatelessWidget {
                 context.pop();
               },
               deleteFailure: (state) {
-                print(state.failure);
               },
               orElse: () {},
             );

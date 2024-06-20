@@ -103,7 +103,6 @@ class _AdvertsPageState extends State<AdvertsPage> {
               state.maybeMap(
                 loadSuccess: (state) {
                   final adverts = state.adverts;
-
                   mapObjects = adverts.map(
                     (advert) {
                       final coordinates = advert.location.coordinates;
@@ -111,7 +110,6 @@ class _AdvertsPageState extends State<AdvertsPage> {
                         latitude: coordinates.$1,
                         longitude: coordinates.$2,
                       );
-
                       return PlacemarkMapObject(
                         mapId: MapObjectId(advert.id),
                         point: point,
@@ -187,7 +185,7 @@ class _AdvertsPageState extends State<AdvertsPage> {
                                             const Gap(2),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  bottom: 3),
+                                                  bottom: 3,),
                                               child: Text(
                                                 '(${advert.reviewsCount})',
                                                 style: const TextStyle(

@@ -133,7 +133,7 @@ class _QuestionCommentItemState extends State<QuestionCommentItem> {
                       }
                     },
                     child: widget.item.avatarUrl != null &&
-                            widget.item.avatarUrl!.isNotEmpty
+                            widget.item.avatarUrl!.isNotEmpty && widget.item.avatarUrl != ''
                         ? ClipRRect(
                             borderRadius: const BorderRadius.all(
                               Radius.circular(20),

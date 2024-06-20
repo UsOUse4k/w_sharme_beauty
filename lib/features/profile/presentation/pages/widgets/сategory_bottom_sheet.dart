@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +60,7 @@ class CategoryBottomSheet extends StatelessWidget {
                                       .contains(categoryTitle[index]);
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 18),
+                                        horizontal: 18,),
                                     child: Row(
                                       key: ValueKey(categoryTitle[index]),
                                       children: [
@@ -100,7 +99,7 @@ class CategoryBottomSheet extends StatelessWidget {
                                     context.pop();
                                   },
                                 ),
-                              )
+                              ),
                             ],
                           );
                         },

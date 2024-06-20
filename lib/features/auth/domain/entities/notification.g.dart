@@ -20,6 +20,7 @@ _$NotificationModelImpl _$$NotificationModelImplFromJson(Map json) =>
     );
 
 Map<String, dynamic> _$$NotificationModelImplToJson(
+        // ignore: require_trailing_commas
         _$NotificationModelImpl instance) =>
     <String, dynamic>{
       'type': instance.type,

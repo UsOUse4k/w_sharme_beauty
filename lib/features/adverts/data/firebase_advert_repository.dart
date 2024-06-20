@@ -70,8 +70,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
       final doc = await docRef.get();
 
       return right(Advert.fromFirestore(doc));
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
 
       return left(const AdvertFailure.serverError());
     }
@@ -106,9 +105,8 @@ class FirebaseAdvertRepository implements IAdvertRepository {
           querySnapshot.docs.map((doc) => Advert.fromFirestore(doc)).toList();
 
       return right(adverts);
-    } catch (e, s) {
-      print("$e\n$s");
-
+    } catch (e) {
+ 
       return left(const AdvertFailure.serverError());
     }
   }
@@ -177,8 +175,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
       await batch.commit();
 
       return right(review);
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
 
       return left(const AdvertFailure.serverError());
     }
@@ -234,8 +231,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
       await batch.commit();
 
       return right(reply);
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
 
       return left(const AdvertFailure.serverError());
     }
@@ -256,8 +252,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
           querySnapshot.docs.map((doc) => Review.fromFirestore(doc)).toList();
 
       return right(reviews);
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
 
       return left(const AdvertFailure.serverError());
     }
@@ -281,8 +276,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
           querySnapshot.docs.map((doc) => Reply.fromFirestore(doc)).toList();
 
       return right(replies);
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
 
       return left(const AdvertFailure.serverError());
     }
@@ -354,8 +348,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
       final updatedDoc = await docRef.get();
 
       return right(Advert.fromFirestore(updatedDoc));
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
 
       return left(const AdvertFailure.serverError());
     }
@@ -390,8 +383,7 @@ class FirebaseAdvertRepository implements IAdvertRepository {
       await docRef.delete();
 
       return right(unit);
-    } catch (e, s) {
-      print("$e\n$s");
+    } catch (e) {
       return left(const AdvertFailure.serverError());
     }
   }

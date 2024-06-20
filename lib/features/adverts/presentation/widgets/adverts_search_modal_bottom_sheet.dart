@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
@@ -58,7 +59,7 @@ class _AdvertsSearchModalBottomSheetState
                 children: [
                   const Gap(6),
                   Container(
-                    width: 40,
+                    width: 40.h,
                     height: 4,
                     decoration: BoxDecoration(
                       color: AppColors.lightGrey,
@@ -69,7 +70,7 @@ class _AdvertsSearchModalBottomSheetState
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: Container(
-                      height: 47,
+                      height: 47.h,
                       padding: const EdgeInsets.only(
                         left: 8,
                         right: 20,

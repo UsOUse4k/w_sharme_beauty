@@ -55,7 +55,6 @@ class MyAdvertsCubit extends Cubit<MyAdvertsState> {
                 )
               : e;
         }).toList();
-        print(data);
         emit(MyAdvertsState.loadSuccess(data));
       },
       orElse: () {},
@@ -66,7 +65,6 @@ class MyAdvertsCubit extends Cubit<MyAdvertsState> {
     state.maybeWhen(
       loadSuccess: (adverts) async {
         final data = adverts.where((e) => e.id != advertId).toList();
-        print(data);
         emit(MyAdvertsState.loadSuccess(data));
       },
       orElse: () {},

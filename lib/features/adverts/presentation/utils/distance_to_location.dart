@@ -17,7 +17,6 @@ Future<double> getDistanceToLocation((double, double) destination) async {
     );
     return distanceInKm;
   } catch (e) {
-    print('Error getting location: $e');
     return -1;
   }
 }

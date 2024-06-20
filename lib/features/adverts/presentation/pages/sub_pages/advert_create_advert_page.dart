@@ -73,7 +73,6 @@ class _AdvertCreateAdvertBody extends StatelessWidget {
           (either) {
             either.fold(
               (l) {
-                print(l);
               },
               (advert) {
                 context.read<MyAdvertsCubit>().addAdvert(advert);

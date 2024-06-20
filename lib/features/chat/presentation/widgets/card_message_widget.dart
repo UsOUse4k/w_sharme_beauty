@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CardMessageWidget extends StatelessWidget {
   const CardMessageWidget({
@@ -36,14 +37,16 @@ class CardMessageWidget extends StatelessWidget {
           check ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if (!check)
-          ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: GlCachedNetworImage(
-              height: 30.h,
-              width: 30.w,
-              urlImage: avatar,
-            ),
-          )
+          avatar != null && avatar != ''
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: GlCachedNetworImage(
+                    height: 30.h,
+                    width: 30.w,
+                    urlImage: avatar,
+                  ),
+                )
+              : GlCircleAvatar(avatar: Assets.images.notAvatar.path, width: 30.w, height: 30.h)
         else
           seen != null && seen == true
               ? const Icon(
@@ -89,7 +92,7 @@ class CardMessageWidget extends StatelessWidget {
                       style:
                           AppStyles.w500f16.copyWith(color: AppColors.purple),
                     ),
-                  if (data != null && data!.image != null)
+                  if (data != null && data!.image != null && data!.image != '')
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

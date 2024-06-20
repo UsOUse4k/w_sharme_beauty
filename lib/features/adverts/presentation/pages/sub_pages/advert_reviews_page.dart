@@ -228,7 +228,6 @@ class AddReviewModalBottomSheet extends StatelessWidget {
             (either) {
               either.fold(
                 (l) {
-                  print(l);
                 },
                 (review) {
                   Navigator.pop(context, review);
