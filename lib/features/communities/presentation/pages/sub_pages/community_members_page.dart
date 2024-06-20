@@ -12,10 +12,22 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/home/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
-class CommunityMembersPage extends StatelessWidget {
+class CommunityMembersPage extends StatefulWidget {
   const CommunityMembersPage({super.key, required this.communityId});
   final String communityId;
 
+  @override
+  State<CommunityMembersPage> createState() => _CommunityMembersPageState();
+}
+
+class _CommunityMembersPageState extends State<CommunityMembersPage> {
+
+  @override
+  void initState() {
+    context.read<GetAllUsersBloc>().add(const GetAllUsersEvent.getAllUsers());
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +85,7 @@ class CommunityMembersPage extends StatelessWidget {
                                         if (filterUsers[index].uid !=
                                             firebaseAuth.currentUser!.uid) {
                                           context.push(
-                                            '/communities/community-members/$communityId/follower-subscribe-profile/${filterUsers[index].uid}',
+                                            '/communities/community-members/${widget.communityId}/follower-subscribe-profile/${filterUsers[index].uid}',
                                           );
                                         }
                                       },
