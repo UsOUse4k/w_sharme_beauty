@@ -11,6 +11,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_revie
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/replies/replies_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/reviews/reviews_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_refresh_indicator.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_text_form_field.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_warning_text.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/review_widget.dart';
@@ -30,179 +31,183 @@ class AdvertReviewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        color: AppColors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Отзывы",
-              style: AppStyles.w500f18,
-            ),
-            const Gap(10),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: AppColors.lightGrey,
+    return AdvertRefreshIndicator(
+      onRefresh: () => context.read<ReviewsCubit>().getReviews(advertId),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Container(
+          padding: const EdgeInsets.all(18),
+          color: AppColors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Отзывы",
+                style: AppStyles.w500f18,
               ),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        rating.toString(),
-                        style: TextStyle(
-                          fontFamily: FontFamily.gTEastiProDisplay,
-                          fontSize: 40.sp,
-                          color: AppColors.black,
-                        ),
-                      ),
-                      const Gap(12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              ...List.generate(
-                                rating.toInt(),
-                                (index) {
-                                  return const Icon(
-                                    Icons.star,
-                                    color: AppColors.purple,
-                                    size: 20,
-                                  );
-                                },
-                              ),
-                              ...List.generate(
-                                5 - rating.toInt(),
-                                (index) {
-                                  return const Icon(
-                                    Icons.star,
-                                    color: AppColors.darkGrey,
-                                    size: 20,
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "$reviewsCount оценки",
-                            style: AppStyles.w400f14,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Gap(36),
-                  Column(
-                    children: [
-                      Text(
-                        "Были здесь? Напишите отзыв",
-                        style: AppStyles.w400f14.copyWith(
-                          color: AppColors.darkGrey,
-                        ),
-                      ),
-                      const Gap(15),
-                      GestureDetector(
-                        onTap: () {
-                          showAdvertModalBottomSheet<Review>(
-                            context: context,
-                            builder: (context) {
-                              return BlocProvider(
-                                create: (context) => getIt<CreateReviewCubit>(),
-                                child: AddReviewModalBottomSheet(
-                                  advertId: advertId,
-                                ),
-                              );
-                            },
-                          ).then(
-                            (value) {
-                              if (value != null) {
-                                context.read<ReviewsCubit>().addReview(value);
-                              }
-                            },
-                          );
-                        },
-                        child: SizedBox(
-                          width: 260,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ...List.generate(
-                                5,
-                                (index) {
-                                  return const Icon(
-                                    Icons.star,
-                                    color: AppColors.darkGrey,
-                                    size: 40,
-                                  );
-                                },
-                              ),
-                            ],
+              const Gap(10),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.lightGrey,
+                ),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          rating.toString(),
+                          style: TextStyle(
+                            fontFamily: FontFamily.gTEastiProDisplay,
+                            fontSize: 40.sp,
+                            color: AppColors.black,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            BlocBuilder<ReviewsCubit, ReviewsState>(
-              builder: (context, state) {
-                return state.maybeMap(
-                  loadSuccess: (state) {
-                    final reviews = state.reviews;
-
-                    if (reviews.isNotEmpty) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final review = reviews[index];
-
-                            return Column(
+                        const Gap(12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                BlocProvider(
-                                  create: (context) => getIt<RepliesCubit>()
-                                    ..getReplies(advertId, review.id),
-                                  child: ReviewWidget(
-                                    userProfileImage: review.userProfileImage,
-                                    userFullName: review.userFullName,
-                                    userReviewsCount: review.userReviewsCount,
-                                    rating: review.rating,
-                                    comment: review.comment,
-                                    likes: review.likes,
-                                    repliesCount: review.repliesCount,
-                                    createdAt: review.createdAt,
-                                  ),
+                                ...List.generate(
+                                  rating.toInt(),
+                                  (index) {
+                                    return const Icon(
+                                      Icons.star,
+                                      color: AppColors.purple,
+                                      size: 20,
+                                    );
+                                  },
+                                ),
+                                ...List.generate(
+                                  5 - rating.toInt(),
+                                  (index) {
+                                    return const Icon(
+                                      Icons.star,
+                                      color: AppColors.darkGrey,
+                                      size: 20,
+                                    );
+                                  },
                                 ),
                               ],
+                            ),
+                            Text(
+                              "$reviewsCount оценки",
+                              style: AppStyles.w400f14,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Gap(36),
+                    Column(
+                      children: [
+                        Text(
+                          "Были здесь? Напишите отзыв",
+                          style: AppStyles.w400f14.copyWith(
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                        const Gap(15),
+                        GestureDetector(
+                          onTap: () {
+                            showAdvertModalBottomSheet<Review>(
+                              context: context,
+                              builder: (context) {
+                                return BlocProvider(
+                                  create: (context) =>
+                                      getIt<CreateReviewCubit>(),
+                                  child: AddReviewModalBottomSheet(
+                                    advertId: advertId,
+                                  ),
+                                );
+                              },
+                            ).then(
+                              (value) {
+                                if (value != null) {
+                                  context.read<ReviewsCubit>().addReview(value);
+                                }
+                              },
                             );
                           },
-                          separatorBuilder: (context, index) {
-                            return const Gap(20);
-                          },
-                          itemCount: reviews.length,
+                          child: SizedBox(
+                            width: 260,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ...List.generate(
+                                  5,
+                                  (index) {
+                                    return const Icon(
+                                      Icons.star,
+                                      color: AppColors.darkGrey,
+                                      size: 40,
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      );
-                    }
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              BlocBuilder<ReviewsCubit, ReviewsState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    loadSuccess: (state) {
+                      final reviews = state.reviews;
 
-                    return const SizedBox.shrink();
-                  },
-                  orElse: () {
-                    return const SizedBox.shrink();
-                  },
-                );
-              },
-            ),
-          ],
+                      if (reviews.isNotEmpty) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final review = reviews[index];
+
+                              return Column(
+                                children: [
+                                  BlocProvider(
+                                    create: (context) => getIt<RepliesCubit>()
+                                      ..getReplies(advertId, review.id),
+                                    child: ReviewWidget(
+                                      userProfileImage: review.userProfileImage,
+                                      userFullName: review.userFullName,
+                                      userReviewsCount: review.userReviewsCount,
+                                      rating: review.rating,
+                                      comment: review.comment,
+                                      likes: review.likes,
+                                      repliesCount: review.repliesCount,
+                                      createdAt: review.createdAt,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const Gap(20);
+                            },
+                            itemCount: reviews.length,
+                          ),
+                        );
+                      }
+
+                      return const SizedBox.shrink();
+                    },
+                    orElse: () {
+                      return const SizedBox.shrink();
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

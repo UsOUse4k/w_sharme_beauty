@@ -14,6 +14,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/replies/repl
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/reviews/reviews_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_back_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_refresh_indicator.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_text_form_field.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/review_widget.dart';
 import 'package:w_sharme_beauty/gen/fonts.gen.dart';
@@ -61,9 +62,10 @@ class _AdvertReplyReviewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
+    return AdvertRefreshIndicator(
+      onRefresh: () => context.read<ReviewsCubit>().getReviews(advert.id),
+      child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 10),
         children: [
           Container(
             padding: const EdgeInsets.all(18),

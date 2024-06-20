@@ -14,41 +14,44 @@ class AdverServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return ListView(
       padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 18),
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-        ),
-        child: ListView.separated(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          itemCount: services.length,
-          itemBuilder: (context, index) {
-            final service = services[index];
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          decoration: const BoxDecoration(
+            color: AppColors.white,
+          ),
+          child: ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: services.length,
+            itemBuilder: (context, index) {
+              final service = services[index];
 
-            return ServiceWidget(
-              name: service.name,
-              description: service.description,
-              price: service.price,
-            );
-          },
-          separatorBuilder: (context, index) {
-            return const Column(
-              children: [
-                Gap(15),
-                Divider(
-                  height: 0,
-                  indent: 18,
-                  color: AppColors.lightGrey,
-                ),
-                Gap(15),
-              ],
-            );
-          },
+              return ServiceWidget(
+                name: service.name,
+                description: service.description,
+                price: service.price,
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Column(
+                children: [
+                  Gap(15),
+                  Divider(
+                    height: 0,
+                    indent: 18,
+                    color: AppColors.lightGrey,
+                  ),
+                  Gap(15),
+                ],
+              );
+            },
+          ),
         ),
-      ),
+      ],
     );
   }
 }

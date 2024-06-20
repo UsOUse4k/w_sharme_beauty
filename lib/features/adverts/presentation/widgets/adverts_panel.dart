@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_icon_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_icon_button.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class AdvertsPanel extends StatelessWidget {
@@ -38,14 +38,14 @@ class AdvertsPanel extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              AdvertsIconButton(
+              AdvertIconButton(
                 text: 'Поиск',
                 icon: const Icon(Icons.search),
                 onTap: () {
                   onSearchTap?.call();
                 },
               ),
-              AdvertsIconButton(
+              AdvertIconButton(
                 text: 'Мои',
                 icon: Assets.icons.ads.image(height: 24, width: 24),
                 onTap: () {
@@ -54,7 +54,7 @@ class AdvertsPanel extends StatelessWidget {
                   );
                 },
               ),
-              AdvertsIconButton(
+              AdvertIconButton(
                 text: 'Создать',
                 icon: const Icon(Icons.add_circle_outline),
                 onTap: () {

@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
@@ -151,14 +153,23 @@ class _AdverDetailPageState extends State<AdverDetailPage>
                                       ),
                                       height: 40,
                                       text: 'Написать',
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        context.push(
+                                          '/home/chat/${RouterContants.chatMessages}/${widget.advert.userId}',
+                                        );
+                                      },
                                     ),
                                   ),
                                   const Gap(10),
                                   Flexible(
                                     child: GlOutlineButton(
                                       title: 'Продолжить маршрут',
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        context.push(
+                                          "/adverts/${RouterContants.advertRoutePage}",
+                                          extra: widget.advert,
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],

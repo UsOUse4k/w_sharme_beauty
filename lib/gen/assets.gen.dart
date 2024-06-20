@@ -262,6 +262,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/place.png
   AssetGenImage get place => const AssetGenImage('assets/images/place.png');
 
+  /// File path: assets/images/route_end.png
+  AssetGenImage get routeEnd =>
+      const AssetGenImage('assets/images/route_end.png');
+
+  /// File path: assets/images/route_start.png
+  AssetGenImage get routeStart =>
+      const AssetGenImage('assets/images/route_start.png');
+
   /// File path: assets/images/serviceImg1.jpeg
   AssetGenImage get serviceImg1 =>
       const AssetGenImage('assets/images/serviceImg1.jpeg');
@@ -314,6 +322,8 @@ class $AssetsImagesGen {
         notAvatar,
         pedicure,
         place,
+        routeEnd,
+        routeStart,
         serviceImg1,
         serviceImg2,
         serviceImg3,

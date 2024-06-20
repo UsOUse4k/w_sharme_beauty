@@ -14,6 +14,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/ad
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_my_adverts_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_product_and_services_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_reply_reviews_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_route_page.dart';
 import 'package:w_sharme_beauty/features/app/widgets/app.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/pages/pages.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/pages/pages.dart';
@@ -448,6 +449,18 @@ mixin AppRouter on State<App> {
                       final advert = state.extra! as Advert;
 
                       return AdvertReplyReviewsPage(
+                        advert: advert,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: RouterKeys.rootKey,
+                    name: RouterContants.advertRoutePage,
+                    path: RouterContants.advertRoutePage,
+                    builder: (context, state) {
+                      final advert = state.extra! as Advert;
+
+                      return AdvertRoutePage(
                         advert: advert,
                       );
                     },

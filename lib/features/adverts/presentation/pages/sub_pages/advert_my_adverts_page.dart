@@ -7,6 +7,7 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_app_bar.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_back_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_refresh_indicator.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_widget.dart';
 
 class AdvertMyAdvertsPage extends StatefulWidget {
@@ -39,42 +40,45 @@ class _AdvertMyAdvertsPageState extends State<AdvertMyAdvertsPage> {
           style: AppStyles.w500f18,
         ),
       ),
-      body: BlocBuilder<MyAdvertsCubit, MyAdvertsState>(
-        builder: (context, state) {
-          return state.maybeMap(
-            loadSuccess: (state) {
-              final adverts = state.adverts;
+      body: AdvertRefreshIndicator(
+        onRefresh: () => context.read<MyAdvertsCubit>().getAdverts(),
+        child: BlocBuilder<MyAdvertsCubit, MyAdvertsState>(
+          builder: (context, state) {
+            return state.maybeMap(
+              loadSuccess: (state) {
+                final adverts = state.adverts;
 
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                itemCount: adverts.length,
-                itemBuilder: (context, index) {
-                  final advert = adverts[index];
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  itemCount: adverts.length,
+                  itemBuilder: (context, index) {
+                    final advert = adverts[index];
 
-                  return AdvertWidget(
-                    images: advert.images,
-                    name: advert.name,
-                    description: advert.description,
-                    rating: advert.rating,
-                    address: advert.location.formattedAddress,
-                    reviewsCount: advert.reviewsCount,
-                    schedule: advert.schedule,
-                    coordinates: advert.location.coordinates,
-                    onEditTap: () {
-                      context.push(
-                        "/adverts/${RouterContants.advertEditAdvertsPage}",
-                        extra: advert,
-                      );
-                    },
-                  );
-                },
-              );
-            },
-            orElse: () {
-              return const SizedBox.shrink();
-            },
-          );
-        },
+                    return AdvertWidget(
+                      images: advert.images,
+                      name: advert.name,
+                      description: advert.description,
+                      rating: advert.rating,
+                      address: advert.location.formattedAddress,
+                      reviewsCount: advert.reviewsCount,
+                      schedule: advert.schedule,
+                      coordinates: advert.location.coordinates,
+                      onEditTap: () {
+                        context.push(
+                          "/adverts/${RouterContants.advertEditAdvertsPage}",
+                          extra: advert,
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+              orElse: () {
+                return const SizedBox.shrink();
+              },
+            );
+          },
+        ),
       ),
     );
   }

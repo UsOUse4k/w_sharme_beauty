@@ -15,8 +15,8 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts_filt
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_map_controll_buttons.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_search_field.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_panel.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_search_field.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_search_modal_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/adverts_search_panel.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/all_adverts_panel.dart';
@@ -304,7 +304,7 @@ class _AdvertsPageState extends State<AdvertsPage> {
                 const Gap(25),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: AdvertsSearchField(
+                  child: AdvertSearchField(
                     queryText: queryText,
                     onTap: () {
                       showAdvertModalBottomSheet<String>(

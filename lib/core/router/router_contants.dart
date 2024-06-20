@@ -45,6 +45,7 @@ abstract class RouterContants {
   static const String advertEditAdvertsPage = 'advertEditAdvertsPage';
   static const String advertEditServicePage = 'advertEditServicePage';
   static const String advertReplyReviewsPage = 'advertReplyReviewsPage';
+  static const String advertRoutePage = 'advertRoutePage';
 
   // community sub pages
   static const String communityCreate = 'community-create';
