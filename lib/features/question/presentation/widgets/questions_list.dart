@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
-import 'package:w_sharme_beauty/features/question/presentation/widgets/questiowidget_with_column_and_list_tile.dart';
+import 'package:w_sharme_beauty/features/question/presentation/widgets/question_list_item.dart';
 
 class QuestionsList extends StatelessWidget {
   const QuestionsList({super.key, required this.questions});
@@ -17,7 +17,7 @@ class QuestionsList extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           final item = questions[index];
-          return QuestionWidgetWithColumnAndListTile(
+          return QuestionListItem(
             question: item,
             onPressedOutput: () {
               context.push('/question/question-datail/${item.questionId}');

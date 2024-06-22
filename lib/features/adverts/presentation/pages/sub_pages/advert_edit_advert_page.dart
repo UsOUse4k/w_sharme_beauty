@@ -27,7 +27,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_tex
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_warning_text.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/select_photo_button.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/titled_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
 
 class AdvertEditAdvertPage extends StatelessWidget {
   const AdvertEditAdvertPage({

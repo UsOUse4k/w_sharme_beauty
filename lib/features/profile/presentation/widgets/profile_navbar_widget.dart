@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfileNavbarWidget extends StatelessWidget {
   const ProfileNavbarWidget({
@@ -29,23 +28,11 @@ class ProfileNavbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (avatar != null && avatar != '')
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(45),
-            ),
-            child: GlCachedNetworImage(
-              height: 90.h,
-              width: 90.w,
-              urlImage: avatar,
-            ),
-          )
-        else
-          GlCircleAvatar(
-            avatar: Assets.images.notAvatar.path,
-            width: 90.w,
-            height: 90.w,
-          ),
+        GlCircleAvatar(
+          avatar: avatar.toString(),
+          width: 90.w,
+          height: 90.w,
+        ),
         SizedBox(width: 20.w),
         Column(
           children: [
@@ -55,8 +42,10 @@ class ProfileNavbarWidget extends StatelessWidget {
                 style: AppStyles.w500f22,
               ),
             if (publications != null)
-              Text("Публикации",
-                  style: AppStyles.w400f14.copyWith(color: AppColors.darkGrey),),
+              Text(
+                "Публикации",
+                style: AppStyles.w400f14.copyWith(color: AppColors.darkGrey),
+              ),
           ],
         ),
         SizedBox(width: 22.w),
@@ -68,9 +57,11 @@ class ProfileNavbarWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(followers!, style: AppStyles.w500f22),
-                    Text(subscribeText!,
-                        style: AppStyles.w400f14
-                            .copyWith(color: AppColors.darkGrey),),
+                    Text(
+                      subscribeText!,
+                      style:
+                          AppStyles.w400f14.copyWith(color: AppColors.darkGrey),
+                    ),
                   ],
                 ),
               ),

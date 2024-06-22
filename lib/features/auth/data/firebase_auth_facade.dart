@@ -101,7 +101,7 @@ class FirebaseAuthFacade implements IAuthFacade {
         'name': name,
         'city': city,
         'username': username,
-        'uid': userId
+        'uid': userId,
       });
       return right(unit);
     } catch (_) {

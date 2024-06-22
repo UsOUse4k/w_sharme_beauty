@@ -8,12 +8,11 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/question.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
 
-class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
-  const QuestionWidgetWithColumnAndListTile({
+class QuestionListItem extends StatelessWidget {
+  const QuestionListItem({
     super.key,
     this.questionText,
     this.category,
@@ -49,25 +48,15 @@ class QuestionWidgetWithColumnAndListTile extends StatelessWidget {
           children: [
             ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: avatar != null && avatar != ''
-                  ? GestureDetector(
-                      onTap: onPressed,
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
-                        child: GlCachedNetworImage(
-                          key: ValueKey(question.questionId),
-                          urlImage: avatar,
-                          width: 50.w,
-                          height: 50.h,
-                        ),
-                      ),
-                    )
-                  : Image.asset(
-                      Assets.images.notAvatar.path,
-                      width: 50.w,
-                      height: 50.h,
-                    ),
+              leading: GestureDetector(
+                onTap: onPressed,
+                child: GlCircleAvatar(
+                  avatar: avatar.toString(),
+                  width: 50.w,
+                  height: 50.h,
+                  key: ValueKey(question.questionId),
+                ),
+              ),
               title: Text(
                 question.username.toString(),
                 style: AppStyles.w500f18.copyWith(fontWeight: FontWeight.w600),

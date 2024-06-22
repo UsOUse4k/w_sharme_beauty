@@ -14,7 +14,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/update_community_bloc/update_community_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/community_category_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/widgets.dart';
 
 class CommunityEditPage extends StatefulWidget {
   const CommunityEditPage({

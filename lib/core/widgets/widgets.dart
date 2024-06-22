@@ -9,6 +9,7 @@ export 'gl_cached_networ_image.dart';
 export 'gl_circle_avatar.dart';
 export 'gl_icon_button.dart';
 export 'gl_outline_button.dart';
+export 'gl_refresh_indicator.dart';
 export 'gl_scaffold.dart';
 export 'gl_subscribe_button.dart';
 export 'gl_tab_bar_widget.dart';

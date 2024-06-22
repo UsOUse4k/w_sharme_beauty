@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/create_notification_bloc/create_notification_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
@@ -12,6 +13,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/p
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/repost_bottom_sheet.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
@@ -202,7 +204,14 @@ class _PostCardState extends State<PostCard> {
                 ),
               SizedBox(width: 6.w),
               PostIconsWidget(
-                onPessed: () {},
+                onPessed: () {
+                  BottomSheetUtil.showAppBottomSheet(
+                    context,
+                    RepostBottomSheet(
+                      postId: widget.post!.postId.toString(),
+                    ),
+                  );
+                },
                 icon: Assets.svgs.share.svg(),
                 text: widget.post!.reposts.length.toString(),
               ),

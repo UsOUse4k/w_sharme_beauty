@@ -37,23 +37,11 @@ class _HomePageState extends State<HomePage> {
             BlocBuilder<MyProfileInfoBloc, MyProfileInfoState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  succes: (profile) => profile.profilePictureUrl != null && profile.profilePictureUrl != ''
-
-                      ? ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(14),
-                          ),
-                          child: GlCachedNetworImage(
-                            height: 28.h,
-                            width: 28.w,
-                            urlImage: profile.profilePictureUrl.toString(),
-                          ),
-                        )
-                      : GlCircleAvatar(
-                          avatar: Assets.images.notAvatar.path,
-                          width: 28.w,
-                          height: 28.h,
-                        ),
+                  succes: (profile) => GlCircleAvatar(
+                    avatar: profile.profilePictureUrl.toString(),
+                    width: 28.w,
+                    height: 28.h,
+                  ),
                   orElse: () => Container(),
                 );
               },
@@ -92,45 +80,50 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        child: BlocBuilder<PostListBloc, PostListState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              loading: () => ListView.separated(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (context, index) => const PostShimmer(),
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(height: 10),
-              ),
-              error: (message) => Text('Ошибка: $message'),
-              success: (posts) {
-                return ListView.builder(
+        child: GlRefreshIndicator(
+          onRefresh: () async {
+            context.read<PostListBloc>().add(const PostListEvent.getPosts());
+          },
+          child: BlocBuilder<PostListBloc, PostListState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loading: () => ListView.separated(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    return PostCard(
-                      key: ValueKey(posts[index].authorId),
-                      showButton: true,
-                      onPressedDetailPage: () {
-                        context.push('/home/post/${posts[index].postId}');
-                      },
-                      onPressed: () {
-                        if (posts[index].authorId != currentUid) {
-                          context.push(
-                            '/home/profilePersonPage/${posts[index].authorId}',
-                          );
-                        }
-                      },
-                      post: posts[index],
-                    );
-                  },
-                );
-              },
-              orElse: () => const SizedBox.shrink(),
-            );
-          },
+                  itemCount: 5,
+                  itemBuilder: (context, index) => const PostShimmer(),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(height: 10),
+                ),
+                error: (message) => Text('Ошибка: $message'),
+                success: (posts) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return PostCard(
+                        key: ValueKey(posts[index].authorId),
+                        showButton: true,
+                        onPressedDetailPage: () {
+                          context.push('/home/post/${posts[index].postId}');
+                        },
+                        onPressed: () {
+                          if (posts[index].authorId != currentUid) {
+                            context.push(
+                              '/home/profilePersonPage/${posts[index].authorId}',
+                            );
+                          }
+                        },
+                        post: posts[index],
+                      );
+                    },
+                  );
+                },
+                orElse: () => const SizedBox.shrink(),
+              );
+            },
+          ),
         ),
       ),
     );

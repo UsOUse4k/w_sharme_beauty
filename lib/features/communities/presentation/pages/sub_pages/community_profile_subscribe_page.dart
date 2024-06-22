@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
-import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/widgets/category_list.dart';
@@ -21,6 +21,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/subscribe_community_bloc/subscribe_community_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_navbar_widget.dart';
 
 class CommunityProfileSubscribePage extends StatefulWidget {
   const CommunityProfileSubscribePage({super.key, required this.communityId});

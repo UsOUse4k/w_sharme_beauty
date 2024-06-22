@@ -10,7 +10,6 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/utils/show_warning_dialog.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
-import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
@@ -21,6 +20,7 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_detail_bloc/community_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommunityProfilePage extends StatefulWidget {

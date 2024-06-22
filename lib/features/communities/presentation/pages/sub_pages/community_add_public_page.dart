@@ -15,9 +15,9 @@ import 'package:w_sharme_beauty/features/communities/presentation/bloc/community
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_list_bloc/community_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 
 class CommunityAddPublicPage extends StatefulWidget {
   const CommunityAddPublicPage({super.key, required this.communityId});

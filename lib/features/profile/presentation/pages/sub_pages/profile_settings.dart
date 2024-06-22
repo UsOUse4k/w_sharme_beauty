@@ -9,8 +9,8 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/profile_setting_card_item_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/profile_setting_item_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_card_item_widget.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/profile_setting_item_widget.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});

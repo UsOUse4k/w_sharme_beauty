@@ -81,7 +81,6 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
   }
 
   Future<void> _requestRoutes() async {
-    print('Points: ${startPlacemark.point},${endPlacemark.point}');
 
     final resultWithSession = await YandexDriving.requestRoutes(
       points: [
@@ -114,7 +113,6 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
     });
 
     if (result.error != null) {
-      print('Error: ${result.error}');
       return;
     }
 

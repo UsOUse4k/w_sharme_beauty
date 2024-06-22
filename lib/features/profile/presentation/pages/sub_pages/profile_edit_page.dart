@@ -11,10 +11,10 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/%D1%81ategory_bottom_sheet.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/%D1%81ategory_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 
 class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({super.key});

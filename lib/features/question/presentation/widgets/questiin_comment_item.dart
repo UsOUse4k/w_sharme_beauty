@@ -14,7 +14,6 @@ import 'package:w_sharme_beauty/features/question/presentation/bloc/create_quest
 import 'package:w_sharme_beauty/features/question/presentation/bloc/question_comment_like_bloc/question_comment_like_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/question_get_all_reply_comment_bloc/question_get_all_reply_comment_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/widgets/question_comment_reply_item.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class QuestionCommentItem extends StatefulWidget {
   const QuestionCommentItem({
@@ -132,23 +131,11 @@ class _QuestionCommentItemState extends State<QuestionCommentItem> {
                         }
                       }
                     },
-                    child: widget.item.avatarUrl != null &&
-                            widget.item.avatarUrl!.isNotEmpty && widget.item.avatarUrl != ''
-                        ? ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            child: GlCachedNetworImage(
-                              height: 40.h,
-                              width: 40.w,
-                              urlImage: widget.item.avatarUrl,
-                            ),
-                          )
-                        : GlCircleAvatar(
-                            avatar: Assets.images.notAvatar.path,
-                            width: 40.w,
-                            height: 40.h,
-                          ),
+                    child: GlCircleAvatar(
+                      avatar: widget.item.avatarUrl.toString(),
+                      width: 40.w,
+                      height: 40.h,
+                    ),
                   ),
                 ),
                 Flexible(

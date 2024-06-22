@@ -11,7 +11,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_button_widget.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_radio_widget.dart';
 import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 import 'package:w_sharme_beauty/features/question/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/add_question_bloc/add_question_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_question_bloc/get_all_question_bloc.dart';

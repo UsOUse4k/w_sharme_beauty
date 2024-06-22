@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
-import 'package:w_sharme_beauty/core/widgets/profile_navbar_widget.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/subscribe_bloc/subscribe_bloc.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
@@ -14,7 +13,7 @@ import 'package:w_sharme_beauty/features/category/presentation/widgets/category_
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ProfilePersonPage extends StatefulWidget {

@@ -13,7 +13,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/update_chat_group_bloc/update_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/widgets.dart';
 
 class ChatGroupEditPage extends StatefulWidget {
   const ChatGroupEditPage({

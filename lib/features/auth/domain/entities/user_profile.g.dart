@@ -33,7 +33,8 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map json) => _$UserProfileImpl(
       rating: json['rating'] as String? ?? '10',
       stories: (json['stories'] as List<dynamic>?)
               ?.map(
-                  (e) => Stories.fromJson(Map<String, dynamic>.from(e as Map)),)
+                (e) => Stories.fromJson(Map<String, dynamic>.from(e as Map)),
+              )
               .toList() ??
           const [],
       lastSeen: const TimestampConverter().fromJson(json['lastSeen']),

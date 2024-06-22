@@ -14,7 +14,6 @@ import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_commen
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/reply_comment_list_bloc/reply_comment_list_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CommentItemCard extends StatefulWidget {
   final Comment item;
@@ -125,23 +124,11 @@ class _CommentItemCardState extends State<CommentItemCard> {
                       );
                     }
                   },
-                  child: widget.item.avatarUrl != null &&
-                          widget.item.avatarUrl!.isNotEmpty
-                      ? ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          child: GlCachedNetworImage(
-                            height: 40.h,
-                            width: 40.w,
-                            urlImage: widget.item.avatarUrl,
-                          ),
-                        )
-                      : GlCircleAvatar(
-                          avatar: Assets.images.notAvatar.path,
-                          width: 40.w,
-                          height: 40.h,
-                        ),
+                  child: GlCircleAvatar(
+                    avatar: widget.item.avatarUrl.toString(),
+                    width: 40.w,
+                    height: 40.h,
+                  ),
                 ),
               ),
               Flexible(

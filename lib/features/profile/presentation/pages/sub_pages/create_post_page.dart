@@ -16,9 +16,9 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_blo
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/data/local_category_data.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/adding_button.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/text_field_widget_with_title.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/adding_button.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/text_field_widget_with_title.dart';
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key});

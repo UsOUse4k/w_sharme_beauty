@@ -43,23 +43,11 @@ class _QuestionPageState extends State<QuestionPage> {
               builder: (context, state) {
                 return state.maybeWhen(
                   succes: (user) {
-                    return user.profilePictureUrl != null &&
-                            user.profilePictureUrl != ''
-                        ? ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(50),
-                            ),
-                            child: GlCachedNetworImage(
-                              height: 26.h,
-                              width: 26.w,
-                              urlImage: user.profilePictureUrl,
-                            ),
-                          )
-                        : GlCircleAvatar(
-                            avatar: Assets.images.notAvatar.path,
-                            width: 26.w,
-                            height: 26.h,
-                          );
+                    return GlCircleAvatar(
+                      avatar: user.profilePictureUrl.toString(),
+                      width: 26.w,
+                      height: 26.h,
+                    );
                   },
                   orElse: () => Container(),
                 );
@@ -183,9 +171,7 @@ class _QuestionPageState extends State<QuestionPage> {
                     return Container();
                   },
                   success: (questions) {
-                    //print(questions);
                     return QuestionsList(questions: questions);
-                    // return Container();
                   },
                   orElse: () => const SizedBox(),
                 );

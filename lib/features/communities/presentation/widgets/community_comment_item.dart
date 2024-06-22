@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/utils/format_date/format_date_ago.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_cached_networ_image.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/comment/domain/entities/comment.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/bloc/parent_comment_id_bloc/parent_comment_id_bloc.dart';
 import 'package:w_sharme_beauty/features/comment/presentation/widgets/comment_shimer.dart';
@@ -138,15 +138,10 @@ class _CommunityCommentItemCardState extends State<CommunityCommentItemCard> {
                       );
                     }
                   },
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    child: GlCachedNetworImage(
-                      height: 40.h,
-                      width: 40.w,
-                      urlImage: widget.avatar,
-                    ),
+                  child: GlCircleAvatar(
+                    avatar: widget.item.avatarUrl.toString(),
+                    width: 40.w,
+                    height: 40.h,
                   ),
                 ),
               ),

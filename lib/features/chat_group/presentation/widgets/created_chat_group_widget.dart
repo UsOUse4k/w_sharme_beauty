@@ -14,7 +14,7 @@ import 'package:w_sharme_beauty/features/auth/domain/entities/user_profile.dart'
 import 'package:w_sharme_beauty/features/chat_group/domain/entities/chat_group_room.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/create_chat_group_bloc/create_chat_group_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
-import 'package:w_sharme_beauty/features/profile/presentation/pages/widgets/image_card_profile_add.dart';
+import 'package:w_sharme_beauty/features/profile/presentation/widgets/image_card_profile_add.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CreateChatGroupWidget extends StatefulWidget {

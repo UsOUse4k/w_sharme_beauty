@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
+import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class GlCircleAvatar extends StatelessWidget {
   const GlCircleAvatar({
@@ -14,16 +17,27 @@ class GlCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: AssetImage(avatar),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
+    return avatar != ''
+        ? ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(14),
+            ),
+            child: GlCachedNetworImage(
+              height: height.h,
+              width: width.w,
+              urlImage: avatar,
+            ),
+          )
+        : Container(
+            width: width.w,
+            height: height.h,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(Assets.images.notAvatar.path),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
   }
 }
