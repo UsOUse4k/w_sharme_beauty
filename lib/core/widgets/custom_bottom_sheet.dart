@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
