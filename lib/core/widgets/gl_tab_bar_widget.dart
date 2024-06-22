@@ -27,7 +27,7 @@ class GlTabBarWidget extends StatelessWidget {
       indicatorColor: Colors.transparent,
       unselectedLabelColor: AppColors.grey,
       dividerColor: Colors.transparent,
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
       tabs: List.generate(2, (index) {
         return AnimatedBuilder(
           animation: tabController,
