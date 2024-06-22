@@ -18,7 +18,6 @@ import 'package:w_sharme_beauty/features/question/presentation/bloc/get_all_ques
 import 'package:w_sharme_beauty/features/question/presentation/bloc/get_question_bloc/get_question_bloc.dart';
 import 'package:w_sharme_beauty/features/question/presentation/widgets/question_comment_list.dart';
 import 'package:w_sharme_beauty/features/question/presentation/widgets/username_reply_comment_widget.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class QuestionDetailPage extends StatefulWidget {
   const QuestionDetailPage({super.key, required this.questionId});
@@ -95,36 +94,22 @@ class _QuestionDetailPageState extends State<QuestionDetailPage> {
                               children: [
                                 ListTile(
                                   contentPadding: EdgeInsets.zero,
-                                  leading: question.avatarUrl != null && question.avatarUrl != ''
-                                      ? GestureDetector(
-                                          onTap: () {
-                                            if (question.username != 'Анонимно') {
-                                              if (question.uid != currentUid) {
-                                                context.push(
-                                                  '/question/question-datail/${widget.questionId}/profilePersonPage/${question.uid}',
-                                                );
-                                              }
-                                            }
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              Radius.circular(25),
-                                            ),
-                                            child: GlCachedNetworImage(
-                                              key:
-                                                  ValueKey(question.questionId),
-                                              urlImage: question.avatarUrl,
-                                              width: 50.w,
-                                              height: 50.h,
-                                            ),
-                                          ),
-                                        )
-                                      : GlCircleAvatar(
-                                          avatar: Assets.images.notAvatar.path,
-                                          width: 50.w,
-                                          height: 50.h,
-                                        ),
+                                  leading: GestureDetector(
+                                    onTap: () {
+                                      if (question.username != 'Анонимно') {
+                                        if (question.uid != currentUid) {
+                                          context.push(
+                                            '/question/question-datail/${widget.questionId}/profilePersonPage/${question.uid}',
+                                          );
+                                        }
+                                      }
+                                    },
+                                    child: GlCircleAvatar(
+                                      avatar: question.avatarUrl ?? '',
+                                      width: 50.w,
+                                      height: 50.h,
+                                    ),
+                                  ),
                                   title: Text(
                                     question.username.toString(),
                                     style: AppStyles.w500f16,

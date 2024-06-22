@@ -167,9 +167,6 @@ class _QuestionPageState extends State<QuestionPage> {
             BlocBuilder<GetAllQuestionBloc, GetAllQuestionState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  error: (message) {
-                    return Container();
-                  },
                   success: (questions) {
                     return QuestionsList(questions: questions);
                   },

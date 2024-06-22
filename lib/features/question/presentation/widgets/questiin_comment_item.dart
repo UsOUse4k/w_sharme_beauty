@@ -132,7 +132,7 @@ class _QuestionCommentItemState extends State<QuestionCommentItem> {
                       }
                     },
                     child: GlCircleAvatar(
-                      avatar: widget.item.avatarUrl.toString(),
+                      avatar: widget.item.avatarUrl ?? '',
                       width: 40.w,
                       height: 40.h,
                     ),

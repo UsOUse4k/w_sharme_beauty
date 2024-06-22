@@ -34,10 +34,9 @@ class QuestionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final avatar = question.avatarUrl;
     final Timestamp timestamp = question.createdAt!;
     final String formattedDate = formatDateTime(timestamp);
-
+    final avatar = question.avatarUrl ?? '';
     return GestureDetector(
       onTap: onPressedOutput,
       child: Container(
@@ -51,7 +50,7 @@ class QuestionListItem extends StatelessWidget {
               leading: GestureDetector(
                 onTap: onPressed,
                 child: GlCircleAvatar(
-                  avatar: avatar.toString(),
+                  avatar: avatar,
                   width: 50.w,
                   height: 50.h,
                   key: ValueKey(question.questionId),
