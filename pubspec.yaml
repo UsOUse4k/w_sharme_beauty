@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.3.1 <4.0.0'
+  sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
   bloc: ^8.1.4
@@ -41,7 +41,6 @@ dependencies:
   permission_handler: ^11.3.1
   pinput: ^4.0.0
   shimmer: ^3.0.0
-  timeago: ^3.6.1
   uuid: ^4.4.0
   yandex_mapkit: ^4.0.2
 

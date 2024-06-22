@@ -15,7 +15,7 @@ _$CommentImpl _$$CommentImplFromJson(Map json) => _$CommentImpl(
       likes:
           (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
-      replies: json['replies'] as int? ?? 0,
+      replies: (json['replies'] as num?)?.toInt() ?? 0,
       parentCommentId: json['parentCommentId'] as String? ?? '',
       createdAt: const TimestampConverter().fromJson(json['createdAt']),
     );

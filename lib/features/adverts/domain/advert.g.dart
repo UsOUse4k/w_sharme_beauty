@@ -32,7 +32,7 @@ const _$WeekdayEnumMap = {
 _$ServiceImpl _$$ServiceImplFromJson(Map json) => _$ServiceImpl(
       name: json['name'] as String,
       description: json['description'] as String,
-      price: json['price'] as int,
+      price: (json['price'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$ServiceImplToJson(_$ServiceImpl instance) =>

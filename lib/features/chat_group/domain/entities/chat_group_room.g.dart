@@ -19,7 +19,7 @@ _$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map json) =>
           .toList(),
       editors:
           (json['editors'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      limitUsers: json['limitUsers'] as int?,
+      limitUsers: (json['limitUsers'] as num?)?.toInt(),
       userId: json['userId'] as String?,
       lastSenderId: json['lastSenderId'] as String?,
       createdAt: const TimestampConverter().fromJson(json['createdAt']),
@@ -29,7 +29,7 @@ _$ChatGroupRoomImpl _$$ChatGroupRoomImplFromJson(Map json) =>
       groupId: json['groupId'] as String?,
       lastMessage: json['lastMessage'] as String?,
       lastMessageTs: const TimestampConverter().fromJson(json['lastMessageTs']),
-      countMessage: json['countMessage'] as int?,
+      countMessage: (json['countMessage'] as num?)?.toInt(),
       isActive: json['isActive'] as bool?,
       seen: json['seen'] as bool?,
     );
