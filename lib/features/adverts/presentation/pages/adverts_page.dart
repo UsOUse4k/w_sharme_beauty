@@ -185,7 +185,8 @@ class _AdvertsPageState extends State<AdvertsPage> {
                                             const Gap(2),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  bottom: 3,),
+                                                bottom: 3,
+                                              ),
                                               child: Text(
                                                 '(${advert.reviewsCount})',
                                                 style: const TextStyle(
@@ -242,7 +243,6 @@ class _AdvertsPageState extends State<AdvertsPage> {
 
                 await controller.toggleUserLayer(
                   visible: true,
-                  autoZoomEnabled: true,
                   anchor: UserLocationAnchor(
                     course: Offset(0.5 * width, 0.5 * height),
                     normal: Offset(0.5 * width, 0.5 * height),
