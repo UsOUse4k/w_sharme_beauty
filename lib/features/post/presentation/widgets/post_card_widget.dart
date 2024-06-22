@@ -13,7 +13,6 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/p
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
-import 'package:w_sharme_beauty/features/post/presentation/widgets/repost_bottom_sheet.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
@@ -207,8 +206,10 @@ class _PostCardState extends State<PostCard> {
                 onPessed: () {
                   BottomSheetUtil.showAppBottomSheet(
                     context,
-                    RepostBottomSheet(
-                      postId: widget.post!.postId.toString(),
+                    CustomBottomSheet(
+                      maxHeight: 0.7,
+                      navbarTitle: 'Поделиться',
+                      widget: Container(),
                     ),
                   );
                 },

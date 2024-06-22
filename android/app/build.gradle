@@ -68,12 +68,7 @@ flutter {
     source '../..'
 }
 
-<<<<<<< HEAD
-dependencies {  
-=======
 dependencies {
-  
->>>>>>> 7bdc544 (fixed)
   implementation 'com.android.support:multidex:1.0.3'
   implementation 'com.yandex.android:maps.mobile:4.5.1-full'
 }

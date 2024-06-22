@@ -57,7 +57,17 @@ class CustomBottomSheet extends StatelessWidget {
                         ),
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: Assets.svgs.remove.svg(),
+                        child: Container(
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: AppColors.lightGrey,
+                          ),
+                          child: const Icon(
+                            Icons.close,
+                            size: 14,
+                          ),
+                        ),
                       ),
                     ],
                   ),
