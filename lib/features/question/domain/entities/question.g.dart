@@ -19,7 +19,7 @@ _$QuestionImpl _$$QuestionImplFromJson(Map json) => _$QuestionImpl(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      countOutput: json['countOutput'] as int? ?? 0,
+      countOutput: (json['countOutput'] as num?)?.toInt() ?? 0,
       createdAt: const TimestampConverter().fromJson(json['createdAt']),
     );
 

@@ -31,11 +31,11 @@ _$CommunityImpl _$$CommunityImplFromJson(Map json) => _$CommunityImpl(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      public: json['public'] as int? ?? 0,
+      public: (json['public'] as num?)?.toInt() ?? 0,
       isFavorite: json['isFavorite'] as bool? ?? false,
       createdAt: json['createdAt'] as String? ?? "",
       lastMessageTs: const TimestampConverter().fromJson(json['lastMessageTs']),
-      messageCount: json['messageCount'] as int? ?? 0,
+      messageCount: (json['messageCount'] as num?)?.toInt() ?? 0,
       lastMessage: json['lastMessage'] as String? ?? "",
       lastSenderId: json['lastSenderId'] as String? ?? "",
       seen: json['seen'] as bool?,

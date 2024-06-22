@@ -24,13 +24,13 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adve
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts_filter/adverts_filter_cubit.dart'
     as _i22;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_advert/create_advert_cubit.dart'
-    as _i88;
+    as _i93;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_reply/create_reply_cubit.dart'
-    as _i91;
-import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_review/create_review_cubit.dart'
     as _i89;
-import 'package:w_sharme_beauty/features/adverts/presentation/blocs/delete_advert/delete_advert_cubit.dart'
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_review/create_review_cubit.dart'
     as _i87;
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/delete_advert/delete_advert_cubit.dart'
+    as _i91;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/edit_advert/edit_advert_cubit.dart'
     as _i86;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/edit_service/edit_service_cubit.dart'
@@ -38,11 +38,11 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/edit_service
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart'
     as _i47;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/replies/replies_cubit.dart'
-    as _i92;
+    as _i88;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/reviews/reviews_cubit.dart'
-    as _i90;
+    as _i92;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart'
-    as _i93;
+    as _i90;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart'
     as _i12;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart'
@@ -230,7 +230,7 @@ import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_i
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart'
     as _i21;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/get_user_detail_bloc/get_user_detail_bloc.dart'
-    as _i35;
+    as _i34;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart'
     as _i33;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart'
@@ -238,7 +238,7 @@ import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/update_new_email_bloc/update_new_email_bloc.dart'
     as _i114;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart'
-    as _i34;
+    as _i35;
 import 'package:w_sharme_beauty/features/question/data/data/firebase_question_comment_facade.dart'
     as _i51;
 import 'package:w_sharme_beauty/features/question/data/data/firebase_question_facade.dart'
@@ -319,10 +319,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i32.SubscribeBloc(gh<_i26.IAuthFacade>()));
     gh.factory<_i33.MyProfileInfoBloc>(
         () => _i33.MyProfileInfoBloc(gh<_i26.IAuthFacade>()));
-    gh.factory<_i34.UserDetailBloc>(
-        () => _i34.UserDetailBloc(gh<_i26.IAuthFacade>()));
-    gh.factory<_i35.GetUserDetailBloc>(
-        () => _i35.GetUserDetailBloc(gh<_i26.IAuthFacade>()));
+    gh.factory<_i34.GetUserDetailBloc>(
+        () => _i34.GetUserDetailBloc(gh<_i26.IAuthFacade>()));
+    gh.factory<_i35.UserDetailBloc>(
+        () => _i35.UserDetailBloc(gh<_i26.IAuthFacade>()));
     gh.lazySingleton<_i36.IChatGroupRepository>(
         () => _i37.FirebaseChatGroupFacade(
               gh<_i3.FirebaseAuth>(),
@@ -453,20 +453,20 @@ extension GetItInjectableX on _i1.GetIt {
         ));
     gh.factory<_i86.EditAdvertCubit>(
         () => _i86.EditAdvertCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i87.DeleteAdvertCubit>(
-        () => _i87.DeleteAdvertCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i88.CreateAdvertCubit>(
-        () => _i88.CreateAdvertCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i89.CreateReviewCubit>(
-        () => _i89.CreateReviewCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i90.ReviewsCubit>(
-        () => _i90.ReviewsCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i91.CreateReplyCubit>(
-        () => _i91.CreateReplyCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i92.RepliesCubit>(
-        () => _i92.RepliesCubit(gh<_i38.IAdvertRepository>()));
-    gh.factory<_i93.SearchAdvertsCubit>(
-        () => _i93.SearchAdvertsCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i87.CreateReviewCubit>(
+        () => _i87.CreateReviewCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i88.RepliesCubit>(
+        () => _i88.RepliesCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i89.CreateReplyCubit>(
+        () => _i89.CreateReplyCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i90.SearchAdvertsCubit>(
+        () => _i90.SearchAdvertsCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i91.DeleteAdvertCubit>(
+        () => _i91.DeleteAdvertCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i92.ReviewsCubit>(
+        () => _i92.ReviewsCubit(gh<_i38.IAdvertRepository>()));
+    gh.factory<_i93.CreateAdvertCubit>(
+        () => _i93.CreateAdvertCubit(gh<_i38.IAdvertRepository>()));
     gh.factory<_i94.CommunityListBloc>(
         () => _i94.CommunityListBloc(gh<_i74.ICommunityRepository>()));
     gh.factory<_i95.GetAllQuestionCommentsBloc>(() =>

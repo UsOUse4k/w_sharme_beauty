@@ -21,7 +21,7 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map json) => _$UserProfileImpl(
       city: json['city'] as String? ?? '',
       dateUser: json['dateUser'] as String? ?? '',
       phoneUser: json['phoneUser'] as String? ?? '',
-      publics: json['publics'] as int? ?? 0,
+      publics: (json['publics'] as num?)?.toInt() ?? 0,
       followers: (json['followers'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -33,7 +33,7 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map json) => _$UserProfileImpl(
       rating: json['rating'] as String? ?? '10',
       stories: (json['stories'] as List<dynamic>?)
               ?.map(
-                  (e) => Stories.fromJson(Map<String, dynamic>.from(e as Map)),)
+                  (e) => Stories.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
       lastSeen: const TimestampConverter().fromJson(json['lastSeen']),

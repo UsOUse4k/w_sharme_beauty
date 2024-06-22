@@ -14,7 +14,7 @@ _$TimeImpl _$$TimeImplFromJson(Map json) => _$TimeImpl(
 
 Map<String, dynamic> _$$TimeImplToJson(_$TimeImpl instance) =>
     <String, dynamic>{
-      'day': _$WeekdayEnumMap[instance.day],
+      'day': _$WeekdayEnumMap[instance.day]!,
       'from': instance.from,
       'to': instance.to,
     };
@@ -32,7 +32,7 @@ const _$WeekdayEnumMap = {
 _$ServiceImpl _$$ServiceImplFromJson(Map json) => _$ServiceImpl(
       name: json['name'] as String,
       description: json['description'] as String,
-      price: json['price'] as int,
+      price: (json['price'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$ServiceImplToJson(_$ServiceImpl instance) =>

@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:209472904436:android:70ce9e28b89a3dd407d2a1',
     messagingSenderId: '209472904436',
     projectId: 'w-sharme-beauty',
+    databaseURL: 'https://w-sharme-beauty-default-rtdb.firebaseio.com',
     storageBucket: 'w-sharme-beauty.appspot.com',
   );
 
@@ -62,7 +63,9 @@ class DefaultFirebaseOptions {
     appId: '1:209472904436:ios:79db3df1c74bed8b07d2a1',
     messagingSenderId: '209472904436',
     projectId: 'w-sharme-beauty',
+    databaseURL: 'https://w-sharme-beauty-default-rtdb.firebaseio.com',
     storageBucket: 'w-sharme-beauty.appspot.com',
     iosBundleId: 'com.example.wSharmeBeauty',
   );
+
 }
