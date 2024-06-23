@@ -61,6 +61,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_post_my_screen_bloc/repost_post_my_screen_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_users_bloc/repost_users_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
@@ -321,6 +322,9 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<SendPostBloc>(
           create: (context) => getIt<SendPostBloc>(),
+        ),
+        BlocProvider<RepostPostMyScreenBloc>(
+          create: (context) => getIt<RepostPostMyScreenBloc>(),
         ),
       ],
       child: child,

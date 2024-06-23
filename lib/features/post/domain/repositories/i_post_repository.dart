@@ -11,6 +11,11 @@ abstract class IPostRepository {
     required String username,
     required String avatarUrl,
   });
+  Future<Either<PostError, Post>> repostPost({
+    required Post post,
+    required String username,
+    required String avatar,
+  });
   Future<Either<PostError, List<Post>>> getPosts({String? userId});
   Future<Either<PostError, Unit>> updateLikes(
     String postId,

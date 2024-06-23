@@ -191,6 +191,7 @@ class _HomePostPageState extends State<HomePostPage> {
                                 TextFieldSendMessageWidget(
                                   controller: comment,
                                   show: 'show',
+                                  hintext: 'Ваш комментарий',
                                   onPressed: () {
                                     if (comment.text.isNotEmpty) {
                                       if (state != null && state.id != '') {

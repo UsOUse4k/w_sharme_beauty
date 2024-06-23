@@ -226,7 +226,6 @@ class FirebaseAuthFacade implements IAuthFacade {
               await transaction.get(currentUserDoc);
           final DocumentSnapshot<Map<String, dynamic>> targetUserSnapshot =
               await transaction.get(targetUserDoc);
-
           final List<dynamic> currentUserSubscriptions = (currentUserSnapshot
                   .data()?['subscriptions'] as List<dynamic>?) ??
               [];
@@ -301,10 +300,8 @@ class FirebaseAuthFacade implements IAuthFacade {
               [];
           final List<dynamic> targetUserFollowers =
               (targetUserSnapshot.data()?['followers'] as List<dynamic>?) ?? [];
-
           currentUserSubscriptions.remove(targetUserUid);
           targetUserFollowers.remove(currentUid);
-
           transaction.update(
             currentUserDoc,
             {'subscriptions': currentUserSubscriptions},

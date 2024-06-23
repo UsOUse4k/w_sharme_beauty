@@ -47,16 +47,15 @@ class FirestorePostRepository implements IPostRepository {
       await firestore.collection('users').doc(authorId).update(
         {'publics': FieldValue.increment(1)},
       );
-      // добавим категории автора 
+      // добавим категории автора
       await firestore.runTransaction((transaction) async {
-        final snapshot = await transaction
-            .get(firestore.collection('users').doc(authorId));
+        final snapshot =
+            await transaction.get(firestore.collection('users').doc(authorId));
         final docData = snapshot.data();
         final category =
             List<String>.from(docData?['category'] as List<dynamic>);
         if (!category.contains(updatedPost.category)) {
-          transaction
-              .update(firestore.collection('users').doc(authorId), {
+          transaction.update(firestore.collection('users').doc(authorId), {
             'category': FieldValue.arrayUnion([updatedPost.category]),
           });
         }
@@ -78,6 +77,49 @@ class FirestorePostRepository implements IPostRepository {
             .set(updatedPost.toJson());
         return right(updatedPost);
       }
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<PostError, Post>> repostPost({
+    required Post post,
+    required String username,
+    required String avatar,
+  }) async {
+    try {
+      final myUid = auth.currentUser!.uid;
+      final String postId = const Uuid().v1();
+      final updatePost = post.copyWith(
+        authorId: myUid,
+        postId: postId,
+        avatarUrl: avatar,
+        username: username,
+        commentsCount: 0,
+        repostCount: 0,
+        likes: [],
+      );
+      await firestore.runTransaction((transaction) async {
+        final snapshot =
+            await transaction.get(firestore.collection('users').doc(myUid));
+        final docData = snapshot.data();
+        final category =
+            List<String>.from(docData?['category'] as List<dynamic>);
+        if (!category.contains(updatePost.category)) {
+          transaction.update(firestore.collection('users').doc(myUid), {
+            'category': FieldValue.arrayUnion([updatePost.category]),
+          });
+        }
+      });
+      await firestore.collection('users').doc(myUid).update(
+        {'publics': FieldValue.increment(1)},
+      );
+      await firestore.collection('posts').doc(post.postId).update(
+        {'repostCount': FieldValue.increment(1)},
+      );
+      await firestore.collection('posts').doc(postId).set(updatePost.toJson());
+      return right(updatePost);
     } catch (e) {
       return left(PostError(e.toString()));
     }

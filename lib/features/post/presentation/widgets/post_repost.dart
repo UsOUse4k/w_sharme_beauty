@@ -4,6 +4,8 @@ import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bl
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_post_bloc/send_post_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_post_my_screen_bloc/repost_post_my_screen_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_users_bloc/repost_users_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost_button.dart';
@@ -81,61 +83,86 @@ class _PostRepostState extends State<PostRepost> {
                             child:
                                 BlocBuilder<RepostUsersBloc, RepostUsersState>(
                               builder: (context, state) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 18,
-                                    vertical: 5,
-                                  ),
-                                  child: BlocListener<CreateChatroomBloc,
-                                      CreateChatroomState>(
-                                    listener: (context, chatRoomState) {
-                                      chatRoomState.maybeWhen(
-                                        sucsess: (chatRoomId, userId) {
-                                          sendPostBloc.add(
-                                            SendPostEvent.sendPost(
-                                              chatRoomId: chatRoomId.toString(),
-                                              receiverId: userId.toString(),
-                                              post: widget.post,
-                                            ),
-                                          );
-                                          Navigator.pop(context);
-                                        },
-                                        orElse: () {},
-                                      );
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        PostRepostButton(
-                                          title: 'Экспорт',
-                                          onPressed: () {
-                                            if (state
-                                                .selectecUserIds.isNotEmpty) {
-                                              for (final userd
-                                                  in state.selectecUserIds) {
-                                                createRoomBloc.add(
-                                                  CreateChatroomEvent
-                                                      .createdChatRoomId(
-                                                    userId: userd,
-                                                  ),
-                                                );
-                                              }
-                                            }
+                                return BlocListener<RepostPostMyScreenBloc,
+                                    RepostPostMyScreenState>(
+                                  listener: (context, state) {
+                                    state.maybeWhen(
+                                      success: (post) {
+                                        context.read<MyPostListBloc>().add(
+                                              MyPostListEvent.addNewPost(post),
+                                            );
+                                        Navigator.pop(context);
+                                      },
+                                      orElse: () {},
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 18,
+                                      vertical: 5,
+                                    ),
+                                    child: BlocListener<CreateChatroomBloc,
+                                        CreateChatroomState>(
+                                      listener: (context, chatRoomState) {
+                                        chatRoomState.maybeWhen(
+                                          sucsess: (chatRoomId, userId) {
+                                            sendPostBloc.add(
+                                              SendPostEvent.sendPost(
+                                                chatRoomId:
+                                                    chatRoomId.toString(),
+                                                receiverId: userId.toString(),
+                                                post: widget.post,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
                                           },
-                                          icon: Assets.icons.export.path,
-                                        ),
-                                        PostRepostButton(
-                                          title: 'Скопировать ссылку',
-                                          onPressed: () {},
-                                          icon: Assets.icons.copy.path,
-                                        ),
-                                        PostRepostButton(
-                                          title: 'На своей странице',
-                                          onPressed: () {},
-                                          icon: Assets.icons.sharePng.path,
-                                        ),
-                                      ],
+                                          orElse: () {},
+                                        );
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          PostRepostButton(
+                                            title: 'Экспорт',
+                                            onPressed: () {
+                                              if (state
+                                                  .selectecUserIds.isNotEmpty) {
+                                                for (final userd
+                                                    in state.selectecUserIds) {
+                                                  createRoomBloc.add(
+                                                    CreateChatroomEvent
+                                                        .createdChatRoomId(
+                                                      userId: userd,
+                                                    ),
+                                                  );
+                                                }
+                                              }
+                                            },
+                                            icon: Assets.icons.export.path,
+                                          ),
+                                          PostRepostButton(
+                                            title: 'Скопировать ссылку',
+                                            onPressed: () {},
+                                            icon: Assets.icons.copy.path,
+                                          ),
+                                          PostRepostButton(
+                                            title: 'На своей странице',
+                                            onPressed: () {
+                                              context
+                                                  .read<
+                                                      RepostPostMyScreenBloc>()
+                                                  .add(
+                                                    RepostPostMyScreenEvent
+                                                        .repostPost(
+                                                      post: widget.post,
+                                                    ),
+                                                  );
+                                            },
+                                            icon: Assets.icons.sharePng.path,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
