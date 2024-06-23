@@ -31,12 +31,9 @@ class AdvertsPage extends StatefulWidget {
 }
 
 class _AdvertsPageState extends State<AdvertsPage> {
-  int content = 0;
-  String queryText = "";
+  final GlobalKey key = GlobalKey();
 
   late final YandexMapController controller;
-
-  final GlobalKey key = GlobalKey();
 
   List<MapObject> mapObjects = [];
 
@@ -44,6 +41,9 @@ class _AdvertsPageState extends State<AdvertsPage> {
 
   Future<bool> get locationPermissionGranted async =>
       await Permission.location.request().isGranted;
+
+  int content = 0;
+  String queryText = "";
 
   @override
   void initState() {

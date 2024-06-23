@@ -453,7 +453,6 @@ mixin AppRouter on State<App> {
                     },
                   ),
                   GoRoute(
-                    parentNavigatorKey: RouterKeys.rootKey,
                     name: RouterContants.advertRoutePage,
                     path: RouterContants.advertRoutePage,
                     builder: (context, state) {

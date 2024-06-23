@@ -46,6 +46,18 @@ abstract class AppStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.black,
   );
+  static TextStyle w400f18 = TextStyle(
+    fontFamily: FontFamily.gTEastiProDisplay,
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
+  static TextStyle w400f20 = TextStyle(
+    fontFamily: FontFamily.gTEastiProDisplay,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
   static TextStyle w400f30 = TextStyle(
     fontFamily: FontFamily.gTEastiProDisplay,
     fontSize: 30.sp,
