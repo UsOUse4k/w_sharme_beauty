@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/router/router.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_result/search_result_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/adverts_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_add_service_page.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_address_select_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_create_advert_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_detail_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_edit_advert_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_edit_sevice_page.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_location_search_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_my_adverts_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_product_and_services_page.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/pages/sub_pages/advert_reply_reviews_page.dart';
@@ -398,14 +398,13 @@ mixin AppRouter on State<App> {
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,
-                    name: RouterContants.advertLocationSearchPage,
-                    path: RouterContants.advertLocationSearchPage,
+                    name: RouterContants.advertAddressSelectPage,
+                    path: RouterContants.advertAddressSelectPage,
                     builder: (context, state) {
-                      final searchResultsCubit =
-                          state.extra! as SearchResultsCubit;
+                      final searchResult = state.extra as SearchResult?;
 
-                      return AdvertLocationSearchPage(
-                        searchResultsCubit: searchResultsCubit,
+                      return AdvertAddressSelectPage(
+                        searchResult: searchResult,
                       );
                     },
                   ),
