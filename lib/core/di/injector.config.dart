@@ -30,7 +30,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_reply
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_review/create_review_cubit.dart'
     as _i89;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/current_location/current_location_bloc.dart'
-    as _i22;
+    as _i23;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/delete_advert/delete_advert_cubit.dart'
     as _i93;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/edit_advert/edit_advert_cubit.dart'
@@ -46,7 +46,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/reviews/revi
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart'
     as _i92;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_result/search_result_cubit.dart'
-    as _i21;
+    as _i22;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart'
     as _i13;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_schedule/select_schedule_cubit.dart'
@@ -94,7 +94,7 @@ import 'package:w_sharme_beauty/features/chat/domain/repository/i_chat_repositor
 import 'package:w_sharme_beauty/features/chat/domain/use_cases/get_all_chats_use_cases.dart'
     as _i99;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart'
-    as _i131;
+    as _i130;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bloc/get_all_chats_bloc.dart'
     as _i101;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_bloc/get_messages_bloc.dart'
@@ -102,7 +102,7 @@ import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_blo
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/seen_message_bloc/seen_message_bloc.dart'
     as _i102;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart'
-    as _i130;
+    as _i131;
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_post_bloc/send_post_bloc.dart'
     as _i46;
 import 'package:w_sharme_beauty/features/chat_group/data/firebase_chat_group_facade.dart'
@@ -226,7 +226,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/p
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart'
     as _i111;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_users_bloc/repost_users_bloc.dart'
-    as _i23;
+    as _i21;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart'
     as _i64;
 import 'package:w_sharme_beauty/features/profile/data/firebase_profile_facade.dart'
@@ -302,9 +302,9 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i18.ChatGroupCheckManagerBloc());
     gh.factory<_i19.InvitePeopleChatBloc>(() => _i19.InvitePeopleChatBloc());
     gh.factory<_i20.CategoryListBloc>(() => _i20.CategoryListBloc());
-    gh.factory<_i21.SearchResultCubit>(() => _i21.SearchResultCubit());
-    gh.factory<_i22.CurrentLocationBloc>(() => _i22.CurrentLocationBloc());
-    gh.factory<_i23.RepostUsersBloc>(() => _i23.RepostUsersBloc());
+    gh.factory<_i21.RepostUsersBloc>(() => _i21.RepostUsersBloc());
+    gh.factory<_i22.SearchResultCubit>(() => _i22.SearchResultCubit());
+    gh.factory<_i23.CurrentLocationBloc>(() => _i23.CurrentLocationBloc());
     gh.lazySingleton<_i24.AdvertsFilterCubit>(() => _i24.AdvertsFilterCubit());
     gh.lazySingleton<_i25.IAuthFacade>(() => _i26.FirebaseAuthFacade(
           gh<_i3.FirebaseAuth>(),
@@ -576,12 +576,12 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i65.IPostRepository>(),
           gh<_i114.MyPostListBloc>(),
         ));
-    gh.factory<_i130.SendMessageBloc>(() => _i130.SendMessageBloc(
+    gh.factory<_i130.CreateChatroomBloc>(() => _i130.CreateChatroomBloc(
           gh<_i41.IChatRepository>(),
           gh<_i100.GetMessagesBloc>(),
           gh<_i28.IAuthFacade>(),
         ));
-    gh.factory<_i131.CreateChatroomBloc>(() => _i131.CreateChatroomBloc(
+    gh.factory<_i131.SendMessageBloc>(() => _i131.SendMessageBloc(
           gh<_i41.IChatRepository>(),
           gh<_i100.GetMessagesBloc>(),
           gh<_i28.IAuthFacade>(),

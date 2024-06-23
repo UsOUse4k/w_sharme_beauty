@@ -208,9 +208,11 @@ class _PostCardState extends State<PostCard> {
                 onPessed: () {
                   BottomSheetUtil.showAppBottomSheet(
                     context,
+                    
                     PostRepostBottomSheet(
                       maxHeight: 0.7,
                       navbarTitle: 'Поделиться',
+                      
                       widget: PostRepost(
                         post: widget.post!,
                       ),

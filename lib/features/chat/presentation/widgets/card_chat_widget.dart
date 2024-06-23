@@ -6,6 +6,7 @@ import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/chat_room.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_card_widget.dart';
 
 class CardChatWidget extends StatelessWidget {
   const CardChatWidget({
@@ -21,6 +22,7 @@ class CardChatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
+    final currentUid = firebaseAuth.currentUser!.uid;
     return Column(
       children: [
         Container(
@@ -44,8 +46,12 @@ class CardChatWidget extends StatelessWidget {
                   width: 60.w,
                   height: 60.h,
                   raduis: 30,
-                  avatar: chatRooms.receiverUserAvatar,
-                  name: chatRooms.receiverUsername.toString(),
+                  avatar: currentUid != chatRooms.receiverId
+                      ? chatRooms.receiverUserAvatar
+                      : chatRooms.senderUserAvatar,
+                  name: currentUid != chatRooms.receiverId
+                      ? chatRooms.receiverUsername.toString()
+                      : chatRooms.senderUsername.toString(),
                   subTitle: chatRooms.lastMessage ?? 'пусто',
                 ),
                 MessageCheckTimeTextWidget(

@@ -153,7 +153,6 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       if (state is LogoutSuccess) {
                         context.go(RouterContants.login);
                       }
-                      if (state is AuthError) {}
                     },
                     child: ProfileSettingCardItemWidget(
                       text: 'АККАУНТ',

@@ -5,12 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
+import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/commmunity_like_bloc/community_like_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_post_detail_bloc/community_post_detail_bloc.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_widget.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost_bottom_sheet.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
@@ -136,7 +139,7 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
                     : Assets.svgs.like.svg(),
                 text: countLike.toString(),
               ),
-              SizedBox(height: 6.h),
+              SizedBox(width: 6.h),
               if (widget.show != 'show')
                 BlocBuilder<CommunityPostDetailBloc, CommunityPostDetailState>(
                   builder: (context, state) {
@@ -150,11 +153,22 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
                     );
                   },
                 ),
-              SizedBox(height: 6.h),
+              SizedBox(width: 6.h),
               PostIconsWidget(
-                onPessed: () {},
+                onPessed: () {
+                  BottomSheetUtil.showAppBottomSheet(
+                    context,
+                    PostRepostBottomSheet(
+                      maxHeight: 0.7,
+                      navbarTitle: 'Поделиться',
+                      widget: PostRepost(
+                        post: widget.post,
+                      ),
+                    ),
+                  );
+                },
                 icon: Assets.svgs.share.svg(),
-                text: widget.post.reposts.length.toString(),
+                text: widget.post.repostCount.toString(),
               ),
             ],
           ),

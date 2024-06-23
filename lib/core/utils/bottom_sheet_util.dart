@@ -14,6 +14,7 @@ class BottomSheetUtil {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
+        useRootNavigator: true,
         builder: (BuildContext bc) => child,
       );
     }

@@ -26,6 +26,8 @@ class FirebaseChatFacade implements IChatRepository {
     required String uid,
     required String receiverUsername,
     required String receiverUserAvatar,
+    required String senderUserAvatar,
+    required String senderUsername,
   }) async {
     try {
       final String myUid = auth.currentUser!.uid;
@@ -52,6 +54,8 @@ class FirebaseChatFacade implements IChatRepository {
           receiverId: uid,
           receiverUsername: receiverUsername,
           receiverUserAvatar: receiverUserAvatar,
+          senderUserAvatar: senderUserAvatar,
+          senderUsername: senderUsername,
         );
         await firestore
             .collection('chatrooms')
