@@ -92,7 +92,6 @@ class CardMessageWidget extends StatelessWidget {
                         if (data != null && data!.posdId != null) {
                           context.push(
                               '/home/chat/chatMessages/${data!.receiverId}/post/${data!.posdId}',);
-
                         }
                       },
                       child: Column(
