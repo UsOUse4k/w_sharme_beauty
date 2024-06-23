@@ -40,7 +40,6 @@ class MyAdvertsCubit extends Cubit<MyAdvertsState> {
   Future<void> updateAdvert(Advert advert) async {
     state.maybeWhen(
       loadSuccess: (adverts) async {
-        // TODO Fix
         final data = adverts.map((e) {
           return e.id == advert.id
               ? e.copyWith(

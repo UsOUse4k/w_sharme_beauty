@@ -18,7 +18,7 @@ import 'package:w_sharme_beauty/features/adverts/data/firebase_advert_repository
 import 'package:w_sharme_beauty/features/adverts/domain/i_advert_repository.dart'
     as _i38;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/add_service/add_service_cubit.dart'
-    as _i13;
+    as _i12;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adverts_cubit.dart'
     as _i102;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts_filter/adverts_filter_cubit.dart'
@@ -43,12 +43,12 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/reviews/revi
     as _i93;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart'
     as _i91;
-import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart'
-    as _i12;
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_result/search_result_cubit.dart'
+    as _i22;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart'
-    as _i14;
+    as _i13;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_schedule/select_schedule_cubit.dart'
-    as _i15;
+    as _i14;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_services/select_services_cubit.dart'
     as _i10;
 import 'package:w_sharme_beauty/features/auth/data/firebase_auth_facade.dart'
@@ -108,15 +108,15 @@ import 'package:w_sharme_beauty/features/chat_group/data/firebase_chat_group_fac
 import 'package:w_sharme_beauty/features/chat_group/domain/repositories/i_chat_group_repository.dart'
     as _i36;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/added_chat_users_group_bloc/added_chat_users_group_bloc.dart'
-    as _i16;
+    as _i15;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart'
-    as _i19;
+    as _i18;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/create_chat_group_bloc/create_chat_group_bloc.dart'
     as _i59;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/filter_users_invite/filter_users_invite_bloc.dart'
-    as _i18;
-import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_admins_sorted_bloc/get_admins_sorted_bloc.dart'
     as _i17;
+import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_admins_sorted_bloc/get_admins_sorted_bloc.dart'
+    as _i16;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_admins_chat_group_bloc/get_all_admins_chat_group_bloc.dart'
     as _i44;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_chat_group_bloc/get_all_chat_group_bloc.dart'
@@ -126,7 +126,7 @@ import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_all_gr
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/get_group_bloc/get_group_bloc.dart'
     as _i43;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_people_chat_bloc/invite_people_chat_bloc.dart'
-    as _i20;
+    as _i19;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/invite_users_chat_group_bloc/invite_users_chat_group_bloc.dart'
     as _i60;
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/remove_admin_chat_group_bloc/remove_admin_chat_group_bloc.dart'
@@ -224,7 +224,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/p
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart'
     as _i110;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_users_bloc/repost_users_bloc.dart'
-    as _i22;
+    as _i21;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart'
     as _i63;
 import 'package:w_sharme_beauty/features/profile/data/firebase_profile_facade.dart'
@@ -232,7 +232,7 @@ import 'package:w_sharme_beauty/features/profile/data/firebase_profile_facade.da
 import 'package:w_sharme_beauty/features/profile/domain/repositories/i_profile_info_repository.dart'
     as _i79;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart'
-    as _i21;
+    as _i20;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart'
     as _i34;
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/profile_info_update/profile_info_update_bloc.dart'
@@ -289,19 +289,19 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i9.ParentCommentIdBloc>(() => _i9.ParentCommentIdBloc());
     gh.factory<_i10.SelectServicesCubit>(() => _i10.SelectServicesCubit());
     gh.factory<_i11.EditServiceCubit>(() => _i11.EditServiceCubit());
-    gh.factory<_i12.SearchResultsCubit>(() => _i12.SearchResultsCubit());
-    gh.factory<_i13.AddServiceCubit>(() => _i13.AddServiceCubit());
-    gh.factory<_i14.SelectCategoriesCubit>(() => _i14.SelectCategoriesCubit());
-    gh.factory<_i15.SelectScheduleCubit>(() => _i15.SelectScheduleCubit());
-    gh.factory<_i16.AddedChatUsersGroupBloc>(
-        () => _i16.AddedChatUsersGroupBloc());
-    gh.factory<_i17.GetAdminsSortedBloc>(() => _i17.GetAdminsSortedBloc());
-    gh.factory<_i18.FilterUsersInviteBloc>(() => _i18.FilterUsersInviteBloc());
-    gh.factory<_i19.ChatGroupCheckManagerBloc>(
-        () => _i19.ChatGroupCheckManagerBloc());
-    gh.factory<_i20.InvitePeopleChatBloc>(() => _i20.InvitePeopleChatBloc());
-    gh.factory<_i21.CategoryListBloc>(() => _i21.CategoryListBloc());
-    gh.factory<_i22.RepostUsersBloc>(() => _i22.RepostUsersBloc());
+    gh.factory<_i12.AddServiceCubit>(() => _i12.AddServiceCubit());
+    gh.factory<_i13.SelectCategoriesCubit>(() => _i13.SelectCategoriesCubit());
+    gh.factory<_i14.SelectScheduleCubit>(() => _i14.SelectScheduleCubit());
+    gh.factory<_i15.AddedChatUsersGroupBloc>(
+        () => _i15.AddedChatUsersGroupBloc());
+    gh.factory<_i16.GetAdminsSortedBloc>(() => _i16.GetAdminsSortedBloc());
+    gh.factory<_i17.FilterUsersInviteBloc>(() => _i17.FilterUsersInviteBloc());
+    gh.factory<_i18.ChatGroupCheckManagerBloc>(
+        () => _i18.ChatGroupCheckManagerBloc());
+    gh.factory<_i19.InvitePeopleChatBloc>(() => _i19.InvitePeopleChatBloc());
+    gh.factory<_i20.CategoryListBloc>(() => _i20.CategoryListBloc());
+    gh.factory<_i21.RepostUsersBloc>(() => _i21.RepostUsersBloc());
+    gh.factory<_i22.SearchResultCubit>(() => _i22.SearchResultCubit());
     gh.lazySingleton<_i23.AdvertsFilterCubit>(() => _i23.AdvertsFilterCubit());
     gh.lazySingleton<_i24.IAuthFacade>(() => _i25.FirebaseAuthFacade(
           gh<_i3.FirebaseAuth>(),

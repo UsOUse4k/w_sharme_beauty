@@ -11,7 +11,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_advert/create_advert_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_result/search_result_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_schedule/select_schedule_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
@@ -51,7 +51,7 @@ class AdvertCreateAdvertPage extends StatelessWidget {
               create: (context) => getIt<CreateAdvertCubit>(),
             ),
             BlocProvider(
-              create: (context) => getIt<SearchResultsCubit>(),
+              create: (context) => getIt<SearchResultCubit>(),
             ),
           ],
           child: const _AdvertCreateAdvertBody(),
@@ -72,8 +72,7 @@ class _AdvertCreateAdvertBody extends StatelessWidget {
           () {},
           (either) {
             either.fold(
-              (l) {
-              },
+              (l) {},
               (advert) {
                 context.read<MyAdvertsCubit>().addAdvert(advert);
                 context.pushReplacement(
@@ -219,17 +218,23 @@ class _AdvertCreateAdvertBody extends StatelessWidget {
 
                       context
                           .push<SearchResult>(
-                        '/adverts/${RouterContants.advertLocationSearchPage}',
-                        extra: context.read<SearchResultsCubit>(),
+                        '/adverts/${RouterContants.advertAddressSelectPage}',
+                        extra: context
+                            .read<SearchResultCubit>()
+                            .state
+                            .searchResult,
                       )
                           .then(
                         (value) {
                           if (value != null) {
+                            context
+                                .read<SearchResultCubit>()
+                                .searchResultChanged(value);
                             context.read<CreateAdvertCubit>().locationChanged(
                                   Location(
-                                    address: value.title,
-                                    formattedAddress: value.subtitle!,
-                                    coordinates: value.coordinates!,
+                                    address: value.name,
+                                    formattedAddress: value.formattedAddress,
+                                    coordinates: value.coordinates,
                                   ),
                                 );
                           }

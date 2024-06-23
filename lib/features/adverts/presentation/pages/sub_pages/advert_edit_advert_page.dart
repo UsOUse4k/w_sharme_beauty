@@ -13,7 +13,7 @@ import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/delete_advert/delete_advert_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/edit_advert/edit_advert_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_results/search_results_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_result/search_result_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_schedule/select_schedule_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
@@ -62,11 +62,11 @@ class AdvertEditAdvertPage extends StatelessWidget {
               create: (context) => getIt<DeleteAdvertCubit>(),
             ),
             BlocProvider(
-              create: (context) => getIt<SearchResultsCubit>()
-                ..addSearchResult(
+              create: (context) => getIt<SearchResultCubit>()
+                ..initialize(
                   SearchResult(
-                    title: advert.location.address,
-                    subtitle: advert.location.formattedAddress,
+                    name: advert.location.address,
+                    formattedAddress: advert.location.formattedAddress,
                     coordinates: advert.location.coordinates,
                   ),
                 ),
@@ -103,8 +103,7 @@ class _AdvertEditAdvertBody extends StatelessWidget {
               () {},
               (either) {
                 either.fold(
-                  (l) {
-                  },
+                  (l) {},
                   (advert) {
                     context.read<MyAdvertsCubit>().updateAdvert(advert);
                     context.pop();
@@ -121,8 +120,7 @@ class _AdvertEditAdvertBody extends StatelessWidget {
                 context.read<MyAdvertsCubit>().removeAdvert(advert.id);
                 context.pop();
               },
-              deleteFailure: (state) {
-              },
+              deleteFailure: (state) {},
               orElse: () {},
             );
           },
@@ -282,17 +280,23 @@ class _AdvertEditAdvertBody extends StatelessWidget {
 
                         context
                             .push<SearchResult>(
-                          '/adverts/${RouterContants.advertLocationSearchPage}',
-                          extra: context.read<SearchResultsCubit>(),
+                          '/adverts/${RouterContants.advertAddressSelectPage}',
+                          extra: context
+                              .read<SearchResultCubit>()
+                              .state
+                              .searchResult,
                         )
                             .then(
                           (value) {
                             if (value != null) {
+                              context
+                                  .read<SearchResultCubit>()
+                                  .searchResultChanged(value);
                               context.read<EditAdvertCubit>().locationChanged(
                                     Location(
-                                      address: value.title,
-                                      formattedAddress: value.subtitle!,
-                                      coordinates: value.coordinates!,
+                                      address: value.name,
+                                      formattedAddress: value.formattedAddress,
+                                      coordinates: value.coordinates,
                                     ),
                                   );
                             }

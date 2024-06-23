@@ -61,7 +61,5 @@ flutter {
 }
 
 dependencies {
-  implementation 'com.android.support:multidex:1.0.3'
-  implementation 'com.yandex.android:maps.mobile:4.5.1-full'
   implementation 'com.yandex.android:maps.mobile:4.6.1-full'
 }

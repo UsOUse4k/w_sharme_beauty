@@ -1,14 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/core/widgets/gl_app_bar.dart';
 import 'package:w_sharme_beauty/features/adverts/domain/advert.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/utils/current_location.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_back_button.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_map_controll_buttons.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
@@ -22,6 +18,8 @@ class AdvertRoutePage extends StatefulWidget {
 }
 
 class _AdvertRoutePageState extends State<AdvertRoutePage> {
+  final GlobalKey key = GlobalKey();
+
   late final YandexMapController controller;
 
   late final PlacemarkMapObject startPlacemark;
@@ -29,35 +27,56 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
 
   final List<MapObject> mapObjects = [];
 
-  final List<DrivingRoute> routes = [];
-  bool _progress = true;
+  final MapAnimation animation = const MapAnimation(duration: 0.25);
 
-  @override
-  void initState() {
-    super.initState();
+  Future<bool> get locationPermissionGranted async =>
+      await Permission.location.request().isGranted;
 
-    _init();
+  DrivingRoute? route;
+  bool progress = true;
+
+  Future<void> zoomIn() async {
+    await controller.moveCamera(
+      CameraUpdate.zoomIn(),
+      animation: animation,
+    );
+  }
+
+  Future<void> zoomOut() async {
+    await controller.moveCamera(
+      CameraUpdate.zoomOut(),
+      animation: animation,
+    );
+  }
+
+  Future<void> navigateToUser() async {
+    final position = (await controller.getUserCameraPosition())!;
+
+    await controller.moveCamera(
+      CameraUpdate.newCameraPosition(
+        position.copyWith(
+          zoom: const CameraBounds().maxZoom,
+        ),
+      ),
+      animation: const MapAnimation(duration: 1),
+    );
   }
 
   Future<void> _init() async {
-    final userPosition = await getCurrentLocation();
+    final position = (await controller.getUserCameraPosition())!;
 
     startPlacemark = PlacemarkMapObject(
       mapId: const MapObjectId('start_placemark'),
-      point: Point(
-        latitude: userPosition.latitude,
-        longitude: userPosition.longitude,
-      ),
+      point: position.target,
       icon: PlacemarkIcon.single(
         PlacemarkIconStyle(
           image: BitmapDescriptor.fromAssetImage(Assets.images.routeStart.path),
-          scale: 0.6,
+          anchor: const Offset(0.5, 1),
         ),
       ),
     );
 
     final advertCoordinates = widget.advert.location.coordinates;
-
     endPlacemark = PlacemarkMapObject(
       mapId: const MapObjectId('end_placemark'),
       point: Point(
@@ -67,7 +86,7 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
       icon: PlacemarkIcon.single(
         PlacemarkIconStyle(
           image: BitmapDescriptor.fromAssetImage(Assets.images.routeEnd.path),
-          scale: 0.6,
+          anchor: const Offset(0.5, 1),
         ),
       ),
     );
@@ -77,11 +96,12 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
       endPlacemark,
     ]);
 
+    setState(() {});
+
     await _requestRoutes();
   }
 
   Future<void> _requestRoutes() async {
-
     final resultWithSession = await YandexDriving.requestRoutes(
       points: [
         RequestPoint(
@@ -109,150 +129,298 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
     final result = await futureResult;
 
     setState(() {
-      _progress = false;
+      progress = false;
     });
 
     if (result.error != null) {
       return;
     }
 
-    routes.addAll(result.routes ?? []);
+    route = result.routes?.first;
 
-    result.routes!.asMap().forEach(
-      (i, route) {
-        mapObjects.add(
-          PolylineMapObject(
-            mapId: MapObjectId('route_${i}_polyline'),
-            polyline: route.geometry,
-            strokeColor:
-                Colors.primaries[Random().nextInt(Colors.primaries.length)],
-            strokeWidth: 3,
-          ),
-        );
-      },
-    );
-
-    setState(() {});
-
-    if (routes.isNotEmpty) {
-      await controller.moveCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: startPlacemark.point,
-            zoom: const CameraBounds().maxZoom,
-          ),
+    if (route != null) {
+      mapObjects.add(
+        PolylineMapObject(
+          mapId: const MapObjectId('route'),
+          polyline: route!.geometry,
+          strokeColor: AppColors.purple,
+          strokeWidth: 3,
         ),
-        animation: const MapAnimation(duration: 0.25),
       );
     }
 
     session.close();
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.bgColors,
-      appBar: GlAppBar(
-        leading: AdvertBackButton(
-          onTap: () {
-            context.pop();
-          },
-        ),
-        title: Text(
-          "Маршрут",
-          style: AppStyles.w500f18,
-        ),
-      ),
       body: Stack(
         children: [
           YandexMap(
-            onMapCreated: (yandexMapController) {
+            key: key,
+            onMapCreated: (yandexMapController) async {
               controller = yandexMapController;
+
+              if (!await locationPermissionGranted) {
+                return;
+              }
+
+              final height = key.currentContext!.size!.height *
+                  mediaQuery.devicePixelRatio;
+              final width =
+                  key.currentContext!.size!.width * mediaQuery.devicePixelRatio;
+
+              await controller.toggleUserLayer(
+                visible: true,
+                anchor: UserLocationAnchor(
+                  course: Offset(0.5 * width, 0.5 * height),
+                  normal: Offset(0.5 * width, 0.5 * height),
+                ),
+              );
+            },
+            onUserLocationAdded: (view) async {
+              final position = (await controller.getUserCameraPosition())!;
+
+              await controller.moveCamera(
+                CameraUpdate.newCameraPosition(
+                  position.copyWith(zoom: const CameraBounds().maxZoom),
+                ),
+                animation: const MapAnimation(
+                  type: MapAnimationType.linear,
+                  duration: 0.3,
+                ),
+              );
+
+              await _init();
+
+              return view.copyWith(
+                pin: view.pin.copyWith(
+                  opacity: 0.6,
+                  icon: PlacemarkIcon.single(
+                    PlacemarkIconStyle(
+                      anchor: const Offset(0.5, 1),
+                      scale: 1.5,
+                      image: BitmapDescriptor.fromAssetImage(
+                        Assets.images.user.path,
+                      ),
+                    ),
+                  ),
+                ),
+                arrow: view.arrow.copyWith(
+                  icon: PlacemarkIcon.single(
+                    PlacemarkIconStyle(
+                      image: BitmapDescriptor.fromAssetImage(
+                        Assets.images.arrow.path,
+                      ),
+                    ),
+                  ),
+                ),
+                accuracyCircle: view.accuracyCircle.copyWith(
+                  fillColor: AppColors.purple.withOpacity(0.3),
+                  strokeColor: AppColors.purple,
+                ),
+              );
             },
             mapObjects: mapObjects,
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.3,
-              decoration: const BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+          Column(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
+                      children: [
+                        const Spacer(),
+                        ZoomInButton(
+                          onTap: () async {
+                            await zoomIn();
+                          },
+                        ),
+                        const Gap(12),
+                        ZoomOutButton(
+                          onTap: () async {
+                            await zoomOut();
+                          },
+                        ),
+                        const Gap(100),
+                        NavigateToUserButton(
+                          onTap: () async {
+                            await navigateToUser();
+                          },
+                        ),
+                        const Gap(20),
+                      ],
+                    ),
+                    const Gap(20),
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  const Gap(6),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: AppColors.lightGrey,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ],
+              Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
                   ),
-                  const Gap(14),
-                  ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Маршруты",
-                            style: AppStyles.w700f18,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Column(
+                  children: [
+                    const Gap(6),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: AppColors.lightGrey,
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    const Gap(15),
-                    const Divider(
-                      height: 0,
-                      color: AppColors.lightGrey,
-                    ),
-                    if (!_progress && routes.isEmpty) ...[
-                      const Gap(15),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: Row(
+                    const Gap(14),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Невозможно построить маршрут",
-                              style: AppStyles.w500f14,
+                            Row(
+                              children: [
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.purple,
+                                      width: 4,
+                                    ),
+                                  ),
+                                ),
+                                const Gap(10),
+                                Text(
+                                  "Мое местоположение",
+                                  style: AppStyles.w400f18.copyWith(
+                                    color: AppColors.darkGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Gap(4),
+                            Container(
+                              width: 2,
+                              height: 12,
+                              margin: const EdgeInsets.only(left: 9),
+                              decoration: BoxDecoration(
+                                color: AppColors.lightGrey,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            const Gap(4),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.red,
+                                      width: 4,
+                                    ),
+                                  ),
+                                ),
+                                const Gap(10),
+                                Text(
+                                  widget.advert.location.address,
+                                  style: AppStyles.w400f18,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ),
-                    ] else
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: routes.length,
-                          itemBuilder: (context, index) {
-                            final route = routes[index];
-
-                            final time = route.metadata.weight.time.text;
-                            final distance =
-                                route.metadata.weight.distance.text;
-
-                            return ResultWidget(
-                              title: "Дорога ${index + 1}",
-                              time: time,
-                              distance: distance,
-                            );
-                          },
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Assets.svgs.close.svg(),
                         ),
-                      ),
+                      ],
+                    ),
+                    const Gap(15),
+                    getBody(),
+                    const Gap(30),
                   ],
-                ],
+                ),
               ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget getBody() {
+    if (progress) {
+      return const LoadingWidget();
+    }
+
+    if (route != null) {
+      final distance = route!.metadata.weight.distance.text;
+      final time = route!.metadata.weight.time.text;
+
+      return ResultWidget(
+        distance: distance,
+        time: time,
+      );
+    }
+
+    return Text(
+      "Невозможно построить маршрут",
+      style: AppStyles.w400f14,
+    );
+  }
+}
+
+class ResultWidget extends StatelessWidget {
+  const ResultWidget({
+    super.key,
+    required this.time,
+    required this.distance,
+  });
+
+  final String time;
+  final String distance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.lightGrey,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            time,
+            style: AppStyles.w400f20,
+          ),
+          const Gap(6),
+          Text(
+            "$distance, Лучший маршрут",
+            style: AppStyles.w400f20.copyWith(
+              color: AppColors.darkGrey,
             ),
           ),
         ],
@@ -261,59 +429,19 @@ class _AdvertRoutePageState extends State<AdvertRoutePage> {
   }
 }
 
-class ResultWidget extends StatelessWidget {
-  const ResultWidget({
-    super.key,
-    required this.title,
-    required this.time,
-    required this.distance,
-  });
-
-  final String title;
-  final String time;
-  final String distance;
+class LoadingWidget extends StatelessWidget {
+  const LoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      child: Row(
-        children: [
-          const Gap(18),
-          Expanded(
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: AppColors.lightGrey,
-                  ),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: AppStyles.w500f16,
-                  ),
-                  Text(
-                    time,
-                    style: AppStyles.w400f14.copyWith(
-                      color: AppColors.darkGrey,
-                    ),
-                  ),
-                  Text(
-                    distance,
-                    style: AppStyles.w400f14.copyWith(
-                      color: AppColors.darkGrey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.lightGrey,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: const CircularProgressIndicator(
+        color: AppColors.purple,
       ),
     );
   }
