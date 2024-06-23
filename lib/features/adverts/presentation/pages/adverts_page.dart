@@ -34,11 +34,6 @@ class _AdvertsPageState extends State<AdvertsPage> {
   int content = 0;
   String queryText = "";
 
-  List<GlobalKey> keys = [
-    GlobalKey(),
-    GlobalKey(),
-  ];
-
   late final YandexMapController controller;
 
   final GlobalKey key = GlobalKey();
@@ -57,8 +52,8 @@ class _AdvertsPageState extends State<AdvertsPage> {
     context.read<AdvertsCubit>().getAdverts(useFiltering: false);
   }
 
-  void _rebuildContent(int index) {
-    keys[index] = GlobalKey();
+  void showContent(int index) {
+    content = index;
 
     setState(() {});
   }
@@ -96,7 +91,6 @@ class _AdvertsPageState extends State<AdvertsPage> {
 
     return GlScaffold(
       body: Stack(
-        fit: StackFit.expand,
         children: [
           BlocListener<AdvertsCubit, AdvertsState>(
             listener: (context, state) {
@@ -296,121 +290,115 @@ class _AdvertsPageState extends State<AdvertsPage> {
             ),
           ),
           SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Stack(
               children: [
-                const Gap(25),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: AdvertSearchField(
-                    queryText: queryText,
-                    onTap: () {
-                      showAdvertModalBottomSheet<String>(
-                        context: context,
-                        useRootNavigator: false,
-                        enableDrag: true,
-                        builder: (context) {
-                          return BlocProvider(
-                            create: (context) => getIt<SearchAdvertsCubit>(),
-                            child: const AdvertsSearchModalBottomSheet(),
+                Column(
+                  children: [
+                    const Gap(25),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      child: AdvertSearchField(
+                        queryText: queryText,
+                        onTap: () {
+                          showAdvertModalBottomSheet<String>(
+                            context: context,
+                            useRootNavigator: false,
+                            enableDrag: true,
+                            builder: (context) {
+                              return BlocProvider(
+                                create: (context) =>
+                                    getIt<SearchAdvertsCubit>(),
+                                child: const AdvertsSearchModalBottomSheet(),
+                              );
+                            },
+                          ).then(
+                            (value) {
+                              if (value != null) {
+                                queryText = value;
+
+                                showContent(2);
+                              }
+                            },
                           );
                         },
-                      ).then(
-                        (value) {
-                          if (value != null) {
-                            content = 2;
-                            queryText = value;
-
-                            _rebuildContent(1);
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  flex: content == 0 ? 3 : 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Spacer(flex: 2),
-                        ZoomInButton(
-                          onTap: () async {
-                            await zoomIn();
-                          },
-                        ),
-                        const Gap(12),
-                        ZoomOutButton(
-                          onTap: () async {
-                            await zoomOut();
-                          },
-                        ),
-                        const Spacer(),
-                        NavigateToUserButton(
-                          onTap: () async {
-                            await navigateToUser();
-                          },
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                const Gap(20),
-                Expanded(
-                  flex: content == 0 ? 1 : 2,
-                  child: IndexedStack(
-                    index: content,
-                    children: [
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Column(
+                            children: [
+                              const Gap(20),
+                              ZoomInButton(
+                                onTap: () async {
+                                  await zoomIn();
+                                },
+                              ),
+                              const Gap(12),
+                              ZoomOutButton(
+                                onTap: () async {
+                                  await zoomOut();
+                                },
+                              ),
+                              const Spacer(),
+                              NavigateToUserButton(
+                                onTap: () async {
+                                  await navigateToUser();
+                                },
+                              ),
+                              const Gap(20),
+                            ],
+                          ),
+                          const Gap(20),
+                        ],
+                      ),
+                    ),
+                    if (content == 0)
                       AdvertsPanel(
                         onSearchTap: () {
-                          content = 1;
-
-                          _rebuildContent(0);
+                          showContent(1);
                         },
+                      )
+                    else
+                      Gap(mediaQuery.size.height * 0.5 - 80),
+                  ],
+                ),
+                if (content == 1)
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => getIt<AdvertsCubit>(),
                       ),
-                      MultiBlocProvider(
-                        providers: [
-                          BlocProvider(
-                            create: (context) => getIt<AdvertsCubit>(),
-                          ),
-                          BlocProvider(
-                            create: (context) => getIt<AdvertsFilterCubit>(),
-                          ),
-                        ],
-                        child: AllAdvertsPanel(
-                          key: keys[0],
-                          onCloseTap: () {
-                            content = 0;
-
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      MultiBlocProvider(
-                        providers: [
-                          BlocProvider(
-                            create: (context) => getIt<AdvertsCubit>(),
-                          ),
-                          BlocProvider(
-                            create: (context) => getIt<AdvertsFilterCubit>(),
-                          ),
-                        ],
-                        child: AdvertsSearchPanel(
-                          key: keys[1],
-                          queryText: queryText,
-                          onCloseTap: () {
-                            content = 0;
-                            queryText = "";
-
-                            setState(() {});
-                          },
-                        ),
+                      BlocProvider(
+                        create: (context) => getIt<AdvertsFilterCubit>(),
                       ),
                     ],
+                    child: AllAdvertsPanel(
+                      onCloseTap: () {
+                        showContent(0);
+                      },
+                    ),
                   ),
-                ),
+                if (content == 2)
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => getIt<AdvertsCubit>(),
+                      ),
+                      BlocProvider(
+                        create: (context) => getIt<AdvertsFilterCubit>(),
+                      ),
+                    ],
+                    child: AdvertsSearchPanel(
+                      queryText: queryText,
+                      onCloseTap: () {
+                        queryText = "";
+
+                        showContent(0);
+                      },
+                    ),
+                  ),
               ],
             ),
           ),
