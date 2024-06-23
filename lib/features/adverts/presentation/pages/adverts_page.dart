@@ -12,6 +12,7 @@ import 'package:w_sharme_beauty/core/widgets/gl_button.dart';
 import 'package:w_sharme_beauty/core/widgets/gl_scaffold.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adverts_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts_filter/adverts_filter_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/current_location/current_location_bloc.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/utils/advert_modal_bottom_sheet.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/advert_map_controll_buttons.dart';
@@ -92,135 +93,157 @@ class _AdvertsPageState extends State<AdvertsPage> {
     return GlScaffold(
       body: Stack(
         children: [
-          BlocListener<AdvertsCubit, AdvertsState>(
-            listener: (context, state) {
-              state.maybeMap(
-                loadSuccess: (state) {
-                  final adverts = state.adverts;
-                  mapObjects = adverts.map(
-                    (advert) {
-                      final coordinates = advert.location.coordinates;
-                      final point = Point(
-                        latitude: coordinates.$1,
-                        longitude: coordinates.$2,
-                      );
-                      return PlacemarkMapObject(
-                        mapId: MapObjectId(advert.id),
-                        point: point,
-                        opacity: 0.6,
-                        text: PlacemarkText(
-                          text: advert.name,
-                          style: const PlacemarkTextStyle(
-                            placement: TextStylePlacement.bottom,
-                            color: AppColors.purple,
-                            outlineColor: Colors.transparent,
+          MultiBlocListener(
+            listeners: [
+              BlocListener<CurrentLocationBloc, CurrentLocationState>(
+                listener: (context, state) {
+                  state.maybeMap(
+                    loadFailure: (state) {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(
+                            content: Text(state.message),
                           ),
-                        ),
-                        icon: PlacemarkIcon.single(
-                          PlacemarkIconStyle(
-                            image: BitmapDescriptor.fromAssetImage(
-                              Assets.images.place.path,
-                            ),
-                          ),
-                        ),
-                        onTap: (_, __) {
-                          controller
-                              .moveCamera(
-                            CameraUpdate.newCameraPosition(
-                              CameraPosition(
-                                target: point,
-                                zoom: const CameraBounds().maxZoom,
+                        );
+                    },
+                    orElse: () {},
+                  );
+                },
+              ),
+              BlocListener<AdvertsCubit, AdvertsState>(
+                listener: (context, state) {
+                  state.maybeMap(
+                    loadSuccess: (state) {
+                      final adverts = state.adverts;
+                      mapObjects = adverts.map(
+                        (advert) {
+                          final coordinates = advert.location.coordinates;
+                          final point = Point(
+                            latitude: coordinates.$1,
+                            longitude: coordinates.$2,
+                          );
+                          return PlacemarkMapObject(
+                            mapId: MapObjectId(advert.id),
+                            point: point,
+                            opacity: 0.6,
+                            text: PlacemarkText(
+                              text: advert.name,
+                              style: const PlacemarkTextStyle(
+                                placement: TextStylePlacement.bottom,
+                                color: AppColors.purple,
+                                outlineColor: Colors.transparent,
                               ),
                             ),
-                            animation: const MapAnimation(duration: 1),
-                          )
-                              .then(
-                            (_) {
-                              showAdvertModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return AdvertModalBottomSheet(
-                                    title: "Информация об объявлении",
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Gap(10),
-                                        Text(
-                                          advert.name,
-                                          style: AppStyles.w500f18,
-                                        ),
-                                        const Gap(6),
-                                        Text(
-                                          advert.description,
-                                          style: AppStyles.w400f16.copyWith(
-                                            color: AppColors.darkGrey,
-                                          ),
-                                        ),
-                                        const Gap(6),
-                                        Row(
+                            icon: PlacemarkIcon.single(
+                              PlacemarkIconStyle(
+                                image: BitmapDescriptor.fromAssetImage(
+                                  Assets.images.place.path,
+                                ),
+                              ),
+                            ),
+                            onTap: (_, __) {
+                              controller
+                                  .moveCamera(
+                                CameraUpdate.newCameraPosition(
+                                  CameraPosition(
+                                    target: point,
+                                    zoom: const CameraBounds().maxZoom,
+                                  ),
+                                ),
+                                animation: const MapAnimation(duration: 1),
+                              )
+                                  .then(
+                                (_) {
+                                  showAdvertModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return AdvertModalBottomSheet(
+                                        title: "Информация об объявлении",
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            const Icon(
-                                              Icons.star,
-                                              color: AppColors.yellow,
+                                            const Gap(10),
+                                            Text(
+                                              advert.name,
+                                              style: AppStyles.w500f18,
                                             ),
                                             const Gap(6),
                                             Text(
-                                              advert.rating.toString(),
-                                              style: AppStyles.w500f16,
-                                            ),
-                                            const Gap(2),
-                                            Text(
-                                              ' /5 ',
-                                              style: AppStyles.w400f12.copyWith(
+                                              advert.description,
+                                              style: AppStyles.w400f16.copyWith(
                                                 color: AppColors.darkGrey,
                                               ),
                                             ),
-                                            const Gap(2),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                bottom: 3,
-                                              ),
-                                              child: Text(
-                                                '(${advert.reviewsCount})',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: AppColors.darkGrey,
+                                            const Gap(6),
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.star,
+                                                  color: AppColors.yellow,
                                                 ),
-                                              ),
+                                                const Gap(6),
+                                                Text(
+                                                  advert.rating.toString(),
+                                                  style: AppStyles.w500f16,
+                                                ),
+                                                const Gap(2),
+                                                Text(
+                                                  ' /5 ',
+                                                  style: AppStyles.w400f12
+                                                      .copyWith(
+                                                    color: AppColors.darkGrey,
+                                                  ),
+                                                ),
+                                                const Gap(2),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    bottom: 3,
+                                                  ),
+                                                  child: Text(
+                                                    '(${advert.reviewsCount})',
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: AppColors.darkGrey,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
+                                            const Gap(10),
+                                            GlButton(
+                                              text: "Посмотреть",
+                                              onPressed: () {
+                                                Navigator.pop(context);
+
+                                                context.push(
+                                                  "/adverts/${RouterContants.advertDetailPage}",
+                                                  extra: advert,
+                                                );
+                                              },
+                                            ),
+                                            const Gap(20),
                                           ],
                                         ),
-                                        const Gap(10),
-                                        GlButton(
-                                          text: "Посмотреть",
-                                          onPressed: () {
-                                            Navigator.pop(context);
-
-                                            context.push(
-                                              "/adverts/${RouterContants.advertDetailPage}",
-                                              extra: advert,
-                                            );
-                                          },
-                                        ),
-                                        const Gap(20),
-                                      ],
-                                    ),
+                                      );
+                                    },
                                   );
                                 },
                               );
                             },
                           );
                         },
-                      );
-                    },
-                  ).toList();
+                      ).toList();
 
-                  setState(() {});
+                      setState(() {});
+                    },
+                    orElse: () {},
+                  );
                 },
-                orElse: () {},
-              );
-            },
+              ),
+            ],
             child: YandexMap(
               key: key,
               onMapCreated: (yandexMapController) async {
