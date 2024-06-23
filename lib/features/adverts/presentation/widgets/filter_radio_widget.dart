@@ -56,7 +56,7 @@ class _RadioFilterWidgetState extends State<RadioFilterWidget> {
                 ),
                 leading: RadioTheme(
                   data: RadioThemeData(
-                    fillColor: MaterialStateProperty.all(
+                    fillColor: WidgetStateProperty.all(
                       AppColors.purple,
                     ),
                   ),

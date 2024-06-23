@@ -18,7 +18,8 @@ _$PostImpl _$$PostImplFromJson(Map json) => _$PostImpl(
           const [],
       avatarUrl: json['avatarUrl'] as String? ?? '',
       videoUrl: json['videoUrl'] as String?,
-      commentsCount: json['commentsCount'] as int? ?? 0,
+      commentsCount: (json['commentsCount'] as num?)?.toInt() ?? 0,
+      repostCount: (json['repostCount'] as num?)?.toInt() ?? 0,
       likes:
           (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -49,6 +50,7 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
       'avatarUrl': instance.avatarUrl,
       'videoUrl': instance.videoUrl,
       'commentsCount': instance.commentsCount,
+      'repostCount': instance.repostCount,
       'likes': instance.likes,
       'reposts': instance.reposts,
       'followers': instance.followers,

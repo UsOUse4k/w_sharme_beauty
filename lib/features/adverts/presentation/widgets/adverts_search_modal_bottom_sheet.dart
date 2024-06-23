@@ -152,7 +152,7 @@ class _AdvertsSearchModalBottomSheetState
                       final adverts = state.adverts;
 
                       return ListView.builder(
-                        padding: EdgeInsets.zero,
+                        padding: const EdgeInsets.only(top: 15),
                         itemCount: adverts.length,
                         itemBuilder: (context, index) {
                           final advert = adverts[index];
@@ -202,6 +202,7 @@ class ResultWidget extends StatelessWidget {
       height: 60,
       color: AppColors.white,
       child: Material(
+        color: Colors.transparent,
         child: InkWell(
           onTap: () {
             onTap?.call();

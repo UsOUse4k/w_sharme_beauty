@@ -8,8 +8,9 @@
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
@@ -71,8 +72,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/comment.png
   AssetGenImage get comment => const AssetGenImage('assets/icons/comment.png');
 
+  /// File path: assets/icons/copy.png
+  AssetGenImage get copy => const AssetGenImage('assets/icons/copy.png');
+
   /// File path: assets/icons/edit.png
   AssetGenImage get edit => const AssetGenImage('assets/icons/edit.png');
+
+  /// File path: assets/icons/export.png
+  AssetGenImage get export => const AssetGenImage('assets/icons/export.png');
 
   /// File path: assets/icons/group.png
   AssetGenImage get group => const AssetGenImage('assets/icons/group.png');
@@ -133,6 +140,12 @@ class $AssetsIconsGen {
   AssetGenImage get settings =>
       const AssetGenImage('assets/icons/settings.png');
 
+  /// File path: assets/icons/share.png
+  AssetGenImage get sharePng => const AssetGenImage('assets/icons/share.png');
+
+  /// File path: assets/icons/share.svg
+  SvgGenImage get shareSvg => const SvgGenImage('assets/icons/share.svg');
+
   /// File path: assets/icons/strishka.png
   AssetGenImage get strishka =>
       const AssetGenImage('assets/icons/strishka.png');
@@ -142,7 +155,7 @@ class $AssetsIconsGen {
       const AssetGenImage('assets/icons/subscribers.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
+  List<dynamic> get values => [
         account,
         accountActive,
         activeAnnouncement,
@@ -159,7 +172,9 @@ class $AssetsIconsGen {
         brovi,
         chat,
         comment,
+        copy,
         edit,
+        export,
         group,
         heart,
         home,
@@ -178,6 +193,8 @@ class $AssetsIconsGen {
         resnitsy,
         search,
         settings,
+        sharePng,
+        shareSvg,
         strishka,
         subscribers
       ];
@@ -463,9 +480,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
+  final Size? size;
 
   Image image({
     Key? key,
@@ -537,9 +556,20 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(
+    this._assetName, {
+    this.size = null,
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size = null,
+  }) : _isVecFormat = true;
 
   final String _assetName;
+
+  final Size? size;
+  final bool _isVecFormat;
 
   SvgPicture svg({
     Key? key,
@@ -554,19 +584,21 @@ class SvgGenImage {
     WidgetBuilder? placeholderBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
-    SvgTheme theme = const SvgTheme(),
+    SvgTheme? theme,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture.asset(
-      _assetName,
+    return SvgPicture(
+      _isVecFormat
+          ? AssetBytesLoader(_assetName,
+              assetBundle: bundle, packageName: package)
+          : SvgAssetLoader(_assetName,
+              assetBundle: bundle, packageName: package),
       key: key,
       matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -576,9 +608,8 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       theme: theme,
-      colorFilter: colorFilter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );

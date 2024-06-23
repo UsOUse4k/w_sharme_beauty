@@ -18,6 +18,9 @@ class Message with _$Message {
     @TimestampConverter() Timestamp? timestamp,
     bool? seen,
     String? messageType,
+    String? posdId,
+    String? postUsername,
+    String? postAvatar,
   }) = _Message;
 
   factory Message.fromJson(Map<String, dynamic> json) =>
@@ -26,6 +29,7 @@ class Message with _$Message {
     return Message(
       message: firestoreData['message'] as String?,
       messageId: firestoreData['messageId'] as String?,
+      posdId: firestoreData['posdId'] as String?,
       senderId: firestoreData['senderId'] as String?,
       timestamp: firestoreData['timestamp'] as Timestamp?,
       seen: firestoreData['seen'] as bool?,
@@ -33,6 +37,8 @@ class Message with _$Message {
       username: firestoreData['username'] as String?,
       avatarUrl: firestoreData['avatarUrl'] as String?,
       image: firestoreData['image'] as String?,
+      postUsername: firestoreData['postUsername'] as String?,
+      postAvatar: firestoreData['postAvatar'] as String?,
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
@@ -57,7 +56,17 @@ class CustomBottomSheet extends StatelessWidget {
                         ),
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: Assets.svgs.remove.svg(),
+                        child: Container(
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: AppColors.lightGrey,
+                          ),
+                          child: const Icon(
+                            Icons.close,
+                            size: 14,
+                          ),
+                        ),
                       ),
                     ],
                   ),

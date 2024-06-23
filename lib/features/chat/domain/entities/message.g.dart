@@ -17,6 +17,9 @@ _$MessageImpl _$$MessageImplFromJson(Map json) => _$MessageImpl(
       timestamp: const TimestampConverter().fromJson(json['timestamp']),
       seen: json['seen'] as bool?,
       messageType: json['messageType'] as String?,
+      posdId: json['posdId'] as String?,
+      postUsername: json['postUsername'] as String?,
+      postAvatar: json['postAvatar'] as String?,
     );
 
 Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
@@ -31,4 +34,7 @@ Map<String, dynamic> _$$MessageImplToJson(_$MessageImpl instance) =>
       'timestamp': const TimestampConverter().toJson(instance.timestamp),
       'seen': instance.seen,
       'messageType': instance.messageType,
+      'posdId': instance.posdId,
+      'postUsername': instance.postUsername,
+      'postAvatar': instance.postAvatar,
     };

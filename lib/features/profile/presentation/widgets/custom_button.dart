@@ -13,13 +13,13 @@ class CustomButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        minimumSize: const MaterialStatePropertyAll(Size(70, 30)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        minimumSize: const WidgetStatePropertyAll(Size(70, 30)),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
-        backgroundColor: MaterialStateProperty.all(AppColors.purple),
+        backgroundColor: WidgetStateProperty.all(AppColors.purple),
       ),
       onPressed: () {},
       child: const Text("Подписаться", style: TextStyle(color: Colors.white)),
