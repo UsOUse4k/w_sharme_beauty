@@ -16,7 +16,6 @@ import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_blo
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/user_detail_bloc/user_detail_bloc.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 class ChatMessagesPage extends StatefulWidget {
   const ChatMessagesPage({
@@ -107,7 +106,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
         child: BlocConsumer<CreateChatroomBloc, CreateChatroomState>(
           listener: (context, state) {
             state.maybeWhen(
-              sucsess: (chatRoomId) {
+              sucsess: (chatRoomId, userId) {
                 context.read<GetMessagesBloc>().add(
                       GetMessagesEvent.getMessages(
                         chatRoomId: chatRoomId.toString(),
@@ -119,7 +118,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
           },
           builder: (context, state) {
             return state.maybeWhen(
-              sucsess: (chatRoomId) {
+              sucsess: (chatRoomId, userId) {
                 return SafeArea(
                   child: isLoading
                       ? const Center(child: CircularProgressIndicator())
@@ -228,15 +227,8 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(50),
                 ),
-                child: userData.profilePictureUrl != null &&
-                        userData.profilePictureUrl != ''
-                    ? GlCachedNetworImage(
-                        height: 40.h,
-                        width: 40.w,
-                        urlImage: userData.profilePictureUrl,
-                      )
-                    : GlCircleAvatar(
-                        avatar: Assets.images.notAvatar.path,
+                child: GlCircleAvatar(
+                        avatar: userData.profilePictureUrl ?? '',
                         width: 40.w,
                         height: 40.h,
                       ),

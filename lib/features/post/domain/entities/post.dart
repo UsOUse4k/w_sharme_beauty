@@ -15,6 +15,7 @@ class Post with _$Post {
     @Default('') String? avatarUrl,
     String? videoUrl,
     @Default(0) int commentsCount,
+    @Default(0) int repostCount,
     @Default([]) List<String> likes,
     @Default([]) List<String> reposts,
     @Default([]) List<String>? followers,
@@ -41,6 +42,7 @@ class Post with _$Post {
       followers: List<String>.from(firestoreData['followers'] as List<dynamic>? ?? []),
       subscriptions: List<String>.from(firestoreData['subscriptions'] as List<dynamic>? ?? []),
       commentsCount: firestoreData['commentsCount'] as int,
+      repostCount: firestoreData['repostCount'] as int,
       isFavorite: firestoreData['isFavorite'] as bool? ?? false,
     );
   }

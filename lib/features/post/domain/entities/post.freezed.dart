@@ -29,6 +29,7 @@ mixin _$Post {
   String? get avatarUrl => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
   int get commentsCount => throw _privateConstructorUsedError;
+  int get repostCount => throw _privateConstructorUsedError;
   List<String> get likes => throw _privateConstructorUsedError;
   List<String> get reposts => throw _privateConstructorUsedError;
   List<String>? get followers => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $PostCopyWith<$Res> {
       String? avatarUrl,
       String? videoUrl,
       int commentsCount,
+      int repostCount,
       List<String> likes,
       List<String> reposts,
       List<String>? followers,
@@ -86,6 +88,7 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? avatarUrl = freezed,
     Object? videoUrl = freezed,
     Object? commentsCount = null,
+    Object? repostCount = null,
     Object? likes = null,
     Object? reposts = null,
     Object? followers = freezed,
@@ -129,6 +132,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       commentsCount: null == commentsCount
           ? _value.commentsCount
           : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      repostCount: null == repostCount
+          ? _value.repostCount
+          : repostCount // ignore: cast_nullable_to_non_nullable
               as int,
       likes: null == likes
           ? _value.likes
@@ -175,6 +182,7 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       String? avatarUrl,
       String? videoUrl,
       int commentsCount,
+      int repostCount,
       List<String> likes,
       List<String> reposts,
       List<String>? followers,
@@ -202,6 +210,7 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? avatarUrl = freezed,
     Object? videoUrl = freezed,
     Object? commentsCount = null,
+    Object? repostCount = null,
     Object? likes = null,
     Object? reposts = null,
     Object? followers = freezed,
@@ -246,6 +255,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.commentsCount
           : commentsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      repostCount: null == repostCount
+          ? _value.repostCount
+          : repostCount // ignore: cast_nullable_to_non_nullable
+              as int,
       likes: null == likes
           ? _value._likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -287,6 +300,7 @@ class _$PostImpl implements _Post {
       this.avatarUrl = '',
       this.videoUrl,
       this.commentsCount = 0,
+      this.repostCount = 0,
       final List<String> likes = const [],
       final List<String> reposts = const [],
       final List<String>? followers = const [],
@@ -329,6 +343,9 @@ class _$PostImpl implements _Post {
   @override
   @JsonKey()
   final int commentsCount;
+  @override
+  @JsonKey()
+  final int repostCount;
   final List<String> _likes;
   @override
   @JsonKey()
@@ -378,7 +395,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(authorId: $authorId, postId: $postId, username: $username, category: $category, text: $text, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, likes: $likes, reposts: $reposts, followers: $followers, subscriptions: $subscriptions, isFavorite: $isFavorite, createdAt: $createdAt)';
+    return 'Post(authorId: $authorId, postId: $postId, username: $username, category: $category, text: $text, imageUrls: $imageUrls, avatarUrl: $avatarUrl, videoUrl: $videoUrl, commentsCount: $commentsCount, repostCount: $repostCount, likes: $likes, reposts: $reposts, followers: $followers, subscriptions: $subscriptions, isFavorite: $isFavorite, createdAt: $createdAt)';
   }
 
   @override
@@ -402,6 +419,8 @@ class _$PostImpl implements _Post {
                 other.videoUrl == videoUrl) &&
             (identical(other.commentsCount, commentsCount) ||
                 other.commentsCount == commentsCount) &&
+            (identical(other.repostCount, repostCount) ||
+                other.repostCount == repostCount) &&
             const DeepCollectionEquality().equals(other._likes, _likes) &&
             const DeepCollectionEquality().equals(other._reposts, _reposts) &&
             const DeepCollectionEquality()
@@ -427,6 +446,7 @@ class _$PostImpl implements _Post {
       avatarUrl,
       videoUrl,
       commentsCount,
+      repostCount,
       const DeepCollectionEquality().hash(_likes),
       const DeepCollectionEquality().hash(_reposts),
       const DeepCollectionEquality().hash(_followers),
@@ -459,6 +479,7 @@ abstract class _Post implements Post {
       final String? avatarUrl,
       final String? videoUrl,
       final int commentsCount,
+      final int repostCount,
       final List<String> likes,
       final List<String> reposts,
       final List<String>? followers,
@@ -486,6 +507,8 @@ abstract class _Post implements Post {
   String? get videoUrl;
   @override
   int get commentsCount;
+  @override
+  int get repostCount;
   @override
   List<String> get likes;
   @override

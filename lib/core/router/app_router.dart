@@ -214,6 +214,19 @@ mixin AppRouter on State<App> {
                         routes: [
                           GoRoute(
                             parentNavigatorKey: RouterKeys.rootKey,
+                            path: '${RouterContants.post}/:postId',
+                            builder: (
+                              BuildContext context,
+                              GoRouterState state,
+                            ) {
+                              final postId = state.pathParameters['postId'];
+                              return HomePostPage(
+                                postId: postId,
+                              );
+                            },
+                          ),
+                          GoRoute(
+                            parentNavigatorKey: RouterKeys.rootKey,
                             path:
                                 "${RouterContants.profilePersonPage}/:authorId",
                             builder:

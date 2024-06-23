@@ -19,8 +19,8 @@ class GlCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return avatar != ''
         ? ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(14),
+            borderRadius:  BorderRadius.all(
+              Radius.circular(width.w / 2),
             ),
             child: GlCachedNetworImage(
               height: height.h,

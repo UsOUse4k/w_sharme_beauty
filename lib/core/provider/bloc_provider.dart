@@ -15,6 +15,7 @@ import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_all_chats_bl
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/get_messages_bloc/get_messages_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/seen_message_bloc/seen_message_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_message_bloc/send_message_bloc.dart';
+import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_post_bloc/send_post_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/added_chat_users_group_bloc/added_chat_users_group_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/chat_group_check_manager/chat_group_check_manager_bloc.dart';
 import 'package:w_sharme_beauty/features/chat_group/presentation/bloc/create_chat_group_bloc/create_chat_group_bloc.dart';
@@ -59,6 +60,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_detail_bloc
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_like_bloc/post_like_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_list_bloc/post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_bloc/post_user_list_bloc.dart';
+import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_users_bloc/repost_users_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/category_list_bloc/category_list_bloc.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
@@ -309,6 +311,12 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider<GetAllNotificationBloc>(
           create: (context) => getIt<GetAllNotificationBloc>(),
+        ),
+        BlocProvider<RepostUsersBloc>(
+          create: (context) => getIt<RepostUsersBloc>(),
+        ),
+        BlocProvider<SendPostBloc>(
+          create: (context) => getIt<SendPostBloc>(),
         ),
       ],
       child: child,
