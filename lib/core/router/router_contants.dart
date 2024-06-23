@@ -38,7 +38,7 @@ abstract class RouterContants {
   // advert sub pages
   static const String advertMyAdvertsPage = 'advertMyAdvertsPage';
   static const String advertCreateAdvertPage = 'advertCreateAdvertPage';
-  static const String advertLocationSearchPage = 'advertLocationSearchPage';
+  static const String advertAddressSelectPage = 'advertAddressSelectPage';
   static const String advertProductAndServicePage =
       'advertProductAndServicePage';
   static const String advertAddServicePage = 'advertAddServicePage';

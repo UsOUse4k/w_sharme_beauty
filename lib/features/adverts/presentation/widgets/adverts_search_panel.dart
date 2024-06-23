@@ -27,119 +27,163 @@ class AdvertsSearchPanel extends StatefulWidget {
 }
 
 class _AdvertsSearchPanelState extends State<AdvertsSearchPanel> {
+  late final DraggableScrollableController controller;
+
+  bool isExtended = false;
+
   @override
   void initState() {
     super.initState();
+
+    controller = DraggableScrollableController()
+      ..addListener(
+        () {
+          if (controller.size == 1.0) {
+            isExtended = true;
+            setState(() {});
+          } else if (isExtended) {
+            isExtended = false;
+            setState(() {});
+          }
+        },
+      );
+
     context.read<AdvertsCubit>().getAdverts(queryText: widget.queryText);
   }
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Gap(6),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: AppColors.lightGrey,
-                  borderRadius: BorderRadius.circular(30),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return DraggableScrollableSheet(
+          controller: controller,
+          minChildSize: 0.5,
+          snap: true,
+          builder: (context, scrollController) {
+            return DecoratedBox(
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
               ),
-            ],
-          ),
-          const Gap(14),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Row(
-              children: [
-                Text(
-                  "Результаты поиска",
-                  style: AppStyles.w700f18,
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    widget.onCloseTap?.call();
-                  },
-                  child: Assets.svgs.close.svg(),
-                ),
-              ],
-            ),
-          ),
-          const Gap(15),
-          Padding(
-            padding: const EdgeInsets.only(left: 18),
-            child: Text(
-              'Категории',
-              style: AppStyles.w500f18.copyWith(
-                color: AppColors.darkGrey,
-              ),
-            ),
-          ),
-          const Gap(10),
-          const CategoriesWidget(),
-          const Gap(15),
-          const FiltersWidget(),
-          const Gap(15),
-          Expanded(
-            child: BlocListener<AdvertsFilterCubit, AdvertsFilterState>(
-              listener: (context, state) {
-                context.read<AdvertsCubit>().filterAdvertsList(state);
-              },
-              child: BlocBuilder<AdvertsCubit, AdvertsState>(
-                builder: (context, state) {
-                  return state.maybeMap(
-                    loadSuccess: (state) {
-                      final adverts = state.adverts;
-
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: adverts.length,
-                        itemBuilder: (context, index) {
-                          final advert = adverts[index];
-
-                          return AdvertWidget(
-                            images: advert.images,
-                            name: advert.name,
-                            description: advert.description,
-                            address: advert.location.formattedAddress,
-                            rating: advert.rating,
-                            reviewsCount: advert.reviewsCount,
-                            schedule: advert.schedule,
-                            coordinates: advert.location.coordinates,
-                            onTap: () {
-                              context.push(
-                                "/adverts/${RouterContants.advertDetailPage}",
-                                extra: advert,
-                              );
+              child: SingleChildScrollView(
+                controller: scrollController,
+                physics: const ClampingScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: constraints.maxHeight),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Gap(6),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: AppColors.lightGrey,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Gap(14),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Результаты поиска",
+                              style: AppStyles.w700f18,
+                            ),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                widget.onCloseTap?.call();
+                              },
+                              child: Assets.svgs.close.svg(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(15),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18),
+                        child: Text(
+                          'Категории',
+                          style: AppStyles.w500f18.copyWith(
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      const Gap(10),
+                      const CategoriesWidget(),
+                      const Gap(15),
+                      const FiltersWidget(),
+                      const Gap(15),
+                      Expanded(
+                        child: IgnorePointer(
+                          ignoring: !isExtended,
+                          child: BlocListener<AdvertsFilterCubit,
+                              AdvertsFilterState>(
+                            listener: (context, state) {
+                              context
+                                  .read<AdvertsCubit>()
+                                  .filterAdvertsList(state);
                             },
-                          );
-                        },
-                      );
-                    },
-                    orElse: () {
-                      return const SizedBox.shrink();
-                    },
-                  );
-                },
+                            child: BlocBuilder<AdvertsCubit, AdvertsState>(
+                              builder: (context, state) {
+                                return state.maybeMap(
+                                  loadSuccess: (state) {
+                                    final adverts = state.adverts;
+
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      itemCount: adverts.length,
+                                      itemBuilder: (context, index) {
+                                        final advert = adverts[index];
+
+                                        return AdvertWidget(
+                                          images: advert.images,
+                                          name: advert.name,
+                                          description: advert.description,
+                                          address:
+                                              advert.location.formattedAddress,
+                                          rating: advert.rating,
+                                          reviewsCount: advert.reviewsCount,
+                                          schedule: advert.schedule,
+                                          coordinates:
+                                              advert.location.coordinates,
+                                          onTap: () {
+                                            context.push(
+                                              "/adverts/${RouterContants.advertDetailPage}",
+                                              extra: advert,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                  orElse: () {
+                                    return const SizedBox.shrink();
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }
