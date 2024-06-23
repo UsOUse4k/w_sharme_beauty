@@ -46,7 +46,7 @@ class CardChatWidget extends StatelessWidget {
                   raduis: 30,
                   avatar: chatRooms.receiverUserAvatar,
                   name: chatRooms.receiverUsername.toString(),
-                  subTitle: chatRooms.lastMessage ?? "пусто",
+                  subTitle: chatRooms.lastMessage ?? 'пусто',
                 ),
                 MessageCheckTimeTextWidget(
                   userId: userId,

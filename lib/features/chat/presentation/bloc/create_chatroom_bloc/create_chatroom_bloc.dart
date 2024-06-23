@@ -34,7 +34,7 @@ class CreateChatroomBloc
               await result.fold((erro) async {
                 emit(CreateChatroomState.error(errorMessage: erro.messasge));
               }, (chatRoomId) async {
-                emit(CreateChatroomState.sucsess(chatRoomId: chatRoomId));
+                emit(CreateChatroomState.sucsess(chatRoomId: chatRoomId, userId: userId));
                 _getMessagesBloc
                     .add(GetMessagesEvent.getMessages(chatRoomId: chatRoomId));
               });

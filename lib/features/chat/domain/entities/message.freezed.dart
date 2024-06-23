@@ -31,6 +31,9 @@ mixin _$Message {
   Timestamp? get timestamp => throw _privateConstructorUsedError;
   bool? get seen => throw _privateConstructorUsedError;
   String? get messageType => throw _privateConstructorUsedError;
+  String? get posdId => throw _privateConstructorUsedError;
+  String? get postUsername => throw _privateConstructorUsedError;
+  String? get postAvatar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +55,10 @@ abstract class $MessageCopyWith<$Res> {
       String? image,
       @TimestampConverter() Timestamp? timestamp,
       bool? seen,
-      String? messageType});
+      String? messageType,
+      String? posdId,
+      String? postUsername,
+      String? postAvatar});
 }
 
 /// @nodoc
@@ -78,6 +84,9 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? timestamp = freezed,
     Object? seen = freezed,
     Object? messageType = freezed,
+    Object? posdId = freezed,
+    Object? postUsername = freezed,
+    Object? postAvatar = freezed,
   }) {
     return _then(_value.copyWith(
       message: freezed == message
@@ -120,6 +129,18 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.messageType
           : messageType // ignore: cast_nullable_to_non_nullable
               as String?,
+      posdId: freezed == posdId
+          ? _value.posdId
+          : posdId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postUsername: freezed == postUsername
+          ? _value.postUsername
+          : postUsername // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postAvatar: freezed == postAvatar
+          ? _value.postAvatar
+          : postAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -141,7 +162,10 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String? image,
       @TimestampConverter() Timestamp? timestamp,
       bool? seen,
-      String? messageType});
+      String? messageType,
+      String? posdId,
+      String? postUsername,
+      String? postAvatar});
 }
 
 /// @nodoc
@@ -165,6 +189,9 @@ class __$$MessageImplCopyWithImpl<$Res>
     Object? timestamp = freezed,
     Object? seen = freezed,
     Object? messageType = freezed,
+    Object? posdId = freezed,
+    Object? postUsername = freezed,
+    Object? postAvatar = freezed,
   }) {
     return _then(_$MessageImpl(
       message: freezed == message
@@ -207,6 +234,18 @@ class __$$MessageImplCopyWithImpl<$Res>
           ? _value.messageType
           : messageType // ignore: cast_nullable_to_non_nullable
               as String?,
+      posdId: freezed == posdId
+          ? _value.posdId
+          : posdId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postUsername: freezed == postUsername
+          ? _value.postUsername
+          : postUsername // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postAvatar: freezed == postAvatar
+          ? _value.postAvatar
+          : postAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -224,7 +263,10 @@ class _$MessageImpl implements _Message {
       this.image,
       @TimestampConverter() this.timestamp,
       this.seen,
-      this.messageType});
+      this.messageType,
+      this.posdId,
+      this.postUsername,
+      this.postAvatar});
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageImplFromJson(json);
@@ -250,10 +292,16 @@ class _$MessageImpl implements _Message {
   final bool? seen;
   @override
   final String? messageType;
+  @override
+  final String? posdId;
+  @override
+  final String? postUsername;
+  @override
+  final String? postAvatar;
 
   @override
   String toString() {
-    return 'Message(message: $message, messageId: $messageId, senderId: $senderId, receiverId: $receiverId, username: $username, avatarUrl: $avatarUrl, image: $image, timestamp: $timestamp, seen: $seen, messageType: $messageType)';
+    return 'Message(message: $message, messageId: $messageId, senderId: $senderId, receiverId: $receiverId, username: $username, avatarUrl: $avatarUrl, image: $image, timestamp: $timestamp, seen: $seen, messageType: $messageType, posdId: $posdId, postUsername: $postUsername, postAvatar: $postAvatar)';
   }
 
   @override
@@ -277,13 +325,31 @@ class _$MessageImpl implements _Message {
                 other.timestamp == timestamp) &&
             (identical(other.seen, seen) || other.seen == seen) &&
             (identical(other.messageType, messageType) ||
-                other.messageType == messageType));
+                other.messageType == messageType) &&
+            (identical(other.posdId, posdId) || other.posdId == posdId) &&
+            (identical(other.postUsername, postUsername) ||
+                other.postUsername == postUsername) &&
+            (identical(other.postAvatar, postAvatar) ||
+                other.postAvatar == postAvatar));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, message, messageId, senderId,
-      receiverId, username, avatarUrl, image, timestamp, seen, messageType);
+  int get hashCode => Object.hash(
+      runtimeType,
+      message,
+      messageId,
+      senderId,
+      receiverId,
+      username,
+      avatarUrl,
+      image,
+      timestamp,
+      seen,
+      messageType,
+      posdId,
+      postUsername,
+      postAvatar);
 
   @JsonKey(ignore: true)
   @override
@@ -310,7 +376,10 @@ abstract class _Message implements Message {
       final String? image,
       @TimestampConverter() final Timestamp? timestamp,
       final bool? seen,
-      final String? messageType}) = _$MessageImpl;
+      final String? messageType,
+      final String? posdId,
+      final String? postUsername,
+      final String? postAvatar}) = _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
@@ -335,6 +404,12 @@ abstract class _Message implements Message {
   bool? get seen;
   @override
   String? get messageType;
+  @override
+  String? get posdId;
+  @override
+  String? get postUsername;
+  @override
+  String? get postAvatar;
   @override
   @JsonKey(ignore: true)
   _$$MessageImplCopyWith<_$MessageImpl> get copyWith =>

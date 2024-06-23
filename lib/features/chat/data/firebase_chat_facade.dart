@@ -12,6 +12,7 @@ import 'package:w_sharme_beauty/core/utils/firebase_storage_url/storage_methods.
 import 'package:w_sharme_beauty/features/chat/domain/entities/chat_room.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
 import 'package:w_sharme_beauty/features/chat/domain/repository/i_chat_repository.dart';
+import 'package:w_sharme_beauty/features/post/domain/entities/post.dart';
 
 @LazySingleton(as: IChatRepository)
 class FirebaseChatFacade implements IChatRepository {
@@ -25,8 +26,6 @@ class FirebaseChatFacade implements IChatRepository {
     required String uid,
     required String receiverUsername,
     required String receiverUserAvatar,
-
-
   }) async {
     try {
       final String myUid = auth.currentUser!.uid;
@@ -99,6 +98,57 @@ class FirebaseChatFacade implements IChatRepository {
   }
 
   @override
+  Future<Either<PostError, String?>> sendPost({
+    required String chatRoomId,
+    required String receiverId,
+    required Post post,
+    required String username,
+    required String avatarUrl,
+  }) async {
+    try {
+      final messageId = const Uuid().v1();
+      final now = Timestamp.now();
+      final String myUid = auth.currentUser!.uid;
+      final Message newMessage = Message(
+        messageId: messageId,
+        senderId: myUid,
+        receiverId: receiverId,
+        timestamp: now,
+        seen: false,
+        messageType: post.text,
+        avatarUrl: avatarUrl,
+        username: username,
+        image: post.imageUrls.first,
+        posdId: post.postId,
+        message: post.text,
+        postAvatar: post.avatarUrl,
+        postUsername: post.username,
+      );
+      final DocumentReference myChatRoomRef =
+          firestore.collection('chatrooms').doc(chatRoomId);
+      if (myUid != receiverId) {
+        await myChatRoomRef.update({
+          'messageCount': FieldValue.increment(1),
+          'lastMessage': 'Пост',
+          'lastMessageTs': now,
+          'seen': false,
+          'lastSenderId': myUid,
+        });
+      }
+      await firestore.collection('posts').doc(post.postId).update({
+        'repostCount': FieldValue.increment(1),
+      });
+      await myChatRoomRef
+          .collection('messages')
+          .doc(messageId)
+          .set(newMessage.toJson());
+      return right(null);
+    } catch (e) {
+      return left(PostError(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<PostError, String?>> sendMessage({
     required String message,
     required String chatRoomId,
@@ -123,8 +173,19 @@ class FirebaseChatFacade implements IChatRepository {
         avatarUrl: avatarUrl,
         username: username,
       );
+
       final DocumentReference myChatRoomRef =
           firestore.collection('chatrooms').doc(chatRoomId);
+      if (myUid != receiverId) {
+        await myChatRoomRef.update({
+          'messageCount': FieldValue.increment(1),
+          'lastMessage': message,
+          'lastMessageTs': now,
+          'seen': false,
+          'lastSenderId': myUid,
+        });
+      }
+
       if (file != null) {
         final imageurl = await StorageMethods(auth, storage)
             .uploadImageToStorage('chatrooms', file, true);
@@ -140,16 +201,6 @@ class FirebaseChatFacade implements IChatRepository {
             .collection('messages')
             .doc(messageId)
             .set(newMessage.toJson());
-      }
-
-      if (myUid != receiverId) {
-        await myChatRoomRef.update({
-          'messageCount': FieldValue.increment(1),
-          'lastMessage': message,
-          'lastMessageTs': now,
-          'seen': false,
-          'lastSenderId': myUid,
-        });
       }
       return right(null);
     } catch (e) {

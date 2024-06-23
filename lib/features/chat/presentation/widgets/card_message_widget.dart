@@ -2,11 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
-import 'package:w_sharme_beauty/gen/assets.gen.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/image_interactive_viewer.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_user_avatar_name.dart';
 
 class CardMessageWidget extends StatelessWidget {
   const CardMessageWidget({
@@ -37,16 +40,7 @@ class CardMessageWidget extends StatelessWidget {
           check ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if (!check)
-          avatar != null && avatar != ''
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: GlCachedNetworImage(
-                    height: 30.h,
-                    width: 30.w,
-                    urlImage: avatar,
-                  ),
-                )
-              : GlCircleAvatar(avatar: Assets.images.notAvatar.path, width: 30.w, height: 30.h)
+          GlCircleAvatar(avatar: avatar ?? '', width: 30.w, height: 30.h)
         else
           seen != null && seen == true
               ? const Icon(
@@ -93,24 +87,47 @@ class CardMessageWidget extends StatelessWidget {
                           AppStyles.w500f16.copyWith(color: AppColors.purple),
                     ),
                   if (data != null && data!.image != null && data!.image != '')
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: GlCachedNetworImage(
-                            height: 260.h,
-                            width: 260.w,
-                            urlImage: data!.image.toString(),
+                    InkWell(
+                      onTap: () {
+                        if (data != null && data!.posdId != null) {
+                          context.push(
+                              '/home/chat/chatMessages/${data!.receiverId}/post/${data!.posdId}');
+                        }
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (data != null && data!.posdId != null)
+                            PostUserAvatarName(
+                              username: data!.username.toString(),
+                              avatar: data!.postAvatar.toString(),
+                              width: 30.w,
+                              height: 30.h,
+                              style: AppStyles.w400f14.copyWith(
+                                color:
+                                    check ? AppColors.white : AppColors.black,
+                              ),
+                            ),
+                          const Gap(10),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: ImageInteractiveViewer(
+                              child: GlCachedNetworImage(
+                                height: 260.h,
+                                width: 260.w,
+                                urlImage: data!.image.toString(),
+                              ),
+                            ),
                           ),
-                        ),
-                        Text(
-                          message,
-                          style: AppStyles.w500f16.copyWith(
-                            color: check ? AppColors.white : AppColors.black,
+                          const Gap(10),
+                          Text(
+                            message,
+                            style: AppStyles.w500f16.copyWith(
+                              color: check ? AppColors.white : AppColors.black,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   else
                     Text(

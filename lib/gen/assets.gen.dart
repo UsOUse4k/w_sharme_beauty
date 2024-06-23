@@ -72,8 +72,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/comment.png
   AssetGenImage get comment => const AssetGenImage('assets/icons/comment.png');
 
+  /// File path: assets/icons/copy.png
+  AssetGenImage get copy => const AssetGenImage('assets/icons/copy.png');
+
   /// File path: assets/icons/edit.png
   AssetGenImage get edit => const AssetGenImage('assets/icons/edit.png');
+
+  /// File path: assets/icons/export.png
+  AssetGenImage get export => const AssetGenImage('assets/icons/export.png');
 
   /// File path: assets/icons/group.png
   AssetGenImage get group => const AssetGenImage('assets/icons/group.png');
@@ -134,6 +140,12 @@ class $AssetsIconsGen {
   AssetGenImage get settings =>
       const AssetGenImage('assets/icons/settings.png');
 
+  /// File path: assets/icons/share.png
+  AssetGenImage get sharePng => const AssetGenImage('assets/icons/share.png');
+
+  /// File path: assets/icons/share.svg
+  SvgGenImage get shareSvg => const SvgGenImage('assets/icons/share.svg');
+
   /// File path: assets/icons/strishka.png
   AssetGenImage get strishka =>
       const AssetGenImage('assets/icons/strishka.png');
@@ -143,7 +155,7 @@ class $AssetsIconsGen {
       const AssetGenImage('assets/icons/subscribers.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
+  List<dynamic> get values => [
         account,
         accountActive,
         activeAnnouncement,
@@ -160,7 +172,9 @@ class $AssetsIconsGen {
         brovi,
         chat,
         comment,
+        copy,
         edit,
+        export,
         group,
         heart,
         home,
@@ -179,6 +193,8 @@ class $AssetsIconsGen {
         resnitsy,
         search,
         settings,
+        sharePng,
+        shareSvg,
         strishka,
         subscribers
       ];
