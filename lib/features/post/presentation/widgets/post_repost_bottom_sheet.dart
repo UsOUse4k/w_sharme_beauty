@@ -19,6 +19,7 @@ class PostRepostBottomSheet extends StatelessWidget {
       initialChildSize: maxHeight ?? 0.4,
       maxChildSize: maxHeight ?? 0.4,
       expand: false,
+      
       builder: (_, controller) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 24),

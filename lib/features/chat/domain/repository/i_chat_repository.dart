@@ -11,6 +11,8 @@ abstract class IChatRepository {
     required String uid,
     required String receiverUsername,
     required String receiverUserAvatar,
+    required String senderUserAvatar,
+    required String senderUsername,
   });
   Future<Either<PostError, String?>> sendMessage({
     required String message,

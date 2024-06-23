@@ -26,6 +26,8 @@ mixin _$ChatRoom {
   String? get receiverId => throw _privateConstructorUsedError;
   String? get receiverUsername => throw _privateConstructorUsedError;
   String? get receiverUserAvatar => throw _privateConstructorUsedError;
+  String? get senderUsername => throw _privateConstructorUsedError;
+  String? get senderUserAvatar => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get lastMessageTs => throw _privateConstructorUsedError;
   List<String>? get members => throw _privateConstructorUsedError;
@@ -52,6 +54,8 @@ abstract class $ChatRoomCopyWith<$Res> {
       String? receiverId,
       String? receiverUsername,
       String? receiverUserAvatar,
+      String? senderUsername,
+      String? senderUserAvatar,
       @TimestampConverter() Timestamp? lastMessageTs,
       List<String>? members,
       @TimestampConverter() Timestamp? createdAt,
@@ -78,6 +82,8 @@ class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
     Object? receiverId = freezed,
     Object? receiverUsername = freezed,
     Object? receiverUserAvatar = freezed,
+    Object? senderUsername = freezed,
+    Object? senderUserAvatar = freezed,
     Object? lastMessageTs = freezed,
     Object? members = freezed,
     Object? createdAt = freezed,
@@ -108,6 +114,14 @@ class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
       receiverUserAvatar: freezed == receiverUserAvatar
           ? _value.receiverUserAvatar
           : receiverUserAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      senderUsername: freezed == senderUsername
+          ? _value.senderUsername
+          : senderUsername // ignore: cast_nullable_to_non_nullable
+              as String?,
+      senderUserAvatar: freezed == senderUserAvatar
+          ? _value.senderUserAvatar
+          : senderUserAvatar // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessageTs: freezed == lastMessageTs
           ? _value.lastMessageTs
@@ -148,6 +162,8 @@ abstract class _$$ChatRoomImplCopyWith<$Res>
       String? receiverId,
       String? receiverUsername,
       String? receiverUserAvatar,
+      String? senderUsername,
+      String? senderUserAvatar,
       @TimestampConverter() Timestamp? lastMessageTs,
       List<String>? members,
       @TimestampConverter() Timestamp? createdAt,
@@ -172,6 +188,8 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
     Object? receiverId = freezed,
     Object? receiverUsername = freezed,
     Object? receiverUserAvatar = freezed,
+    Object? senderUsername = freezed,
+    Object? senderUserAvatar = freezed,
     Object? lastMessageTs = freezed,
     Object? members = freezed,
     Object? createdAt = freezed,
@@ -202,6 +220,14 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
       receiverUserAvatar: freezed == receiverUserAvatar
           ? _value.receiverUserAvatar
           : receiverUserAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      senderUsername: freezed == senderUsername
+          ? _value.senderUsername
+          : senderUsername // ignore: cast_nullable_to_non_nullable
+              as String?,
+      senderUserAvatar: freezed == senderUserAvatar
+          ? _value.senderUserAvatar
+          : senderUserAvatar // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessageTs: freezed == lastMessageTs
           ? _value.lastMessageTs
@@ -237,6 +263,8 @@ class _$ChatRoomImpl implements _ChatRoom {
       this.receiverId,
       this.receiverUsername,
       this.receiverUserAvatar,
+      this.senderUsername,
+      this.senderUserAvatar,
       @TimestampConverter() this.lastMessageTs,
       final List<String>? members,
       @TimestampConverter() this.createdAt,
@@ -260,6 +288,10 @@ class _$ChatRoomImpl implements _ChatRoom {
   @override
   final String? receiverUserAvatar;
   @override
+  final String? senderUsername;
+  @override
+  final String? senderUserAvatar;
+  @override
   @TimestampConverter()
   final Timestamp? lastMessageTs;
   final List<String>? _members;
@@ -282,7 +314,7 @@ class _$ChatRoomImpl implements _ChatRoom {
 
   @override
   String toString() {
-    return 'ChatRoom(chatRoomId: $chatRoomId, lastMessage: $lastMessage, lastSenderId: $lastSenderId, receiverId: $receiverId, receiverUsername: $receiverUsername, receiverUserAvatar: $receiverUserAvatar, lastMessageTs: $lastMessageTs, members: $members, createdAt: $createdAt, seen: $seen, messageCount: $messageCount)';
+    return 'ChatRoom(chatRoomId: $chatRoomId, lastMessage: $lastMessage, lastSenderId: $lastSenderId, receiverId: $receiverId, receiverUsername: $receiverUsername, receiverUserAvatar: $receiverUserAvatar, senderUsername: $senderUsername, senderUserAvatar: $senderUserAvatar, lastMessageTs: $lastMessageTs, members: $members, createdAt: $createdAt, seen: $seen, messageCount: $messageCount)';
   }
 
   @override
@@ -302,6 +334,10 @@ class _$ChatRoomImpl implements _ChatRoom {
                 other.receiverUsername == receiverUsername) &&
             (identical(other.receiverUserAvatar, receiverUserAvatar) ||
                 other.receiverUserAvatar == receiverUserAvatar) &&
+            (identical(other.senderUsername, senderUsername) ||
+                other.senderUsername == senderUsername) &&
+            (identical(other.senderUserAvatar, senderUserAvatar) ||
+                other.senderUserAvatar == senderUserAvatar) &&
             (identical(other.lastMessageTs, lastMessageTs) ||
                 other.lastMessageTs == lastMessageTs) &&
             const DeepCollectionEquality().equals(other._members, _members) &&
@@ -322,6 +358,8 @@ class _$ChatRoomImpl implements _ChatRoom {
       receiverId,
       receiverUsername,
       receiverUserAvatar,
+      senderUsername,
+      senderUserAvatar,
       lastMessageTs,
       const DeepCollectionEquality().hash(_members),
       createdAt,
@@ -350,6 +388,8 @@ abstract class _ChatRoom implements ChatRoom {
       final String? receiverId,
       final String? receiverUsername,
       final String? receiverUserAvatar,
+      final String? senderUsername,
+      final String? senderUserAvatar,
       @TimestampConverter() final Timestamp? lastMessageTs,
       final List<String>? members,
       @TimestampConverter() final Timestamp? createdAt,
@@ -371,6 +411,10 @@ abstract class _ChatRoom implements ChatRoom {
   String? get receiverUsername;
   @override
   String? get receiverUserAvatar;
+  @override
+  String? get senderUsername;
+  @override
+  String? get senderUserAvatar;
   @override
   @TimestampConverter()
   Timestamp? get lastMessageTs;
