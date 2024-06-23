@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/adverts/adverts_cubit.dart';
+import 'package:w_sharme_beauty/features/adverts/presentation/blocs/current_location/current_location_bloc.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/my_adverts/my_adverts_cubit.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/create_notification_bloc/create_notification_bloc.dart';
@@ -86,13 +87,16 @@ class BlocProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
+        BlocProvider(
+          create: (context) => getIt<CurrentLocationBloc>()
+            ..add(const CurrentLocationEvent.started()),
+        ),
+        BlocProvider<AuthBloc>(
+          create: (context) => getIt<AuthBloc>(),
+        ),
         BlocProvider<PostListBloc>(
-          create: (context) {
-            final postListBloc = getIt<PostListBloc>();
-            postListBloc.add(const PostListEvent.getPosts());
-            return postListBloc;
-          },
+          create: (context) =>
+              getIt<PostListBloc>()..add(const PostListEvent.getPosts()),
         ),
         BlocProvider<MyPostListBloc>(
           create: (context) => getIt<MyPostListBloc>(),
