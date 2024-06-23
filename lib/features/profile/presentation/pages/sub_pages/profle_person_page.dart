@@ -239,10 +239,10 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Flexible(
-                                        child: GlButton(
-                                          text: isSubscribe
-                                              ? "Отписатся"
-                                              : 'Подписаться',
+                                        child: GlSubscribeButton(
+                                          width: double.infinity,
+                                          height: 47.h,
+                                          isSubscribe: isSubscribe,
                                           onPressed: toggleSubscribe,
                                         ),
                                       ),

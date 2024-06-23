@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 
@@ -18,14 +18,13 @@ class ButtomWriteDown extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 14,
-          ),
+          height: 47.h,
           decoration: BoxDecoration(
-              border: Border.all(
-                color: AppColors.purple,
-              ),
-              borderRadius: BorderRadius.circular(10),),
+            border: Border.all(
+              color: AppColors.purple,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: Center(
             child: Text(
               'Написать',

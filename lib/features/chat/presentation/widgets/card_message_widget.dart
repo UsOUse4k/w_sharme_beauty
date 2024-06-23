@@ -99,7 +99,7 @@ class CardMessageWidget extends StatelessWidget {
                         children: [
                           if (data != null && data!.posdId != null)
                             PostUserAvatarName(
-                              username: data!.username.toString(),
+                              username: data!.postUsername.toString(),
                               avatar: data!.postAvatar.toString(),
                               width: 30.w,
                               height: 30.h,
