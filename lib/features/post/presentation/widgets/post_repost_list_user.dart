@@ -9,9 +9,10 @@ import 'package:w_sharme_beauty/features/post/presentation/widgets/post_user_ava
 class PostRepostListUser extends StatelessWidget {
   const PostRepostListUser({
     super.key,
-    required this.users,
+    required this.users, required this.usersIds,
   });
   final List<UserProfile> users;
+  final List<String> usersIds;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class PostRepostListUser extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final user = users.elementAt(index);
+        final bool isSelected = usersIds.contains(user.uid);
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -37,7 +39,7 @@ class PostRepostListUser extends StatelessWidget {
                       );
                 }
               },
-              isChecked: false,
+              isChecked: isSelected,
             ),
           ],
         );

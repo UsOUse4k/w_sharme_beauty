@@ -63,122 +63,139 @@ class _PostRepostState extends State<PostRepost> {
                       final filterUser = users
                           .where((e) => userData.subscriptions!.contains(e.uid))
                           .toList();
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 18),
-                            child: PostRepostListUser(
-                              users: filterUser,
-                            ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  color: Color(0x0D000000),
+                      return BlocBuilder<RepostUsersBloc, RepostUsersState>(
+                        builder: (context, state) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                child: PostRepostListUser(
+                                  users: filterUser,
+                                  usersIds: state.selectecUserIds,
                                 ),
                               ),
-                            ),
-                            child:
-                                BlocBuilder<RepostUsersBloc, RepostUsersState>(
-                              builder: (context, state) {
-                                return BlocListener<RepostPostMyScreenBloc,
-                                    RepostPostMyScreenState>(
-                                  listener: (context, state) {
-                                    state.maybeWhen(
-                                      success: (post) {
-                                        context.read<MyPostListBloc>().add(
-                                              MyPostListEvent.addNewPost(post),
-                                            );
-                                        Navigator.pop(context);
-                                      },
-                                      orElse: () {},
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 18,
-                                      vertical: 5,
+                              const Spacer(),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(
+                                      color: Color(0x0D000000),
                                     ),
-                                    child: BlocListener<CreateChatroomBloc,
-                                        CreateChatroomState>(
-                                      listener: (context, chatRoomState) {
-                                        chatRoomState.maybeWhen(
-                                          sucsess: (chatRoomId, userId) {
-                                            sendPostBloc.add(
-                                              SendPostEvent.sendPost(
-                                                chatRoomId:
-                                                    chatRoomId.toString(),
-                                                receiverId: userId.toString(),
-                                                post: widget.post,
-                                              ),
-                                            );
+                                  ),
+                                ),
+                                child: BlocBuilder<RepostUsersBloc,
+                                    RepostUsersState>(
+                                  builder: (context, state) {
+                                    return BlocListener<RepostPostMyScreenBloc,
+                                        RepostPostMyScreenState>(
+                                      listener: (context, state) {
+                                        state.maybeWhen(
+                                          success: (post) {
+                                            context.read<MyPostListBloc>().add(
+                                                  MyPostListEvent.addNewPost(
+                                                      post),
+                                                );
+                                            context.read<RepostUsersBloc>().add(
+                                                  const RepostUsersEvent
+                                                      .clearUsers(),
+                                                );
                                             Navigator.pop(context);
                                           },
                                           orElse: () {},
                                         );
                                       },
-                                      child: state.selectecUserIds.isNotEmpty
-                                          ? GlButton(
-                                              text: 'Подтвердить',
-                                              onPressed: () {
-                                                if (state.selectecUserIds
-                                                    .isNotEmpty) {
-                                                  for (final userd in state
-                                                      .selectecUserIds) {
-                                                    createRoomBloc.add(
-                                                      CreateChatroomEvent
-                                                          .createdChatRoomId(
-                                                        userId: userd,
-                                                      ),
-                                                    );
-                                                  }
-                                                }
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 18,
+                                          vertical: 5,
+                                        ),
+                                        child: BlocListener<CreateChatroomBloc,
+                                            CreateChatroomState>(
+                                          listener: (context, chatRoomState) {
+                                            chatRoomState.maybeWhen(
+                                              sucsess: (chatRoomId, userId) {
+                                                sendPostBloc.add(
+                                                  SendPostEvent.sendPost(
+                                                    chatRoomId:
+                                                        chatRoomId.toString(),
+                                                    receiverId:
+                                                        userId.toString(),
+                                                    post: widget.post,
+                                                  ),
+                                                );
+                                                Navigator.pop(context);
                                               },
-                                            )
-                                          : Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                PostRepostButton(
-                                                  title: 'Экспорт',
-                                                  onPressed: () {},
-                                                  icon:
-                                                      Assets.icons.export.path,
-                                                ),
-                                                PostRepostButton(
-                                                  title: 'Скопировать ссылку',
-                                                  onPressed: () {},
-                                                  icon: Assets.icons.copy.path,
-                                                ),
-                                                PostRepostButton(
-                                                  title: 'На своей странице',
+                                              orElse: () {},
+                                            );
+                                          },
+                                          child: state
+                                                  .selectecUserIds.isNotEmpty
+                                              ? GlButton(
+                                                  text: 'Подтвердить',
                                                   onPressed: () {
-                                                    context
-                                                        .read<
-                                                            RepostPostMyScreenBloc>()
-                                                        .add(
-                                                          RepostPostMyScreenEvent
-                                                              .repostPost(
-                                                            post: widget.post,
+                                                    if (state.selectecUserIds
+                                                        .isNotEmpty) {
+                                                      for (final userd in state
+                                                          .selectecUserIds) {
+                                                        createRoomBloc.add(
+                                                          CreateChatroomEvent
+                                                              .createdChatRoomId(
+                                                            userId: userd,
                                                           ),
                                                         );
+                                                      }
+                                                    }
                                                   },
-                                                  icon: Assets
-                                                      .icons.sharePng.path,
+                                                )
+                                              : Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    PostRepostButton(
+                                                      title: 'Экспорт',
+                                                      onPressed: () {},
+                                                      icon: Assets
+                                                          .icons.export.path,
+                                                    ),
+                                                    PostRepostButton(
+                                                      title:
+                                                          'Скопировать ссылку',
+                                                      onPressed: () {},
+                                                      icon: Assets
+                                                          .icons.copy.path,
+                                                    ),
+                                                    PostRepostButton(
+                                                      title:
+                                                          'На своей странице',
+                                                      onPressed: () {
+                                                        context
+                                                            .read<
+                                                                RepostPostMyScreenBloc>()
+                                                            .add(
+                                                              RepostPostMyScreenEvent
+                                                                  .repostPost(
+                                                                post:
+                                                                    widget.post,
+                                                              ),
+                                                            );
+                                                      },
+                                                      icon: Assets
+                                                          .icons.sharePng.path,
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
                     orElse: () => Container(),

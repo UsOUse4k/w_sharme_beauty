@@ -18,5 +18,8 @@ class RepostUsersBloc extends Bloc<RepostUsersEvent, RepostUsersState> {
       }
       emit(state.copyWith(selectecUserIds: updatedUids));
     });
+    on<_ClearUsers>((event, emit) {
+      emit(state.copyWith(selectecUserIds: []));
+    });
   }
 }

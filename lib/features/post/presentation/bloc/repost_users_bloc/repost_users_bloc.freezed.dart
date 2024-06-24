@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RepostUsersEvent {
-  String get uid => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String uid) addUserdIds,
+    required TResult Function() clearUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String uid)? addUserdIds,
+    TResult? Function()? clearUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String uid)? addUserdIds,
+    TResult Function()? clearUsers,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddUserIds value) addUserdIds,
+    required TResult Function(_ClearUsers value) clearUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddUserIds value)? addUserdIds,
+    TResult? Function(_ClearUsers value)? clearUsers,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddUserIds value)? addUserdIds,
+    TResult Function(_ClearUsers value)? clearUsers,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $RepostUsersEventCopyWith<RepostUsersEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $RepostUsersEventCopyWith<$Res> {
   factory $RepostUsersEventCopyWith(
           RepostUsersEvent value, $Res Function(RepostUsersEvent) then) =
       _$RepostUsersEventCopyWithImpl<$Res, RepostUsersEvent>;
-  @useResult
-  $Res call({String uid});
 }
 
 /// @nodoc
@@ -73,28 +72,13 @@ class _$RepostUsersEventCopyWithImpl<$Res, $Val extends RepostUsersEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? uid = null,
-  }) {
-    return _then(_value.copyWith(
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$AddUserIdsImplCopyWith<$Res>
-    implements $RepostUsersEventCopyWith<$Res> {
+abstract class _$$AddUserIdsImplCopyWith<$Res> {
   factory _$$AddUserIdsImplCopyWith(
           _$AddUserIdsImpl value, $Res Function(_$AddUserIdsImpl) then) =
       __$$AddUserIdsImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String uid});
 }
@@ -155,6 +139,7 @@ class _$AddUserIdsImpl implements _AddUserIds {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String uid) addUserdIds,
+    required TResult Function() clearUsers,
   }) {
     return addUserdIds(uid);
   }
@@ -163,6 +148,7 @@ class _$AddUserIdsImpl implements _AddUserIds {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String uid)? addUserdIds,
+    TResult? Function()? clearUsers,
   }) {
     return addUserdIds?.call(uid);
   }
@@ -171,6 +157,7 @@ class _$AddUserIdsImpl implements _AddUserIds {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String uid)? addUserdIds,
+    TResult Function()? clearUsers,
     required TResult orElse(),
   }) {
     if (addUserdIds != null) {
@@ -183,6 +170,7 @@ class _$AddUserIdsImpl implements _AddUserIds {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddUserIds value) addUserdIds,
+    required TResult Function(_ClearUsers value) clearUsers,
   }) {
     return addUserdIds(this);
   }
@@ -191,6 +179,7 @@ class _$AddUserIdsImpl implements _AddUserIds {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddUserIds value)? addUserdIds,
+    TResult? Function(_ClearUsers value)? clearUsers,
   }) {
     return addUserdIds?.call(this);
   }
@@ -199,6 +188,7 @@ class _$AddUserIdsImpl implements _AddUserIds {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddUserIds value)? addUserdIds,
+    TResult Function(_ClearUsers value)? clearUsers,
     required TResult orElse(),
   }) {
     if (addUserdIds != null) {
@@ -211,12 +201,112 @@ class _$AddUserIdsImpl implements _AddUserIds {
 abstract class _AddUserIds implements RepostUsersEvent {
   const factory _AddUserIds(final String uid) = _$AddUserIdsImpl;
 
-  @override
   String get uid;
-  @override
   @JsonKey(ignore: true)
   _$$AddUserIdsImplCopyWith<_$AddUserIdsImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ClearUsersImplCopyWith<$Res> {
+  factory _$$ClearUsersImplCopyWith(
+          _$ClearUsersImpl value, $Res Function(_$ClearUsersImpl) then) =
+      __$$ClearUsersImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClearUsersImplCopyWithImpl<$Res>
+    extends _$RepostUsersEventCopyWithImpl<$Res, _$ClearUsersImpl>
+    implements _$$ClearUsersImplCopyWith<$Res> {
+  __$$ClearUsersImplCopyWithImpl(
+      _$ClearUsersImpl _value, $Res Function(_$ClearUsersImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ClearUsersImpl implements _ClearUsers {
+  const _$ClearUsersImpl();
+
+  @override
+  String toString() {
+    return 'RepostUsersEvent.clearUsers()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ClearUsersImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String uid) addUserdIds,
+    required TResult Function() clearUsers,
+  }) {
+    return clearUsers();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String uid)? addUserdIds,
+    TResult? Function()? clearUsers,
+  }) {
+    return clearUsers?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String uid)? addUserdIds,
+    TResult Function()? clearUsers,
+    required TResult orElse(),
+  }) {
+    if (clearUsers != null) {
+      return clearUsers();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddUserIds value) addUserdIds,
+    required TResult Function(_ClearUsers value) clearUsers,
+  }) {
+    return clearUsers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddUserIds value)? addUserdIds,
+    TResult? Function(_ClearUsers value)? clearUsers,
+  }) {
+    return clearUsers?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddUserIds value)? addUserdIds,
+    TResult Function(_ClearUsers value)? clearUsers,
+    required TResult orElse(),
+  }) {
+    if (clearUsers != null) {
+      return clearUsers(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ClearUsers implements RepostUsersEvent {
+  const factory _ClearUsers() = _$ClearUsersImpl;
 }
 
 /// @nodoc
