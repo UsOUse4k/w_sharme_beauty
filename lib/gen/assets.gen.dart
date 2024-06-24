@@ -38,6 +38,9 @@ class $AssetsIconsGen {
   AssetGenImage get activeIssue =>
       const AssetGenImage('assets/icons/activeIssue.png');
 
+  /// File path: assets/icons/add.png
+  AssetGenImage get add => const AssetGenImage('assets/icons/add.png');
+
   /// File path: assets/icons/add_chat.png
   AssetGenImage get addChat => const AssetGenImage('assets/icons/add_chat.png');
 
@@ -162,6 +165,7 @@ class $AssetsIconsGen {
         activeGroup,
         activeHome,
         activeIssue,
+        add,
         addChat,
         addCommunity,
         addPeople,

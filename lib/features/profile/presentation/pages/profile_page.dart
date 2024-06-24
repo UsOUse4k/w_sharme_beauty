@@ -126,7 +126,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 },
                                 onPressedSubscribe: () {
                                   context.push(
-                                      '/profile/subscriptions/$currentUid',);
+                                    '/profile/subscriptions/$currentUid',
+                                  );
                                 },
                               ),
                               SizedBox(height: 16.h),
@@ -147,7 +148,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               SizedBox(height: 12.h),
                               Row(
                                 children: [
-                                  Image.asset(Assets.icons.location.path),
+                                  Image.asset(
+                                    Assets.icons.location.path,
+                                    width: 16.w,
+                                    height: 16.h,
+                                  ),
                                   SizedBox(width: 9.w),
                                   Text(
                                     '${user.city}',
@@ -185,8 +190,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   shrinkWrap: true,
                                                   physics:
                                                       const BouncingScrollPhysics(),
-                                                  itemBuilder: (context,
-                                                          index,) =>
+                                                  itemBuilder: (
+                                                    context,
+                                                    index,
+                                                  ) =>
                                                       const CategoryShimmer(),
                                                   itemCount:
                                                       user.category!.length,
@@ -280,8 +287,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset(
-                                    Assets.icons.plus.path,
+                                    Assets.icons.add.path,
                                     color: AppColors.purple,
+                                    width: 20.w,
+                                    height: 20.h,
                                   ),
                                   SizedBox(width: 12.w),
                                   Text(
