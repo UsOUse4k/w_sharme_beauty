@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_post_bloc/send_post_bloc.dart';
@@ -26,6 +27,7 @@ class PostRepost extends StatefulWidget {
 }
 
 class _PostRepostState extends State<PostRepost> {
+  bool isActive = false;
   @override
   void initState() {
     final uid = firebaseAuth.currentUser!.uid;
@@ -119,50 +121,58 @@ class _PostRepostState extends State<PostRepost> {
                                           orElse: () {},
                                         );
                                       },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          PostRepostButton(
-                                            title: 'Экспорт',
-                                            onPressed: () {
-                                              if (state
-                                                  .selectecUserIds.isNotEmpty) {
-                                                for (final userd
-                                                    in state.selectecUserIds) {
-                                                  createRoomBloc.add(
-                                                    CreateChatroomEvent
-                                                        .createdChatRoomId(
-                                                      userId: userd,
-                                                    ),
-                                                  );
+                                      child: state.selectecUserIds.isNotEmpty
+                                          ? GlButton(
+                                              text: 'Подтвердить',
+                                              onPressed: () {
+                                                if (state.selectecUserIds
+                                                    .isNotEmpty) {
+                                                  for (final userd in state
+                                                      .selectecUserIds) {
+                                                    createRoomBloc.add(
+                                                      CreateChatroomEvent
+                                                          .createdChatRoomId(
+                                                        userId: userd,
+                                                      ),
+                                                    );
+                                                  }
                                                 }
-                                              }
-                                            },
-                                            icon: Assets.icons.export.path,
-                                          ),
-                                          PostRepostButton(
-                                            title: 'Скопировать ссылку',
-                                            onPressed: () {},
-                                            icon: Assets.icons.copy.path,
-                                          ),
-                                          PostRepostButton(
-                                            title: 'На своей странице',
-                                            onPressed: () {
-                                              context
-                                                  .read<
-                                                      RepostPostMyScreenBloc>()
-                                                  .add(
-                                                    RepostPostMyScreenEvent
-                                                        .repostPost(
-                                                      post: widget.post,
-                                                    ),
-                                                  );
-                                            },
-                                            icon: Assets.icons.sharePng.path,
-                                          ),
-                                        ],
-                                      ),
+                                              },
+                                            )
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                PostRepostButton(
+                                                  title: 'Экспорт',
+                                                  onPressed: () {},
+                                                  icon:
+                                                      Assets.icons.export.path,
+                                                ),
+                                                PostRepostButton(
+                                                  title: 'Скопировать ссылку',
+                                                  onPressed: () {},
+                                                  icon: Assets.icons.copy.path,
+                                                ),
+                                                PostRepostButton(
+                                                  title: 'На своей странице',
+                                                  onPressed: () {
+                                                    context
+                                                        .read<
+                                                            RepostPostMyScreenBloc>()
+                                                        .add(
+                                                          RepostPostMyScreenEvent
+                                                              .repostPost(
+                                                            post: widget.post,
+                                                          ),
+                                                        );
+                                                  },
+                                                  icon: Assets
+                                                      .icons.sharePng.path,
+                                                ),
+                                              ],
+                                            ),
                                     ),
                                   ),
                                 );
