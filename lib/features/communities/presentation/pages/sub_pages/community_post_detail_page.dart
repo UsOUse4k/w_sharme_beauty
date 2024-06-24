@@ -74,6 +74,7 @@ class _CommunityPostDetailPageState extends State<CommunityPostDetailPage> {
           listener: (context, state) {
             state.maybeWhen(
               success: (post) {
+                
                 context.read<CommunityCommentListBloc>().add(
                       CommunityCommentListEvent.getCommunityComments(
                         postId: widget.postId.toString(),
@@ -91,8 +92,8 @@ class _CommunityPostDetailPageState extends State<CommunityPostDetailPage> {
                   color: AppColors.purple,
                 ),
               ),
-              error: (message) => const Center(
-                child: Text('not post found'),
+              error: (message) => Center(
+                child: Text(message),
               ),
               success: (post) {
                 return BlocListener<CommunityCommentCreateBloc,

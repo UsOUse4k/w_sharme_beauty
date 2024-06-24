@@ -16,6 +16,7 @@ dependencies:
   firebase_auth: ^4.19.1
   firebase_core: ^2.29.0
   firebase_storage: ^11.7.4
+  flick_video_player: ^0.8.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
@@ -42,6 +43,8 @@ dependencies:
   pinput: ^4.0.0
   shimmer: ^3.0.0
   uuid: ^4.4.0
+  video_player: ^2.8.7
+  video_thumbnail: ^0.5.3
   yandex_mapkit: ^4.0.2
 
 dev_dependencies:

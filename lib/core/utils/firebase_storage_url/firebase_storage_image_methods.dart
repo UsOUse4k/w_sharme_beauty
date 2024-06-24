@@ -1,12 +1,34 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseStorageImageMethods {
   final FirebaseAuth _auth;
   final FirebaseStorage _storage;
   FirebaseStorageImageMethods(this._auth, this._storage);
+
+  Future<String> uploadVideoToStorage(XFile file, String childName) async {
+    try {
+      Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid);
+
+      final String id = const Uuid().v1(); 
+      ref = ref.child(id);
+
+      final UploadTask uploadTask = ref.putFile(File(file.path));
+      final TaskSnapshot snapshot = await uploadTask;
+      final String downloadUrl = await snapshot.ref.getDownloadURL();
+
+      return downloadUrl;
+    } catch (e) {
+      throw FirebaseException(
+        plugin: 'firebase_storage',
+        message: "Ошибка при загрузке видео: $e",
+      );
+    }
+  }
 
   Future<List<String>> uploadImageToStorage(
     List<Uint8List> files,

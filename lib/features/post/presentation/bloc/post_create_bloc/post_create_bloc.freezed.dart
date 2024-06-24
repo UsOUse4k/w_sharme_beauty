@@ -18,20 +18,24 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostCreateEvent {
   Post get post => throw _privateConstructorUsedError;
   List<Uint8List>? get imageFiles => throw _privateConstructorUsedError;
+  XFile? get video => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Post post, List<Uint8List>? imageFiles)
+    required TResult Function(
+            Post post, List<Uint8List>? imageFiles, XFile? video)
         createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Post post, List<Uint8List>? imageFiles)? createPost,
+    TResult? Function(Post post, List<Uint8List>? imageFiles, XFile? video)?
+        createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Post post, List<Uint8List>? imageFiles)? createPost,
+    TResult Function(Post post, List<Uint8List>? imageFiles, XFile? video)?
+        createPost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +67,7 @@ abstract class $PostCreateEventCopyWith<$Res> {
           PostCreateEvent value, $Res Function(PostCreateEvent) then) =
       _$PostCreateEventCopyWithImpl<$Res, PostCreateEvent>;
   @useResult
-  $Res call({Post post, List<Uint8List>? imageFiles});
+  $Res call({Post post, List<Uint8List>? imageFiles, XFile? video});
 
   $PostCopyWith<$Res> get post;
 }
@@ -83,6 +87,7 @@ class _$PostCreateEventCopyWithImpl<$Res, $Val extends PostCreateEvent>
   $Res call({
     Object? post = null,
     Object? imageFiles = freezed,
+    Object? video = freezed,
   }) {
     return _then(_value.copyWith(
       post: null == post
@@ -93,6 +98,10 @@ class _$PostCreateEventCopyWithImpl<$Res, $Val extends PostCreateEvent>
           ? _value.imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as List<Uint8List>?,
+      video: freezed == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as XFile?,
     ) as $Val);
   }
 
@@ -113,7 +122,7 @@ abstract class _$$CreatePostImplCopyWith<$Res>
       __$$CreatePostImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Post post, List<Uint8List>? imageFiles});
+  $Res call({Post post, List<Uint8List>? imageFiles, XFile? video});
 
   @override
   $PostCopyWith<$Res> get post;
@@ -132,6 +141,7 @@ class __$$CreatePostImplCopyWithImpl<$Res>
   $Res call({
     Object? post = null,
     Object? imageFiles = freezed,
+    Object? video = freezed,
   }) {
     return _then(_$CreatePostImpl(
       post: null == post
@@ -142,6 +152,10 @@ class __$$CreatePostImplCopyWithImpl<$Res>
           ? _value._imageFiles
           : imageFiles // ignore: cast_nullable_to_non_nullable
               as List<Uint8List>?,
+      video: freezed == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as XFile?,
     ));
   }
 }
@@ -150,7 +164,7 @@ class __$$CreatePostImplCopyWithImpl<$Res>
 
 class _$CreatePostImpl implements _CreatePost {
   const _$CreatePostImpl(
-      {required this.post, final List<Uint8List>? imageFiles})
+      {required this.post, final List<Uint8List>? imageFiles, this.video})
       : _imageFiles = imageFiles;
 
   @override
@@ -166,8 +180,11 @@ class _$CreatePostImpl implements _CreatePost {
   }
 
   @override
+  final XFile? video;
+
+  @override
   String toString() {
-    return 'PostCreateEvent.createPost(post: $post, imageFiles: $imageFiles)';
+    return 'PostCreateEvent.createPost(post: $post, imageFiles: $imageFiles, video: $video)';
   }
 
   @override
@@ -177,12 +194,13 @@ class _$CreatePostImpl implements _CreatePost {
             other is _$CreatePostImpl &&
             (identical(other.post, post) || other.post == post) &&
             const DeepCollectionEquality()
-                .equals(other._imageFiles, _imageFiles));
+                .equals(other._imageFiles, _imageFiles) &&
+            (identical(other.video, video) || other.video == video));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, post, const DeepCollectionEquality().hash(_imageFiles));
+  int get hashCode => Object.hash(runtimeType, post,
+      const DeepCollectionEquality().hash(_imageFiles), video);
 
   @JsonKey(ignore: true)
   @override
@@ -193,28 +211,31 @@ class _$CreatePostImpl implements _CreatePost {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Post post, List<Uint8List>? imageFiles)
+    required TResult Function(
+            Post post, List<Uint8List>? imageFiles, XFile? video)
         createPost,
   }) {
-    return createPost(post, imageFiles);
+    return createPost(post, imageFiles, video);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Post post, List<Uint8List>? imageFiles)? createPost,
+    TResult? Function(Post post, List<Uint8List>? imageFiles, XFile? video)?
+        createPost,
   }) {
-    return createPost?.call(post, imageFiles);
+    return createPost?.call(post, imageFiles, video);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Post post, List<Uint8List>? imageFiles)? createPost,
+    TResult Function(Post post, List<Uint8List>? imageFiles, XFile? video)?
+        createPost,
     required TResult orElse(),
   }) {
     if (createPost != null) {
-      return createPost(post, imageFiles);
+      return createPost(post, imageFiles, video);
     }
     return orElse();
   }
@@ -251,12 +272,15 @@ class _$CreatePostImpl implements _CreatePost {
 abstract class _CreatePost implements PostCreateEvent {
   const factory _CreatePost(
       {required final Post post,
-      final List<Uint8List>? imageFiles}) = _$CreatePostImpl;
+      final List<Uint8List>? imageFiles,
+      final XFile? video}) = _$CreatePostImpl;
 
   @override
   Post get post;
   @override
   List<Uint8List>? get imageFiles;
+  @override
+  XFile? get video;
   @override
   @JsonKey(ignore: true)
   _$$CreatePostImplCopyWith<_$CreatePostImpl> get copyWith =>

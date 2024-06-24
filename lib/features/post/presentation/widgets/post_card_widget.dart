@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:video_player/video_player.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
@@ -45,7 +48,6 @@ class _PostCardState extends State<PostCard> {
   bool isLike = false;
   bool isSubscribe = false;
   int countLike = 0;
-
   @override
   void initState() {
     super.initState();
@@ -127,6 +129,25 @@ class _PostCardState extends State<PostCard> {
     }
   }
 
+  Widget _buildMediaContent() {
+    if (widget.post != null && widget.post!.imageUrls.isNotEmpty) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.post!.text, style: AppStyles.w400f16),
+          const Gap(10),
+          SizedBox(
+            height: 394.h,
+            child: PostImage(
+              imageUrls: widget.post!.imageUrls,
+            ),
+          ),
+        ],
+      );
+    }
+    return Text(widget.post!.text, style: AppStyles.w400f16);
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentUid = firebaseAuth.currentUser!.uid;
@@ -167,24 +188,7 @@ class _PostCardState extends State<PostCard> {
           SizedBox(height: 6.h),
           GestureDetector(
             onTap: widget.onPressedDetailPage,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.post!.text,
-                  style: AppStyles.w400f16,
-                ),
-                if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
-                  SizedBox(height: 6.h),
-                if (widget.post != null && widget.post!.imageUrls.isNotEmpty)
-                  SizedBox(
-                    height: 394.h,
-                    child: PostImage(
-                      imageUrls: widget.post!.imageUrls,
-                    ),
-                  ),
-              ],
-            ),
+            child: _buildMediaContent(),
           ),
           SizedBox(height: 6.h),
           Row(
@@ -208,11 +212,9 @@ class _PostCardState extends State<PostCard> {
                 onPessed: () {
                   BottomSheetUtil.showAppBottomSheet(
                     context,
-                    
                     PostRepostBottomSheet(
                       maxHeight: 0.7,
                       navbarTitle: 'Поделиться',
-                      
                       widget: PostRepost(
                         post: widget.post!,
                       ),

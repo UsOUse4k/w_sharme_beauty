@@ -95,7 +95,7 @@ class _PostRepostState extends State<PostRepost> {
                                           success: (post) {
                                             context.read<MyPostListBloc>().add(
                                                   MyPostListEvent.addNewPost(
-                                                      post),
+                                                      post,),
                                                 );
                                             context.read<RepostUsersBloc>().add(
                                                   const RepostUsersEvent

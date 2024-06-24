@@ -28,7 +28,7 @@ class GlSubscribeButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            isSubscribe ? 'Отписаться' : 'Подписаться',
+            isSubscribe ? 'Вы подписаны' : 'Подписаться',
             style: AppStyles.w400f16.copyWith(
               color: isSubscribe ? AppColors.grey : Colors.white,
             ),
