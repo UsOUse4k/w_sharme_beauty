@@ -27,7 +27,6 @@ class PostRepost extends StatefulWidget {
 }
 
 class _PostRepostState extends State<PostRepost> {
-  bool isActive = false;
   @override
   void initState() {
     final uid = firebaseAuth.currentUser!.uid;
