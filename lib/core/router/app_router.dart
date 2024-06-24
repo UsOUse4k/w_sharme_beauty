@@ -45,19 +45,26 @@ mixin AppRouter on State<App> {
     //initialLocation: RouterContants.login,
     redirect: (BuildContext context, GoRouterState state) {
       final isLoggedIn = FirebaseAuth.instance.currentUser != null;
-      final goingToLoginPage = state.matchedLocation == RouterContants.login;
+      final isGoingToLoginPage = state.matchedLocation == RouterContants.login;
       final isGoingToRegisterPage =
           state.matchedLocation == RouterContants.register;
       final isGoingToResetPasswordPage =
           state.matchedLocation == RouterContants.reset;
+
       if (!isLoggedIn &&
-          !goingToLoginPage &&
+          !isGoingToLoginPage &&
           !isGoingToRegisterPage &&
-          !isGoingToResetPasswordPage) return RouterContants.login;
+          !isGoingToResetPasswordPage) {
+        return RouterContants.login;
+      }
+
       if (isLoggedIn &&
-          (goingToLoginPage ||
+          (isGoingToLoginPage ||
               isGoingToRegisterPage ||
-              isGoingToResetPasswordPage)) return RouterContants.home;
+              isGoingToResetPasswordPage)) {
+        return RouterContants.home;
+      }
+
       return null;
     },
     routes: [

@@ -1,10 +1,10 @@
 name: w_sharme_beauty
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
   bloc: ^8.1.4
@@ -15,6 +15,7 @@ dependencies:
   equatable: ^2.0.5
   firebase_auth: ^4.19.1
   firebase_core: ^2.29.0
+  firebase_dynamic_links: ^5.5.7
   firebase_storage: ^11.7.4
   flutter:
     sdk: flutter
@@ -40,6 +41,7 @@ dependencies:
   kt_dart: ^1.1.0
   permission_handler: ^11.3.1
   pinput: ^4.0.0
+  share_plus: ^9.0.0
   shimmer: ^3.0.0
   uuid: ^4.4.0
   yandex_mapkit: ^4.0.2

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:w_sharme_beauty/core/di/injector.dart';
+import 'package:w_sharme_beauty/core/router/router_contants.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/auth/presentation/bloc/get_all_users_bloc/get_all_users_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/create_chatroom_bloc/create_chatroom_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/bloc/send_post_bloc/send_post_bloc.dart';
+import 'package:w_sharme_beauty/features/monitoring/dynamic_links_service.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_post_my_screen_bloc/repost_post_my_screen_bloc.dart';
@@ -95,7 +100,8 @@ class _PostRepostState extends State<PostRepost> {
                                           success: (post) {
                                             context.read<MyPostListBloc>().add(
                                                   MyPostListEvent.addNewPost(
-                                                      post),
+                                                    post,
+                                                  ),
                                                 );
                                             context.read<RepostUsersBloc>().add(
                                                   const RepostUsersEvent
@@ -156,14 +162,58 @@ class _PostRepostState extends State<PostRepost> {
                                                   children: [
                                                     PostRepostButton(
                                                       title: 'Экспорт',
-                                                      onPressed: () {},
+                                                      onPressed: () async {
+                                                        final url = await getIt<
+                                                                DynamicLinkService>()
+                                                            .generateDynamicLinkUrl(
+                                                          path:
+                                                              "${RouterContants.home}/${RouterContants.post}/${widget.post.postId}",
+                                                          socialMetaTagParameters:
+                                                              SocialMetaTagParameters(
+                                                            title: widget
+                                                                .post.username,
+                                                            imageUrl: Uri.parse(
+                                                              widget.post
+                                                                  .imageUrls[0],
+                                                            ),
+                                                            description: widget
+                                                                .post.text,
+                                                          ),
+                                                        );
+
+                                                        await Share.share(url);
+                                                      },
                                                       icon: Assets
                                                           .icons.export.path,
                                                     ),
                                                     PostRepostButton(
                                                       title:
                                                           'Скопировать ссылку',
-                                                      onPressed: () {},
+                                                      onPressed: () async {
+                                                        final url = await getIt<
+                                                                DynamicLinkService>()
+                                                            .generateDynamicLinkUrl(
+                                                          path:
+                                                              "${RouterContants.home}/${RouterContants.post}/${widget.post.postId}",
+                                                          socialMetaTagParameters:
+                                                              SocialMetaTagParameters(
+                                                            title: widget
+                                                                .post.username,
+                                                            imageUrl: Uri.parse(
+                                                              widget.post
+                                                                  .imageUrls[0],
+                                                            ),
+                                                            description: widget
+                                                                .post.text,
+                                                          ),
+                                                        );
+
+                                                        await Clipboard.setData(
+                                                          ClipboardData(
+                                                            text: url,
+                                                          ),
+                                                        );
+                                                      },
                                                       icon: Assets
                                                           .icons.copy.path,
                                                     ),
