@@ -1,11 +1,11 @@
 part of 'adverts_filter_cubit.dart';
 
 enum WorkTime {
-  aroundTheClock,
+  aroundClock,
   open;
 
   String present() => switch (this) {
-        WorkTime.aroundTheClock => "Круглосуточно",
+        WorkTime.aroundClock => "Круглосуточно",
         WorkTime.open => "Открыто",
       };
 }

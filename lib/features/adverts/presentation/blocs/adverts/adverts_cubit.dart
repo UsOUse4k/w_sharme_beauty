@@ -112,7 +112,7 @@ class AdvertsCubit extends Cubit<AdvertsState> {
         now.weekday - 1]; // DateTime.weekday: Monday is 1, ..., Sunday is 7
 
     switch (workTime) {
-      case WorkTime.aroundTheClock:
+      case WorkTime.aroundClock:
         return advert.schedule.any(
           (time) =>
               time.day == currentDay &&

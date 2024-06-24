@@ -30,7 +30,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_reply
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/create_review/create_review_cubit.dart'
     as _i89;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/current_location/current_location_bloc.dart'
-    as _i23;
+    as _i22;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/delete_advert/delete_advert_cubit.dart'
     as _i93;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/edit_advert/edit_advert_cubit.dart'
@@ -46,7 +46,7 @@ import 'package:w_sharme_beauty/features/adverts/presentation/blocs/reviews/revi
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_adverts/search_adverts_cubit.dart'
     as _i92;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/search_result/search_result_cubit.dart'
-    as _i22;
+    as _i21;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_categories/select_categories_cubit.dart'
     as _i13;
 import 'package:w_sharme_beauty/features/adverts/presentation/blocs/select_schedule/select_schedule_cubit.dart'
@@ -228,7 +228,7 @@ import 'package:w_sharme_beauty/features/post/presentation/bloc/post_user_list_b
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_post_my_screen_bloc/repost_post_my_screen_bloc.dart'
     as _i106;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/repost_users_bloc/repost_users_bloc.dart'
-    as _i21;
+    as _i23;
 import 'package:w_sharme_beauty/features/post/presentation/bloc/subscribe_post/subscibe_post_bloc.dart'
     as _i64;
 import 'package:w_sharme_beauty/features/profile/data/firebase_profile_facade.dart'
@@ -304,9 +304,9 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i18.ChatGroupCheckManagerBloc());
     gh.factory<_i19.InvitePeopleChatBloc>(() => _i19.InvitePeopleChatBloc());
     gh.factory<_i20.CategoryListBloc>(() => _i20.CategoryListBloc());
-    gh.factory<_i21.RepostUsersBloc>(() => _i21.RepostUsersBloc());
-    gh.factory<_i22.SearchResultCubit>(() => _i22.SearchResultCubit());
-    gh.factory<_i23.CurrentLocationBloc>(() => _i23.CurrentLocationBloc());
+    gh.factory<_i21.SearchResultCubit>(() => _i21.SearchResultCubit());
+    gh.factory<_i22.CurrentLocationBloc>(() => _i22.CurrentLocationBloc());
+    gh.factory<_i23.RepostUsersBloc>(() => _i23.RepostUsersBloc());
     gh.lazySingleton<_i24.AdvertsFilterCubit>(() => _i24.AdvertsFilterCubit());
     gh.lazySingleton<_i25.IAuthFacade>(() => _i26.FirebaseAuthFacade(
           gh<_i3.FirebaseAuth>(),

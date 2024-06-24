@@ -278,7 +278,7 @@ class _AdvertCreateAdvertBody extends StatelessWidget {
                     onTap: () {
                       FocusScope.of(context).unfocus();
 
-                      showAdvertModalBottomSheet<List<Time>>(
+                      showAdvertModalBottomSheet<(bool, List<Time>)>(
                         context: context,
                         builder: (context) {
                           return BlocProvider(
@@ -286,7 +286,10 @@ class _AdvertCreateAdvertBody extends StatelessWidget {
                               final cubit = getIt<SelectScheduleCubit>();
 
                               if (state.schedule != null) {
-                                cubit.initialize(state.schedule!);
+                                cubit.initialize(
+                                  state.isAroundClock,
+                                  state.schedule!,
+                                );
                               }
 
                               return cubit;
@@ -299,7 +302,7 @@ class _AdvertCreateAdvertBody extends StatelessWidget {
                           if (value != null) {
                             context
                                 .read<CreateAdvertCubit>()
-                                .scheduleChanged(value);
+                                .scheduleChanged(value.$1, value.$2);
                           }
                         },
                       );

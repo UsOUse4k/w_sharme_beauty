@@ -88,9 +88,10 @@ class CreateAdvertCubit extends Cubit<CreateAdvertState> {
     );
   }
 
-  Future<void> scheduleChanged(List<Time> schedule) async {
+  Future<void> scheduleChanged(bool isAroundClock, List<Time> schedule) async {
     emit(
       state.copyWith(
+        isAroundClock: isAroundClock,
         schedule: schedule,
         advertFailureOrAdvertOption: none(),
       ),
@@ -124,7 +125,7 @@ class CreateAdvertCubit extends Cubit<CreateAdvertState> {
         isDescritpionValid &&
         isLocationValid &&
         isPhoneNumberValid &&
-        isScheduleValid &&
+        (isScheduleValid || state.isAroundClock) &&
         isServicesValid) {
       emit(
         state.copyWith(
@@ -133,6 +134,22 @@ class CreateAdvertCubit extends Cubit<CreateAdvertState> {
         ),
       );
 
+      List<Time> schedule;
+
+      if (state.isAroundClock) {
+        schedule = Weekday.values.map(
+          (weekday) {
+            return Time(
+              day: weekday,
+              from: "00:00",
+              to: "00:00",
+            );
+          },
+        ).toList();
+      } else {
+        schedule = state.schedule!;
+      }
+
       failureOrAdvert = await _repository.createAdvert(
         images: state.images,
         categories: state.categories,
@@ -140,7 +157,7 @@ class CreateAdvertCubit extends Cubit<CreateAdvertState> {
         description: state.description,
         location: state.location!,
         phoneNumber: state.phoneNumber,
-        schedule: state.schedule!,
+        schedule: schedule,
         services: state.services,
       );
     }

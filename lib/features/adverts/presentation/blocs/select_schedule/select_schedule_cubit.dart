@@ -10,22 +10,37 @@ part 'select_schedule_cubit.freezed.dart';
 class SelectScheduleCubit extends Cubit<SelectScheduleState> {
   SelectScheduleCubit() : super(SelectScheduleState.initial());
 
-  void initialize(List<Time> schedule) {
-    emit(state.copyWith(schedule: schedule));
+  void initialize(bool isAroundClock, List<Time> schedule) {
+    emit(
+      state.copyWith(
+        isAroundClock: isAroundClock,
+        schedule: schedule,
+      ),
+    );
   }
 
-  void changeTime(Weekday day, String from, String to) {
+  void aroundClockChanged(bool value) {
+    emit(
+      state.copyWith(
+        isAroundClock: value,
+      ),
+    );
+  }
+
+  void scheduleChanged(String from, String to) {
     final schedule = state.schedule.map(
       (time) {
-        return time.day == day
-            ? time.copyWith(
-                from: from,
-                to: to,
-              )
-            : time;
+        return time.copyWith(
+          from: from,
+          to: to,
+        );
       },
     ).toList();
 
-    emit(state.copyWith(schedule: schedule));
+    emit(
+      state.copyWith(
+        schedule: schedule,
+      ),
+    );
   }
 }

@@ -2,9 +2,13 @@ part of 'select_schedule_cubit.dart';
 
 @freezed
 class SelectScheduleState with _$SelectScheduleState {
-  const factory SelectScheduleState({required List<Time> schedule}) = _SelectScheduleState;
+  const factory SelectScheduleState({
+    required bool isAroundClock,
+    required List<Time> schedule,
+  }) = _SelectScheduleState;
 
   factory SelectScheduleState.initial() => const SelectScheduleState(
+        isAroundClock: false,
         schedule: [
           Time(
             day: Weekday.monday,

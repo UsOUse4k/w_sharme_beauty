@@ -14,15 +14,15 @@ class ScheduleCard extends StatelessWidget {
     required this.text,
     this.onFromTimeChanged,
     this.onToTimeChanged,
-    this.defaultFromDateTime,
-    this.defaultToDateTime,
+    required this.fromTime,
+    required this.toTime,
   });
 
   final String text;
   final ValueChanged<String>? onFromTimeChanged;
   final ValueChanged<String>? onToTimeChanged;
-  final String? defaultFromDateTime;
-  final String? defaultToDateTime;
+  final String fromTime;
+  final String toTime;
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +30,15 @@ class ScheduleCard extends StatelessWidget {
       children: [
         Text(
           "$text:",
-          style: AppStyles.w500f18.copyWith(color: AppColors.darkGrey),
+          style: AppStyles.w500f18.copyWith(
+            color: AppColors.darkGrey,
+          ),
         ),
         const Spacer(),
         Row(
           children: [
             TimePicker(
-              defaultDateTime: defaultFromDateTime != null
-                  ? DateFormat("HH:mm").parse(defaultFromDateTime!)
-                  : null,
+              time: DateFormat("HH:mm").parse(fromTime),
               onTimeChanged: (value) {
                 onFromTimeChanged?.call(DateFormat("HH:mm").format(value));
               },
@@ -47,9 +47,7 @@ class ScheduleCard extends StatelessWidget {
             const Text("-"),
             const Gap(5),
             TimePicker(
-              defaultDateTime: defaultToDateTime != null
-                  ? DateFormat("HH:mm").parse(defaultToDateTime!)
-                  : null,
+              time: DateFormat("HH:mm").parse(toTime),
               onTimeChanged: (value) {
                 onToTimeChanged?.call(DateFormat("HH:mm").format(value));
               },
@@ -61,33 +59,15 @@ class ScheduleCard extends StatelessWidget {
   }
 }
 
-class TimePicker extends StatefulWidget {
+class TimePicker extends StatelessWidget {
   const TimePicker({
     super.key,
     this.onTimeChanged,
-    this.defaultDateTime,
+    required this.time,
   });
 
   final ValueChanged<DateTime>? onTimeChanged;
-  final DateTime? defaultDateTime;
-
-  @override
-  State<TimePicker> createState() => _TimePickerState();
-}
-
-class _TimePickerState extends State<TimePicker> {
-  late DateTime dateTime;
-
-  @override
-  void initState() {
-    super.initState();
-
-    dateTime = widget.defaultDateTime ??
-        DateTime.now().copyWith(
-          hour: 0,
-          minute: 0,
-        );
-  }
+  final DateTime time;
 
   @override
   Widget build(BuildContext context) {
@@ -97,17 +77,13 @@ class _TimePickerState extends State<TimePicker> {
           context: context,
           builder: (context) {
             return TimePickerBottomSheet(
-              defaultDateTime: dateTime,
+              time: time,
             );
           },
         ).then(
           (value) {
             if (value != null) {
-              dateTime = value;
-
-              widget.onTimeChanged?.call(dateTime);
-
-              setState(() {});
+              onTimeChanged?.call(value);
             }
           },
         );
@@ -121,7 +97,7 @@ class _TimePickerState extends State<TimePicker> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
-          DateFormat("HH:mm").format(dateTime),
+          DateFormat("HH:mm").format(time),
           style: AppStyles.w500f16.copyWith(
             color: AppColors.black,
           ),
@@ -132,13 +108,16 @@ class _TimePickerState extends State<TimePicker> {
 }
 
 class TimePickerBottomSheet extends StatelessWidget {
-  const TimePickerBottomSheet({super.key, this.defaultDateTime});
+  const TimePickerBottomSheet({
+    super.key,
+    required this.time,
+  });
 
-  final DateTime? defaultDateTime;
+  final DateTime time;
 
   @override
   Widget build(BuildContext context) {
-    late DateTime dateTime;
+    late DateTime selectedTime;
 
     return AdvertModalBottomSheet(
       title: "Выберите время",
@@ -152,7 +131,7 @@ class TimePickerBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: TimePickerSpinner(
-              time: defaultDateTime,
+              time: time,
               alignment: Alignment.center,
               minutesInterval: 5,
               isForce2Digits: true,
@@ -166,7 +145,7 @@ class TimePickerBottomSheet extends StatelessWidget {
                 fontSize: 28,
               ),
               onTimeChange: (value) {
-                dateTime = value;
+                selectedTime = value;
               },
             ),
           ),
@@ -174,7 +153,7 @@ class TimePickerBottomSheet extends StatelessWidget {
           GlButton(
             text: 'Применить',
             onPressed: () {
-              Navigator.pop(context, dateTime);
+              Navigator.pop(context, selectedTime);
             },
           ),
           const Gap(20),

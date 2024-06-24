@@ -22,6 +22,7 @@ mixin _$CreateAdvertState {
   String get description => throw _privateConstructorUsedError;
   Location? get location => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
+  bool get isAroundClock => throw _privateConstructorUsedError;
   List<Time>? get schedule => throw _privateConstructorUsedError;
   List<Service> get services => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $CreateAdvertStateCopyWith<$Res> {
       String description,
       Location? location,
       String phoneNumber,
+      bool isAroundClock,
       List<Time>? schedule,
       List<Service> services,
       bool showErrorMessages,
@@ -75,6 +77,7 @@ class _$CreateAdvertStateCopyWithImpl<$Res, $Val extends CreateAdvertState>
     Object? description = null,
     Object? location = freezed,
     Object? phoneNumber = null,
+    Object? isAroundClock = null,
     Object? schedule = freezed,
     Object? services = null,
     Object? showErrorMessages = null,
@@ -106,6 +109,10 @@ class _$CreateAdvertStateCopyWithImpl<$Res, $Val extends CreateAdvertState>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      isAroundClock: null == isAroundClock
+          ? _value.isAroundClock
+          : isAroundClock // ignore: cast_nullable_to_non_nullable
+              as bool,
       schedule: freezed == schedule
           ? _value.schedule
           : schedule // ignore: cast_nullable_to_non_nullable
@@ -157,6 +164,7 @@ abstract class _$$CreateAdvertStateImplCopyWith<$Res>
       String description,
       Location? location,
       String phoneNumber,
+      bool isAroundClock,
       List<Time>? schedule,
       List<Service> services,
       bool showErrorMessages,
@@ -184,6 +192,7 @@ class __$$CreateAdvertStateImplCopyWithImpl<$Res>
     Object? description = null,
     Object? location = freezed,
     Object? phoneNumber = null,
+    Object? isAroundClock = null,
     Object? schedule = freezed,
     Object? services = null,
     Object? showErrorMessages = null,
@@ -215,6 +224,10 @@ class __$$CreateAdvertStateImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      isAroundClock: null == isAroundClock
+          ? _value.isAroundClock
+          : isAroundClock // ignore: cast_nullable_to_non_nullable
+              as bool,
       schedule: freezed == schedule
           ? _value._schedule
           : schedule // ignore: cast_nullable_to_non_nullable
@@ -249,6 +262,7 @@ class _$CreateAdvertStateImpl implements _CreateAdvertState {
       required this.description,
       required this.location,
       required this.phoneNumber,
+      required this.isAroundClock,
       required final List<Time>? schedule,
       required final List<Service> services,
       required this.showErrorMessages,
@@ -283,6 +297,8 @@ class _$CreateAdvertStateImpl implements _CreateAdvertState {
   final Location? location;
   @override
   final String phoneNumber;
+  @override
+  final bool isAroundClock;
   final List<Time>? _schedule;
   @override
   List<Time>? get schedule {
@@ -310,7 +326,7 @@ class _$CreateAdvertStateImpl implements _CreateAdvertState {
 
   @override
   String toString() {
-    return 'CreateAdvertState(images: $images, categories: $categories, name: $name, description: $description, location: $location, phoneNumber: $phoneNumber, schedule: $schedule, services: $services, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, advertFailureOrAdvertOption: $advertFailureOrAdvertOption)';
+    return 'CreateAdvertState(images: $images, categories: $categories, name: $name, description: $description, location: $location, phoneNumber: $phoneNumber, isAroundClock: $isAroundClock, schedule: $schedule, services: $services, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, advertFailureOrAdvertOption: $advertFailureOrAdvertOption)';
   }
 
   @override
@@ -328,6 +344,8 @@ class _$CreateAdvertStateImpl implements _CreateAdvertState {
                 other.location == location) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
+            (identical(other.isAroundClock, isAroundClock) ||
+                other.isAroundClock == isAroundClock) &&
             const DeepCollectionEquality().equals(other._schedule, _schedule) &&
             const DeepCollectionEquality().equals(other._services, _services) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
@@ -349,6 +367,7 @@ class _$CreateAdvertStateImpl implements _CreateAdvertState {
       description,
       location,
       phoneNumber,
+      isAroundClock,
       const DeepCollectionEquality().hash(_schedule),
       const DeepCollectionEquality().hash(_services),
       showErrorMessages,
@@ -371,6 +390,7 @@ abstract class _CreateAdvertState implements CreateAdvertState {
       required final String description,
       required final Location? location,
       required final String phoneNumber,
+      required final bool isAroundClock,
       required final List<Time>? schedule,
       required final List<Service> services,
       required final bool showErrorMessages,
@@ -390,6 +410,8 @@ abstract class _CreateAdvertState implements CreateAdvertState {
   Location? get location;
   @override
   String get phoneNumber;
+  @override
+  bool get isAroundClock;
   @override
   List<Time>? get schedule;
   @override

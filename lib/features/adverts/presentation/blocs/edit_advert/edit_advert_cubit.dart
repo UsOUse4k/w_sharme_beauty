@@ -31,6 +31,11 @@ class EditAdvertCubit extends Cubit<EditAdvertState> {
         location: advert.location,
         phoneNumber: advert.phoneNumber,
         schedule: advert.schedule,
+        isAroundClock: advert.schedule.every(
+          (time) {
+            return time.from == "00:00" && time.to == "00:00";
+          },
+        ),
         services: advert.services,
       ),
     );
@@ -107,9 +112,10 @@ class EditAdvertCubit extends Cubit<EditAdvertState> {
     );
   }
 
-  Future<void> scheduleChanged(List<Time> schedule) async {
+  Future<void> scheduleChanged(bool isAroundClock, List<Time> schedule) async {
     emit(
       state.copyWith(
+        isAroundClock: isAroundClock,
         schedule: schedule,
         advertFailureOrAdvertOption: none(),
       ),
@@ -143,7 +149,7 @@ class EditAdvertCubit extends Cubit<EditAdvertState> {
         isDescritpionValid &&
         isLocationValid &&
         isPhoneNumberValid &&
-        isScheduleValid &&
+        (isScheduleValid || state.isAroundClock) &&
         isServicesValid) {
       emit(
         state.copyWith(
@@ -151,6 +157,22 @@ class EditAdvertCubit extends Cubit<EditAdvertState> {
           advertFailureOrAdvertOption: none(),
         ),
       );
+
+      List<Time> schedule;
+
+      if (state.isAroundClock) {
+        schedule = Weekday.values.map(
+          (weekday) {
+            return Time(
+              day: weekday,
+              from: "00:00",
+              to: "00:00",
+            );
+          },
+        ).toList();
+      } else {
+        schedule = state.schedule!;
+      }
 
       failureOrAdvert = await _repository.updateAdvert(
         advertId: advertId,
@@ -160,7 +182,7 @@ class EditAdvertCubit extends Cubit<EditAdvertState> {
         description: state.description,
         location: state.location!,
         phoneNumber: state.phoneNumber,
-        schedule: state.schedule!,
+        schedule: schedule,
         services: state.services,
       );
     }

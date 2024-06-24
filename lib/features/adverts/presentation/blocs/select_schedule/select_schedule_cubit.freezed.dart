@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SelectScheduleState {
+  bool get isAroundClock => throw _privateConstructorUsedError;
   List<Time> get schedule => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,7 @@ abstract class $SelectScheduleStateCopyWith<$Res> {
           SelectScheduleState value, $Res Function(SelectScheduleState) then) =
       _$SelectScheduleStateCopyWithImpl<$Res, SelectScheduleState>;
   @useResult
-  $Res call({List<Time> schedule});
+  $Res call({bool isAroundClock, List<Time> schedule});
 }
 
 /// @nodoc
@@ -45,9 +46,14 @@ class _$SelectScheduleStateCopyWithImpl<$Res, $Val extends SelectScheduleState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isAroundClock = null,
     Object? schedule = null,
   }) {
     return _then(_value.copyWith(
+      isAroundClock: null == isAroundClock
+          ? _value.isAroundClock
+          : isAroundClock // ignore: cast_nullable_to_non_nullable
+              as bool,
       schedule: null == schedule
           ? _value.schedule
           : schedule // ignore: cast_nullable_to_non_nullable
@@ -64,7 +70,7 @@ abstract class _$$SelectScheduleStateImplCopyWith<$Res>
       __$$SelectScheduleStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Time> schedule});
+  $Res call({bool isAroundClock, List<Time> schedule});
 }
 
 /// @nodoc
@@ -78,9 +84,14 @@ class __$$SelectScheduleStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isAroundClock = null,
     Object? schedule = null,
   }) {
     return _then(_$SelectScheduleStateImpl(
+      isAroundClock: null == isAroundClock
+          ? _value.isAroundClock
+          : isAroundClock // ignore: cast_nullable_to_non_nullable
+              as bool,
       schedule: null == schedule
           ? _value._schedule
           : schedule // ignore: cast_nullable_to_non_nullable
@@ -92,9 +103,12 @@ class __$$SelectScheduleStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SelectScheduleStateImpl implements _SelectScheduleState {
-  const _$SelectScheduleStateImpl({required final List<Time> schedule})
+  const _$SelectScheduleStateImpl(
+      {required this.isAroundClock, required final List<Time> schedule})
       : _schedule = schedule;
 
+  @override
+  final bool isAroundClock;
   final List<Time> _schedule;
   @override
   List<Time> get schedule {
@@ -105,7 +119,7 @@ class _$SelectScheduleStateImpl implements _SelectScheduleState {
 
   @override
   String toString() {
-    return 'SelectScheduleState(schedule: $schedule)';
+    return 'SelectScheduleState(isAroundClock: $isAroundClock, schedule: $schedule)';
   }
 
   @override
@@ -113,12 +127,14 @@ class _$SelectScheduleStateImpl implements _SelectScheduleState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SelectScheduleStateImpl &&
+            (identical(other.isAroundClock, isAroundClock) ||
+                other.isAroundClock == isAroundClock) &&
             const DeepCollectionEquality().equals(other._schedule, _schedule));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_schedule));
+  int get hashCode => Object.hash(runtimeType, isAroundClock,
+      const DeepCollectionEquality().hash(_schedule));
 
   @JsonKey(ignore: true)
   @override
@@ -129,9 +145,12 @@ class _$SelectScheduleStateImpl implements _SelectScheduleState {
 }
 
 abstract class _SelectScheduleState implements SelectScheduleState {
-  const factory _SelectScheduleState({required final List<Time> schedule}) =
-      _$SelectScheduleStateImpl;
+  const factory _SelectScheduleState(
+      {required final bool isAroundClock,
+      required final List<Time> schedule}) = _$SelectScheduleStateImpl;
 
+  @override
+  bool get isAroundClock;
   @override
   List<Time> get schedule;
   @override
