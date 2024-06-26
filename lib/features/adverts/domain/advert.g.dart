@@ -14,7 +14,7 @@ _$TimeImpl _$$TimeImplFromJson(Map json) => _$TimeImpl(
 
 Map<String, dynamic> _$$TimeImplToJson(_$TimeImpl instance) =>
     <String, dynamic>{
-      'day': _$WeekdayEnumMap[instance.day],
+      'day': _$WeekdayEnumMap[instance.day]!,
       'from': instance.from,
       'to': instance.to,
     };

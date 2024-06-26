@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:w_sharme_beauty/core/theme/app_colors.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
@@ -33,16 +35,76 @@ class _CreatePostPageState extends State<CreatePostPage> {
   bool isLoading = false;
   String filterText = 'Категория';
   String? selectedCategory;
+  Uint8List? selectedVideoThumbnail;
+  XFile? selectedVideoFile;
 
-  Future pickImage(BuildContext context) async {
+  Future<void> pickMedia(BuildContext context, bool isVideo) async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final Uint8List imageData = await image.readAsBytes();
-      setState(() {
-        selectedImageBytes.add(imageData);
-      });
+    if (isVideo) {
+      final XFile? video = await picker.pickVideo(source: ImageSource.gallery);
+      if (video != null) {
+        final Uint8List? thumbnail = await VideoThumbnail.thumbnailData(
+          video: video.path,
+          imageFormat: ImageFormat.JPEG,
+          maxWidth: 100,
+          maxHeight: 100,
+          quality: 25,
+        );
+        setState(() {
+          selectedVideoFile = video;
+          selectedVideoThumbnail = thumbnail;
+          selectedImageBytes = [];
+        });
+      }
+    } else {
+      final List<XFile> images = await picker.pickMultiImage();
+      for (final XFile image in images) {
+        final Uint8List imageData = await image.readAsBytes();
+        setState(() {
+          selectedImageBytes.add(imageData);
+          selectedVideoFile = null;
+          selectedVideoThumbnail = null;
+        });
+      }
     }
+  }
+
+  void showPickMediaDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Выберите тип медиа"),
+          content: const Text("Выберите изображения или видео для загрузки."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                pickMedia(context, false);
+              },
+              child: const IconCategoryGallery(
+                icon: Icon(
+                  Icons.image_outlined,
+                  color: AppColors.white,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                pickMedia(context, true);
+              },
+              child: const IconCategoryGallery(
+                icon: Icon(
+                  Icons.video_camera_back_outlined,
+                  color: AppColors.white,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void clearImage(Uint8List bytes) {
@@ -119,26 +181,39 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 style: AppStyles.w500f14.copyWith(color: AppColors.darkGrey),
               ),
               SizedBox(height: 10.h),
-              Wrap(
-                spacing: 5,
-                runSpacing: 5,
-                children: selectedImageBytes.map((bytes) {
-                  return CardImageProfileAdd(
-                    image: MemoryImage(
-                      bytes,
-                    ),
-                    onPressed: () {
-                      clearImage(
+              if (selectedVideoThumbnail != null)
+                CardImageProfileAdd(
+                  image: MemoryImage(
+                    selectedVideoThumbnail!,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedVideoThumbnail = null;
+                      selectedVideoFile = null;
+                    });
+                  },
+                )
+              else
+                Wrap(
+                  spacing: 5,
+                  runSpacing: 5,
+                  children: selectedImageBytes.map((bytes) {
+                    return CardImageProfileAdd(
+                      image: MemoryImage(
                         bytes,
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
+                      ),
+                      onPressed: () {
+                        clearImage(
+                          bytes,
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
               SizedBox(height: 10.h),
               AddingButton(
                 text: "+ Выбрать из галереи",
-                onPressed: () => pickImage(context),
+                onPressed: () => showPickMediaDialog(context),
               ),
               SizedBox(height: 15.h),
               Padding(
@@ -196,6 +271,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               imageFiles: selectedImageBytes,
                             ),
                           );
+                    } else if (selectedVideoFile != null) {
+                      context.read<PostCreateBloc>().add(
+                            PostCreateEvent.createPost(
+                              post: newPost,
+                              video: selectedVideoFile,
+                            ),
+                          );
                     } else {
                       context.read<PostCreateBloc>().add(
                             PostCreateEvent.createPost(
@@ -210,6 +292,33 @@ class _CreatePostPageState extends State<CreatePostPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class IconCategoryGallery extends StatelessWidget {
+  const IconCategoryGallery({
+    super.key,
+    required this.icon,
+  });
+
+  final Icon icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50.w,
+      height: 50.h,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.purple,
+        borderRadius: BorderRadius.circular(
+          25,
+        ),
+      ),
+      child: Center(
+        child: icon,
       ),
     );
   }

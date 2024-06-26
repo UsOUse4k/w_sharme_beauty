@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
@@ -38,6 +39,21 @@ class PostCreateBloc extends Bloc<PostCreateEvent, PostCreateState> {
                   final result = await _repository.createPost(
                     post: event.post,
                     imageFiles: event.imageFiles,
+                    username: post.username.toString(),
+                    avatarUrl: post.profilePictureUrl.toString(),
+                  );
+                  result.fold(
+                    (error) {
+                      emit(PostCreateState.error(message: error.messasge));
+                    },
+                    (post) {
+                      emit(PostCreateState.success(post));
+                    },
+                  );
+                } else if (event.video != null) {
+                  final result = await _repository.createPost(
+                    post: event.post,
+                    video: event.video,
                     username: post.username.toString(),
                     avatarUrl: post.profilePictureUrl.toString(),
                   );
