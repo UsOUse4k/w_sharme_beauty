@@ -20,7 +20,7 @@ _$NotificationModelImpl _$$NotificationModelImplFromJson(Map json) =>
     );
 
 Map<String, dynamic> _$$NotificationModelImplToJson(
-        _$NotificationModelImpl instance) =>
+        _$NotificationModelImpl instance,) =>
     <String, dynamic>{
       'type': instance.type,
       'fromUser': instance.fromUser,
