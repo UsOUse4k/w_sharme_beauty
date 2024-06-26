@@ -15,6 +15,7 @@ class Message with _$Message {
     String? username,
     String? avatarUrl,
     String? image,
+    String? video,
     @TimestampConverter() Timestamp? timestamp,
     bool? seen,
     String? messageType,
@@ -37,6 +38,7 @@ class Message with _$Message {
       username: firestoreData['username'] as String?,
       avatarUrl: firestoreData['avatarUrl'] as String?,
       image: firestoreData['image'] as String?,
+      video: firestoreData['video'] as String?,
       postUsername: firestoreData['postUsername'] as String?,
       postAvatar: firestoreData['postAvatar'] as String?,
     );

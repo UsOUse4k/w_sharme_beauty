@@ -180,7 +180,6 @@ class _PostRepostState extends State<PostRepost> {
                                                                 .post.text,
                                                           ),
                                                         );
-
                                                         await Share.share(url);
                                                       },
                                                       icon: Assets

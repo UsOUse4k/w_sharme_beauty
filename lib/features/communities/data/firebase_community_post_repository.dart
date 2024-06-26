@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:w_sharme_beauty/core/errors/errors.dart';
@@ -23,6 +24,7 @@ class FirestorePostRepository implements ICommunityPostRepository {
     Post post, {
     required String communityId,
     List<Uint8List>? imageFiles,
+    XFile? video,
   }) async {
     try {
       final String postId = const Uuid().v1();
@@ -51,6 +53,15 @@ class FirestorePostRepository implements ICommunityPostRepository {
             .doc(postId)
             .set(updatePostImages.toJson());
         return right(updatePostImages);
+      } else if (video != null) {
+        final String videoUrl = await FirebaseStorageImageMethods(auth, storage)
+            .uploadVideoToStorage(video, 'communities_posts');
+        final updatePostVideo = updatedPost.copyWith(videoUrl: videoUrl);
+        await reference
+            .collection('posts')
+            .doc(postId)
+            .set(updatePostVideo.toJson());
+        return right(updatePostVideo);
       } else {
         await reference
             .collection('posts')

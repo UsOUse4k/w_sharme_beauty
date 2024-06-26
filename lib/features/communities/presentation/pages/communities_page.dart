@@ -8,13 +8,11 @@ import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/custom_container.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_button_widget.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_radio_widget.dart';
 import 'package:w_sharme_beauty/features/category/presentation/bloc/category_bloc/category_bloc.dart';
 import 'package:w_sharme_beauty/features/chat/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/community_list_bloc/community_list_bloc.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/bloc/my_community_list_bloc/my_community_list_bloc.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/widgets/beauty_list_widget.dart';
-import 'package:w_sharme_beauty/features/communities/presentation/widgets/my_beauty_list_widget.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/bloc/my_profile_info_bloc/my_profile_info_bloc.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
@@ -137,19 +135,21 @@ class _CommunitiesPageState extends State<CommunitiesPage>
                                     .toList();
                                 return Row(
                                   children: [
+                                    //const AllCommunityBottomSheet(),
                                     FilterButtonWidget(
-                                      width: 200.w,
+                                      width: 190.w,
+                                      title: 'Все сообщества',
                                       onPressed: () =>
                                           BottomSheetUtil.showAppBottomSheet(
                                         context,
                                         CustomBottomSheet(
-                                          maxHeight: 0.33,
-                                          navbarTitle: 'Сообщества',
-                                          widget: RadioFilterWidget(
+                                          maxHeight: 0.30,
+                                          navbarTitle: 'Cообщества',
+                                          widget: AllCommunityBottomSheet(
                                             list: communityList,
                                             onSelect: (String text) {
-                                              filterCommynity = text;
                                               selectedCommunity = text;
+                                              filterCommynity = text;
                                               context
                                                   .read<CommunityListBloc>()
                                                   .add(
@@ -165,7 +165,6 @@ class _CommunitiesPageState extends State<CommunitiesPage>
                                           ),
                                         ),
                                       ),
-                                      title: filterCommynity,
                                     ),
                                     const SizedBox(width: 10),
                                     FilterButtonWidget(
@@ -174,9 +173,9 @@ class _CommunitiesPageState extends State<CommunitiesPage>
                                           BottomSheetUtil.showAppBottomSheet(
                                         context,
                                         CustomBottomSheet(
-                                          maxHeight: 0.55,
+                                          maxHeight: 0.50,
                                           navbarTitle: 'Категория',
-                                          widget: RadioFilterWidget(
+                                          widget: AllCommunityBottomSheet(
                                             list: categoyList,
                                             onSelect: (String text) {
                                               filterCategory = text;

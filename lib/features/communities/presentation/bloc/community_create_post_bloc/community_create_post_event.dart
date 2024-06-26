@@ -6,5 +6,6 @@ class CommunityCreatePostEvent with _$CommunityCreatePostEvent {
     Post post, {
     List<Uint8List>? imageFiles,
     required String communityId,
+    XFile? video,
   }) = _CreatePost;
 }

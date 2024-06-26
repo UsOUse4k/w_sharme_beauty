@@ -19,24 +19,25 @@ mixin _$CommunityCreatePostEvent {
   Post get post => throw _privateConstructorUsedError;
   List<Uint8List>? get imageFiles => throw _privateConstructorUsedError;
   String get communityId => throw _privateConstructorUsedError;
+  XFile? get video => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            Post post, List<Uint8List>? imageFiles, String communityId)
+    required TResult Function(Post post, List<Uint8List>? imageFiles,
+            String communityId, XFile? video)
         createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            Post post, List<Uint8List>? imageFiles, String communityId)?
+    TResult? Function(Post post, List<Uint8List>? imageFiles,
+            String communityId, XFile? video)?
         createPost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            Post post, List<Uint8List>? imageFiles, String communityId)?
+    TResult Function(Post post, List<Uint8List>? imageFiles, String communityId,
+            XFile? video)?
         createPost,
     required TResult orElse(),
   }) =>
@@ -69,7 +70,11 @@ abstract class $CommunityCreatePostEventCopyWith<$Res> {
           $Res Function(CommunityCreatePostEvent) then) =
       _$CommunityCreatePostEventCopyWithImpl<$Res, CommunityCreatePostEvent>;
   @useResult
-  $Res call({Post post, List<Uint8List>? imageFiles, String communityId});
+  $Res call(
+      {Post post,
+      List<Uint8List>? imageFiles,
+      String communityId,
+      XFile? video});
 
   $PostCopyWith<$Res> get post;
 }
@@ -91,6 +96,7 @@ class _$CommunityCreatePostEventCopyWithImpl<$Res,
     Object? post = null,
     Object? imageFiles = freezed,
     Object? communityId = null,
+    Object? video = freezed,
   }) {
     return _then(_value.copyWith(
       post: null == post
@@ -105,6 +111,10 @@ class _$CommunityCreatePostEventCopyWithImpl<$Res,
           ? _value.communityId
           : communityId // ignore: cast_nullable_to_non_nullable
               as String,
+      video: freezed == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as XFile?,
     ) as $Val);
   }
 
@@ -125,7 +135,11 @@ abstract class _$$CreatePostImplCopyWith<$Res>
       __$$CreatePostImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Post post, List<Uint8List>? imageFiles, String communityId});
+  $Res call(
+      {Post post,
+      List<Uint8List>? imageFiles,
+      String communityId,
+      XFile? video});
 
   @override
   $PostCopyWith<$Res> get post;
@@ -145,6 +159,7 @@ class __$$CreatePostImplCopyWithImpl<$Res>
     Object? post = null,
     Object? imageFiles = freezed,
     Object? communityId = null,
+    Object? video = freezed,
   }) {
     return _then(_$CreatePostImpl(
       null == post
@@ -159,6 +174,10 @@ class __$$CreatePostImplCopyWithImpl<$Res>
           ? _value.communityId
           : communityId // ignore: cast_nullable_to_non_nullable
               as String,
+      video: freezed == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as XFile?,
     ));
   }
 }
@@ -167,7 +186,9 @@ class __$$CreatePostImplCopyWithImpl<$Res>
 
 class _$CreatePostImpl implements _CreatePost {
   const _$CreatePostImpl(this.post,
-      {final List<Uint8List>? imageFiles, required this.communityId})
+      {final List<Uint8List>? imageFiles,
+      required this.communityId,
+      this.video})
       : _imageFiles = imageFiles;
 
   @override
@@ -184,10 +205,12 @@ class _$CreatePostImpl implements _CreatePost {
 
   @override
   final String communityId;
+  @override
+  final XFile? video;
 
   @override
   String toString() {
-    return 'CommunityCreatePostEvent.createPost(post: $post, imageFiles: $imageFiles, communityId: $communityId)';
+    return 'CommunityCreatePostEvent.createPost(post: $post, imageFiles: $imageFiles, communityId: $communityId, video: $video)';
   }
 
   @override
@@ -199,12 +222,13 @@ class _$CreatePostImpl implements _CreatePost {
             const DeepCollectionEquality()
                 .equals(other._imageFiles, _imageFiles) &&
             (identical(other.communityId, communityId) ||
-                other.communityId == communityId));
+                other.communityId == communityId) &&
+            (identical(other.video, video) || other.video == video));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, post,
-      const DeepCollectionEquality().hash(_imageFiles), communityId);
+      const DeepCollectionEquality().hash(_imageFiles), communityId, video);
 
   @JsonKey(ignore: true)
   @override
@@ -215,33 +239,33 @@ class _$CreatePostImpl implements _CreatePost {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            Post post, List<Uint8List>? imageFiles, String communityId)
+    required TResult Function(Post post, List<Uint8List>? imageFiles,
+            String communityId, XFile? video)
         createPost,
   }) {
-    return createPost(post, imageFiles, communityId);
+    return createPost(post, imageFiles, communityId, video);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            Post post, List<Uint8List>? imageFiles, String communityId)?
+    TResult? Function(Post post, List<Uint8List>? imageFiles,
+            String communityId, XFile? video)?
         createPost,
   }) {
-    return createPost?.call(post, imageFiles, communityId);
+    return createPost?.call(post, imageFiles, communityId, video);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            Post post, List<Uint8List>? imageFiles, String communityId)?
+    TResult Function(Post post, List<Uint8List>? imageFiles, String communityId,
+            XFile? video)?
         createPost,
     required TResult orElse(),
   }) {
     if (createPost != null) {
-      return createPost(post, imageFiles, communityId);
+      return createPost(post, imageFiles, communityId, video);
     }
     return orElse();
   }
@@ -278,7 +302,8 @@ class _$CreatePostImpl implements _CreatePost {
 abstract class _CreatePost implements CommunityCreatePostEvent {
   const factory _CreatePost(final Post post,
       {final List<Uint8List>? imageFiles,
-      required final String communityId}) = _$CreatePostImpl;
+      required final String communityId,
+      final XFile? video}) = _$CreatePostImpl;
 
   @override
   Post get post;
@@ -286,6 +311,8 @@ abstract class _CreatePost implements CommunityCreatePostEvent {
   List<Uint8List>? get imageFiles;
   @override
   String get communityId;
+  @override
+  XFile? get video;
   @override
   @JsonKey(ignore: true)
   _$$CreatePostImplCopyWith<_$CreatePostImpl> get copyWith =>

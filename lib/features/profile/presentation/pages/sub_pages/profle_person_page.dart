@@ -158,7 +158,11 @@ class _ProfilePersonPageState extends State<ProfilePersonPage> {
                                   SizedBox(height: 11.h),
                                   Row(
                                     children: [
-                                      Image.asset(Assets.icons.location.path),
+                                      Image.asset(
+                                        Assets.icons.location.path,
+                                        width: 16.w,
+                                        height: 16.h,
+                                      ),
                                       const SizedBox(
                                         width: 10,
                                       ),

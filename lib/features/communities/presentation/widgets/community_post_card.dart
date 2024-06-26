@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:w_sharme_beauty/core/di/injector.dart';
 import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
@@ -14,6 +15,7 @@ import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_wi
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_video_play.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
@@ -83,6 +85,34 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
     }
   }
 
+  Widget _buildMediaContent() {
+    if (widget.post.imageUrls.isNotEmpty) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.post.text, style: AppStyles.w400f16),
+          const Gap(10),
+          SizedBox(
+            height: 394.h,
+            child: PostImage(
+              imageUrls: widget.post.imageUrls,
+            ),
+          ),
+        ],
+      );
+    } else if (widget.post.videoUrl != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.post.text, style: AppStyles.w400f16),
+          const Gap(10),
+          PostVidePlay(videoUrl: widget.post.videoUrl.toString()),
+        ],
+      );
+    }
+    return Text(widget.post.text, style: AppStyles.w400f16);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,23 +141,7 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
           SizedBox(height: 6.h),
           GestureDetector(
             onTap: widget.onPressedDetailPost,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.post.text,
-                  style: AppStyles.w400f16,
-                ),
-                if (widget.post.imageUrls.isNotEmpty) SizedBox(height: 6.h),
-                if (widget.post.imageUrls.isNotEmpty)
-                  SizedBox(
-                    height: 394.h,
-                    child: PostImage(
-                      imageUrls: widget.post.imageUrls,
-                    ),
-                  ),
-              ],
-            ),
+            child: _buildMediaContent(),
           ),
           SizedBox(height: 6.h),
           Row(

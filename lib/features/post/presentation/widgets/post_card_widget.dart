@@ -16,6 +16,7 @@ import 'package:w_sharme_beauty/features/post/presentation/widgets/post_icons_wi
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_image.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_repost_bottom_sheet.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_video_play.dart';
 import 'package:w_sharme_beauty/gen/assets.gen.dart';
 
 final FirebaseAuth firebaseAuth = getIt<FirebaseAuth>();
@@ -140,6 +141,15 @@ class _PostCardState extends State<PostCard> {
               imageUrls: widget.post!.imageUrls,
             ),
           ),
+        ],
+      );
+    } else if (widget.post != null && widget.post!.videoUrl != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.post!.text, style: AppStyles.w400f16),
+          const Gap(10),
+          PostVidePlay(videoUrl: widget.post!.videoUrl.toString()),
         ],
       );
     }

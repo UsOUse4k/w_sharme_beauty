@@ -10,6 +10,7 @@ import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/chat/domain/entities/message.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/image_interactive_viewer.dart';
 import 'package:w_sharme_beauty/features/post/presentation/widgets/post_user_avatar_name.dart';
+import 'package:w_sharme_beauty/features/post/presentation/widgets/post_video_play.dart';
 
 class CardMessageWidget extends StatelessWidget {
   const CardMessageWidget({
@@ -31,9 +32,96 @@ class CardMessageWidget extends StatelessWidget {
   final bool? seen;
   final Message? data;
 
+  Widget _buildMediaContent(BuildContext context) {
+    if (data != null && data!.image != null) {
+      return InkWell(
+        onTap: () {
+          if (data != null && data!.posdId != null) {
+            context.push(
+              '/home/chat/chatMessages/${data!.receiverId}/post/${data!.posdId}',
+            );
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (data != null && data!.posdId != null)
+              PostUserAvatarName(
+                username: data!.postUsername.toString(),
+                avatar: data!.postAvatar.toString(),
+                width: 30.w,
+                height: 30.h,
+                style: AppStyles.w400f14.copyWith(
+                  color: check ? AppColors.white : AppColors.black,
+                ),
+              ),
+            const Gap(10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ImageInteractiveViewer(
+                child: GlCachedNetworImage(
+                  height: 260.h,
+                  width: 260.w,
+                  urlImage: data!.image.toString(),
+                ),
+              ),
+            ),
+            const Gap(10),
+            Text(
+              message,
+              style: AppStyles.w500f16.copyWith(
+                color: check ? AppColors.white : AppColors.black,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else if (data != null && data!.video != null) {
+      return InkWell(
+        onTap: () {
+          if (data != null && data!.posdId != null) {
+            context.push(
+              '/home/chat/chatMessages/${data!.receiverId}/post/${data!.posdId}',
+            );
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (data != null && data!.posdId != null)
+              PostUserAvatarName(
+                username: data!.postUsername.toString(),
+                avatar: data!.postAvatar.toString(),
+                width: 30.w,
+                height: 30.h,
+                style: AppStyles.w400f14.copyWith(
+                  color: check ? AppColors.white : AppColors.black,
+                ),
+              ),
+            const Gap(10),
+            PostVidePlay(
+              videoUrl: data!.video!,
+              width: 260.w,
+              height: 260.h,
+            ),
+            const Gap(10),
+            Text(
+              message,
+              style: AppStyles.w500f16.copyWith(
+                color: check ? AppColors.white : AppColors.black,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return Text(message, style: AppStyles.w400f16);
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment:
@@ -86,56 +174,7 @@ class CardMessageWidget extends StatelessWidget {
                       style:
                           AppStyles.w500f16.copyWith(color: AppColors.purple),
                     ),
-                  if (data != null && data!.image != null && data!.image != '')
-                    InkWell(
-                      onTap: () {
-                        if (data != null && data!.posdId != null) {
-                          context.push(
-                              '/home/chat/chatMessages/${data!.receiverId}/post/${data!.posdId}',);
-                        }
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (data != null && data!.posdId != null)
-                            PostUserAvatarName(
-                              username: data!.postUsername.toString(),
-                              avatar: data!.postAvatar.toString(),
-                              width: 30.w,
-                              height: 30.h,
-                              style: AppStyles.w400f14.copyWith(
-                                color:
-                                    check ? AppColors.white : AppColors.black,
-                              ),
-                            ),
-                          const Gap(10),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: ImageInteractiveViewer(
-                              child: GlCachedNetworImage(
-                                height: 260.h,
-                                width: 260.w,
-                                urlImage: data!.image.toString(),
-                              ),
-                            ),
-                          ),
-                          const Gap(10),
-                          Text(
-                            message,
-                            style: AppStyles.w500f16.copyWith(
-                              color: check ? AppColors.white : AppColors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  else
-                    Text(
-                      message,
-                      style: AppStyles.w500f16.copyWith(
-                        color: check ? AppColors.white : AppColors.black,
-                      ),
-                    ),
+                  _buildMediaContent(context),
                 ],
               ),
             ),

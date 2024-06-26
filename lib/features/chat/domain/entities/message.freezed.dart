@@ -27,6 +27,7 @@ mixin _$Message {
   String? get username => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
+  String? get video => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get timestamp => throw _privateConstructorUsedError;
   bool? get seen => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $MessageCopyWith<$Res> {
       String? username,
       String? avatarUrl,
       String? image,
+      String? video,
       @TimestampConverter() Timestamp? timestamp,
       bool? seen,
       String? messageType,
@@ -81,6 +83,7 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? username = freezed,
     Object? avatarUrl = freezed,
     Object? image = freezed,
+    Object? video = freezed,
     Object? timestamp = freezed,
     Object? seen = freezed,
     Object? messageType = freezed,
@@ -116,6 +119,10 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      video: freezed == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
               as String?,
       timestamp: freezed == timestamp
           ? _value.timestamp
@@ -160,6 +167,7 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String? username,
       String? avatarUrl,
       String? image,
+      String? video,
       @TimestampConverter() Timestamp? timestamp,
       bool? seen,
       String? messageType,
@@ -186,6 +194,7 @@ class __$$MessageImplCopyWithImpl<$Res>
     Object? username = freezed,
     Object? avatarUrl = freezed,
     Object? image = freezed,
+    Object? video = freezed,
     Object? timestamp = freezed,
     Object? seen = freezed,
     Object? messageType = freezed,
@@ -221,6 +230,10 @@ class __$$MessageImplCopyWithImpl<$Res>
       image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      video: freezed == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
               as String?,
       timestamp: freezed == timestamp
           ? _value.timestamp
@@ -261,6 +274,7 @@ class _$MessageImpl implements _Message {
       this.username,
       this.avatarUrl,
       this.image,
+      this.video,
       @TimestampConverter() this.timestamp,
       this.seen,
       this.messageType,
@@ -286,6 +300,8 @@ class _$MessageImpl implements _Message {
   @override
   final String? image;
   @override
+  final String? video;
+  @override
   @TimestampConverter()
   final Timestamp? timestamp;
   @override
@@ -301,7 +317,7 @@ class _$MessageImpl implements _Message {
 
   @override
   String toString() {
-    return 'Message(message: $message, messageId: $messageId, senderId: $senderId, receiverId: $receiverId, username: $username, avatarUrl: $avatarUrl, image: $image, timestamp: $timestamp, seen: $seen, messageType: $messageType, posdId: $posdId, postUsername: $postUsername, postAvatar: $postAvatar)';
+    return 'Message(message: $message, messageId: $messageId, senderId: $senderId, receiverId: $receiverId, username: $username, avatarUrl: $avatarUrl, image: $image, video: $video, timestamp: $timestamp, seen: $seen, messageType: $messageType, posdId: $posdId, postUsername: $postUsername, postAvatar: $postAvatar)';
   }
 
   @override
@@ -321,6 +337,7 @@ class _$MessageImpl implements _Message {
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             (identical(other.image, image) || other.image == image) &&
+            (identical(other.video, video) || other.video == video) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
             (identical(other.seen, seen) || other.seen == seen) &&
@@ -344,6 +361,7 @@ class _$MessageImpl implements _Message {
       username,
       avatarUrl,
       image,
+      video,
       timestamp,
       seen,
       messageType,
@@ -374,6 +392,7 @@ abstract class _Message implements Message {
       final String? username,
       final String? avatarUrl,
       final String? image,
+      final String? video,
       @TimestampConverter() final Timestamp? timestamp,
       final bool? seen,
       final String? messageType,
@@ -397,6 +416,8 @@ abstract class _Message implements Message {
   String? get avatarUrl;
   @override
   String? get image;
+  @override
+  String? get video;
   @override
   @TimestampConverter()
   Timestamp? get timestamp;

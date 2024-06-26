@@ -12,7 +12,7 @@ import 'package:w_sharme_beauty/core/theme/app_styles.dart';
 import 'package:w_sharme_beauty/core/utils/bottom_sheet_util.dart';
 import 'package:w_sharme_beauty/core/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_button_widget.dart';
-import 'package:w_sharme_beauty/features/adverts/presentation/widgets/filter_radio_widget.dart';
+import 'package:w_sharme_beauty/features/communities/presentation/widgets/widgets.dart';
 import 'package:w_sharme_beauty/features/post/domain/entities/entities.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/my_post_list_bloc/my_post_list_bloc.dart';
 import 'package:w_sharme_beauty/features/post/presentation/bloc/post_create_bloc/post_create_bloc.dart';
@@ -232,7 +232,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   CustomBottomSheet(
                     maxHeight: 0.5,
                     navbarTitle: 'Категория',
-                    widget: RadioFilterWidget(
+                    widget: AllCommunityBottomSheet(
                       list: categoryList,
                       onSelect: (String text) {
                         filterText = text;

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:w_sharme_beauty/features/auth/domain/repositories/i_auth_facade.dart';
 import 'package:w_sharme_beauty/features/communities/domain/repositories/i_community_post_repository.dart';
@@ -48,6 +49,17 @@ class CommunityCreatePostBloc
                 final result = await _repository.createPost(
                   updtCommunityPost,
                   imageFiles:  event.imageFiles,
+                  communityId: event.communityId,
+                );
+                result.fold((error) {
+                  emit(CommunityCreatePostState.error(message: error.messasge));
+                }, (post) {
+                  emit(CommunityCreatePostState.success(event.post));
+                });
+              } else if(event.video != null) {
+                final result = await _repository.createPost(
+                  updtCommunityPost,
+                  video:  event.video,
                   communityId: event.communityId,
                 );
                 result.fold((error) {

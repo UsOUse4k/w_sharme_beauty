@@ -122,12 +122,12 @@ class FirebaseChatFacade implements IChatRepository {
         messageType: post.text,
         avatarUrl: avatarUrl,
         username: username,
-        image: post.imageUrls.first,
         posdId: post.postId,
         message: post.text,
         postAvatar: post.avatarUrl,
         postUsername: post.username,
       );
+
       final DocumentReference myChatRoomRef =
           firestore.collection('chatrooms').doc(chatRoomId);
       if (myUid != receiverId) {
@@ -142,11 +142,27 @@ class FirebaseChatFacade implements IChatRepository {
       await firestore.collection('posts').doc(post.postId).update({
         'repostCount': FieldValue.increment(1),
       });
-      await myChatRoomRef
-          .collection('messages')
-          .doc(messageId)
-          .set(newMessage.toJson());
-      return right(null);
+      if (post.imageUrls.isNotEmpty) {
+        final updateImageMessage = newMessage.copyWith(
+          image: post.imageUrls.first,
+        );
+        await myChatRoomRef
+            .collection('messages')
+            .doc(messageId)
+            .set(updateImageMessage.toJson());
+        return right(null);
+      } else if (post.videoUrl != null) {
+        final updateVideoMessage = newMessage.copyWith(
+          video: post.videoUrl,
+        );
+        await myChatRoomRef
+            .collection('messages')
+            .doc(messageId)
+            .set(updateVideoMessage.toJson());
+        return right(null);
+      } else {
+        return right(null);
+      }
     } catch (e) {
       return left(PostError(e.toString()));
     }
