@@ -99,10 +99,10 @@ class CardMessageWidget extends StatelessWidget {
                 ),
               ),
             const Gap(10),
-            PostVidePlay(
+            PostVideoPlay(
               videoUrl: data!.video!,
-              width: 260.w,
-              height: 260.h,
+              //width: 260.w,
+              //height: 260.h,
             ),
             const Gap(10),
             Text(

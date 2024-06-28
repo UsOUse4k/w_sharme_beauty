@@ -137,7 +137,17 @@ class _HomePostPageState extends State<HomePostPage> {
                                 PostCard(
                                   show: 'show',
                                   onPressed: () {},
-                                  onPressedDetailPage: () {},
+                                  onPressedDetailPage: () {
+                                    if (post.videoUrl != null) {
+                                      final encodedVideoUrl =
+                                          Uri.encodeComponent(
+                                        post.videoUrl.toString(),
+                                      );
+                                      context.push(
+                                        '/home/post/${widget.postId}/detail-video?url=$encodedVideoUrl',
+                                      );
+                                    }
+                                  },
                                   showButton: true,
                                   post: post,
                                 ),

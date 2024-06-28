@@ -106,7 +106,7 @@ class _CommunityPostCardState extends State<CommunityPostCard> {
         children: [
           Text(widget.post.text, style: AppStyles.w400f16),
           const Gap(10),
-          PostVidePlay(videoUrl: widget.post.videoUrl.toString()),
+          PostVideoPlay(videoUrl: widget.post.videoUrl.toString()),
         ],
       );
     }

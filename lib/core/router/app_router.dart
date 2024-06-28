@@ -26,6 +26,7 @@ import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_page
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/create_a_community_page.dart';
 import 'package:w_sharme_beauty/features/communities/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/pages.dart';
+import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/home_video_detail_page.dart';
 import 'package:w_sharme_beauty/features/home/presentation/pages/sub_pages/sub_pages.dart';
 import 'package:w_sharme_beauty/features/main/presentation/pages/main_page.dart';
 import 'package:w_sharme_beauty/features/profile/presentation/pages/pages.dart';
@@ -124,6 +125,18 @@ mixin AppRouter on State<App> {
                         postId: postId,
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        path: 'detail-video',
+                        builder: (BuildContext context, GoRouterState state) {
+                          final videoUrl = state.uri.queryParameters['url'];
+                          if (videoUrl == null) {
+                            throw Exception('Video URL is required');
+                          }
+                          return HomeVideoDetailPage(videoUrl: videoUrl);
+                        },
+                      ),
+                    ],
                   ),
                   GoRoute(
                     parentNavigatorKey: RouterKeys.rootKey,

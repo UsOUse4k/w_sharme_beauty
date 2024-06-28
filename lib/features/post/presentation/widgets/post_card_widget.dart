@@ -149,7 +149,10 @@ class _PostCardState extends State<PostCard> {
         children: [
           Text(widget.post!.text, style: AppStyles.w400f16),
           const Gap(10),
-          PostVidePlay(videoUrl: widget.post!.videoUrl.toString()),
+          PostVideoPlay(
+            onTap: widget.onPressedDetailPage,
+            videoUrl: widget.post!.videoUrl.toString(),
+          ),
         ],
       );
     }
